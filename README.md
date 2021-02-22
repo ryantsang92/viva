@@ -1,6 +1,6 @@
-# Getting Started with Create React App
+# Viva
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+VIVA is an O2O (online-to-offline) social exploration platform that redefines how people search, find and share experiences. If you ever feel like changing up your day, VIVA gives you instant access to a vast library of local experiences. From a picture-perfect coffee shop, to a hidden art gallery or even the secret menu at your local restaurant, VIVA makes your daily life fun and exciting. Beyond local attractions, you can also find communities of like-minded individuals to connect with. Join VIVA and be part of the adventure.
 
 ## Available Scripts
 
