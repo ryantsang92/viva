@@ -21,9 +21,9 @@ const Map = ({ isMarkerShown }) => {
   return (
     <GoogleMap
       googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyDxUpiuJMJwjPvtBeuXJyRcm66jqEx38kA"
-      loadingElement={<div style={{ height: `100%` }} />}
-      containerElement={<div style={{ height: `400px` }} />}
-      mapElement={<div style={{ height: `100%` }} />}
+      loadingElement={<div style={{ height: '100%' }} />}
+      containerElement={<div style={{ height: '400px' }} />}
+      mapElement={<div style={{ height: '100%' }} />}
       defaultZoom={8}
       defaultCenter={{ lat: -34.397, lng: 150.644 }}
     >
