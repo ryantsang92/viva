@@ -3,7 +3,7 @@ import "./pill-box.css";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 import ToggleButton from "react-bootstrap/ToggleButton";
 
-function PillBox({buttonTitles}) {
+function PillBox({ buttonTitles }) {
   const [radioValue, setRadioValue] = useState(null);
 
   return (
@@ -18,7 +18,7 @@ function PillBox({buttonTitles}) {
             value={radio.value}
             checked={radioValue === radio.value}
             onChange={(e) => setRadioValue(e.currentTarget.value)}
-            className="pillButton"
+            className="ml-2 rounded-pill"
           >
             {radio.name}
           </ToggleButton>

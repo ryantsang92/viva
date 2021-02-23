@@ -7,7 +7,7 @@ import SearchIcon from "@material-ui/icons/Search";
 
 function SearchBar() {
   return (
-    <Box mx={4}>
+    <Box mx={20}>
       <InputGroup className="mb-3">
         <FormControl
           placeholder="Search..."
