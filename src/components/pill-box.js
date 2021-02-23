@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 import ToggleButton from "react-bootstrap/ToggleButton";
 
-function PillBox({ buttonTitles }) {
+const PillBox = ({ buttonTitles }) => {
   const [radioValue, setRadioValue] = useState(null);
 
   return (

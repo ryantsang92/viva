@@ -7,7 +7,7 @@ import SearchBar from "./components/search-bar";
 import Footer from "./components/footer";
 import Map from "./components/map";
 
-function App() {
+const App = () => {
   // mock data
   const buttonTitles = [
     { name: "#TreatYoSelf", value: "1" },
@@ -29,7 +29,7 @@ function App() {
           <PillBox buttonTitles={buttonTitles} />
         </p>
       </header>
-      <Map />
+      <Map isMarkerShown />
       <Footer />
     </div>
   );
