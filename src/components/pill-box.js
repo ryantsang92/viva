@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 import ToggleButton from "react-bootstrap/ToggleButton";
+import PropTypes from "prop-types";
 
 const PillBox = ({ buttonTitles }) => {
   const [radioValue, setRadioValue] = useState(null);
@@ -26,5 +27,13 @@ const PillBox = ({ buttonTitles }) => {
     </>
   );
 }
+
+PillBox.propTypes = {
+  buttonTitles: PropTypes.array,
+};
+
+PillBox.defaultProps = {
+  buttonTitles: [],
+};
 
 export default PillBox;
