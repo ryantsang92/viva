@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import "./pill-box.css";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 import ToggleButton from "react-bootstrap/ToggleButton";
 
