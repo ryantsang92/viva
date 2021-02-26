@@ -9,7 +9,6 @@ import Footer from "./components/footer";
 import MapContainer from "./components/map";
 
 const App = () => {
-
   // mock data section ////////////////////////////
   const buttonTitles = [
     { name: "#TreatYoSelf", value: "1" },
@@ -63,8 +62,9 @@ const App = () => {
           <PillBox buttonTitles={buttonTitles} />
         </Box>
       </header>
-      <MapContainer places={places}/>
+      <MapContainer places={places} />
       <Footer />
+      {/* to-do: fix MapContainer from rendering on top of footer */}
     </div>
   );
 };
