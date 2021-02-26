@@ -5,9 +5,9 @@ import FormControl from "react-bootstrap/FormControl";
 import Box from "@material-ui/core/Box";
 import SearchIcon from "@material-ui/icons/Search";
 
-function SearchBar() {
+const SearchBar = () => {
   return (
-    <Box mx={4}>
+    <Box mx={20}>
       <InputGroup className="mb-3">
         <FormControl
           placeholder="Search..."
