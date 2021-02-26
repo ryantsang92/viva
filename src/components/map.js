@@ -1,10 +1,5 @@
 import React from "react";
-import {
-  GoogleMap,
-  Marker,
-  withGoogleMap,
-  withScriptjs,
-} from "react-google-maps";
+import { Map, GoogleApiWrapper } from "google-maps-react";
 import PropTypes from "prop-types";
 
 const containerStyle = {
@@ -17,27 +12,49 @@ const center = {
   lng: -38.523,
 };
 
-const Map = ({ isMarkerShown }) => {
-  return (
-    <GoogleMap
-      googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyDxUpiuJMJwjPvtBeuXJyRcm66jqEx38kA"
-      loadingElement={<div style={{ height: '100%' }} />}
-      containerElement={<div style={{ height: '400px' }} />}
-      mapElement={<div style={{ height: '100%' }} />}
-      defaultZoom={8}
-      defaultCenter={{ lat: -34.397, lng: 150.644 }}
-    >
-      {isMarkerShown && <Marker position={{ lat: -34.397, lng: 150.644 }} />}
-    </GoogleMap>
-  );
+const mapStyles = {
+  width: "100%",
+  height: "100%",
 };
 
-Map.propTypes = {
-  isMarkerShown: PropTypes.bool,
-};
+// const MapContainer = () => {
+//   return (
+//     <Map
+//       google={this.props.google}
+//       zoom={14}
+//       style={mapStyles}
+//       initialCenter={{
+//         lat: -1.2884,
+//         lng: 36.8233,
+//       }}
+//     />
+//   );
+// };
 
-Map.defaultProps = {
-  isMarkerShown: false,
-};
+const MapContainer = (props) => {
+    console.log('props.google');
+    console.log(props.google);
+    return (
+      <Map
+        google={props.google}
+        zoom={14}
+        style={mapStyles}
+        initialCenter={{
+          lat: -1.2884,
+          lng: 36.8233,
+        }}
+      />
+    );
+}
 
-export default withScriptjs(withGoogleMap(Map));
+// Map.propTypes = {
+//   isMarkerShown: PropTypes.bool,
+// };
+
+// Map.defaultProps = {
+//   isMarkerShown: false,
+// };
+
+export default GoogleApiWrapper({
+  apiKey: "AIzaSyDxUpiuJMJwjPvtBeuXJyRcm66jqEx38kA",
+})(MapContainer);
