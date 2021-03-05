@@ -3,7 +3,7 @@ import Grid from "@material-ui/core/Grid";
 
 const Footer = () => {
   return (
-    <Grid container justify="center" spacing={2}>
+    <Grid container justify="center" spacing={1}>
       <Grid item>
         <a
           className="App-link"

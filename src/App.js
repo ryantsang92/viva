@@ -6,7 +6,9 @@ import Box from "@material-ui/core/Box";
 import PillBox from "./components/pill-box";
 import SearchBar from "./components/search-bar";
 import Footer from "./components/footer";
-import MapContainer from "./components/map";
+import MapContainer from "./components/map-container";
+import ContentPanel from "./components/content-panel";
+import Grid from "@material-ui/core/Grid";
 
 const App = () => {
   // mock data section ////////////////////////////
@@ -54,18 +56,26 @@ const App = () => {
   // end mock data section ////////////////////////
 
   return (
-    <div className="App">
-      <header>
-        <img src={logo} alt="logo" className="VivaLogo" />
-        <Box mb={2}>
-          <SearchBar />
-          <PillBox buttonTitles={buttonTitles} />
-        </Box>
-      </header>
-      <MapContainer places={places} />
+    <>
+      <div className="App">
+        <header>
+          <img src={logo} alt="logo" className="VivaLogo" />
+          <Box mb={2}>
+            <SearchBar />
+            <PillBox buttonTitles={buttonTitles} />
+          </Box>
+        </header>
+        <Grid container spacing={2}>
+          <Grid item>
+            <ContentPanel />
+          </Grid>
+          <Grid item>
+            <MapContainer places={places} />
+          </Grid>
+        </Grid>
+      </div>
       <Footer />
-      {/* to-do: fix MapContainer from rendering on top of footer */}
-    </div>
+    </>
   );
 };
 

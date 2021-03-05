@@ -21,11 +21,11 @@ const MapContainer = ({ loaded, google, places }) => {
       {!loaded ? (
         <div>Loading...</div>
       ) : (
-        <Box mx="2">
+        // <Box mx="2">
           <Map
             google={google}
-            zoom={14}
-            style={mapStyles}
+            zoom={13}
+            // style={mapStyles}
             initialCenter={center}
           >
             {places.map((place) => {
@@ -37,7 +37,7 @@ const MapContainer = ({ loaded, google, places }) => {
               );
             })}
           </Map>
-        </Box>
+        // </Box>
       )}
     </>
   );
