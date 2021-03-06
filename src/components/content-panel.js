@@ -11,7 +11,7 @@ import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import GridList from "@material-ui/core/GridList";
 import GridListTile from "@material-ui/core/GridListTile";
-// import { StyleSheet, Text, SafeAreaView, ScrollView, StatusBar } from 'react-native';
+import { ScrollView } from "react-native";
 
 const useStyles = makeStyles({
   root: {
@@ -76,13 +76,15 @@ const ContentPanel = () => {
         <CardHeader title="Videos" subheader="Click on videos" />
         <CardContent>
           <div className={classes.root}>
-            <GridList cellHeight={200} cols={2}>
-              {tileData.map((tile) => (
-                <GridListTile key={tile.img} cols={tile.cols || 1}>
-                  <img src={tile.img} alt={tile.title} />
-                </GridListTile>
-              ))}
-            </GridList>
+            <ScrollView>
+              <GridList cellHeight={200} cols={2}>
+                {tileData.map((tile) => (
+                  <GridListTile key={tile.img} cols={tile.cols || 1}>
+                    <img src={tile.img} alt={tile.title} />
+                  </GridListTile>
+                ))}
+              </GridList>
+            </ScrollView>
           </div>
         </CardContent>
       </Card>
