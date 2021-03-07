@@ -18,7 +18,7 @@ const center = {
 // to-do: fix map styling and positioning
 const mapStyles = {
   float: "left",
-  width: 1200,
+  width: 1250,
   height: 550,
 };
 

@@ -1,3 +1,9 @@
+/*
+  Mock Data
+
+  author: Ryan Tsang <ryan@vivatheapp.com>
+*/
+
 export const tileData = [
   {
     img:
@@ -64,6 +70,8 @@ export const videoData = [
     hash_ids: [100, 101, 102],
     hash_tags: ["#treatyoself", "#greatoutdoors", "#walletfriendly"],
     id: 100,
+    img:
+      "https://www.friv5online.com/files/images/c8/c82c86713ab84bb30028a096bc8b7f7e.jpg",
     location_id: 1001,
     title: "1 test video",
     url: "https://viva-videos.s3.us-east-2.amazonaws.com/nyc-kettl.mp4",
@@ -75,6 +83,8 @@ export const videoData = [
     hash_ids: [105, 106],
     hash_tags: ["#NeverhaveIever", "#didyouknow"],
     id: 101,
+    img:
+      "https://www.friv5online.com/files/images/c8/c82c86713ab84bb30028a096bc8b7f7e.jpg",
     location_id: 1002,
     title: "2 test video",
     url: "https://viva-videos.s3.us-east-2.amazonaws.com/nyc-kettl.mp4",
@@ -86,6 +96,8 @@ export const videoData = [
     hash_ids: [102, 104],
     hash_tags: ["#walletfriendly", "#PicturePerfect"],
     id: 102,
+    img:
+      "https://www.friv5online.com/files/images/c8/c82c86713ab84bb30028a096bc8b7f7e.jpg",
     location_id: 1003,
     title: "3 test video",
     url: "https://viva-videos.s3.us-east-2.amazonaws.com/nyc-kettl.mp4",
@@ -97,6 +109,8 @@ export const videoData = [
     hash_ids: [100, 106, 107],
     hash_tags: ["#treatyoself", "#didyouknow", "#cantlivewithoutyou"],
     id: 103,
+    img:
+      "https://www.friv5online.com/files/images/c8/c82c86713ab84bb30028a096bc8b7f7e.jpg",
     location_id: 1004,
     title: "4 test video",
     url: "https://viva-videos.s3.us-east-2.amazonaws.com/nyc-kettl.mp4",
@@ -108,6 +122,8 @@ export const videoData = [
     hash_ids: [107, 108],
     hash_tags: ["#cantlivewithoutyou", "#phoneeatsfirst"],
     id: 104,
+    img:
+      "https://www.friv5online.com/files/images/c8/c82c86713ab84bb30028a096bc8b7f7e.jpg",
     location_id: 1005,
     title: "5 test video",
     url: "https://viva-videos.s3.us-east-2.amazonaws.com/nyc-kettl.mp4",

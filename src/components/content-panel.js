@@ -8,12 +8,11 @@ import React from "react";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import CardHeader from "@material-ui/core/CardHeader";
-import Container from "@material-ui/core/Container";
+import Box from "@material-ui/core/Box";
 import { makeStyles } from "@material-ui/core/styles";
-import GridList from "@material-ui/core/GridList";
-import GridListTile from "@material-ui/core/GridListTile";
 import { SafeAreaView } from "react-native";
 import { videoData } from "../mock-data";
+import VideoGrid from "./video-grid";
 
 // to-do: find a better way to style this
 const useStyles = makeStyles({
@@ -21,40 +20,21 @@ const useStyles = makeStyles({
     maxWidth: 400,
     minHeight: 550,
   },
-  videos: {
-    display: "flex",
-    flexWrap: "wrap",
-    justifyContent: "space-around",
-    overflow: "hidden",
-  },
-  videoContainer: {
-    maxHeight: 450,
-  },
 });
 
 const ContentPanel = () => {
   const classes = useStyles();
   return (
-    <Container className={classes.root}>
-      <Card className={classes.root}>
+    <Box border={1} ml={2}>
+      <Card className={classes.root} border={5}>
         <CardHeader title="Videos" />
         <CardContent>
           <SafeAreaView>
-            <GridList
-              className={classes.videoContainer}
-              cellHeight={200}
-              cols={2}
-            >
-              {videoData.map((video) => (
-                <GridListTile key={video.img} cols={1}>
-                  <img src={video.img} alt={video.title} />
-                </GridListTile>
-              ))}
-            </GridList>
+            <VideoGrid videoData={videoData} />
           </SafeAreaView>
         </CardContent>
       </Card>
-    </Container>
+    </Box>
   );
 };
 
