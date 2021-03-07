@@ -1,3 +1,9 @@
+/*
+  Pill Box
+
+  author: Ryan Tsang <ryan@vivatheapp.com>
+*/
+
 import React, { useState } from "react";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 import ToggleButton from "react-bootstrap/ToggleButton";

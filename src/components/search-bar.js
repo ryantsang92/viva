@@ -1,3 +1,9 @@
+/*
+  Search Bar
+
+  author: Ryan Tsang <ryan@vivatheapp.com>
+*/
+
 import React from "react";
 import Button from "react-bootstrap/Button";
 import InputGroup from "react-bootstrap/InputGroup";

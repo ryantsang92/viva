@@ -1,3 +1,9 @@
+/*
+  App root
+
+  author: Ryan Tsang <ryan@vivatheapp.com>
+*/
+
 import React from "react";
 import logo from "./viva-logo.png";
 import "./App.css";

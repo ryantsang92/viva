@@ -1,7 +1,14 @@
+/*
+  Mock Data
+
+  author: Ryan Tsang <ryan@vivatheapp.com>
+*/
+
 import React from "react";
-import Box from "@material-ui/core/Box";
 import { Map, Marker, GoogleApiWrapper } from "google-maps-react";
+import Box from "@material-ui/core/Box";
 import PropTypes from "prop-types";
+import { makeStyles } from "@material-ui/core/styles";
 
 const center = {
   lat: 42.3601,
@@ -10,22 +17,31 @@ const center = {
 
 // to-do: fix map styling and positioning
 const mapStyles = {
-  marginLeft: "30px",
-  width: "95%",
-  height: "95%",
+  float: "left",
+  width: 1200,
+  height: 550,
 };
 
+const useStyles = makeStyles({
+  root: {
+    maxWidth: 200,
+    minHeight: 550,
+  },
+});
+
 const MapContainer = ({ loaded, google, places }) => {
+  const classes = useStyles();
   return (
     <>
       {!loaded ? (
         <div>Loading...</div>
       ) : (
-        // <Box mx="2">
+        <Box className={classes.root}>
           <Map
             google={google}
             zoom={13}
-            // style={mapStyles}
+            containerStyle={mapStyles}
+            style={mapStyles}
             initialCenter={center}
           >
             {places.map((place) => {
@@ -37,7 +53,7 @@ const MapContainer = ({ loaded, google, places }) => {
               );
             })}
           </Map>
-        // </Box>
+        </Box>
       )}
     </>
   );
