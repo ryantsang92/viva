@@ -1,9 +1,15 @@
+/*
+  Footer
+
+  author: Ryan Tsang <ryan@vivatheapp.com>
+*/
+
 import React from "react";
 import Grid from "@material-ui/core/Grid";
 
 const Footer = () => {
   return (
-    <Grid container justify="center" spacing={2}>
+    <Grid container justify="center" spacing={1}>
       <Grid item>
         <a
           className="App-link"
