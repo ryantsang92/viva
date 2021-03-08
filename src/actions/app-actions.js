@@ -18,11 +18,18 @@ export const FETCH_HASHTAGS_ERROR = "FETCH_HASHTAGS_ERROR";
 //     .catch(console.log);
 // };
 
+const requestOptions = {
+  method: "GET",
+  headers: {
+    Accept: "application/json",
+  },
+};
+
 const fetchEndpoint = (url) => {
-  return fetch(url, { method: "GET" }).then((response) =>
+  return fetch(url, requestOptions).then((response) =>
     Promise.all([response, response.json()])
   );
-}
+};
 
 export const fetchHashtags = () => {
   return (dispatch) => {

@@ -9,11 +9,11 @@ import ButtonGroup from "react-bootstrap/ButtonGroup";
 import ToggleButton from "react-bootstrap/ToggleButton";
 import PropTypes from "prop-types";
 
-const PillBox = ({ hashtags, retrieveHashtags }) => {
+const PillBox = ({ hashtags, fetchHashtags }) => {
   const [radioValue, setRadioValue] = useState(null);
 
   useEffect(() => {
-    retrieveHashtags();
+    fetchHashtags();
   })
 
   console.log('here');

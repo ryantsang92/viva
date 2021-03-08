@@ -5,9 +5,7 @@
 */
 
 import React from "react";
-import Grid from "@material-ui/core/Grid";
-import Divider from "@material-ui/core/Divider";
-import Box from "@material-ui/core/Box";
+import { Grid, Divider, Box } from "@material-ui/core";
 
 const Footer = () => {
   return (

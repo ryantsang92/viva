@@ -5,10 +5,12 @@
 */
 
 import React from "react";
-import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
-import CardHeader from "@material-ui/core/CardHeader";
-import Box from "@material-ui/core/Box";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  Box,
+} from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { SafeAreaView } from "react-native";
 import { videoData } from "../mock-data";
