@@ -13,11 +13,11 @@ const PillBox = ({ hashtags, fetchHashtags }) => {
   const [radioValue, setRadioValue] = useState(null);
 
   useEffect(() => {
-    fetchHashtags();
-  })
+    if (!hashtags || !hashtags.length) {
+      fetchHashtags();
+    }
+  });
 
-  console.log('here');
-  console.log(hashtags);
   return (
     <>
       <ButtonGroup toggle>

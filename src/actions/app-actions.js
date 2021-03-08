@@ -9,15 +9,6 @@ export const FETCH_HASHTAGS_REQUEST = "FETCH_HASHTAGS_REQUEST";
 export const FETCH_HASHTAGS_SUCCESS = "FETCH_HASHTAGS_SUCCESS";
 export const FETCH_HASHTAGS_ERROR = "FETCH_HASHTAGS_ERROR";
 
-// export const fetchEndpoint = (url) => {
-//   fetch(url)
-//     .then((response) => response.json())
-//     .then((data) => {
-//       this.setState({ appData: data });
-//     })
-//     .catch(console.log);
-// };
-
 const requestOptions = {
   method: "GET",
   headers: {
@@ -50,10 +41,10 @@ export const fetchHashtagsRequest = () => {
   };
 };
 
-export const fetchHashtagsSuccess = (hashtags) => {
+export const fetchHashtagsSuccess = (payload) => {
   return {
     type: FETCH_HASHTAGS_SUCCESS,
-    hashtags: hashtags,
+    payload,
   };
 };
 
@@ -67,7 +58,3 @@ export const fetchHashtagsError = (error) => {
 export const fetchLocations = () => {
   fetchEndpoint(endpoint.LOCATION_URL);
 };
-
-// export const fetchHashtags = () => {
-//   fetchEndpoint(endpoint.HASHTAG_URL);
-// };

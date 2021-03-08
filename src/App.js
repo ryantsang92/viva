@@ -12,7 +12,7 @@ import Header from "./components/header";
 import Footer from "./components/footer";
 import MapContainer from "./components/map-container";
 import ContentPanel from "./components/content-panel";
-import { buttonTitles, places } from "./mock-data";
+import { places } from "./mock-data";
 
 const App = () => {
   return (
