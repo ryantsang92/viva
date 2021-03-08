@@ -4,8 +4,12 @@
   author: Ryan Tsang <ryan@vivatheapp.com>
 */
 
-export const getHashtags = (state) => {
+export const selectHashtags = (state) => {
   return state ? state.hashtags : null;
 };
-export const getHashtagsPending = (state) => state.pending;
-export const getHashtagsError = (state) => state.error;
+export const selectHashtagsIsFetching = (state) => {
+  return state ? state.isFetching : null;
+};
+export const selectHashtagsError = (state) => {
+  return state ? state.error : null;
+};

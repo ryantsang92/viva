@@ -6,13 +6,11 @@
 
 import { connect } from "react-redux";
 import { fetchHashtags } from "../actions/app-actions";
-import {
-  getHashtags,
-} from "../selectors/hashtag-selectors";
+import { selectHashtags } from "../selectors/hashtag-selectors";
 import PillBox from "./pill-box";
 
 const mapStateToProps = (state) => ({
-  hashtags: getHashtags(state),
+  hashtags: selectHashtags(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
