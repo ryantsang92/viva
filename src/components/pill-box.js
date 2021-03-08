@@ -4,42 +4,48 @@
   author: Ryan Tsang <ryan@vivatheapp.com>
 */
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 import ToggleButton from "react-bootstrap/ToggleButton";
 import PropTypes from "prop-types";
 
-const PillBox = ({ buttonTitles }) => {
+const PillBox = ({ hashtags, retrieveHashtags }) => {
   const [radioValue, setRadioValue] = useState(null);
 
+  useEffect(() => {
+    retrieveHashtags();
+  })
+
+  console.log('here');
+  console.log(hashtags);
   return (
     <>
       <ButtonGroup toggle>
-        {buttonTitles.map((radio, idx) => (
+        {hashtags.map((radio, idx) => (
           <ToggleButton
             key={idx}
             type="radio"
             variant="secondary"
             name="radio"
-            value={radio.value}
-            checked={radioValue === radio.value}
+            value={radio.id}
+            checked={radioValue === radio.id}
             onChange={(e) => setRadioValue(e.currentTarget.value)}
             className="ml-2 rounded-pill"
           >
-            {radio.name}
+            {radio.hashtag}
           </ToggleButton>
         ))}
       </ButtonGroup>
     </>
   );
-}
+};
 
 PillBox.propTypes = {
-  buttonTitles: PropTypes.array,
+  hashtags: PropTypes.array,
 };
 
 PillBox.defaultProps = {
-  buttonTitles: [],
+  hashtags: [],
 };
 
 export default PillBox;
