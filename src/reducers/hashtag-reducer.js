@@ -4,7 +4,7 @@
   author: Ryan Tsang <ryan@vivatheapp.com>
 */
 
-import { FETCH_IS_LOADING, FETCH_SUCCESS } from "../actions/app-actions";
+import { FETCH_HASHTAG_IS_LOADING, FETCH_HASHTAG_SUCCESS } from "../actions/hashtag-actions";
 
 const initialState = {
   isLoading: false,
@@ -14,12 +14,12 @@ const initialState = {
 
 const hashtagReducer = (state = initialState, action) => {
   switch (action.type) {
-    case FETCH_IS_LOADING:
+    case FETCH_HASHTAG_IS_LOADING:
       return {
         ...state,
         isLoading: true,
       };
-    case FETCH_SUCCESS:
+    case FETCH_HASHTAG_SUCCESS:
       return {
         ...state,
         hashtags: action.payload,

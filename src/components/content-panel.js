@@ -8,8 +8,6 @@ import React from "react";
 import { Card, CardContent, CardHeader, Box } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { SafeAreaView } from "react-native";
-import { videoData } from "../mock-data";
-import VideoGrid from "./video-grid";
 import VideoGridContainer from "./video-grid-container";
 
 // to-do: find a better way to style this
@@ -28,7 +26,6 @@ const ContentPanel = () => {
         <CardHeader title="Videos" />
         <CardContent>
           <SafeAreaView>
-            {/* <VideoGrid videos={videoData} /> */}
             <VideoGridContainer />
           </SafeAreaView>
         </CardContent>

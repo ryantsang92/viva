@@ -5,7 +5,7 @@
 */
 
 import { connect } from "react-redux";
-import { fetchHashtags } from "../actions/app-actions";
+import { fetchHashtags } from "../actions/hashtag-actions";
 import { selectHashtagData } from "../selectors/hashtag-selectors";
 import PillBox from "./pill-box";
 

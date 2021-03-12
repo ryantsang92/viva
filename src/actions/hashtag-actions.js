@@ -1,13 +1,13 @@
 /*
-  App actions
+  Hashtag actions
 
   author: Ryan Tsang <ryan@vivatheapp.com>
 */
 import { endpoint } from "../app-constants";
 
-export const FETCH_IS_LOADING = "FETCH_IS_LOADING";
-export const FETCH_SUCCESS = "FETCH_SUCCESS";
-export const FETCH_ERROR = "FETCH_ERROR";
+export const FETCH_HASHTAG_IS_LOADING = "FETCH_HASHTAG_IS_LOADING";
+export const FETCH_HASHTAG_SUCCESS = "FETCH_HASHTAG_SUCCESS";
+export const FETCH_HASHTAG_ERROR = "FETCH_HASHTAG_ERROR";
 
 const requestOptions = {
   method: "GET",
@@ -39,30 +39,22 @@ export const fetchHashtags = () => {
   return fetchEndpoint(endpoint.HASHTAG_URL);
 };
 
-export const fetchVideos = () => {
-  return fetchEndpoint(endpoint.VIDEO_URL);
-};
-
-export const fetchLocations = () => {
-  return fetchEndpoint(endpoint.LOCATION_URL);
-};
-
 export const fetchIsLoading = () => {
   return {
-    type: FETCH_IS_LOADING,
+    type: FETCH_HASHTAG_IS_LOADING,
   };
 };
 
 export const fetchSuccess = (payload) => {
   return {
-    type: FETCH_SUCCESS,
+    type: FETCH_HASHTAG_SUCCESS,
     payload,
   };
 };
 
 export const fetchError = (error) => {
   return {
-    type: FETCH_ERROR,
+    type: FETCH_HASHTAG_ERROR,
     error: error,
   };
 };

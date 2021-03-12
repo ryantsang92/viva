@@ -5,12 +5,7 @@
 */
 
 export const selectHashtagData = (state) => {
-  if (state.hashtagData !== undefined) {
-    return state.hashtagData;
-  } else {
-    return null;
-  }
-  // return state ? state.hashtagData : null;
+  return state ? state.hashtagData : null;
 };
 
 export const selectHashtagsIsFetching = (state) => {
