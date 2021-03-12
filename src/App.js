@@ -10,9 +10,7 @@ import "./VivaLogo.css";
 import { Grid } from "@material-ui/core";
 import Header from "./components/header";
 import Footer from "./components/footer";
-import Map from "./components/map";
 import ContentPanel from "./components/content-panel";
-import { places } from "./mock-data";
 import MapContainer from "./components/map-container";
 
 const App = () => {
@@ -25,7 +23,6 @@ const App = () => {
             <ContentPanel />
           </Grid>
           <Grid item>
-            {/* <Map locations={places} /> */}
             <MapContainer />
           </Grid>
         </Grid>
