@@ -4,12 +4,19 @@
   author: Ryan Tsang <ryan@vivatheapp.com>
 */
 
-export const selectHashtags = (state) => {
-  return state ? state.hashtags : null;
+export const selectHashtagData = (state) => {
+  if (state.hashtagData !== undefined) {
+    return state.hashtagData;
+  } else {
+    return null;
+  }
+  // return state ? state.hashtagData : null;
 };
+
 export const selectHashtagsIsFetching = (state) => {
-  return state ? state.isFetching : null;
+  return selectHashtagData(state).isFetching;
 };
+
 export const selectHashtagsError = (state) => {
-  return state ? state.error : null;
+  return selectHashtagData(state).error;
 };

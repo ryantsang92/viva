@@ -42,10 +42,12 @@ const PillBox = ({ hashtags, fetchHashtags }) => {
 
 PillBox.propTypes = {
   hashtags: PropTypes.array,
+  fetchHashtags: PropTypes.func,
 };
 
 PillBox.defaultProps = {
   hashtags: [],
+  fetchHashtags() {},
 };
 
 export default PillBox;

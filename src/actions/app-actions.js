@@ -5,9 +5,9 @@
 */
 import { endpoint } from "../app-constants";
 
-export const FETCH_HASHTAGS_REQUEST = "FETCH_HASHTAGS_REQUEST";
-export const FETCH_HASHTAGS_SUCCESS = "FETCH_HASHTAGS_SUCCESS";
-export const FETCH_HASHTAGS_ERROR = "FETCH_HASHTAGS_ERROR";
+export const FETCH_IS_LOADING = "FETCH_IS_LOADING";
+export const FETCH_SUCCESS = "FETCH_SUCCESS";
+export const FETCH_ERROR = "FETCH_ERROR";
 
 const requestOptions = {
   method: "GET",
@@ -17,44 +17,52 @@ const requestOptions = {
 };
 
 const fetchEndpoint = (url) => {
-  return fetch(url, requestOptions).then((response) =>
-    Promise.all([response, response.json()])
-  );
-};
+  const fetchFunction = () => {
+    return fetch(url, requestOptions).then((response) =>
+      Promise.all([response, response.json()])
+    );
+  };
 
-export const fetchHashtags = () => {
   return (dispatch) => {
-    dispatch(fetchHashtagsRequest());
-    return fetchEndpoint(endpoint.HASHTAG_URL).then(([response, json]) => {
+    dispatch(fetchIsLoading());
+    return fetchFunction().then(([response, json]) => {
       if (response.status === 200) {
-        dispatch(fetchHashtagsSuccess(json));
+        dispatch(fetchSuccess(json));
       } else {
-        dispatch(fetchHashtagsError());
+        dispatch(fetchError());
       }
     });
   };
 };
 
-export const fetchHashtagsRequest = () => {
+export const fetchHashtags = () => {
+  return fetchEndpoint(endpoint.HASHTAG_URL);
+};
+
+export const fetchVideos = () => {
+  return fetchVideos(endpoint.VIDEO_URL);
+};
+
+export const fetchLocations = () => {
+  return fetchEndpoint(endpoint.LOCATION_URL);
+};
+
+export const fetchIsLoading = () => {
   return {
-    type: FETCH_HASHTAGS_REQUEST,
+    type: FETCH_IS_LOADING,
   };
 };
 
-export const fetchHashtagsSuccess = (payload) => {
+export const fetchSuccess = (payload) => {
   return {
-    type: FETCH_HASHTAGS_SUCCESS,
+    type: FETCH_SUCCESS,
     payload,
   };
 };
 
-export const fetchHashtagsError = (error) => {
+export const fetchError = (error) => {
   return {
-    type: FETCH_HASHTAGS_ERROR,
+    type: FETCH_ERROR,
     error: error,
   };
-};
-
-export const fetchLocations = () => {
-  fetchEndpoint(endpoint.LOCATION_URL);
 };

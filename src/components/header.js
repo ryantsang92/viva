@@ -20,7 +20,6 @@ const Header = () => {
       </Box>
       <Box mb={2}>
         <SearchBar />
-        {/* <PillBox buttonTitles={buttonTitles} /> */}
         <PillBoxContainer />
       </Box>
     </header>

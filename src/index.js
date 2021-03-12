@@ -6,10 +6,12 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { Provider } from "react-redux";
 import { createStore, applyMiddleware } from "redux";
-import reducer from "./reducer";
+import { composeWithDevTools } from "redux-devtools-extension";
+import rootReducer from "./reducers/root-reducer";
 import thunk from "redux-thunk";
+import _ from "lodash";
 
-const store = createStore(reducer, applyMiddleware(thunk));
+const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)));
 
 const renderObject = (
   <Provider store={store}>

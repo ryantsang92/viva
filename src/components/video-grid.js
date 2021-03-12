@@ -4,7 +4,7 @@
   author: Ryan Tsang <ryan@vivatheapp.com>
 */
 
-import React from "react";
+import React, { useEffect } from "react";
 import { GridList, GridListTile } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import PropTypes from "prop-types";
@@ -16,11 +16,18 @@ const useStyles = makeStyles({
   },
 });
 
-const VideoGrid = ({ videoData }) => {
+const VideoGrid = ({ videos, fetchVideos }) => {
   const classes = useStyles();
+
+  useEffect(() => {
+    if (!videos || !videos.length) {
+      fetchVideos();
+    }
+  });
+
   return (
     <GridList className={classes.videoContainer} cellHeight={200} cols={2}>
-      {videoData.map((video) => (
+      {videos.map((video) => (
         <GridListTile key={video.img} cols={1}>
           <img src={video.img} alt={video.title} />
         </GridListTile>
@@ -32,11 +39,13 @@ const VideoGrid = ({ videoData }) => {
 };
 
 VideoGrid.propTypes = {
-  videoData: PropTypes.array,
+  videos: PropTypes.array,
+  fetchVideos: PropTypes.func,
 };
 
 VideoGrid.defaultProps = {
-  videoData: [],
+  videos: [],
+  fetchVideos() {},
 };
 
 export default VideoGrid;
