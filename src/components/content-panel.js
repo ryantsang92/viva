@@ -28,8 +28,8 @@ const ContentPanel = () => {
         <CardHeader title="Videos" />
         <CardContent>
           <SafeAreaView>
-            <VideoGrid videos={videoData} />
-            {/* <VideoGridContainer /> */}
+            {/* <VideoGrid videos={videoData} /> */}
+            <VideoGridContainer />
           </SafeAreaView>
         </CardContent>
       </Card>

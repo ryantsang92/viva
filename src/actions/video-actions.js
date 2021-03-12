@@ -1,13 +1,13 @@
 /*
-  App actions
+  Video actions
 
   author: Ryan Tsang <ryan@vivatheapp.com>
 */
 import { endpoint } from "../app-constants";
 
-export const FETCH_IS_LOADING = "FETCH_IS_LOADING";
-export const FETCH_SUCCESS = "FETCH_SUCCESS";
-export const FETCH_ERROR = "FETCH_ERROR";
+export const FETCH_VIDEO_IS_LOADING = "FETCH_VIDEO_IS_LOADING";
+export const FETCH_VIDEO_SUCCESS = "FETCH_VIDEO_SUCCESS";
+export const FETCH_VIDEO_ERROR = "FETCH_VIDEO_ERROR";
 
 const requestOptions = {
   method: "GET",
@@ -49,20 +49,20 @@ export const fetchLocations = () => {
 
 export const fetchIsLoading = () => {
   return {
-    type: FETCH_IS_LOADING,
+    type: FETCH_VIDEO_IS_LOADING,
   };
 };
 
 export const fetchSuccess = (payload) => {
   return {
-    type: FETCH_SUCCESS,
+    type: FETCH_VIDEO_SUCCESS,
     payload,
   };
 };
 
 export const fetchError = (error) => {
   return {
-    type: FETCH_ERROR,
+    type: FETCH_VIDEO_ERROR,
     error: error,
   };
 };

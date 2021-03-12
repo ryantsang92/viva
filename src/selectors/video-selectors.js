@@ -4,8 +4,8 @@
   author: Ryan Tsang <ryan@vivatheapp.com>
 */
 
-export const selectVideos = (state) => {
-  return state ? state.Videos : null;
+export const selectVideoData = (state) => {
+  return state ? state.videoData : null;
 };
 
 export const selectVideosIsFetching = (state) => {

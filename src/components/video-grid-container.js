@@ -5,13 +5,17 @@
 */
 
 import { connect } from "react-redux";
-import { fetchVideos } from "../actions/app-actions";
-import { selectVideos } from "../selectors/video-selectors";
+import { fetchVideos } from "../actions/video-actions";
+import { selectVideoData } from "../selectors/video-selectors";
 import VideoGrid from "./video-grid";
 
-const mapStateToProps = (state) => ({
-  videos: selectVideos(state),
-});
+const mapStateToProps = (state) => {
+  return {
+    videos: selectVideoData(state).videos,
+    // to-do: find a way to do optional chaining
+    // hashtags: selectVideoData(state)?.videos,
+  };
+};
 
 const mapDispatchToProps = (dispatch) => ({
   fetchVideos: () => dispatch(fetchVideos()),
