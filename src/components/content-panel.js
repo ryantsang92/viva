@@ -5,14 +5,10 @@
 */
 
 import React from "react";
-import Card from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
-import CardHeader from "@material-ui/core/CardHeader";
-import Box from "@material-ui/core/Box";
+import { Card, CardContent, CardHeader, Box } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { SafeAreaView } from "react-native";
-import { videoData } from "../mock-data";
-import VideoGrid from "./video-grid";
+import VideoGridContainer from "./video-grid-container";
 
 // to-do: find a better way to style this
 const useStyles = makeStyles({
@@ -30,7 +26,7 @@ const ContentPanel = () => {
         <CardHeader title="Videos" />
         <CardContent>
           <SafeAreaView>
-            <VideoGrid videoData={videoData} />
+            <VideoGridContainer />
           </SafeAreaView>
         </CardContent>
       </Card>

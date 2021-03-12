@@ -5,7 +5,7 @@
 */
 
 import React from "react";
-import GridListTile from "@material-ui/core/GridListTile";
+import { GridListTile } from "@material-ui/core";
 import PropTypes from "prop-types";
 
 const VideoCard = ({ video }) => {
