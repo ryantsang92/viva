@@ -8,10 +8,10 @@ export const selectHashtagData = (state) => {
   return state ? state.hashtagData : null;
 };
 
-export const selectHashtagsIsFetching = (state) => {
+export const selectHashtagIsFetching = (state) => {
   return selectHashtagData(state).isFetching;
 };
 
-export const selectHashtagsError = (state) => {
+export const selectHashtagError = (state) => {
   return selectHashtagData(state).error;
 };

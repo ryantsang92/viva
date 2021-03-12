@@ -35,32 +35,24 @@ const fetchEndpoint = (url) => {
   };
 };
 
-export const fetchHashtags = () => {
-  return fetchEndpoint(endpoint.HASHTAG_URL);
-};
-
 export const fetchVideos = () => {
   return fetchEndpoint(endpoint.VIDEO_URL);
 };
 
-export const fetchLocations = () => {
-  return fetchEndpoint(endpoint.LOCATION_URL);
-};
-
-export const fetchIsLoading = () => {
+const fetchIsLoading = () => {
   return {
     type: FETCH_VIDEO_IS_LOADING,
   };
 };
 
-export const fetchSuccess = (payload) => {
+const fetchSuccess = (payload) => {
   return {
     type: FETCH_VIDEO_SUCCESS,
     payload,
   };
 };
 
-export const fetchError = (error) => {
+const fetchError = (error) => {
   return {
     type: FETCH_VIDEO_ERROR,
     error: error,

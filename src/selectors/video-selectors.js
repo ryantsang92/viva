@@ -8,10 +8,10 @@ export const selectVideoData = (state) => {
   return state ? state.videoData : null;
 };
 
-export const selectVideosIsFetching = (state) => {
+export const selectVideoIsFetching = (state) => {
   return state ? state.isFetching : null;
 };
 
-export const selectVideosError = (state) => {
+export const selectVideoError = (state) => {
   return state ? state.error : null;
 };
