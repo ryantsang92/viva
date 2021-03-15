@@ -5,7 +5,8 @@
 */
 
 import React, { Component } from "react";
-import { ReactVideo } from "reactjs-media";
+// import { ReactVideo } from "reactjs-media";
+import { ReactVideo } from "./video/react-video"
 
 const sources = {
   sintelTrailer: "http://media.w3.org/2010/05/sintel/trailer.mp4",

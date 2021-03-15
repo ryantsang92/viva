@@ -12,6 +12,7 @@ import Header from "./components/header";
 import Footer from "./components/footer";
 import ContentPanel from "./components/content-panel";
 import MapContainer from "./components/map-container";
+import VideoPanel from "./components/video-panel";
 
 const App = () => {
   return (
@@ -24,6 +25,9 @@ const App = () => {
           </Grid>
           <Grid item>
             <MapContainer />
+          </Grid>
+          <Grid item>
+            <VideoPanel />
           </Grid>
         </Grid>
         <Footer />

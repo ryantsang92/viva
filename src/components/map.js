@@ -47,15 +47,15 @@ const Map = ({ loaded, google, locations, fetchLocations }) => {
           <GoogleMap
             google={google}
             zoom={13}
-            containerStyle={mapStyles}
-            style={mapStyles}
+            // containerStyle={mapStyles}
+            // style={mapStyles}
             initialCenter={center}
           >
             {locations.map((location) => {
               return (
                 <Marker
                   key={location.id}
-                  position={{ lat: location.lat, lng: location.lon }}
+                  position={{ lat: location.lat, lng: location.lng }}
                 />
               );
             })}
