@@ -4,7 +4,10 @@
   author: Ryan Tsang <ryan@vivatheapp.com>
 */
 
-import { FETCH_HASHTAG_IS_LOADING, FETCH_HASHTAG_SUCCESS } from "../actions/hashtag-actions";
+import {
+  FETCH_HASHTAG_IS_LOADING,
+  FETCH_HASHTAG_SUCCESS,
+} from "../actions/hashtag-actions";
 
 const initialState = {
   isLoading: false,

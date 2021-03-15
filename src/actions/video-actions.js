@@ -58,3 +58,10 @@ const fetchError = (error) => {
     error: error,
   };
 };
+
+const fetchSelectedVideo = (payload) => {
+  return {
+    type: FETCH_VIDEO_SUCCESS,
+    payload,
+  };
+};

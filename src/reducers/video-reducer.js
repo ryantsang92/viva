@@ -4,7 +4,10 @@
   author: Ryan Tsang <ryan@vivatheapp.com>
 */
 
-import { FETCH_VIDEO_IS_LOADING, FETCH_VIDEO_SUCCESS } from "../actions/video-actions";
+import {
+  FETCH_VIDEO_IS_LOADING,
+  FETCH_VIDEO_SUCCESS,
+} from "../actions/video-actions";
 
 const initialState = {
   pending: false,
