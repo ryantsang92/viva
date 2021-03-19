@@ -14,6 +14,7 @@ import ContentPanel from "./components/content-panel";
 import MapContainer from "./components/map-container";
 import VideoPanel from "./components/video-panel";
 import { makeStyles } from "@material-ui/core/styles";
+import BodyGridContainer from "./components/body-grid-container";
 
 const useStyles = makeStyles({
   contentPanel: {
@@ -36,7 +37,7 @@ const App = () => {
     <>
       <div className="App">
         <Header />
-        <Grid className={classes.grid} container spacing={2}>
+        {/* <Grid className={classes.grid} container spacing={2}>
           <Grid item className={classes.contentPanel}>
             <ContentPanel />
           </Grid>
@@ -46,7 +47,8 @@ const App = () => {
           <Grid item className={classes.videoPanel}>
             <VideoPanel />
           </Grid>
-        </Grid>
+        </Grid> */}
+        <BodyGridContainer />
         <Footer />
       </div>
     </>

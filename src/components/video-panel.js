@@ -18,7 +18,8 @@ const useStyles = makeStyles({
   },
 });
 
-const VideoPanel = () => {
+const VideoPanel = ({ video }) => {
+  console.log(video);
   const classes = useStyles();
   return (
     <Box border={1}>
@@ -26,7 +27,7 @@ const VideoPanel = () => {
         <CardContent>
           <Box>
             <ReactVideo
-              src="http://media.w3.org/2010/05/bunny/movie.mp4"
+              src={video.url}
               poster="https://image.freepik.com/free-vector/colorful-abstract-wallpaper-design_23-2148467625.jpg"
               primaryColor="#278A6E"
               // other props

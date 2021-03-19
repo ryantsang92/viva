@@ -7,7 +7,7 @@
 import React, { useEffect } from "react";
 import { GridList, GridListTile } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import VideoCard from "./video-card";
+import VideoCardContainer from "./video-card-container";
 import PropTypes from "prop-types";
 
 // to-do: find a better way to style this
@@ -30,7 +30,7 @@ const VideoGrid = ({ videos, fetchVideos }) => {
     <GridList className={classes.videoContainer} cellHeight={200} cols={2}>
       {videos.map((video) => (
         <GridListTile key={video.img} cols={1}>
-          <VideoCard video={video} />
+          <VideoCardContainer video={video} />
         </GridListTile>
       ))}
     </GridList>

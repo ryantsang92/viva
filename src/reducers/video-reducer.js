@@ -7,12 +7,14 @@
 import {
   FETCH_VIDEO_IS_LOADING,
   FETCH_VIDEO_SUCCESS,
+  FETCH_SELECTED_VIDEO_SUCCESS,
 } from "../actions/video-actions";
 
 const initialState = {
   pending: false,
   videos: [],
   error: null,
+  selectedVideo: null,
 };
 
 const hashtagReducer = (state = initialState, action) => {
@@ -26,6 +28,11 @@ const hashtagReducer = (state = initialState, action) => {
       return {
         ...state,
         videos: action.payload,
+      };
+    case FETCH_SELECTED_VIDEO_SUCCESS:
+      return {
+        ...state,
+        selectedVideo: action.data,
       };
     default:
       return state;

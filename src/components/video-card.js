@@ -27,11 +27,7 @@ const getThumbnail = (video) => {
   return video.img || defaultVideoImage;
 };
 
-const imageClick = (id) => {
-  console.log("Click");
-};
-
-const VideoCard = ({ video }) => {
+const VideoCard = ({ video, fetchSelectedVideo }) => {
   const classes = useStyles();
 
   return (
@@ -40,7 +36,7 @@ const VideoCard = ({ video }) => {
         className={classes.image}
         src={getThumbnail(video)}
         alt={video.title}
-        onClick={() => imageClick(video.id)}
+        onClick={() => fetchSelectedVideo(video)}
       />
       {video.title}
     </Box>

@@ -29,8 +29,6 @@ const mapContainerStyle = {
 };
 
 const Map = ({ loaded, google, locations, fetchLocations }) => {
-  console.log(google);
-
   useEffect(() => {
     if (!locations || !locations.length) {
       fetchLocations();
