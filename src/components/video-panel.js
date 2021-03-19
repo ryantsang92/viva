@@ -6,6 +6,7 @@
 
 import React from "react";
 import { Card, CardContent, Box } from "@material-ui/core";
+import CloseIcon from "@material-ui/icons/Close";
 import { makeStyles } from "@material-ui/core/styles";
 import { ReactVideo } from "./video/react-video";
 
@@ -13,18 +14,27 @@ import { ReactVideo } from "./video/react-video";
 const useStyles = makeStyles({
   root: {
     maxWidth: 400,
-    // minHeight: 550,
-    // height: "100%"
+  },
+  closeIcon: {
+    cursor: "pointer",
+    // float: "left",
   },
 });
 
-const VideoPanel = ({ video }) => {
+const VideoPanel = ({ video, clearSelectedVideo }) => {
+  console.log("VideoPanel");
   console.log(video);
   const classes = useStyles();
   return (
     <Box border={1}>
       <Card className={classes.root}>
         <CardContent>
+          <Box flexDirection="row">
+            <CloseIcon
+              className={classes.closeIcon}
+              onClick={() => clearSelectedVideo()}
+            />
+          </Box>
           <Box>
             <ReactVideo
               src={video.url}

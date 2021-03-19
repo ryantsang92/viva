@@ -8,7 +8,7 @@ import React from "react";
 import { Grid } from "@material-ui/core";
 import ContentPanel from "./content-panel";
 import MapContainer from "./map-container";
-import VideoPanel from "./video-panel";
+import VideoPanelContainer from "./video-panel-container";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles({
@@ -27,6 +27,7 @@ const useStyles = makeStyles({
 });
 
 const BodyGrid = ({ selectedVideo }) => {
+  console.log("BodyGrid");
   const classes = useStyles();
   return (
     <Grid className={classes.grid} container spacing={2}>
@@ -38,7 +39,7 @@ const BodyGrid = ({ selectedVideo }) => {
       </Grid>
       {selectedVideo && (
         <Grid item className={classes.videoPanel}>
-          <VideoPanel video={selectedVideo} />
+          <VideoPanelContainer video={selectedVideo} />
         </Grid>
       )}
     </Grid>

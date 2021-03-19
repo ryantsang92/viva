@@ -25,6 +25,7 @@ export default class VideoPlayer extends Component {
   }
 
   render() {
+    console.log("video_player");
     return (
       <>
         <ReactVideo

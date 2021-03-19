@@ -8,6 +8,7 @@ import {
   FETCH_VIDEO_IS_LOADING,
   FETCH_VIDEO_SUCCESS,
   FETCH_SELECTED_VIDEO_SUCCESS,
+  CLEAR_SELECTED_VIDEO,
 } from "../actions/video-actions";
 
 const initialState = {
@@ -33,6 +34,11 @@ const hashtagReducer = (state = initialState, action) => {
       return {
         ...state,
         selectedVideo: action.data,
+      };
+    case CLEAR_SELECTED_VIDEO:
+      return {
+        ...state,
+        selectedVideo: null,
       };
     default:
       return state;

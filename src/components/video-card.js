@@ -20,6 +20,7 @@ const useStyles = makeStyles({
     marginLeft: "auto",
     marginRight: "auto",
     display: "block",
+    cursor: "pointer",
   },
 });
 

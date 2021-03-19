@@ -1,5 +1,5 @@
 /*
-  Video Card Container
+  Body Grid Container
 
   author: Ryan Tsang <ryan@vivatheapp.com>
 */
