@@ -7,24 +7,30 @@
 import React from "react";
 import { Card, CardContent, Box } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import VideoPlayer from "./video-player";
+import { ReactVideo } from "./video/react-video";
 
 // to-do: find a better way to style this
 const useStyles = makeStyles({
   root: {
     maxWidth: 400,
-    minHeight: 550,
+    // minHeight: 550,
+    // height: "100%"
   },
 });
 
 const VideoPanel = () => {
   const classes = useStyles();
   return (
-    <Box border={1} ml={2}>
-      <Card className={classes.root} border={5}>
+    <Box border={1}>
+      <Card className={classes.root}>
         <CardContent>
           <Box>
-            <VideoPlayer />
+            <ReactVideo
+              src="http://media.w3.org/2010/05/bunny/movie.mp4"
+              poster="https://image.freepik.com/free-vector/colorful-abstract-wallpaper-design_23-2148467625.jpg"
+              primaryColor="#278A6E"
+              // other props
+            />
           </Box>
         </CardContent>
       </Card>

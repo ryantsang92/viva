@@ -18,7 +18,7 @@ const Header = () => {
       <Box mt={2} mb={2}>
         <Typography align="center">Designed to get you out there</Typography>
       </Box>
-      <Box mb={2}>
+      <Box mb={1}>
         <SearchBar />
         <PillBoxContainer />
       </Box>

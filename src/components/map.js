@@ -5,32 +5,31 @@
 */
 
 import React, { useEffect } from "react";
+import { Card, CardContent, Box } from "@material-ui/core";
 import { Map as GoogleMap, Marker, GoogleApiWrapper } from "google-maps-react";
-import Box from "@material-ui/core/Box";
 import PropTypes from "prop-types";
-import { makeStyles } from "@material-ui/core/styles";
 
 const center = {
   lat: 42.3601,
   lng: -71.0589,
 };
 
-// to-do: fix map styling and positioning
-const mapStyles = {
+const mapStyle = {
   float: "left",
-  width: 1250,
-  height: 550,
+  width: "100%",
+  height: 550, // figure out why it breaks when we remove this or set it to 100%?
+  position: "relative",
 };
 
-const useStyles = makeStyles({
-  root: {
-    maxWidth: 200,
-    minHeight: 550,
-  },
-});
+const mapContainerStyle = {
+  float: "left",
+  width: "100%",
+  // height: "100%",
+  position: "relative",
+};
 
 const Map = ({ loaded, google, locations, fetchLocations }) => {
-  const classes = useStyles();
+  console.log(google);
 
   useEffect(() => {
     if (!locations || !locations.length) {
@@ -40,28 +39,29 @@ const Map = ({ loaded, google, locations, fetchLocations }) => {
 
   return (
     <>
-      {!loaded ? (
-        <div>Loading...</div>
-      ) : (
-        <Box className={classes.root}>
-          <GoogleMap
-            google={google}
-            zoom={13}
-            // containerStyle={mapStyles}
-            // style={mapStyles}
-            initialCenter={center}
-          >
-            {locations.map((location) => {
-              return (
-                <Marker
-                  key={location.id}
-                  position={{ lat: location.lat, lng: location.lng }}
-                />
-              );
-            })}
-          </GoogleMap>
-        </Box>
-      )}
+      <Box border={1}>
+        <Card>
+          <CardContent>
+            <GoogleMap
+              google={google}
+              zoom={13}
+              containerStyle={mapContainerStyle}
+              style={mapStyle}
+              resetBoundsOnResize={true}
+              initialCenter={center}
+            >
+              {locations.map((location) => {
+                return (
+                  <Marker
+                    key={location.id}
+                    position={{ lat: location.lat, lng: location.lng }}
+                  />
+                );
+              })}
+            </GoogleMap>
+          </CardContent>
+        </Card>
+      </Box>
     </>
   );
 };

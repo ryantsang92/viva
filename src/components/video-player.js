@@ -26,14 +26,14 @@ export default class VideoPlayer extends Component {
 
   render() {
     return (
-      <div>
+      <>
         <ReactVideo
           src="http://media.w3.org/2010/05/bunny/movie.mp4"
           poster="https://image.freepik.com/free-vector/colorful-abstract-wallpaper-design_23-2148467625.jpg"
           primaryColor="#278A6E"
           // other props
         />
-      </div>
+      </>
     );
   }
 }

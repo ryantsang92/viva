@@ -13,9 +13,13 @@ import PropTypes from "prop-types";
 const useStyles = makeStyles({
   image: {
     flex: 1,
-    width: null,
-    height: null,
     resizeMode: "contain",
+    width: "100%",
+    height: "auto",
+    maxWidth: 625,
+    marginLeft: "auto",
+    marginRight: "auto",
+    display: "block",
   },
 });
 
@@ -38,6 +42,7 @@ const VideoCard = ({ video }) => {
         alt={video.title}
         onClick={() => imageClick(video.id)}
       />
+      {video.title}
     </Box>
   );
 };

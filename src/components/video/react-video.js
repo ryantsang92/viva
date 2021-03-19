@@ -110,12 +110,6 @@ export const ReactVideo = (props) => {
 
     return `${h}${f}:${seconds}`;
   }
-  function pp() {
-    video.current.requestPictureInPicture();
-    if (props.onRequestPictureInPicture) {
-      props.onRequestPictureInPicture();
-    }
-  }
 
   function setClipboard(text) {
     navigator.clipboard.writeText(text).then(

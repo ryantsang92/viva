@@ -5,17 +5,16 @@
 */
 
 import React from "react";
-import { Card, CardContent, CardHeader, Box } from "@material-ui/core";
+import { Card, CardContent, Box } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { SafeAreaView } from "react-native";
 import VideoGridContainer from "./video-grid-container";
-import VideoPlayer from "./video-player";
 
 // to-do: find a better way to style this
 const useStyles = makeStyles({
   root: {
     maxWidth: 400,
-    minHeight: 550,
+    // minHeight: 550,
   },
 });
 
@@ -28,9 +27,6 @@ const ContentPanel = () => {
           <SafeAreaView>
             <VideoGridContainer />
           </SafeAreaView>
-          {/* <Box>
-            <VideoPlayer />
-          </Box> */}
         </CardContent>
       </Card>
     </Box>
