@@ -6,41 +6,50 @@
 
 import React from "react";
 import defaultVideoImage from "../video-thumbnail.png";
-import { Box } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
+import { View, Image, StyleSheet } from "react-native";
+import { Typography, Box } from "@material-ui/core";
 import PropTypes from "prop-types";
 
-const useStyles = makeStyles({
-  image: {
+const styles = StyleSheet.create({
+  container: {
     flex: 1,
-    resizeMode: "contain",
+    alignItems: "center",
+    justifyContent: "center",
+    height: 170, // see if we can get this to display properly without hard-coding the height
+    backgroundColor: "black",
+  },
+  image: {
     width: "100%",
-    height: "auto",
-    maxWidth: 625,
-    marginLeft: "auto",
-    marginRight: "auto",
-    display: "block",
+    height: "100%",
     cursor: "pointer",
   },
 });
 
 const getThumbnail = (video) => {
-  return video.img || defaultVideoImage;
+  return video.thumbnail || defaultVideoImage;
+};
+
+const getTitle = (video) => {
+  return video.title || "test title";
 };
 
 const VideoCard = ({ video, fetchSelectedVideo }) => {
-  const classes = useStyles();
-
   return (
-    <Box>
-      <img
-        className={classes.image}
-        src={getThumbnail(video)}
-        alt={video.title}
-        onClick={() => fetchSelectedVideo(video)}
-      />
-      {video.title}
-    </Box>
+    <>
+      <Box>
+        <View style={styles.container}>
+          <Image
+            style={styles.image}
+            source={{
+              uri: getThumbnail(video),
+            }}
+            onClick={() => fetchSelectedVideo(video)}
+            resizeMode="cover"
+          />
+        </View>
+      </Box>
+      <Typography>{getTitle(video)}</Typography>
+    </>
   );
 };
 

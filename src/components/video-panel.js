@@ -17,7 +17,9 @@ const useStyles = makeStyles({
   },
   closeIcon: {
     cursor: "pointer",
-    // float: "left",
+    textAlign: "left",
+    display: 'flex',
+    justifyContent: 'flex-start',
   },
 });
 
@@ -29,7 +31,7 @@ const VideoPanel = ({ video, clearSelectedVideo }) => {
     <Box border={1}>
       <Card className={classes.root}>
         <CardContent>
-          <Box flexDirection="row">
+          <Box pb={1}>
             <CloseIcon
               className={classes.closeIcon}
               onClick={() => clearSelectedVideo()}
