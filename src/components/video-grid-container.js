@@ -1,5 +1,5 @@
 /*
-  Pill Box Container
+  Video Grid Container
 
   author: Ryan Tsang <ryan@vivatheapp.com>
 */

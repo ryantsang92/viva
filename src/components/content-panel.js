@@ -5,7 +5,7 @@
 */
 
 import React from "react";
-import { Card, CardContent, CardHeader, Box } from "@material-ui/core";
+import { Card, CardContent, Box } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { SafeAreaView } from "react-native";
 import VideoGridContainer from "./video-grid-container";
@@ -14,7 +14,7 @@ import VideoGridContainer from "./video-grid-container";
 const useStyles = makeStyles({
   root: {
     maxWidth: 400,
-    minHeight: 550,
+    // minHeight: 550,
   },
 });
 
@@ -23,7 +23,6 @@ const ContentPanel = () => {
   return (
     <Box border={1} ml={2}>
       <Card className={classes.root} border={5}>
-        <CardHeader title="Videos" />
         <CardContent>
           <SafeAreaView>
             <VideoGridContainer />
