@@ -7,7 +7,7 @@
 import React from "react";
 import { Grid } from "@material-ui/core";
 import ContentPanel from "./content-panel";
-import MapContainer from "./map-container";
+import MapContainer from "./map/map-container";
 import VideoPanelContainer from "./video-panel-container";
 import { makeStyles } from "@material-ui/core/styles";
 
