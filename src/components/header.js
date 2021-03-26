@@ -16,7 +16,7 @@ const Header = () => {
     <header>
       <img src={logo} alt="VIVA" className="VivaLogo" />
       <Box mt={2} mb={2}>
-        <Typography align="center">Designed to get you out there</Typography>
+        <Typography align="center">Get in. Get out. Get going</Typography>
       </Box>
       <Box mb={1}>
         <SearchBar />

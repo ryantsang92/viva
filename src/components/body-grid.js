@@ -27,7 +27,6 @@ const useStyles = makeStyles({
 });
 
 const BodyGrid = ({ selectedVideo }) => {
-  console.log("BodyGrid");
   const classes = useStyles();
   return (
     <Grid className={classes.grid} container spacing={2}>

@@ -12,8 +12,9 @@ import { ReactVideo } from "./video/react-video";
 
 // to-do: find a better way to style this
 const useStyles = makeStyles({
-  root: {
+  playerArea: {
     maxWidth: 400,
+    borderRadius: "15px"
   },
   closeIcon: {
     cursor: "pointer",
@@ -21,6 +22,9 @@ const useStyles = makeStyles({
     display: 'flex',
     justifyContent: 'flex-start',
   },
+  roundedCorners: {
+    borderRadius: "15px"
+  }
 });
 
 const VideoPanel = ({ video, clearSelectedVideo }) => {
@@ -28,8 +32,8 @@ const VideoPanel = ({ video, clearSelectedVideo }) => {
   console.log(video);
   const classes = useStyles();
   return (
-    <Box border={1}>
-      <Card className={classes.root}>
+    <Box border={1} className={classes.roundedCorners}>
+      <Card className={classes.playerArea}>
         <CardContent>
           <Box pb={1}>
             <CloseIcon

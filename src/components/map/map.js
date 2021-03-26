@@ -4,9 +4,14 @@
   author: Ryan Tsang <ryan@vivatheapp.com>
 */
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Card, CardContent, Box } from "@material-ui/core";
-import { Map as GoogleMap, Marker, GoogleApiWrapper } from "google-maps-react";
+import {
+  Map as GoogleMap,
+  Marker,
+  InfoWindow,
+  GoogleApiWrapper,
+} from "google-maps-react";
 import PropTypes from "prop-types";
 
 const center = {
@@ -28,17 +33,32 @@ const mapContainerStyle = {
   position: "relative",
 };
 
+const roundedCornersStyle = {
+  borderRadius: "15px"
+};
+
 const Map = ({ loaded, google, locations, fetchLocations }) => {
+  const [selectedLocation, setSelectedLocation] = useState(null);
+  console.log(selectedLocation);
+
   useEffect(() => {
     if (!locations || !locations.length) {
       fetchLocations();
     }
   });
 
+  const onMarkerClick = (center) => {
+    console.log("here");
+    setSelectedLocation(center);
+  };
+
   return (
     <>
-      <Box border={1}>
-        <Card>
+      <Box
+        border={1}
+        style={roundedCornersStyle}
+      >
+        <Card style={roundedCornersStyle}>
           <CardContent>
             <GoogleMap
               google={google}
@@ -53,7 +73,23 @@ const Map = ({ loaded, google, locations, fetchLocations }) => {
                   <Marker
                     key={location.id}
                     position={{ lat: location.lat, lng: location.lng }}
-                  />
+                    onClick={() => onMarkerClick(location)}
+                  >
+                    {/* {selectedLocation && ( */}
+                    <InfoWindow
+                      visible
+                      // onCloseClick={() => {
+                      //   setSelectedLocation(null);
+                      // }}
+                      position={{
+                        lat: location.lat,
+                        lng: location.lng,
+                      }}
+                    >
+                      <h4>test</h4>
+                    </InfoWindow>
+                    {/* )} */}
+                  </Marker>
                 );
               })}
             </GoogleMap>
