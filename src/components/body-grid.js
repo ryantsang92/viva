@@ -6,9 +6,9 @@
 
 import React from "react";
 import { Grid } from "@material-ui/core";
-import ContentPanel from "./content-panel";
+import ContentPanel from "./content-panel/content-panel";
 import MapContainer from "./map/map-container";
-import VideoPanelContainer from "./video-panel-container";
+import VideoPanelContainer from "./video-player-panel/video-player-panel-container";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles({

@@ -5,8 +5,8 @@
 */
 
 import { connect } from "react-redux";
-import { clearSelectedVideo } from "../actions/video-actions";
-import VideoPanel from "./video-panel";
+import { clearSelectedVideo } from "../../actions/video-actions";
+import VideoPanel from "./video-player-panel";
 
 const mapDispatchToProps = (dispatch) => ({
     clearSelectedVideo: () => dispatch(clearSelectedVideo()),
