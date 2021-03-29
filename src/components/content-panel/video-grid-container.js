@@ -6,12 +6,19 @@
 
 import { connect } from "react-redux";
 import { fetchVideos } from "../../actions/video-actions";
-import { selectVideoData } from "../../selectors/video-selectors";
+import { selectSelectedHashtag } from "../../selectors/hashtag-selectors";
+import {
+  selectVideoData,
+  selectVideosByHashtag,
+} from "../../selectors/video-selectors";
 import VideoGrid from "./video-grid";
 
 const mapStateToProps = (state) => {
+  const selectedHashtag = selectSelectedHashtag(state);
   return {
-    videos: selectVideoData(state).videos,
+    videos: selectedHashtag
+      ? selectVideosByHashtag(state, selectedHashtag)
+      : selectVideoData(state).videos,
     // to-do: find a way to do optional chaining
     // hashtags: selectVideoData(state)?.videos,
   };

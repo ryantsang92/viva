@@ -19,3 +19,11 @@ export const selectVideoError = (state) => {
 export const selectSelectedVideo = (state) => {
   return selectVideoData(state).selectedVideo;
 };
+
+export const selectVideosByHashtag = (state, hashtag) => {
+  return state
+    ? state.videoData.videos.filter((video) =>
+        video.hash_ids ? video.hash_ids.includes(hashtag.id) : null
+      )
+    : null;
+};

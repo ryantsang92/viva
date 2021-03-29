@@ -8,6 +8,7 @@ import { endpoint } from "../app-constants";
 export const FETCH_HASHTAG_IS_LOADING = "FETCH_HASHTAG_IS_LOADING";
 export const FETCH_HASHTAG_SUCCESS = "FETCH_HASHTAG_SUCCESS";
 export const FETCH_HASHTAG_ERROR = "FETCH_HASHTAG_ERROR";
+export const FETCH_SELECTED_HASHTAG = "FETCH_SELECTED_HASHTAG";
 
 const requestOptions = {
   method: "GET",
@@ -56,5 +57,12 @@ const fetchError = (error) => {
   return {
     type: FETCH_HASHTAG_ERROR,
     error: error,
+  };
+};
+
+export const fetchSelectedHashtag = (data) => {
+  return {
+    type: FETCH_SELECTED_HASHTAG,
+    data,
   };
 };

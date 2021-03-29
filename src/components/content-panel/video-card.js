@@ -44,6 +44,11 @@ const getTitle = (video) => {
 
 const VideoCard = ({ video, fetchSelectedVideo }) => {
   const classes = useStyles();
+
+  const handleClick = (video) => {
+    fetchSelectedVideo(video);
+  }
+
   return (
     <>
       <Box border={1} className={classes.roundedCorners}>
@@ -53,7 +58,7 @@ const VideoCard = ({ video, fetchSelectedVideo }) => {
             source={{
               uri: getThumbnail(video),
             }}
-            onClick={() => fetchSelectedVideo(video)}
+            onClick={() => handleClick(video)}
             resizeMode="cover"
           />
         </View>

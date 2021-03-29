@@ -7,6 +7,7 @@
 import {
   FETCH_HASHTAG_IS_LOADING,
   FETCH_HASHTAG_SUCCESS,
+  FETCH_SELECTED_HASHTAG,
 } from "../actions/hashtag-actions";
 
 const initialState = {
@@ -26,6 +27,11 @@ const hashtagReducer = (state = initialState, action) => {
       return {
         ...state,
         hashtags: action.payload,
+      };
+    case FETCH_SELECTED_HASHTAG:
+      return {
+        ...state,
+        selectedHashtag: action.data,
       };
     default:
       return state;

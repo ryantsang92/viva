@@ -6,7 +6,7 @@
 
 import React from "react";
 import { Grid } from "@material-ui/core";
-import ContentPanel from "./content-panel/content-panel";
+import ContentPanelContainer from "./content-panel/content-panel-container";
 import MapContainer from "./map/map-container";
 import VideoPanelContainer from "./video-player-panel/video-player-panel-container";
 import { makeStyles } from "@material-ui/core/styles";
@@ -27,11 +27,13 @@ const useStyles = makeStyles({
 });
 
 const BodyGrid = ({ selectedVideo }) => {
+  console.log('selectedVideo');
+  console.log(selectedVideo);
   const classes = useStyles();
   return (
     <Grid className={classes.grid} container spacing={2}>
       <Grid item className={classes.contentPanel}>
-        <ContentPanel />
+        <ContentPanelContainer />
       </Grid>
       {selectedVideo && (
         <Grid item className={classes.videoPanel}>
@@ -41,11 +43,6 @@ const BodyGrid = ({ selectedVideo }) => {
       <Grid item xs>
         <MapContainer />
       </Grid>
-      {/* {selectedVideo && (
-        <Grid item className={classes.videoPanel}>
-          <VideoPanelContainer video={selectedVideo} />
-        </Grid>
-      )} */}
     </Grid>
   );
 };

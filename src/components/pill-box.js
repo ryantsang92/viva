@@ -19,12 +19,13 @@ const useStyles = makeStyles({
   },
 });
 
-const PillBox = ({ hashtags, fetchHashtags }) => {
+const PillBox = ({ hashtags, fetchHashtags, fetchSelectedHashtag }) => {
   const classes = useStyles();
   const [selectedHashtag, setSelectedHashtag] = useState(null);
 
   const handleChange = (event, hashtag) => {
     setSelectedHashtag(hashtag);
+    fetchSelectedHashtag(hashtag);
   };
 
   useEffect(() => {
@@ -45,7 +46,7 @@ const PillBox = ({ hashtags, fetchHashtags }) => {
         >
           <ToggleButton
             name="radio"
-            value={hashtag.id}
+            value={hashtag}
             border={1}
             className={classes.pill}
           >
@@ -60,11 +61,13 @@ const PillBox = ({ hashtags, fetchHashtags }) => {
 PillBox.propTypes = {
   hashtags: PropTypes.array,
   fetchHashtags: PropTypes.func,
+  fetchSelectedHashtag: PropTypes.func,
 };
 
 PillBox.defaultProps = {
   hashtags: [],
   fetchHashtags() {},
+  fetchSelectedHashtag() {},
 };
 
 export default PillBox;
