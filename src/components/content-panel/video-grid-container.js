@@ -5,8 +5,8 @@
 */
 
 import { connect } from "react-redux";
-import { fetchVideos } from "../actions/video-actions";
-import { selectVideoData } from "../selectors/video-selectors";
+import { fetchVideos } from "../../actions/video-actions";
+import { selectVideoData } from "../../selectors/video-selectors";
 import VideoGrid from "./video-grid";
 
 const mapStateToProps = (state) => {

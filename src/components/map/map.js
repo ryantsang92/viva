@@ -59,26 +59,6 @@ const Map = ({ loaded, google, locations, fetchLocations }) => {
     }
   });
 
-  const markerClickHandler = (event, location) => {
-    console.log(location);
-    setSelectedLocation(location);
-
-    // Required so clicking a 2nd marker works as expected
-    if (infoOpen) {
-      setInfoOpen(false);
-    }
-
-    setInfoOpen(true);
-
-    // If you want to zoom in a little on marker click
-    if (zoom < 15) {
-      setZoom(15);
-    }
-
-    // if you want to center the selected Marker
-    setCenter({ lat: location.lat, lng: location.lng });
-  };
-
   const onMarkerClick = (marker) => {
     if (zoom < 15) {
       setZoom(15);
@@ -90,11 +70,11 @@ const Map = ({ loaded, google, locations, fetchLocations }) => {
   };
 
   //throws CORS error when referenced
-  const onInfoWindowClose = () => {
-    console.log("onInfoWindowClose");
-    setSelectedMarker(null);
-    setInfoOpen(false);
-  };
+  // const onInfoWindowClose = () => {
+  //   console.log("onInfoWindowClose");
+  //   setSelectedMarker(null);
+  //   setInfoOpen(false);
+  // };
 
   return (
     <>

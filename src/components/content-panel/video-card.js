@@ -5,7 +5,7 @@
 */
 
 import React from "react";
-import defaultVideoImage from "../video-thumbnail.png";
+import defaultVideoImage from "./video-thumbnail.png";
 import { View, Image, StyleSheet } from "react-native";
 import { Typography, Box } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";

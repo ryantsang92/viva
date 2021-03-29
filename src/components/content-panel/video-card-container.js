@@ -5,7 +5,7 @@
 */
 
 import { connect } from "react-redux";
-import { fetchSelectedVideo } from "../actions/video-actions";
+import { fetchSelectedVideo } from "../../actions/video-actions";
 import VideoCard from "./video-card";
 
 const mapDispatchToProps = (dispatch) => ({
