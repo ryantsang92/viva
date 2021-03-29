@@ -14,6 +14,7 @@ import VideoGrid from "./video-grid";
 
 const mapStateToProps = (state, ownProps) => {
   return {
+    videoData: selectVideoData(state),
     videos: ownProps.selectedHashtag
       ? selectVideosByHashtag(state, ownProps.selectedHashtag)
       : selectVideoData(state).videos,

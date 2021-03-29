@@ -5,7 +5,7 @@
 */
 
 import React from "react";
-import { Card, CardContent, Box, Typography } from "@material-ui/core";
+import { Card, CardContent, Box } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { SafeAreaView } from "react-native";
 import VideoGridContainer from "./video-grid-container";
@@ -17,6 +17,9 @@ const useStyles = makeStyles({
     maxWidth: 400,
     borderRadius: "15px",
   },
+  title: {
+    fontWeight: "bold",
+  },
 });
 
 const ContentPanel = ({ selectedHashtag }) => {
@@ -27,7 +30,9 @@ const ContentPanel = ({ selectedHashtag }) => {
         <CardContent>
           <SafeAreaView>
             {selectedHashtag && (
-              <Typography>{selectedHashtag.hashtag}</Typography>
+              <Box className={classes.title} pb={2}>
+                {selectedHashtag.hashtag}
+              </Box>
             )}
             <VideoGridContainer selectedHashtag={selectedHashtag} />
           </SafeAreaView>
