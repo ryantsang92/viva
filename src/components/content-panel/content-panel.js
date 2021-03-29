@@ -9,6 +9,7 @@ import { Card, CardContent, Box, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { SafeAreaView } from "react-native";
 import VideoGridContainer from "./video-grid-container";
+import PropTypes from "prop-types";
 
 // to-do: find a better way to style this
 const useStyles = makeStyles({
@@ -28,12 +29,20 @@ const ContentPanel = ({ selectedHashtag }) => {
             {selectedHashtag && (
               <Typography>{selectedHashtag.hashtag}</Typography>
             )}
-            <VideoGridContainer />
+            <VideoGridContainer selectedHashtag={selectedHashtag} />
           </SafeAreaView>
         </CardContent>
       </Card>
     </Box>
   );
+};
+
+ContentPanel.propTypes = {
+  selectedHashtag: PropTypes.object,
+};
+
+ContentPanel.defaultProps = {
+  selectedHashtag: null,
 };
 
 export default ContentPanel;

@@ -42,12 +42,13 @@ const getTitle = (video) => {
   return video.title || "test title";
 };
 
-const VideoCard = ({ video, fetchSelectedVideo }) => {
+const VideoCard = ({ video, clearSelectedVideo, fetchSelectedVideo }) => {
   const classes = useStyles();
 
   const handleClick = (video) => {
+    clearSelectedVideo();
     fetchSelectedVideo(video);
-  }
+  };
 
   return (
     <>
@@ -70,10 +71,14 @@ const VideoCard = ({ video, fetchSelectedVideo }) => {
 
 VideoCard.propTypes = {
   video: PropTypes.object,
+  clearSelectedVideo: PropTypes.func,
+  fetchSelectedVideo: PropTypes.func,
 };
 
 VideoCard.defaultProps = {
   video: {},
+  clearSelectedVideo() {},
+  fetchSelectedVideo() {},
 };
 
 export default VideoCard;

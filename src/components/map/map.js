@@ -108,7 +108,9 @@ const Map = ({ loaded, google, locations, fetchLocations }) => {
               >
                 <Box className={classes.infoWindow}>
                   <h6>{selectedLocation.name}</h6>
-                  <Typography fontFamily="Arial">{selectedLocation.address_full}</Typography>
+                  <Typography fontFamily="Arial">
+                    {selectedLocation.address_full}
+                  </Typography>
                   <Typography>
                     <a
                       href={selectedLocation.website}
@@ -130,11 +132,13 @@ const Map = ({ loaded, google, locations, fetchLocations }) => {
 Map.propTypes = {
   google: PropTypes.object,
   locations: PropTypes.array,
+  fetchLocations: PropTypes.func,
 };
 
 Map.defaultProps = {
   google: {},
   locations: [],
+  fetchLocations() {},
 };
 
 export default GoogleApiWrapper({
