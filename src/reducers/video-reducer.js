@@ -29,6 +29,7 @@ const hashtagReducer = (state = initialState, action) => {
       return {
         ...state,
         videos: action.payload,
+        isLoading: false,
       };
     case FETCH_SELECTED_VIDEO_SUCCESS:
       return {

@@ -27,6 +27,7 @@ const hashtagReducer = (state = initialState, action) => {
       return {
         ...state,
         hashtags: action.payload,
+        isLoading: false,
       };
     case FETCH_SELECTED_HASHTAG:
       return {
