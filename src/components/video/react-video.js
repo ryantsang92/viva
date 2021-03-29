@@ -19,7 +19,7 @@ import PropTypes from "prop-types";
 import "./Video.css";
 import Tooltip from "@material-ui/core/Tooltip";
 
-export const ReactVideo = (props) => {
+const ReactVideo = (props) => {
   const [playing, setplaying] = useState(false);
   const video = useRef(null);
   const div = useRef(null);

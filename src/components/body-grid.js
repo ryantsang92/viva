@@ -17,8 +17,8 @@ const useStyles = makeStyles({
     maxWidth: 400,
   },
   videoPanel: {
-    minWidth: 400,
-    maxWidth: 400,
+    minWidth: 500,
+    maxWidth: 500,
   },
   grid: {
     width: "100%",
@@ -33,14 +33,19 @@ const BodyGrid = ({ selectedVideo }) => {
       <Grid item className={classes.contentPanel}>
         <ContentPanel />
       </Grid>
-      <Grid item xs>
-        <MapContainer />
-      </Grid>
       {selectedVideo && (
         <Grid item className={classes.videoPanel}>
           <VideoPanelContainer video={selectedVideo} />
         </Grid>
       )}
+      <Grid item xs>
+        <MapContainer />
+      </Grid>
+      {/* {selectedVideo && (
+        <Grid item className={classes.videoPanel}>
+          <VideoPanelContainer video={selectedVideo} />
+        </Grid>
+      )} */}
     </Grid>
   );
 };

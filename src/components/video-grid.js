@@ -29,7 +29,7 @@ const VideoGrid = ({ videos, fetchVideos }) => {
   return (
     <GridList className={classes.videoContainer} cellHeight={200} cols={2}>
       {videos.map((video) => (
-        <GridListTile key={video.img} cols={1}>
+        <GridListTile key={video.id} cols={1}>
           <VideoCardContainer video={video} />
         </GridListTile>
       ))}
