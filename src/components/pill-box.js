@@ -14,7 +14,7 @@ const useStyles = makeStyles({
   pill: {
     marginLeft: 2,
     marginRight: 2,
-    borderRadius: 16,
+    borderRadius: "15px",
     backgroundColor: "#F2F2F2",
     color: "#333333",
   },
@@ -32,21 +32,19 @@ const PillBox = ({ hashtags, fetchHashtags }) => {
 
   return (
     <>
-      {hashtags.map((radio, idx) => (
-        <ButtonGroup toggle>
+      {hashtags.map((hashtag) => (
+        <ButtonGroup toggle key={hashtag.id}>
           <ToggleButton
-            key={idx}
             type="radio"
             variant="secondary"
             name="radio"
-            value={radio.id}
-            checked={radioValue === radio.id}
+            value={hashtag.id}
+            checked={radioValue === hashtag.id}
             onChange={(e) => setRadioValue(e.currentTarget.value)}
             border={1}
-            borderColor="#737373"
             className={classes.pill}
           >
-            {radio.hashtag}
+            {hashtag.hashtag}
           </ToggleButton>
         </ButtonGroup>
       ))}

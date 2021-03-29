@@ -5,15 +5,16 @@
 */
 
 import React from "react";
-import { Card, CardContent, Box } from "@material-ui/core";
+import { Card, CardContent, Box, Typography } from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
 import { makeStyles } from "@material-ui/core/styles";
-import { ReactVideo } from "./video/react-video";
+import ReactVideo from "./video/react-video";
 
 // to-do: find a better way to style this
 const useStyles = makeStyles({
-  root: {
-    maxWidth: 400,
+  playerArea: {
+    maxWidth: 500,
+    borderRadius: "15px"
   },
   closeIcon: {
     cursor: "pointer",
@@ -21,6 +22,9 @@ const useStyles = makeStyles({
     display: 'flex',
     justifyContent: 'flex-start',
   },
+  roundedCorners: {
+    borderRadius: "15px"
+  }
 });
 
 const VideoPanel = ({ video, clearSelectedVideo }) => {
@@ -28,8 +32,8 @@ const VideoPanel = ({ video, clearSelectedVideo }) => {
   console.log(video);
   const classes = useStyles();
   return (
-    <Box border={1}>
-      <Card className={classes.root}>
+    <Box border={1} className={classes.roundedCorners}>
+      <Card className={classes.playerArea}>
         <CardContent>
           <Box pb={1}>
             <CloseIcon
@@ -40,10 +44,12 @@ const VideoPanel = ({ video, clearSelectedVideo }) => {
           <Box>
             <ReactVideo
               src={video.url}
-              poster="https://image.freepik.com/free-vector/colorful-abstract-wallpaper-design_23-2148467625.jpg"
+              poster={video.thumbnail}
               primaryColor="#278A6E"
-              // other props
+              // autoPlay
             />
+            <Typography>{video.title}</Typography>
+            <Typography>{video.description}</Typography>
           </Box>
         </CardContent>
       </Card>

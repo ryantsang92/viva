@@ -5,8 +5,8 @@
 */
 
 import { connect } from "react-redux";
-import { fetchLocations } from "../actions/location-actions";
-import { selectLocationData } from "../selectors/location-selectors";
+import { fetchLocations } from "../../actions/location-actions";
+import { selectLocationData } from "../../selectors/location-selectors";
 import Map from "./map";
 
 const mapStateToProps = (state) => {

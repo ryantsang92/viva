@@ -14,14 +14,14 @@ import VideoGridContainer from "./video-grid-container";
 const useStyles = makeStyles({
   root: {
     maxWidth: 400,
-    // minHeight: 550,
+    borderRadius: "15px",
   },
 });
 
 const ContentPanel = () => {
   const classes = useStyles();
   return (
-    <Box border={1} ml={2}>
+    <Box border={1} ml={2} className={classes.root}>
       <Card className={classes.root} border={5}>
         <CardContent>
           <SafeAreaView>
