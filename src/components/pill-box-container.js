@@ -5,7 +5,10 @@
 */
 
 import { connect } from "react-redux";
-import { fetchHashtags } from "../actions/hashtag-actions";
+import {
+  fetchHashtags,
+  fetchSelectedHashtag,
+} from "../actions/hashtag-actions";
 import { selectHashtagData } from "../selectors/hashtag-selectors";
 import PillBox from "./pill-box";
 
@@ -19,6 +22,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => ({
   fetchHashtags: () => dispatch(fetchHashtags()),
+  fetchSelectedHashtag: (hashtag) => dispatch(fetchSelectedHashtag(hashtag)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PillBox);

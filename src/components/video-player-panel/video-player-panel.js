@@ -9,6 +9,7 @@ import { Card, CardContent, Box, Typography } from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
 import { makeStyles } from "@material-ui/core/styles";
 import ReactVideo from "./video-player/react-video";
+import PropTypes from "prop-types";
 
 // to-do: find a better way to style this
 const useStyles = makeStyles({
@@ -55,6 +56,16 @@ const VideoPanel = ({ video, clearSelectedVideo }) => {
       </Card>
     </Box>
   );
+};
+
+VideoPanel.propTypes = {
+  video: PropTypes.object,
+  clearSelectedVideo: PropTypes.func,
+};
+
+VideoPanel.defaultProps = {
+  video: {},
+  clearSelectedVideo() {},
 };
 
 export default VideoPanel;

@@ -15,3 +15,7 @@ export const selectHashtagIsFetching = (state) => {
 export const selectHashtagError = (state) => {
   return selectHashtagData(state).error;
 };
+
+export const selectSelectedHashtag = (state) => {
+  return selectHashtagData(state).selectedHashtag;
+};

@@ -5,11 +5,15 @@
 */
 
 import { connect } from "react-redux";
-import { fetchSelectedVideo } from "../../actions/video-actions";
+import {
+  fetchSelectedVideo,
+  clearSelectedVideo,
+} from "../../actions/video-actions";
 import VideoCard from "./video-card";
 
 const mapDispatchToProps = (dispatch) => ({
-    fetchSelectedVideo: (id) => dispatch(fetchSelectedVideo(id)),
+  clearSelectedVideo: () => dispatch(clearSelectedVideo()),
+  fetchSelectedVideo: (video) => dispatch(fetchSelectedVideo(video)),
 });
 
 export default connect(null, mapDispatchToProps)(VideoCard);

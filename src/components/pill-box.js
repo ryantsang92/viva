@@ -6,8 +6,7 @@
 
 import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import ButtonGroup from "react-bootstrap/ButtonGroup";
-import ToggleButton from "react-bootstrap/ToggleButton";
+import { ToggleButtonGroup, ToggleButton } from "@material-ui/lab";
 import PropTypes from "prop-types";
 
 const useStyles = makeStyles({
@@ -20,9 +19,14 @@ const useStyles = makeStyles({
   },
 });
 
-const PillBox = ({ hashtags, fetchHashtags }) => {
+const PillBox = ({ hashtags, fetchHashtags, fetchSelectedHashtag }) => {
   const classes = useStyles();
-  const [radioValue, setRadioValue] = useState(null);
+  const [selectedHashtag, setSelectedHashtag] = useState(null);
+
+  const handleChange = (event, hashtag) => {
+    setSelectedHashtag(hashtag);
+    fetchSelectedHashtag(hashtag);
+  };
 
   useEffect(() => {
     if (!hashtags || !hashtags.length) {
@@ -33,20 +37,22 @@ const PillBox = ({ hashtags, fetchHashtags }) => {
   return (
     <>
       {hashtags.map((hashtag) => (
-        <ButtonGroup toggle key={hashtag.id}>
+        <ToggleButtonGroup
+          size="small"
+          value={selectedHashtag}
+          exclusive
+          onChange={handleChange}
+          key={hashtag.id}
+        >
           <ToggleButton
-            type="radio"
-            variant="secondary"
             name="radio"
-            value={hashtag.id}
-            checked={radioValue === hashtag.id}
-            onChange={(e) => setRadioValue(e.currentTarget.value)}
+            value={hashtag}
             border={1}
             className={classes.pill}
           >
             {hashtag.hashtag}
           </ToggleButton>
-        </ButtonGroup>
+        </ToggleButtonGroup>
       ))}
     </>
   );
@@ -55,11 +61,13 @@ const PillBox = ({ hashtags, fetchHashtags }) => {
 PillBox.propTypes = {
   hashtags: PropTypes.array,
   fetchHashtags: PropTypes.func,
+  fetchSelectedHashtag: PropTypes.func,
 };
 
 PillBox.defaultProps = {
   hashtags: [],
   fetchHashtags() {},
+  fetchSelectedHashtag() {},
 };
 
 export default PillBox;
