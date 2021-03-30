@@ -9,11 +9,12 @@ import {
   fetchHashtags,
   fetchSelectedHashtag,
 } from "../actions/hashtag-actions";
-import { selectHashtagData } from "../selectors/hashtag-selectors";
+import { selectHashtagData, selectSelectedHashtag } from "../selectors/hashtag-selectors";
 import PillBox from "./pill-box";
 
 const mapStateToProps = (state) => {
   return {
+    selectedHashtag: selectSelectedHashtag(state),
     hashtags: selectHashtagData(state).hashtags,
     // to-do: find a way to do optional chaining
     // hashtags: selectHashtagData(state)?.hashtags,
