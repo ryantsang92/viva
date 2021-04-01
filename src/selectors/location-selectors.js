@@ -18,6 +18,11 @@ export const selectLocationError = (state) => {
   return selectLocationData(state).error;
 };
 
+export const selectSelectedLocation = (state) => {
+  const locationData = selectLocationData(state);
+  return locationData ? locationData.selectedLocation : null;
+}
+
 export const selectLocationsByHashtag = (state, hashtag) => {
   const selectedVideos = selectVideosByHashtag(state, hashtag);
   let combinedHashtags = [];

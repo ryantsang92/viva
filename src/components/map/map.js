@@ -40,18 +40,20 @@ const mapContainerStyle = {
   position: "relative",
 };
 
-const roundedCornersStyle = {
-  borderRadius: "15px",
-};
-
-const Map = ({ loaded, google, locations, fetchLocations }) => {
+const Map = ({
+  loaded,
+  google,
+  locations,
+  selectedLocation,
+  fetchLocations,
+  saveSelectedLocation,
+  clearSelectedLocation,
+}) => {
   const classes = useStyles();
 
-  const [selectedLocation, setSelectedLocation] = useState({});
   const [center, setCenter] = useState(initialCenter);
   const [zoom, setZoom] = useState(13);
   const [infoOpen, setInfoOpen] = useState(false);
-  const [selectedMarker, setSelectedMarker] = useState({});
 
   useEffect(() => {
     if (!locations || !locations.length) {
@@ -64,17 +66,16 @@ const Map = ({ loaded, google, locations, fetchLocations }) => {
       setZoom(15);
     }
     setCenter(marker.position);
-    setSelectedMarker(marker);
-    setSelectedLocation(marker.markerData);
+    saveSelectedLocation(marker.markerData);
     setInfoOpen(true);
   };
 
   //throws CORS error when referenced
-  // const onInfoWindowClose = () => {
-  //   console.log("onInfoWindowClose");
-  //   setSelectedMarker(null);
-  //   setInfoOpen(false);
-  // };
+  const onInfoWindowClose = () => {
+    setInfoOpen(false);
+    clearSelectedLocation();
+    setZoom(13);
+  };
 
   return (
     <GoogleMap
@@ -97,26 +98,28 @@ const Map = ({ loaded, google, locations, fetchLocations }) => {
           />
         );
       })}
-      <InfoWindow
-        position={selectedMarker.position}
-        visible={infoOpen}
-        // onClose={onInfoWindowClose}
-      >
-        <Box className={classes.infoWindow}>
-          <h6>{selectedLocation.name}</h6>
-          <Typography fontFamily="Arial">
-            {selectedLocation.address_full}
-          </Typography>
-          <Typography>
-            <a
-              href={selectedLocation.website}
-              target={selectedLocation.website}
-            >
-              {selectedLocation.website}
-            </a>
-          </Typography>
-        </Box>
-      </InfoWindow>
+      {selectedLocation && (
+        <InfoWindow
+          position={{ lat: selectedLocation.lat, lng: selectedLocation.lng }}
+          visible={infoOpen}
+          onClose={onInfoWindowClose}
+        >
+          <Box className={classes.infoWindow}>
+            <h6>{selectedLocation.name}</h6>
+            <Typography fontFamily="Arial">
+              {selectedLocation.address_full}
+            </Typography>
+            <Typography>
+              <a
+                href={selectedLocation.website}
+                target={selectedLocation.website}
+              >
+                {selectedLocation.website}
+              </a>
+            </Typography>
+          </Box>
+        </InfoWindow>
+      )}
     </GoogleMap>
   );
 };
@@ -124,13 +127,17 @@ const Map = ({ loaded, google, locations, fetchLocations }) => {
 Map.propTypes = {
   google: PropTypes.object,
   locations: PropTypes.array,
+  selectedLocation: PropTypes.object,
   fetchLocations: PropTypes.func,
+  saveSelectedLocation: PropTypes.func,
 };
 
 Map.defaultProps = {
   google: {},
   locations: [],
+  selectedLocation: null,
   fetchLocations() {},
+  saveSelectedLocation() {},
 };
 
 export default GoogleApiWrapper({
