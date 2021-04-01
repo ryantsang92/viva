@@ -5,7 +5,7 @@
 */
 
 import React, { useEffect, useState } from "react";
-import { Box, Typography } from "@material-ui/core";
+import { Box, Typography, Divider, Button } from "@material-ui/core";
 import MapPinDefault from "../../assets/map-pin-default.png";
 import {
   Map as GoogleMap,
@@ -34,14 +34,13 @@ const initialCenter = {
 const mapStyle = {
   float: "left",
   width: "100%",
-  height: 550, // figure out why it breaks when we remove this or set it to 100%?
+  height: 550,
   position: "relative",
 };
 
 const mapContainerStyle = {
   float: "left",
   width: "100%",
-  // height: "100%",
   position: "relative",
 };
 
@@ -83,10 +82,16 @@ const Map = ({
     clearSelectedLocation();
   };
 
+  const onRelatedVideosClick = (e) => {
+    e.preventDefault();
+    console.log("onRelatedVideosClick");
+  };
+
   return (
     <GoogleMap
       google={google}
       zoom={zoom}
+      disableDefaultUI
       containerStyle={mapContainerStyle}
       style={mapStyle}
       resetBoundsOnResize={true}
@@ -104,9 +109,7 @@ const Map = ({
             onClick={onMarkerClick}
             icon={{
               url: MapPinDefault,
-              // size: { width: 24, height: 24 },
               scaledSize: new google.maps.Size(24, 24),
-              anchor: new google.maps.Point(5, 58),
             }}
           />
         );
@@ -130,6 +133,14 @@ const Map = ({
                 {selectedLocation.website}
               </a>
             </Typography>
+            {/* <Box pt={1} pb={1}>
+                <Divider />
+              </Box>
+              <Typography>
+                <a href="#" onClick={onRelatedVideosClick}>
+                  See related videos
+                </a>
+              </Typography> */}
           </Box>
         </InfoWindow>
       )}
