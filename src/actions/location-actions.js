@@ -8,6 +8,8 @@ import { endpoint } from "../app-constants";
 export const FETCH_LOCATION_IS_LOADING = "FETCH_LOCATION_IS_LOADING";
 export const FETCH_LOCATION_SUCCESS = "FETCH_LOCATION_SUCCESS";
 export const FETCH_LOCATION_ERROR = "FETCH_LOCATION_ERROR";
+export const SAVE_SELECTED_LOCATION = "SAVE_SELECTED_LOCATION";
+export const CLEAR_SELECTED_LOCATION = "CLEAR_SELECTED_LOCATION";
 
 const requestOptions = {
   method: "GET",
@@ -58,3 +60,16 @@ const fetchError = (error) => {
     error: error,
   };
 };
+
+export const saveSelectedLocation = (data) => {
+  return {
+    type: SAVE_SELECTED_LOCATION,
+    data,
+  };
+};
+
+export const clearSelectedLocation = () => {
+  return {
+    type: CLEAR_SELECTED_LOCATION,
+  };
+}

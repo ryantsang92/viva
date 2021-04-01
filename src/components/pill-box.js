@@ -4,7 +4,7 @@
   author: Ryan Tsang <ryan@vivatheapp.com>
 */
 
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { ToggleButtonGroup, ToggleButton } from "@material-ui/lab";
 import PropTypes from "prop-types";
@@ -19,12 +19,15 @@ const useStyles = makeStyles({
   },
 });
 
-const PillBox = ({ hashtags, fetchHashtags, fetchSelectedHashtag }) => {
+const PillBox = ({
+  hashtags,
+  selectedHashtag,
+  fetchHashtags,
+  fetchSelectedHashtag,
+}) => {
   const classes = useStyles();
-  const [selectedHashtag, setSelectedHashtag] = useState(null);
 
   const handleChange = (event, hashtag) => {
-    setSelectedHashtag(hashtag);
     fetchSelectedHashtag(hashtag);
   };
 

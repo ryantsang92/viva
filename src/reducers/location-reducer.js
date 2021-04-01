@@ -7,6 +7,8 @@
 import {
   FETCH_LOCATION_IS_LOADING,
   FETCH_LOCATION_SUCCESS,
+  SAVE_SELECTED_LOCATION,
+  CLEAR_SELECTED_LOCATION,
 } from "../actions/location-actions";
 
 const initialState = {
@@ -26,6 +28,16 @@ const locationReducer = (state = initialState, action) => {
       return {
         ...state,
         locations: action.payload,
+      };
+    case SAVE_SELECTED_LOCATION:
+      return {
+        ...state,
+        selectedLocation: action.data,
+      };
+    case CLEAR_SELECTED_LOCATION:
+      return {
+        ...state,
+        selectedLocation: null,
       };
     default:
       return state;
