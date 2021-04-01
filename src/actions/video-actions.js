@@ -8,7 +8,7 @@ import { endpoint } from "../app-constants";
 export const FETCH_VIDEO_IS_LOADING = "FETCH_VIDEO_IS_LOADING";
 export const FETCH_VIDEO_SUCCESS = "FETCH_VIDEO_SUCCESS";
 export const FETCH_VIDEO_ERROR = "FETCH_VIDEO_ERROR";
-export const FETCH_SELECTED_VIDEO_SUCCESS = "FETCH_SELECTED_VIDEO_SUCCESS";
+export const SAVE_SELECTED_VIDEO = "SAVE_SELECTED_VIDEO";
 export const CLEAR_SELECTED_VIDEO = "CLEAR_SELECTED_VIDEO";
 
 const requestOptions = {
@@ -61,9 +61,9 @@ const fetchError = (error) => {
   };
 };
 
-export const fetchSelectedVideo = (data) => {
+export const saveSelectedVideo = (data) => {
   return {
-    type: FETCH_SELECTED_VIDEO_SUCCESS,
+    type: SAVE_SELECTED_VIDEO,
     data,
   };
 };

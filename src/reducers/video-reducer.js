@@ -7,7 +7,7 @@
 import {
   FETCH_VIDEO_IS_LOADING,
   FETCH_VIDEO_SUCCESS,
-  FETCH_SELECTED_VIDEO_SUCCESS,
+  SAVE_SELECTED_VIDEO,
   CLEAR_SELECTED_VIDEO,
 } from "../actions/video-actions";
 
@@ -31,7 +31,7 @@ const hashtagReducer = (state = initialState, action) => {
         videos: action.payload,
         isLoading: false,
       };
-    case FETCH_SELECTED_VIDEO_SUCCESS:
+    case SAVE_SELECTED_VIDEO:
       return {
         ...state,
         selectedVideo: action.data,
