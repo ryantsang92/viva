@@ -6,6 +6,7 @@
 
 import React, { useEffect, useState } from "react";
 import { Box, Typography } from "@material-ui/core";
+import MapPinDefault from "../../assets/map-pin-default.png";
 import {
   Map as GoogleMap,
   Marker,
@@ -18,6 +19,10 @@ import { makeStyles } from "@material-ui/core/styles";
 const useStyles = makeStyles({
   infoWindow: {
     textAlign: "left",
+  },
+  marker: {
+    height: 24,
+    width: 24,
   },
 });
 
@@ -91,11 +96,18 @@ const Map = ({
       {locations.map((location) => {
         return (
           <Marker
+            className={classes.marker}
             name={location.id}
             key={location.id}
             markerData={location}
             position={{ lat: location.lat, lng: location.lng }}
             onClick={onMarkerClick}
+            icon={{
+              url: MapPinDefault,
+              // size: { width: 24, height: 24 },
+              scaledSize: new google.maps.Size(24, 24),
+              anchor: new google.maps.Point(5, 58),
+            }}
           />
         );
       })}
