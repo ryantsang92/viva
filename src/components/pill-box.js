@@ -35,7 +35,7 @@ const PillBox = ({
     if (!hashtags || !hashtags.length) {
       fetchHashtags();
     }
-  });
+  }, [hashtags]);
 
   return (
     <>

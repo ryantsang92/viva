@@ -42,12 +42,20 @@ const getTitle = (video) => {
   return video.title || "test title";
 };
 
-const VideoCard = ({ video, clearSelectedVideo, fetchSelectedVideo }) => {
+const VideoCard = ({
+  video,
+  associatedLocation,
+  saveSelectedLocation,
+  clearSelectedVideo,
+  saveSelectedVideo,
+}) => {
   const classes = useStyles();
 
-  const handleClick = (video) => {
+  const handleClick = (video, associatedLocation) => {
+    console.log(associatedLocation);
     clearSelectedVideo();
-    fetchSelectedVideo(video);
+    saveSelectedVideo(video);
+    // saveSelectedLocation(associatedLocation);
   };
 
   return (
@@ -59,7 +67,7 @@ const VideoCard = ({ video, clearSelectedVideo, fetchSelectedVideo }) => {
             source={{
               uri: getThumbnail(video),
             }}
-            onClick={() => handleClick(video)}
+            onClick={() => handleClick(video, associatedLocation)}
             resizeMode="cover"
           />
         </View>
@@ -71,14 +79,18 @@ const VideoCard = ({ video, clearSelectedVideo, fetchSelectedVideo }) => {
 
 VideoCard.propTypes = {
   video: PropTypes.object,
+  associatedLocation: PropTypes.object,
+  saveSelectedLocation: PropTypes.func,
   clearSelectedVideo: PropTypes.func,
-  fetchSelectedVideo: PropTypes.func,
+  saveSelectedVideo: PropTypes.func,
 };
 
 VideoCard.defaultProps = {
   video: {},
+  associatedLocation: null,
+  saveSelectedLocation() {},
   clearSelectedVideo() {},
-  fetchSelectedVideo() {},
+  saveSelectedVideo() {},
 };
 
 export default VideoCard;

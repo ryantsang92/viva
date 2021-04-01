@@ -18,10 +18,17 @@ export const selectLocationError = (state) => {
   return selectLocationData(state).error;
 };
 
+export const selectLocationById = (state, id) => {
+  const locationData = selectLocationData(state);
+  return locationData
+    ? locationData.locations.find((location) => location.id === id)
+    : null;
+};
+
 export const selectSelectedLocation = (state) => {
   const locationData = selectLocationData(state);
   return locationData ? locationData.selectedLocation : null;
-}
+};
 
 export const selectLocationsByHashtag = (state, hashtag) => {
   const selectedVideos = selectVideosByHashtag(state, hashtag);
@@ -31,11 +38,6 @@ export const selectLocationsByHashtag = (state, hashtag) => {
     selectedVideos.forEach((video) => combinedHashtags.push(video.location_id));
     locationIds = [].concat.apply([], combinedHashtags);
   }
-  console.log(
-    state.locationData.locations.filter((location) =>
-      locationIds.includes(location.id)
-    )
-  );
   return state
     ? state.locationData.locations.filter((location) =>
         locationIds.includes(location.id)

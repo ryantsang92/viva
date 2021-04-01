@@ -23,10 +23,10 @@ const VideoGrid = ({ videoData, videos, fetchVideos }) => {
 
   useEffect(() => {
     //this is janky as hell but whatever ¯\_(ツ)_/¯
-    if (!videoData.videos || !videoData.videos.length) {
+    if (!videos || !videos.length) {
       fetchVideos();
     }
-  });
+  }, [videos]);
 
   return (
     <>

@@ -5,7 +5,8 @@
 */
 
 import React, { useEffect, useState } from "react";
-import { Box, Typography } from "@material-ui/core";
+import { Box, Typography, Divider, Button } from "@material-ui/core";
+import MapPinDefault from "../../assets/map-pin-default.png";
 import {
   Map as GoogleMap,
   Marker,
@@ -19,6 +20,10 @@ const useStyles = makeStyles({
   infoWindow: {
     textAlign: "left",
   },
+  marker: {
+    height: 24,
+    width: 24,
+  },
 });
 
 const initialCenter = {
@@ -29,14 +34,13 @@ const initialCenter = {
 const mapStyle = {
   float: "left",
   width: "100%",
-  height: 550, // figure out why it breaks when we remove this or set it to 100%?
+  height: 550,
   position: "relative",
 };
 
 const mapContainerStyle = {
   float: "left",
   width: "100%",
-  // height: "100%",
   position: "relative",
 };
 
@@ -59,28 +63,35 @@ const Map = ({
     if (!locations || !locations.length) {
       fetchLocations();
     }
-  });
+    if (selectedLocation) {
+      setInfoOpen(true);
+      setCenter({ lat: selectedLocation.lat, lng: selectedLocation.lng });
+      if (zoom < 15) {
+        setZoom(15);
+      }
+    }
+  }, [locations, selectedLocation]);
 
   const onMarkerClick = (marker) => {
-    if (zoom < 15) {
-      setZoom(15);
-    }
-    setCenter(marker.position);
     saveSelectedLocation(marker.markerData);
-    setInfoOpen(true);
   };
 
-  //throws CORS error when referenced
   const onInfoWindowClose = () => {
     setInfoOpen(false);
-    clearSelectedLocation();
     setZoom(13);
+    clearSelectedLocation();
+  };
+
+  const onRelatedVideosClick = (e) => {
+    e.preventDefault();
+    console.log("onRelatedVideosClick");
   };
 
   return (
     <GoogleMap
       google={google}
       zoom={zoom}
+      disableDefaultUI
       containerStyle={mapContainerStyle}
       style={mapStyle}
       resetBoundsOnResize={true}
@@ -90,11 +101,16 @@ const Map = ({
       {locations.map((location) => {
         return (
           <Marker
+            className={classes.marker}
             name={location.id}
             key={location.id}
             markerData={location}
             position={{ lat: location.lat, lng: location.lng }}
             onClick={onMarkerClick}
+            icon={{
+              url: MapPinDefault,
+              scaledSize: new google.maps.Size(24, 24),
+            }}
           />
         );
       })}
@@ -117,6 +133,14 @@ const Map = ({
                 {selectedLocation.website}
               </a>
             </Typography>
+            {/* <Box pt={1} pb={1}>
+                <Divider />
+              </Box>
+              <Typography>
+                <a href="#" onClick={onRelatedVideosClick}>
+                  See related videos
+                </a>
+              </Typography> */}
           </Box>
         </InfoWindow>
       )}
