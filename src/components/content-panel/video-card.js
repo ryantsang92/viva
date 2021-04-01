@@ -44,18 +44,14 @@ const getTitle = (video) => {
 
 const VideoCard = ({
   video,
-  associatedLocation,
-  saveSelectedLocation,
   clearSelectedVideo,
   saveSelectedVideo,
 }) => {
   const classes = useStyles();
 
-  const handleClick = (video, associatedLocation) => {
-    console.log(associatedLocation);
+  const handleClick = (video) => {
     clearSelectedVideo();
     saveSelectedVideo(video);
-    // saveSelectedLocation(associatedLocation);
   };
 
   return (
@@ -67,7 +63,7 @@ const VideoCard = ({
             source={{
               uri: getThumbnail(video),
             }}
-            onClick={() => handleClick(video, associatedLocation)}
+            onClick={() => handleClick(video)}
             resizeMode="cover"
           />
         </View>
@@ -79,16 +75,12 @@ const VideoCard = ({
 
 VideoCard.propTypes = {
   video: PropTypes.object,
-  associatedLocation: PropTypes.object,
-  saveSelectedLocation: PropTypes.func,
   clearSelectedVideo: PropTypes.func,
   saveSelectedVideo: PropTypes.func,
 };
 
 VideoCard.defaultProps = {
   video: {},
-  associatedLocation: null,
-  saveSelectedLocation() {},
   clearSelectedVideo() {},
   saveSelectedVideo() {},
 };

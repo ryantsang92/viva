@@ -18,11 +18,10 @@ const useStyles = makeStyles({
   },
 });
 
-const VideoGrid = ({ videoData, videos, fetchVideos }) => {
+const VideoGrid = ({ videos, fetchVideos }) => {
   const classes = useStyles();
 
   useEffect(() => {
-    //this is janky as hell but whatever ¯\_(ツ)_/¯
     if (!videos || !videos.length) {
       fetchVideos();
     }
@@ -48,13 +47,11 @@ const VideoGrid = ({ videoData, videos, fetchVideos }) => {
 };
 
 VideoGrid.propTypes = {
-  videoData: PropTypes.object,
   videos: PropTypes.array,
   fetchVideos: PropTypes.func,
 };
 
 VideoGrid.defaultProps = {
-  videoData: {},
   videos: [],
   fetchVideos() {},
 };
