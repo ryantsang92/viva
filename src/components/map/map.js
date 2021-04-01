@@ -91,7 +91,10 @@ const Map = ({
     <GoogleMap
       google={google}
       zoom={zoom}
-      disableDefaultUI
+      mapTypeControl={false}
+      scaleControl={false}
+      streetViewControl={false}
+      zoomControl
       containerStyle={mapContainerStyle}
       style={mapStyle}
       resetBoundsOnResize={true}
@@ -109,7 +112,7 @@ const Map = ({
             onClick={onMarkerClick}
             icon={{
               url: MapPinDefault,
-              scaledSize: new google.maps.Size(24, 24),
+              scaledSize: new google.maps.Size(36, 36),
             }}
           />
         );
