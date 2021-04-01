@@ -59,22 +59,23 @@ const Map = ({
     if (!locations || !locations.length) {
       fetchLocations();
     }
-  });
+    if (selectedLocation) {
+      setInfoOpen(true);
+      setCenter({ lat: selectedLocation.lat, lng: selectedLocation.lng });
+      if (zoom < 15) {
+        setZoom(15);
+      }
+    }
+  }, [locations, selectedLocation]);
 
   const onMarkerClick = (marker) => {
-    if (zoom < 15) {
-      setZoom(15);
-    }
-    setCenter(marker.position);
     saveSelectedLocation(marker.markerData);
-    setInfoOpen(true);
   };
 
-  //throws CORS error when referenced
   const onInfoWindowClose = () => {
     setInfoOpen(false);
-    clearSelectedLocation();
     setZoom(13);
+    clearSelectedLocation();
   };
 
   return (

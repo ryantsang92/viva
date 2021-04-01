@@ -11,20 +11,25 @@ import {
   saveSelectedLocation,
 } from "../../actions/location-actions";
 import { selectSelectedHashtag } from "../../selectors/hashtag-selectors";
+import { selectSelectedVideo } from "../../selectors/video-selectors";
 import {
   selectLocationData,
   selectLocationsByHashtag,
   selectSelectedLocation,
+  selectLocationById
 } from "../../selectors/location-selectors";
 import Map from "./map";
 
 const mapStateToProps = (state) => {
   const selectedHashtag = selectSelectedHashtag(state);
+  const selectedVideo = selectSelectedVideo(state);
   return {
     locations: selectedHashtag
       ? selectLocationsByHashtag(state, selectedHashtag)
       : selectLocationData(state).locations,
-    selectedLocation: selectSelectedLocation(state),
+    selectedLocation: selectedVideo
+      ? selectLocationById(state, selectedVideo.location_id)
+      : selectSelectedLocation(state),
     // to-do: find a way to do optional chaining
     // locations: selectLocationData(state)?.locations,
   };
