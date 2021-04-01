@@ -5,7 +5,7 @@
 */
 
 import React, { useEffect, useState } from "react";
-import { Card, CardContent, Box, Typography } from "@material-ui/core";
+import { Box, Typography } from "@material-ui/core";
 import {
   Map as GoogleMap,
   Marker,
@@ -77,55 +77,47 @@ const Map = ({ loaded, google, locations, fetchLocations }) => {
   // };
 
   return (
-    <>
-      <Box border={1} style={roundedCornersStyle}>
-        <Card style={roundedCornersStyle}>
-          <CardContent>
-            <GoogleMap
-              google={google}
-              zoom={zoom}
-              containerStyle={mapContainerStyle}
-              style={mapStyle}
-              resetBoundsOnResize={true}
-              center={center}
-              initialCenter={center}
+    <GoogleMap
+      google={google}
+      zoom={zoom}
+      containerStyle={mapContainerStyle}
+      style={mapStyle}
+      resetBoundsOnResize={true}
+      center={center}
+      initialCenter={center}
+    >
+      {locations.map((location) => {
+        return (
+          <Marker
+            name={location.id}
+            key={location.id}
+            markerData={location}
+            position={{ lat: location.lat, lng: location.lng }}
+            onClick={onMarkerClick}
+          />
+        );
+      })}
+      <InfoWindow
+        position={selectedMarker.position}
+        visible={infoOpen}
+        // onClose={onInfoWindowClose}
+      >
+        <Box className={classes.infoWindow}>
+          <h6>{selectedLocation.name}</h6>
+          <Typography fontFamily="Arial">
+            {selectedLocation.address_full}
+          </Typography>
+          <Typography>
+            <a
+              href={selectedLocation.website}
+              target={selectedLocation.website}
             >
-              {locations.map((location) => {
-                return (
-                  <Marker
-                    name={location.id}
-                    key={location.id}
-                    markerData={location}
-                    position={{ lat: location.lat, lng: location.lng }}
-                    onClick={onMarkerClick}
-                  />
-                );
-              })}
-              <InfoWindow
-                position={selectedMarker.position}
-                visible={infoOpen}
-                // onClose={onInfoWindowClose}
-              >
-                <Box className={classes.infoWindow}>
-                  <h6>{selectedLocation.name}</h6>
-                  <Typography fontFamily="Arial">
-                    {selectedLocation.address_full}
-                  </Typography>
-                  <Typography>
-                    <a
-                      href={selectedLocation.website}
-                      target={selectedLocation.website}
-                    >
-                      {selectedLocation.website}
-                    </a>
-                  </Typography>
-                </Box>
-              </InfoWindow>
-            </GoogleMap>
-          </CardContent>
-        </Card>
-      </Box>
-    </>
+              {selectedLocation.website}
+            </a>
+          </Typography>
+        </Box>
+      </InfoWindow>
+    </GoogleMap>
   );
 };
 
