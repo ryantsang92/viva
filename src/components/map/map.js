@@ -95,7 +95,7 @@ const Map = ({
   return (
     <Box mr={2}>
       <GoogleMap
-        ref={(mapRef) => (ref = mapRef)}
+        // ref={(mapRef) => (ref = mapRef)}
         google={google}
         zoom={zoom}
         mapTypeControl={false}
@@ -107,9 +107,9 @@ const Map = ({
         resetBoundsOnResize={true}
         center={center}
         initialCenter={center}
-        onCenterChanged={() => {
-          ref.getCenter(); // get the center, zoom, whatever using the ref
-        }}
+        // onCenterChanged={() => {
+        //   ref.getCenter(); // get the center, zoom, whatever using the ref
+        // }}
       >
         {locations.map((location) => {
           return (

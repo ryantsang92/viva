@@ -16,12 +16,13 @@ import {
   InputLabel,
 } from "@material-ui/core";
 import PillBoxContainer from "./pill-box-container";
+import SocialGrid from "./social-grid";
 // import SearchBar from "./search-bar";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
   left: {
-    float: "left",
+    width: "100%",
   },
   logo: {
     width: 288,
@@ -30,6 +31,16 @@ const useStyles = makeStyles((theme) => ({
   formControl: {
     margin: theme.spacing(1),
     minWidth: 120,
+  },
+  topGrid: {
+    display: "flex",
+  },
+  topGridLogo: {
+    textAlign: "left",
+  },
+  topGridSocials: {
+    textAlign: "right",
+    float: "right",
   },
 }));
 
@@ -43,23 +54,18 @@ const Header = () => {
   };
 
   return (
-    <div className={classes.left}>
+    <>
       <Grid container spacing={2}>
-        <Grid item xs={6}>
-          <Box className={classes.left}>
+        <Grid item xs={6} className={classes.topGrid}>
+          <Box className={classes.topGridLogo}>
             <img src={logo} alt="VIVA" className={classes.logo} />
-            <Box mb={2}>
+            {/* <Box mb={2}>
               <Typography>Get in. Get out. Get going</Typography>
-            </Box>
+            </Box> */}
           </Box>
         </Grid>
-        <Grid item xs={6}>
-          <Box className={classes.left}>
-            <img src={logo} alt="VIVA" className={classes.logo} />
-            <Box mb={2}>
-              <Typography>Get in. Get out. Get going</Typography>
-            </Box>
-          </Box>
+        <Grid item xs={6} className={classes.topGridSocials}>
+          <SocialGrid />
         </Grid>
       </Grid>
       <Grid container spacing={2}>
@@ -87,7 +93,7 @@ const Header = () => {
           </Box>
         </Grid>
       </Grid>
-    </div>
+    </>
   );
 };
 
