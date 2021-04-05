@@ -14,7 +14,7 @@ import PropTypes from "prop-types";
 // to-do: find a better way to style this
 const useStyles = makeStyles({
   videoContainer: {
-    maxHeight: 500,
+    maxHeight: 550,
   },
 });
 

@@ -18,19 +18,11 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     height: 170, // see if we can get this to display properly without hard-coding the height
     backgroundColor: "black",
-    borderRadius: "15px",
   },
   image: {
     width: "100%",
     height: "100%",
     cursor: "pointer",
-    borderRadius: "15px",
-  },
-});
-
-const useStyles = makeStyles({
-  roundedCorners: {
-    borderRadius: "15px",
   },
 });
 
@@ -47,7 +39,6 @@ const VideoCard = ({
   clearSelectedVideo,
   saveSelectedVideo,
 }) => {
-  const classes = useStyles();
 
   const handleClick = (video) => {
     clearSelectedVideo();
@@ -56,7 +47,7 @@ const VideoCard = ({
 
   return (
     <>
-      <Box border={1} className={classes.roundedCorners}>
+      <Box border={1}>
         <View style={styles.container}>
           <Image
             style={styles.image}

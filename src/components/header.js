@@ -44,12 +44,24 @@ const Header = () => {
 
   return (
     <div className={classes.left}>
-      <Box className={classes.left}>
-        <img src={logo} alt="VIVA" className={classes.logo} />
-        <Box mb={2}>
-          <Typography>Get in. Get out. Get going</Typography>
-        </Box>
-      </Box>
+      <Grid container spacing={2}>
+        <Grid item xs={6}>
+          <Box className={classes.left}>
+            <img src={logo} alt="VIVA" className={classes.logo} />
+            <Box mb={2}>
+              <Typography>Get in. Get out. Get going</Typography>
+            </Box>
+          </Box>
+        </Grid>
+        <Grid item xs={6}>
+          <Box className={classes.left}>
+            <img src={logo} alt="VIVA" className={classes.logo} />
+            <Box mb={2}>
+              <Typography>Get in. Get out. Get going</Typography>
+            </Box>
+          </Box>
+        </Grid>
+      </Grid>
       <Grid container spacing={2}>
         <Grid item>
           <Box ml={3}>

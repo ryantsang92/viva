@@ -5,7 +5,7 @@
 */
 
 import React from "react";
-import { Grid } from "@material-ui/core";
+import { Grid, Box } from "@material-ui/core";
 import ContentPanelContainer from "./content-panel/content-panel-container";
 import MapContainer from "./map/map-container";
 import VideoPanelContainer from "./video-player-panel/video-player-panel-container";
@@ -19,31 +19,35 @@ const useStyles = makeStyles({
   videoPanel: {
     minWidth: 500,
     maxWidth: 500,
+    maxHeight: 500,
   },
   grid: {
+    borderTop: "1px solid black",
     width: "100%",
     height: "100%",
   },
 });
 
 const BodyGrid = ({ selectedVideo }) => {
-  console.log('selectedVideo');
+  console.log("selectedVideo");
   console.log(selectedVideo);
   const classes = useStyles();
   return (
-    <Grid className={classes.grid} container spacing={2}>
-      <Grid item className={classes.contentPanel}>
-        <ContentPanelContainer />
-      </Grid>
-      {selectedVideo && (
-        <Grid item className={classes.videoPanel}>
-          <VideoPanelContainer video={selectedVideo} />
+    <Box ml={1}>
+      <Grid className={classes.grid} container spacing={1}>
+        <Grid item className={classes.contentPanel}>
+          <ContentPanelContainer />
         </Grid>
-      )}
-      <Grid item xs>
-        <MapContainer />
+        {selectedVideo && (
+          <Grid item className={classes.videoPanel}>
+            <VideoPanelContainer video={selectedVideo} />
+          </Grid>
+        )}
+        <Grid item xs>
+          <MapContainer />
+        </Grid>
       </Grid>
-    </Grid>
+    </Box>
   );
 };
 
