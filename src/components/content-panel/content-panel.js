@@ -16,7 +16,9 @@ const useStyles = makeStyles({
   root: {
     maxWidth: 400,
     minHeight: 550,
-    // boxShadow: "5px 0 5px -2px black",
+    marginLeft: 0,
+    paddingLeft: 15,
+    paddingRight: 15,
   },
   title: {
     fontWeight: "bold",
@@ -26,7 +28,7 @@ const useStyles = makeStyles({
 const ContentPanel = ({ selectedHashtag }) => {
   const classes = useStyles();
   return (
-    <Box ml={1} className={classes.root}>
+    <Box className={classes.root}>
       <SafeAreaView>
         {selectedHashtag && (
           <Box className={classes.title} pb={2}>

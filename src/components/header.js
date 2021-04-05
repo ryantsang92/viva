@@ -20,17 +20,45 @@ import PillBoxContainer from "./pill-box-container";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
-  left: {
-    float: "left",
+  header: {
+    position: 'relative',
+    height: 140,
+    boxShadow: '1px 0px 5px rgba(0,0,0,0.5)',
+    zIndex: 100,
+  },
+  headerTop: {
+    height: 60,
+    margin: 0,
+    width: '100%',
+  },
+  logoContainer: {
+    // float: "left",
+    height: 60,
+    display: 'flex',
+    alignItems: 'center',
+    paddingLeft: 15,
   },
   logo: {
-    width: 288,
-    height: 98,
+    width: 258,
+    height: 60,
+    display: 'none',
+  },
+  logoText: {
+    fontSize: 40,
+  },
+  navbar: {
+    height: 80,
+    margin: 0,
+    width: '100%',
   },
   formControl: {
     margin: theme.spacing(1),
     minWidth: 120,
   },
+  clear: {
+    padding: '0 !important',
+    margin: '0 !important',
+  }
 }));
 
 const Header = () => {
@@ -43,26 +71,18 @@ const Header = () => {
   };
 
   return (
-    <div className={classes.left}>
-      <Grid container spacing={2}>
-        <Grid item xs={6}>
-          <Box className={classes.left}>
+    <div className={classes.header}>
+      <Grid container className={classes.headerTop}>
+        <Grid item xs={6} className={classes.clear}>
+          <Box className={classes.logoContainer}>
             <img src={logo} alt="VIVA" className={classes.logo} />
-            <Box mb={2}>
-              <Typography>Get in. Get out. Get going</Typography>
-            </Box>
-          </Box>
-        </Grid>
-        <Grid item xs={6}>
-          <Box className={classes.left}>
-            <img src={logo} alt="VIVA" className={classes.logo} />
-            <Box mb={2}>
-              <Typography>Get in. Get out. Get going</Typography>
+            <Box className={classes.clear}>
+              <Typography className={classes.logoText}>VIVA</Typography>
             </Box>
           </Box>
         </Grid>
       </Grid>
-      <Grid container spacing={2}>
+      <Grid container spacing={2} className={classes.navbar}>
         <Grid item>
           <Box ml={3}>
             <FormControl className={classes.formControl}>
@@ -80,7 +100,7 @@ const Header = () => {
           </Box>
         </Grid>
         <Grid item>
-          <Box mt={2} mb={1} className={classes.left}>
+          <Box className={classes.left}>
             {/* search bar will be added later */}
             {/* <SearchBar /> */}
             <PillBoxContainer />

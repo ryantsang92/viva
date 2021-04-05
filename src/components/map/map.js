@@ -24,6 +24,10 @@ const useStyles = makeStyles({
     height: 24,
     width: 24,
   },
+  test: {
+    height: 'calc(100vh - 140px)',
+    marginRight: 0,
+  },
 });
 
 const initialCenter = {
@@ -34,7 +38,7 @@ const initialCenter = {
 const mapStyle = {
   float: "left",
   width: "100%",
-  height: 550,
+  height: "100%",
   position: "relative",
 };
 
@@ -93,7 +97,7 @@ const Map = ({
 
   console.log(ref);
   return (
-    <Box mr={2}>
+    <Box mr={2} className={classes.test}>
       <GoogleMap
         ref={(mapRef) => (ref = mapRef)}
         google={google}
@@ -107,9 +111,9 @@ const Map = ({
         resetBoundsOnResize={true}
         center={center}
         initialCenter={center}
-        onCenterChanged={() => {
-          ref.getCenter(); // get the center, zoom, whatever using the ref
-        }}
+        // onCenterChanged={() => {
+        //   ref.getCenter(); // get the center, zoom, whatever using the ref
+        // }}
       >
         {locations.map((location) => {
           return (

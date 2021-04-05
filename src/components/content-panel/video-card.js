@@ -16,14 +16,22 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    height: 170, // see if we can get this to display properly without hard-coding the height
-    backgroundColor: "black",
+    height: 240, // see if we can get this to display properly without hard-coding the height
+    backgroundColor: "white",
+    // borderRadius: 15,
   },
   image: {
     width: "100%",
     height: "100%",
     cursor: "pointer",
+    borderRadius: 15,
   },
+  
+});
+const useStyles = makeStyles({
+  title: {
+    textAlign: "left",  
+  }
 });
 
 const getThumbnail = (video) => {
@@ -45,9 +53,11 @@ const VideoCard = ({
     saveSelectedVideo(video);
   };
 
+const classes = useStyles();
+
   return (
     <>
-      <Box border={1}>
+      <Box>
         <View style={styles.container}>
           <Image
             style={styles.image}
@@ -58,7 +68,7 @@ const VideoCard = ({
             resizeMode="cover"
           />
         </View>
-        <Typography>{getTitle(video)}</Typography>
+        <Typography className={classes.title}>{getTitle(video)}</Typography>
       </Box>
     </>
   );

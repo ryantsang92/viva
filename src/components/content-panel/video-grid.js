@@ -14,8 +14,20 @@ import PropTypes from "prop-types";
 // to-do: find a better way to style this
 const useStyles = makeStyles({
   videoContainer: {
-    maxHeight: 550,
+    minHeight: 550,
+    height: 'calc(100vh - 140px)',
+    paddingTop: 15,
+    paddingBottom: 25,
+    margin: '0 !important',
+    '-ms-overflow-style': 'none',
+    scrollbarWidth: 'none',
+    '&::-webkit-scrollbar': {
+      display: 'none',
+    },
   },
+  videoBox: {
+    padding: '10px 8px 0 8px !important',
+  }
 });
 
 const VideoGrid = ({ videos, fetchVideos }) => {
@@ -30,9 +42,9 @@ const VideoGrid = ({ videos, fetchVideos }) => {
   return (
     <>
       {videos.length > 0 ? (
-        <GridList className={classes.videoContainer} cellHeight={200} cols={2}>
+        <GridList className={classes.videoContainer} cellHeight='auto'>
           {videos.map((video) => (
-            <GridListTile key={video.id} cols={1}>
+            <GridListTile key={video.id} cols={1} className={classes.videoBox}>
               <VideoCardContainer video={video} />
             </GridListTile>
           ))}
