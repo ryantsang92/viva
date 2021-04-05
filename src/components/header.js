@@ -86,7 +86,7 @@ const Header = () => {
           </Box>
         </Grid>
         <Grid item>
-          <Box mt={2} mb={1} className={classes.left}>
+          <Box mt={2} mb={1}>
             {/* search bar will be added later */}
             {/* <SearchBar /> */}
             <PillBoxContainer />

@@ -91,7 +91,7 @@ const Map = ({
 
   let ref;
 
-  console.log(ref);
+  // console.log(ref);
   return (
     <Box mr={2}>
       <GoogleMap
