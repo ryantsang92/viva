@@ -7,7 +7,7 @@
 import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { ToggleButtonGroup, ToggleButton } from "@material-ui/lab";
-import ScrollMenu from "react-horizontal-scrolling-menu";
+// import ScrollMenu from "react-horizontal-scrolling-menu";
 import PropTypes from "prop-types";
 
 const useStyles = makeStyles({
@@ -113,14 +113,14 @@ const PillBox = ({
   console.log(menu);
   return (
     <>
-      <ScrollMenu
+      {/* <ScrollMenu
         data={menu}
         arrowLeft={ArrowLeft}
         arrowRight={ArrowRight}
         selected={selected}
         onSelect={onSelect}
-      />
-      {/* {test()} */}
+      /> */}
+      {test()}
     </>
   );
 };
