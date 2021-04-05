@@ -6,6 +6,7 @@
 
 import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
+import { Box } from "@material-ui/core";
 import { ToggleButtonGroup, ToggleButton } from "@material-ui/lab";
 import ScrollMenu from "react-horizontal-scrolling-menu";
 import PropTypes from "prop-types";
@@ -18,6 +19,9 @@ const useStyles = makeStyles({
     borderRadius: "15px",
     backgroundColor: "#F2F2F2",
     color: "#333333",
+  },
+  scrollMenu: {
+    width: "85vw",
   },
 });
 
@@ -70,19 +74,22 @@ const PillBox = ({
   };
 
   const onSelect = (selected) => {
+    console.log('onSelect');
+    console.log(selected);
     setSelected(selected);
   };
 
   return (
-    <>
+    <Box className={classes.scrollMenu}>
       <ScrollMenu
         data={hashtagComponents(hashtags)}
+        clickWhenDrag={false}
         arrowLeft={ArrowLeft}
         arrowRight={ArrowRight}
         selected={selected}
         onSelect={onSelect}
       />
-    </>
+    </Box>
   );
 };
 
