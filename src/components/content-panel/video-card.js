@@ -16,22 +16,22 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    height: 170, // see if we can get this to display properly without hard-coding the height
-    backgroundColor: "black",
-    borderRadius: "15px",
+    height: 240, // see if we can get this to display properly without hard-coding the height
+    backgroundColor: "white",
+    // borderRadius: 15,
   },
   image: {
     width: "100%",
     height: "100%",
     cursor: "pointer",
-    borderRadius: "15px",
+    borderRadius: 15,
   },
+  
 });
-
 const useStyles = makeStyles({
-  roundedCorners: {
-    borderRadius: "15px",
-  },
+  title: {
+    textAlign: "left",  
+  }
 });
 
 const getThumbnail = (video) => {
@@ -44,34 +44,31 @@ const getTitle = (video) => {
 
 const VideoCard = ({
   video,
-  associatedLocation,
-  saveSelectedLocation,
   clearSelectedVideo,
   saveSelectedVideo,
 }) => {
-  const classes = useStyles();
 
-  const handleClick = (video, associatedLocation) => {
-    console.log(associatedLocation);
+  const handleClick = (video) => {
     clearSelectedVideo();
     saveSelectedVideo(video);
-    // saveSelectedLocation(associatedLocation);
   };
+
+const classes = useStyles();
 
   return (
     <>
-      <Box border={1} className={classes.roundedCorners}>
+      <Box>
         <View style={styles.container}>
           <Image
             style={styles.image}
             source={{
               uri: getThumbnail(video),
             }}
-            onClick={() => handleClick(video, associatedLocation)}
+            onClick={() => handleClick(video)}
             resizeMode="cover"
           />
         </View>
-        <Typography>{getTitle(video)}</Typography>
+        <Typography className={classes.title}>{getTitle(video)}</Typography>
       </Box>
     </>
   );
@@ -79,16 +76,12 @@ const VideoCard = ({
 
 VideoCard.propTypes = {
   video: PropTypes.object,
-  associatedLocation: PropTypes.object,
-  saveSelectedLocation: PropTypes.func,
   clearSelectedVideo: PropTypes.func,
   saveSelectedVideo: PropTypes.func,
 };
 
 VideoCard.defaultProps = {
   video: {},
-  associatedLocation: null,
-  saveSelectedLocation() {},
   clearSelectedVideo() {},
   saveSelectedVideo() {},
 };

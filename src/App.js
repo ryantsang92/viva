@@ -16,7 +16,7 @@ const App = () => {
       <div className="App">
         <Header />
         <BodyGridContainer />
-        <Footer />
+        {/* <Footer /> */}
       </div>
     </>
   );

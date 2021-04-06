@@ -24,6 +24,10 @@ const useStyles = makeStyles({
     height: 24,
     width: 24,
   },
+  test: {
+    height: 'calc(100vh - 140px)',
+    marginRight: 0,
+  },
 });
 
 const initialCenter = {
@@ -34,7 +38,7 @@ const initialCenter = {
 const mapStyle = {
   float: "left",
   width: "100%",
-  height: 550,
+  height: "100%",
   position: "relative",
 };
 
@@ -64,6 +68,8 @@ const Map = ({
       fetchLocations();
     }
     if (selectedLocation) {
+      console.log("here");
+      setInfoOpen(false);
       setInfoOpen(true);
       setCenter({ lat: selectedLocation.lat, lng: selectedLocation.lng });
       if (zoom < 15) {
@@ -87,53 +93,64 @@ const Map = ({
     console.log("onRelatedVideosClick");
   };
 
+  let ref;
+
+  console.log(ref);
   return (
-    <GoogleMap
-      google={google}
-      zoom={zoom}
-      disableDefaultUI
-      containerStyle={mapContainerStyle}
-      style={mapStyle}
-      resetBoundsOnResize={true}
-      center={center}
-      initialCenter={center}
-    >
-      {locations.map((location) => {
-        return (
-          <Marker
-            className={classes.marker}
-            name={location.id}
-            key={location.id}
-            markerData={location}
-            position={{ lat: location.lat, lng: location.lng }}
-            onClick={onMarkerClick}
-            icon={{
-              url: MapPinDefault,
-              scaledSize: new google.maps.Size(24, 24),
-            }}
-          />
-        );
-      })}
-      {selectedLocation && (
-        <InfoWindow
-          position={{ lat: selectedLocation.lat, lng: selectedLocation.lng }}
-          visible={infoOpen}
-          onClose={onInfoWindowClose}
-        >
-          <Box className={classes.infoWindow}>
-            <h6>{selectedLocation.name}</h6>
-            <Typography fontFamily="Arial">
-              {selectedLocation.address_full}
-            </Typography>
-            <Typography>
-              <a
-                href={selectedLocation.website}
-                target={selectedLocation.website}
-              >
-                {selectedLocation.website}
-              </a>
-            </Typography>
-            {/* <Box pt={1} pb={1}>
+    <Box mr={2} className={classes.test}>
+      <GoogleMap
+        ref={(mapRef) => (ref = mapRef)}
+        google={google}
+        zoom={zoom}
+        mapTypeControl={false}
+        scaleControl={false}
+        streetViewControl={false}
+        zoomControl
+        containerStyle={mapContainerStyle}
+        style={mapStyle}
+        resetBoundsOnResize={true}
+        center={center}
+        initialCenter={center}
+        // onCenterChanged={() => {
+        //   ref.getCenter(); // get the center, zoom, whatever using the ref
+        // }}
+      >
+        {locations.map((location) => {
+          return (
+            <Marker
+              className={classes.marker}
+              name={location.id}
+              key={location.id}
+              markerData={location}
+              position={{ lat: location.lat, lng: location.lng }}
+              onClick={onMarkerClick}
+              icon={{
+                url: MapPinDefault,
+                scaledSize: new google.maps.Size(36, 36),
+              }}
+            />
+          );
+        })}
+        {selectedLocation && (
+          <InfoWindow
+            position={{ lat: selectedLocation.lat, lng: selectedLocation.lng }}
+            visible={infoOpen}
+            onClose={onInfoWindowClose}
+          >
+            <Box className={classes.infoWindow}>
+              <h6>{selectedLocation.name}</h6>
+              <Typography fontFamily="Arial">
+                {selectedLocation.address_full}
+              </Typography>
+              <Typography>
+                <a
+                  href={selectedLocation.website}
+                  target={selectedLocation.website}
+                >
+                  {selectedLocation.website}
+                </a>
+              </Typography>
+              {/* <Box pt={1} pb={1}>
                 <Divider />
               </Box>
               <Typography>
@@ -141,10 +158,11 @@ const Map = ({
                   See related videos
                 </a>
               </Typography> */}
-          </Box>
-        </InfoWindow>
-      )}
-    </GoogleMap>
+            </Box>
+          </InfoWindow>
+        )}
+      </GoogleMap>
+    </Box>
   );
 };
 
