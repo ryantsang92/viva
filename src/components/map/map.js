@@ -60,6 +60,7 @@ const Map = ({
   const [infoOpen, setInfoOpen] = useState(false);
 
   useEffect(() => {
+    console.log(locations);
     if (!locations || !locations.length) {
       fetchLocations();
     }

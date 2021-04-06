@@ -22,6 +22,7 @@ const VideoGrid = ({ videos, fetchVideos }) => {
   const classes = useStyles();
 
   useEffect(() => {
+    console.log(videos);
     if (!videos || !videos.length) {
       fetchVideos();
     }
