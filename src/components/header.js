@@ -16,10 +16,14 @@ import {
   InputLabel,
 } from "@material-ui/core";
 import PillBoxContainer from "./pill-box-container";
+import SocialGrid from "./social-grid";
 // import SearchBar from "./search-bar";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
+  left: {
+    width: "100%",
+  },
   header: {
     position: 'relative',
     height: 140,
@@ -39,9 +43,9 @@ const useStyles = makeStyles((theme) => ({
     paddingLeft: 15,
   },
   logo: {
-    width: 258,
-    height: 60,
-    display: 'none',
+    width: "40%",
+    height: "40%",
+    // display: 'none',
   },
   logoText: {
     fontSize: 40,
@@ -55,6 +59,16 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(1),
     minWidth: 120,
   },
+  topGrid: {
+    display: "flex",
+  },
+  topGridLogo: {
+    textAlign: "left",
+  },
+  topGridSocials: {
+    textAlign: "right",
+    float: "right",
+  },
   clear: {
     padding: '0 !important',
     margin: '0 !important',
@@ -64,7 +78,7 @@ const useStyles = makeStyles((theme) => ({
 const Header = () => {
   const classes = useStyles();
 
-  const [city, setCity] = React.useState("");
+  const [city, setCity] = React.useState("All");
 
   const handleChange = (event) => {
     setCity(event.target.value);
@@ -75,11 +89,14 @@ const Header = () => {
       <Grid container className={classes.headerTop}>
         <Grid item xs={6} className={classes.clear}>
           <Box className={classes.logoContainer}>
-            <img src={logo} alt="VIVA" className={classes.logo} />
             <Box className={classes.clear}>
               <Typography className={classes.logoText}>VIVA</Typography>
+              {/* <img src={logo} alt="VIVA" className={classes.logo} /> */}
             </Box>
           </Box>
+          </Grid>
+          <Grid item xs={6} className={classes.topGridSocials}>
+          <SocialGrid />
         </Grid>
       </Grid>
       <Grid container spacing={2} className={classes.navbar}>
@@ -93,6 +110,7 @@ const Header = () => {
                 value={city}
                 onChange={handleChange}
               >
+                <MenuItem value={"All"}>All</MenuItem>
                 <MenuItem value={"Boston"}>Boston</MenuItem>
                 <MenuItem value={"New York"}>New York</MenuItem>
               </Select>

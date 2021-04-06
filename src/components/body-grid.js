@@ -12,7 +12,7 @@ import VideoPanelContainer from "./video-player-panel/video-player-panel-contain
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles({
-  steve: {
+  root: {
     marginLeft: 0,
     // height: 'calc(100vh - 160px)',
   },
@@ -54,7 +54,7 @@ const BodyGrid = ({ selectedVideo }) => {
   console.log(selectedVideo);
   const classes = useStyles();
   return (
-    <Box ml={1} className={classes.steve}>
+    <Box ml={1} className={classes.root}>
       <Grid className={classes.grid} container>
         <Grid item className={classes.contentPanel}>
           <ContentPanelContainer />

@@ -64,6 +64,7 @@ const Map = ({
   const [infoOpen, setInfoOpen] = useState(false);
 
   useEffect(() => {
+    console.log(locations);
     if (!locations || !locations.length) {
       fetchLocations();
     }
@@ -95,11 +96,11 @@ const Map = ({
 
   let ref;
 
-  console.log(ref);
+  // console.log(ref);
   return (
     <Box mr={2} className={classes.test}>
       <GoogleMap
-        ref={(mapRef) => (ref = mapRef)}
+        // ref={(mapRef) => (ref = mapRef)}
         google={google}
         zoom={zoom}
         mapTypeControl={false}

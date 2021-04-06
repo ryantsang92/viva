@@ -31,7 +31,7 @@ const ContentPanel = ({ selectedHashtag }) => {
     <Box className={classes.root}>
       <SafeAreaView>
         {selectedHashtag && (
-          <Box className={classes.title} pb={2}>
+          <Box className={classes.title} pt={2}>
             {selectedHashtag.hashtag}
           </Box>
         )}
