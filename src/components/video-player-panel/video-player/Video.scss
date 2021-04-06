@@ -6,7 +6,6 @@ $theme: #006eff;
 $back: #00000075;
 .one___flkjsjJJNJnn_nANN8hG_YG7GY7g7BH9 {
 	width: 100%;
-	height: 500px;
 	color: $theme;
 	background: black;
 	position: relative;
@@ -339,8 +338,9 @@ span.icon {
 			height: fit-content;
 			padding: 1rem 2rem;
 			position: absolute;
-			left: 45%;
-			top: 45%;
+			left: 50%;
+			top: 50%;
+			transform: translate(-50%, -50%);
 			color: white;
 			background: $theme;
 			border-radius: 25%;

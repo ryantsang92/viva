@@ -24,9 +24,36 @@ const useStyles = makeStyles((theme) => ({
   left: {
     width: "100%",
   },
+  header: {
+    position: 'relative',
+    height: 140,
+    boxShadow: '1px 0px 5px rgba(0,0,0,0.5)',
+    zIndex: 100,
+  },
+  headerTop: {
+    height: 60,
+    margin: 0,
+    width: '100%',
+  },
+  logoContainer: {
+    // float: "left",
+    height: 60,
+    display: 'flex',
+    alignItems: 'center',
+    paddingLeft: 15,
+  },
   logo: {
-    width: 288,
-    height: 98,
+    width: "40%",
+    height: "40%",
+    // display: 'none',
+  },
+  logoText: {
+    fontSize: 40,
+  },
+  navbar: {
+    height: 80,
+    margin: 0,
+    width: '100%',
   },
   formControl: {
     margin: theme.spacing(1),
@@ -42,33 +69,37 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "right",
     float: "right",
   },
+  clear: {
+    padding: '0 !important',
+    margin: '0 !important',
+  }
 }));
 
 const Header = () => {
   const classes = useStyles();
 
-  const [city, setCity] = React.useState("");
+  const [city, setCity] = React.useState("All");
 
   const handleChange = (event) => {
     setCity(event.target.value);
   };
 
   return (
-    <>
-      <Grid container spacing={2}>
-        <Grid item xs={6} className={classes.topGrid}>
-          <Box className={classes.topGridLogo}>
-            <img src={logo} alt="VIVA" className={classes.logo} />
-            {/* <Box mb={2}>
-              <Typography>Get in. Get out. Get going</Typography>
-            </Box> */}
+    <div className={classes.header}>
+      <Grid container className={classes.headerTop}>
+        <Grid item xs={6} className={classes.clear}>
+          <Box className={classes.logoContainer}>
+            <Box className={classes.clear}>
+              <Typography className={classes.logoText}>VIVA</Typography>
+              {/* <img src={logo} alt="VIVA" className={classes.logo} /> */}
+            </Box>
           </Box>
-        </Grid>
-        <Grid item xs={6} className={classes.topGridSocials}>
+          </Grid>
+          <Grid item xs={6} className={classes.topGridSocials}>
           <SocialGrid />
         </Grid>
       </Grid>
-      <Grid container spacing={2}>
+      <Grid container spacing={2} className={classes.navbar}>
         <Grid item>
           <Box ml={3}>
             <FormControl className={classes.formControl}>
@@ -79,6 +110,7 @@ const Header = () => {
                 value={city}
                 onChange={handleChange}
               >
+                <MenuItem value={"All"}>All</MenuItem>
                 <MenuItem value={"Boston"}>Boston</MenuItem>
                 <MenuItem value={"New York"}>New York</MenuItem>
               </Select>
@@ -86,14 +118,14 @@ const Header = () => {
           </Box>
         </Grid>
         <Grid item>
-          <Box mt={2} mb={1}>
+          <Box className={classes.left}>
             {/* search bar will be added later */}
             {/* <SearchBar /> */}
             <PillBoxContainer />
           </Box>
         </Grid>
       </Grid>
-    </>
+    </div>
   );
 };
 

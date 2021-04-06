@@ -12,20 +12,41 @@ import VideoPanelContainer from "./video-player-panel/video-player-panel-contain
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles({
+  root: {
+    marginLeft: 0,
+    // height: 'calc(100vh - 160px)',
+  },
   contentPanel: {
+    position: 'relative',
     minWidth: 400,
-    maxWidth: 400,
+    maxWidth: 500,
+    padding: '0 !important',
+    zIndex: 3,
+    boxShadow: "1px 1px 3px rgba(0,0,0,0.3)",
   },
   videoPanel: {
-    minWidth: 500,
-    maxWidth: 500,
-    maxHeight: 500,
+    minWidth: 400,
+    maxWidth: 400,
+    height: 'calc(100vh - 140px)',
+    overflowY: 'scroll',
+    overflowX: 'hidden',
+    position: 'relative',
+    scrollbarWidth: 'none',
+    zIndex: 2,
+    boxShadow: "1px 1px 3px rgba(0,0,0,0.3)",
+    '&::-webkit-scrollbar': {
+      display: 'none',
+    },
   },
   grid: {
-    borderTop: "1px solid black",
+    // borderTop: "1px solid black",
     width: "100%",
     height: "100%",
+    margin: 0,
   },
+  mapContainer: {
+    zIndex: 1,
+  }
 });
 
 const BodyGrid = ({ selectedVideo }) => {
@@ -33,8 +54,8 @@ const BodyGrid = ({ selectedVideo }) => {
   console.log(selectedVideo);
   const classes = useStyles();
   return (
-    <Box ml={1}>
-      <Grid className={classes.grid} container spacing={1}>
+    <Box ml={1} className={classes.root}>
+      <Grid className={classes.grid} container>
         <Grid item className={classes.contentPanel}>
           <ContentPanelContainer />
         </Grid>
@@ -43,8 +64,8 @@ const BodyGrid = ({ selectedVideo }) => {
             <VideoPanelContainer video={selectedVideo} />
           </Grid>
         )}
-        <Grid item xs>
-          <MapContainer />
+        <Grid item xs className={classes.mapContainer}>
+          <MapContainer/>
         </Grid>
       </Grid>
     </Box>

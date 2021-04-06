@@ -13,8 +13,21 @@ import PropTypes from "prop-types";
 
 // to-do: find a better way to style this
 const useStyles = makeStyles({
+  playerBar: {
+    padding: 8,
+    position: 'sticky',
+    top: 0,
+    width: '100%',
+    background: 'white',
+    zIndex: 99,
+    display: 'flex',
+  },
   playerArea: {
-    maxWidth: 500,
+    maxWidth: 400,
+    position: 'relative',
+  },
+  username: {
+    fontSize: 20,
   },
   closeIcon: {
     cursor: "pointer",
@@ -31,7 +44,8 @@ const VideoPanel = ({ video, clearSelectedVideo }) => {
   const classes = useStyles();
   return (
     <Box className={classes.playerArea}>
-      <Box pb={1}>
+      <Box className={classes.playerBar}>
+        <Typography className={classes.username}>Username (TikTok)</Typography>
         <CloseIcon
           className={classes.closeIcon}
           onClick={() => clearSelectedVideo()}
@@ -44,8 +58,8 @@ const VideoPanel = ({ video, clearSelectedVideo }) => {
           primaryColor="#278A6E"
           // autoPlay
         />
-        <Typography>{video.title}</Typography>
-        <Typography>{video.description}</Typography>
+        <Typography>{video.title}Test Title</Typography>
+        <Typography>{video.description}I absolutely Adore being here with this and that and all the other stuff and even more of the other stuff and yeah and even more and more stuff that is just delicious and fun and exciting</Typography>
       </Box>
     </Box>
   );

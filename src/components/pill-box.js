@@ -21,7 +21,7 @@ const useStyles = makeStyles({
     color: "#333333",
   },
   scrollMenu: {
-    width: "85vw",
+    width: "80vw",
   },
 });
 
