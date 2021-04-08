@@ -14,14 +14,15 @@ import "./PillBox.css";
 
 const useStyles = makeStyles({
   pill: {
-    marginLeft: 2,
-    marginRight: 2,
+    marginLeft: 0,
+    marginRight: 0,
     borderRadius: "25px",
     backgroundColor: "#F2F2F2",
     color: "#333333",
+    padding: '8px 13px',
   },
   scrollMenu: {
-    width: "80vw",
+    width: "calc(100vw - 185px)",
   },
 });
 
@@ -48,7 +49,7 @@ const PillBox = ({
 
   const hashtagComponents = (hashtags) => {
     return hashtags.map((hashtag) => (
-      <Box pr={1} pl={1}>
+      <Box pl={1}>
         <ToggleButtonGroup
           size="small"
           value={selectedHashtag}
