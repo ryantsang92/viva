@@ -7,6 +7,7 @@
 import React, { useEffect, useState } from "react";
 import { Box, Typography, Divider, Button } from "@material-ui/core";
 import MapPinDefault from "../../assets/map-pin-default.png";
+import MapPinSelected from "../../assets/map-pin-selected.png";
 import {
   Map as GoogleMap,
   Marker,
@@ -63,14 +64,13 @@ const Map = ({
   const [center, setCenter] = useState(initialCenter);
   const [zoom, setZoom] = useState(13);
   const [infoOpen, setInfoOpen] = useState(false);
+  const [activeMarker, setActiveMarker] = useState({});
 
   useEffect(() => {
-    console.log(locations);
     if (!locations || !locations.length) {
       fetchLocations();
     }
     if (selectedLocation) {
-      console.log("here");
       setInfoOpen(false);
       setInfoOpen(true);
       setCenter({ lat: selectedLocation.lat, lng: selectedLocation.lng });
@@ -81,6 +81,7 @@ const Map = ({
   }, [locations, selectedLocation]);
 
   const onMarkerClick = (marker) => {
+    setActiveMarker(marker);
     saveSelectedLocation(marker.markerData);
   };
 
@@ -111,6 +112,7 @@ const Map = ({
             mapTypeControl={false}
             scaleControl={false}
             streetViewControl={false}
+            fullscreenControl={false}
             zoomControl
             containerStyle={mapContainerStyle}
             style={mapStyle}
@@ -131,7 +133,10 @@ const Map = ({
                   position={{ lat: location.lat, lng: location.lng }}
                   onClick={onMarkerClick}
                   icon={{
-                    url: MapPinDefault,
+                    url:
+                      selectedLocation && selectedLocation.id === location.id
+                        ? MapPinSelected
+                        : MapPinDefault,
                     scaledSize: new google.maps.Size(36, 36),
                   }}
                 />
@@ -145,6 +150,7 @@ const Map = ({
                 }}
                 visible={infoOpen}
                 onClose={onInfoWindowClose}
+                pixelOffset={new google.maps.Size(0, -35)}
               >
                 <Box className={classes.infoWindow}>
                   <h6>{selectedLocation.name}</h6>
