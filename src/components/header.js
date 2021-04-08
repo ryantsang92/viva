@@ -5,7 +5,7 @@
 */
 
 import React from "react";
-import logo from "../viva-logo-transparent.png";
+// import logo from "../viva-logo-transparent.png";
 import {
   Box,
   Typography,

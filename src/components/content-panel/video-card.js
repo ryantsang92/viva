@@ -34,14 +34,6 @@ const useStyles = makeStyles({
   }
 });
 
-const getThumbnail = (video) => {
-  return video.thumbnail || defaultVideoImage;
-};
-
-const getTitle = (video) => {
-  return video.title || "test title";
-};
-
 const VideoCard = ({
   video,
   clearSelectedVideo,
@@ -62,13 +54,13 @@ const classes = useStyles();
           <Image
             style={styles.image}
             source={{
-              uri: getThumbnail(video),
+              uri: video.thumbnail || defaultVideoImage,
             }}
             onClick={() => handleClick(video)}
             resizeMode="cover"
           />
         </View>
-        <Typography className={classes.title}>{getTitle(video)}</Typography>
+        <Typography className={classes.title}>{video.title || "Test Title"}</Typography>
       </Box>
     </>
   );
