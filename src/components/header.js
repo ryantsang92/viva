@@ -5,7 +5,7 @@
 */
 
 import React from "react";
-// import logo from "../viva-logo-transparent.png";
+// import logo from "../assets/viva-logo-transparent.png";
 import {
   Box,
   Typography,
@@ -15,7 +15,7 @@ import {
   FormControl,
   InputLabel,
 } from "@material-ui/core";
-import PillBoxContainer from "./pill-box-container";
+import PillBoxContainer from "./pill-box/pill-box-container";
 import SocialGrid from "./social-grid";
 // import SearchBar from "./search-bar";
 import { makeStyles } from "@material-ui/core/styles";

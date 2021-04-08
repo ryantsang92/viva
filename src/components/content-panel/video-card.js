@@ -5,7 +5,7 @@
 */
 
 import React from "react";
-import defaultVideoImage from "./video-thumbnail.png";
+import defaultVideoImage from "../../assets/default-video-thumbnail.png";
 import { View, Image, StyleSheet } from "react-native";
 import { Typography, Box } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
@@ -18,7 +18,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     height: 240, // see if we can get this to display properly without hard-coding the height
     backgroundColor: "white",
-    // borderRadius: 15,
   },
   image: {
     width: "100%",
