@@ -28,6 +28,7 @@ const locationReducer = (state = initialState, action) => {
       return {
         ...state,
         locations: action.payload,
+        isLoading: false,
       };
     case SAVE_SELECTED_LOCATION:
       return {

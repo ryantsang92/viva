@@ -16,7 +16,8 @@ import {
   selectLocationData,
   selectLocationsByHashtag,
   selectSelectedLocation,
-  selectLocationById
+  selectLocationById,
+  selectLocationIsFetching,
 } from "../../selectors/location-selectors";
 import Map from "./map";
 
@@ -32,6 +33,7 @@ const mapStateToProps = (state) => {
       : selectSelectedLocation(state),
     // to-do: find a way to do optional chaining
     // locations: selectLocationData(state)?.locations,
+    loading: selectLocationIsFetching(state),
   };
 };
 

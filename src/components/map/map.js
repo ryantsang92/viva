@@ -13,6 +13,7 @@ import {
   InfoWindow,
   GoogleApiWrapper,
 } from "google-maps-react";
+import Loading from "../loading";
 import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -25,7 +26,7 @@ const useStyles = makeStyles({
     width: 24,
   },
   test: {
-    height: 'calc(100vh - 140px)',
+    height: "calc(100vh - 140px)",
     marginRight: 0,
   },
 });
@@ -49,7 +50,7 @@ const mapContainerStyle = {
 };
 
 const Map = ({
-  loaded,
+  loading,
   google,
   locations,
   selectedLocation,
@@ -94,64 +95,71 @@ const Map = ({
     console.log("onRelatedVideosClick");
   };
 
-  let ref;
+  // let ref;
 
   // console.log(ref);
   return (
-    <Box mr={2} className={classes.test}>
-      <GoogleMap
-        // ref={(mapRef) => (ref = mapRef)}
-        google={google}
-        zoom={zoom}
-        mapTypeControl={false}
-        scaleControl={false}
-        streetViewControl={false}
-        zoomControl
-        containerStyle={mapContainerStyle}
-        style={mapStyle}
-        resetBoundsOnResize={true}
-        center={center}
-        initialCenter={center}
-        // onCenterChanged={() => {
-        //   ref.getCenter(); // get the center, zoom, whatever using the ref
-        // }}
-      >
-        {locations.map((location) => {
-          return (
-            <Marker
-              className={classes.marker}
-              name={location.id}
-              key={location.id}
-              markerData={location}
-              position={{ lat: location.lat, lng: location.lng }}
-              onClick={onMarkerClick}
-              icon={{
-                url: MapPinDefault,
-                scaledSize: new google.maps.Size(36, 36),
-              }}
-            />
-          );
-        })}
-        {selectedLocation && (
-          <InfoWindow
-            position={{ lat: selectedLocation.lat, lng: selectedLocation.lng }}
-            visible={infoOpen}
-            onClose={onInfoWindowClose}
+    <>
+      {loading ? (
+        <Loading />
+      ) : (
+        <Box mr={2} className={classes.test}>
+          <GoogleMap
+            // ref={(mapRef) => (ref = mapRef)}
+            google={google}
+            zoom={zoom}
+            mapTypeControl={false}
+            scaleControl={false}
+            streetViewControl={false}
+            zoomControl
+            containerStyle={mapContainerStyle}
+            style={mapStyle}
+            resetBoundsOnResize={true}
+            center={center}
+            initialCenter={center}
+            // onCenterChanged={() => {
+            //   ref.getCenter(); // get the center, zoom, whatever using the ref
+            // }}
           >
-            <Box className={classes.infoWindow}>
-              <h6>{selectedLocation.name}</h6>
-              <Typography fontFamily="Arial">
-                {selectedLocation.address_full}
-              </Typography>
-              <Typography>
-                <a
-                  href={selectedLocation.website}
-                  target={selectedLocation.website}
-                >
-                  {selectedLocation.website}
-                </a>
-              </Typography>
-              {/* <Box pt={1} pb={1}>
+            {locations.map((location) => {
+              return (
+                <Marker
+                  className={classes.marker}
+                  name={location.id}
+                  key={location.id}
+                  markerData={location}
+                  position={{ lat: location.lat, lng: location.lng }}
+                  onClick={onMarkerClick}
+                  icon={{
+                    url: MapPinDefault,
+                    scaledSize: new google.maps.Size(36, 36),
+                  }}
+                />
+              );
+            })}
+            {selectedLocation && (
+              <InfoWindow
+                position={{
+                  lat: selectedLocation.lat,
+                  lng: selectedLocation.lng,
+                }}
+                visible={infoOpen}
+                onClose={onInfoWindowClose}
+              >
+                <Box className={classes.infoWindow}>
+                  <h6>{selectedLocation.name}</h6>
+                  <Typography fontFamily="Arial">
+                    {selectedLocation.address_full}
+                  </Typography>
+                  <Typography>
+                    <a
+                      href={selectedLocation.website}
+                      target={selectedLocation.website}
+                    >
+                      {selectedLocation.website}
+                    </a>
+                  </Typography>
+                  {/* <Box pt={1} pb={1}>
                 <Divider />
               </Box>
               <Typography>
@@ -159,15 +167,18 @@ const Map = ({
                   See related videos
                 </a>
               </Typography> */}
-            </Box>
-          </InfoWindow>
-        )}
-      </GoogleMap>
-    </Box>
+                </Box>
+              </InfoWindow>
+            )}
+          </GoogleMap>
+        </Box>
+      )}
+    </>
   );
 };
 
 Map.propTypes = {
+  loading: PropTypes.bool,
   google: PropTypes.object,
   locations: PropTypes.array,
   selectedLocation: PropTypes.object,
@@ -176,6 +187,7 @@ Map.propTypes = {
 };
 
 Map.defaultProps = {
+  loading: false,
   google: {},
   locations: [],
   selectedLocation: null,
