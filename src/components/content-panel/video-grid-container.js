@@ -20,7 +20,7 @@ const mapStateToProps = (state, ownProps) => {
       : selectVideoData(state).videos,
     // to-do: find a way to do optional chaining
     // hashtags: selectVideoData(state)?.videos,
-    loading: selectVideoIsLoading(state)
+    loading: selectVideoIsLoading(state),
   };
 };
 

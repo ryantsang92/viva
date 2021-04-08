@@ -25,21 +25,21 @@ const useStyles = makeStyles((theme) => ({
     width: "100%",
   },
   header: {
-    position: 'relative',
+    position: "relative",
     height: 140,
-    boxShadow: '1px 0px 5px rgba(0,0,0,0.5)',
+    boxShadow: "1px 0px 5px rgba(0,0,0,0.5)",
     zIndex: 100,
   },
   headerTop: {
     height: 60,
     margin: 0,
-    width: '100%',
+    width: "100%",
   },
   logoContainer: {
     // float: "left",
     height: 60,
-    display: 'flex',
-    alignItems: 'center',
+    display: "flex",
+    alignItems: "center",
     paddingLeft: 15,
   },
   logo: {
@@ -53,7 +53,7 @@ const useStyles = makeStyles((theme) => ({
   navbar: {
     height: 80,
     margin: 0,
-    width: '100%',
+    width: "100%",
   },
   formControl: {
     margin: theme.spacing(1),
@@ -70,9 +70,9 @@ const useStyles = makeStyles((theme) => ({
     float: "right",
   },
   clear: {
-    padding: '0 !important',
-    margin: '0 !important',
-  }
+    padding: "0 !important",
+    margin: "0 !important",
+  },
 }));
 
 const Header = () => {
@@ -94,8 +94,8 @@ const Header = () => {
               {/* <img src={logo} alt="VIVA" className={classes.logo} /> */}
             </Box>
           </Box>
-          </Grid>
-          <Grid item xs={6} className={classes.topGridSocials}>
+        </Grid>
+        <Grid item xs={6} className={classes.topGridSocials}>
           <SocialGrid />
         </Grid>
       </Grid>

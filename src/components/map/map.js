@@ -64,7 +64,6 @@ const Map = ({
   const [center, setCenter] = useState(initialCenter);
   const [zoom, setZoom] = useState(13);
   const [infoOpen, setInfoOpen] = useState(false);
-  const [activeMarker, setActiveMarker] = useState({});
 
   useEffect(() => {
     if (!locations || !locations.length) {
@@ -81,7 +80,6 @@ const Map = ({
   }, [locations, selectedLocation]);
 
   const onMarkerClick = (marker) => {
-    setActiveMarker(marker);
     saveSelectedLocation(marker.markerData);
   };
 
