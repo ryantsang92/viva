@@ -4,7 +4,7 @@
   author: Ryan Tsang <ryan@vivatheapp.com>
 */
 
-import React from "react";
+import React, { useState } from "react";
 // import logo from "../assets/viva-logo-transparent.png";
 import {
   Box,
@@ -14,6 +14,7 @@ import {
   MenuItem,
   FormControl,
   InputLabel,
+  Modal,
 } from "@material-ui/core";
 import PillBoxContainer from "./pill-box/pill-box-container";
 import SocialGrid from "./social-grid";
@@ -87,15 +88,35 @@ const useStyles = makeStyles((theme) => ({
     fontSize: 18,
     marginRight: 18,
   },
+  paper: {
+    position: "fixed",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: 400,
+    backgroundColor: theme.palette.background.paper,
+    border: "2px solid #000",
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(2, 4, 3),
+  },
 }));
 
 const Header = () => {
   const classes = useStyles();
 
-  const [city, setCity] = React.useState("All");
+  const [city, setCity] = useState("All");
+  const [modalOpen, setModalOpen] = useState(false);
 
   const handleChange = (event) => {
     setCity(event.target.value);
+  };
+
+  const onAboutClick = () => {
+    setModalOpen(true);
+  };
+
+  const handleModalClose = () => {
+    setModalOpen(false);
   };
 
   return (
@@ -116,7 +137,11 @@ const Header = () => {
             alignItems="center"
             pt={2}
           >
-            <Typography className={classes.menuLink}>About</Typography>
+            <Typography className={classes.menuLink}>
+              <a href="#" onClick={onAboutClick}>
+                About
+              </a>
+            </Typography>
             <Typography className={classes.menuLink}>Submit Video</Typography>
             <SocialGrid />
           </Box>
@@ -148,6 +173,30 @@ const Header = () => {
           </Box>
         </Grid>
       </Grid>
+      <Modal
+        open={modalOpen}
+        onClose={handleModalClose}
+        aria-labelledby="simple-modal-title"
+        aria-describedby="simple-modal-description"
+      >
+        <div className={classes.paper}>
+          <Box mb={1}>
+            <Typography variant="h4" id="simple-modal-title">
+              About Viva
+            </Typography>
+          </Box>
+          <Typography id="simple-modal-description">
+            VIVA is an O2O (online-to-offline) social exploration platform that
+            redefines how people search, find and share experiences. If you ever
+            feel like changing up your day, VIVA gives you instant access to a
+            vast library of local experiences. From a picture-perfect coffee
+            shop, to a hidden art gallery or even the secret menu at your local
+            restaurant, VIVA makes your daily life fun and exciting. Beyond
+            local attractions, you can also find communities of like-minded
+            individuals to connect with. Join VIVA and be part of the adventure.
+          </Typography>
+        </div>
+      </Modal>
     </div>
   );
 };
