@@ -37,6 +37,10 @@ const useStyles = makeStyles({
     display: "flex",
     justifyContent: "flex-end",
   },
+  infoContainer: {
+    padding: 10,
+    paddingBottom: 30,
+  },
 });
 
 const VideoPanel = ({ video, clearSelectedVideo }) => {
@@ -59,11 +63,13 @@ const VideoPanel = ({ video, clearSelectedVideo }) => {
           width={400}
           height={550}
         />
-        <Typography variant="h6">{video.title || "Test Title"}</Typography>
-        <Typography>
-          {video.description ||
-            "TEST DESCRIPTION I absolutely Adore being here with this and that and all the other stuff and even more of the other stuff and yeah and even more and more stuff that is just delicious and fun and exciting"}
-        </Typography>
+        <Box className={classes.infoContainer}>
+          <Typography variant="h6">{video.title || "Test Title"}</Typography>
+          <Typography>
+            {video.description ||
+              "TEST DESCRIPTION I absolutely Adore being here with this and that and all the other stuff and even more of the other stuff and yeah and even more and more stuff that is just delicious and fun and exciting"}
+          </Typography>
+        </Box>
       </Box>
     </Box>
   );

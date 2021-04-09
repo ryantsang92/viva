@@ -1,5 +1,5 @@
 /*
-  header component
+  Header component
 
   author: Ryan Tsang <ryan@vivatheapp.com>
 */
@@ -21,9 +21,6 @@ import SocialGrid from "./social-grid";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
-  left: {
-    width: "100%",
-  },
   header: {
     position: "relative",
     height: 140,
@@ -36,7 +33,6 @@ const useStyles = makeStyles((theme) => ({
     width: "100%",
   },
   logoContainer: {
-    // float: "left",
     height: 60,
     display: "flex",
     alignItems: "center",
@@ -55,23 +51,41 @@ const useStyles = makeStyles((theme) => ({
     margin: 0,
     width: "100%",
   },
-  formControl: {
-    margin: theme.spacing(1),
-    minWidth: 120,
-  },
-  topGrid: {
+  cityPicker: {
+    padding: "0 !important",
+    height: 80,
     display: "flex",
+    alignItems: "center",
   },
-  topGridLogo: {
-    textAlign: "left",
+  formControl: {
+    // margin: theme.spacing(1),
+    minWidth: 150,
+    background: "#efefef",
+    // border: '1px solid #ddd',
+    borderRadius: 15,
+    textAlign: "center",
+    marginLeft: 15,
+    "& label": {
+      display: "none",
+    },
+    "& > div": {
+      marginTop: 0,
+    },
   },
-  topGridSocials: {
-    textAlign: "right",
-    float: "right",
+  left: {
+    width: "100%",
+  },
+  hashContainer: {
+    padding: "0 !important",
   },
   clear: {
     padding: "0 !important",
     margin: "0 !important",
+  },
+  menuLink: {
+    color: "#555",
+    fontSize: 18,
+    marginRight: 18,
   },
 }));
 
@@ -95,13 +109,22 @@ const Header = () => {
             </Box>
           </Box>
         </Grid>
-        <Grid item xs={6} className={classes.topGridSocials}>
-          <SocialGrid />
+        <Grid item xs={6}>
+          <Box
+            display="flex"
+            justifyContent="flex-end"
+            alignItems="center"
+            pt={2}
+          >
+            <Typography className={classes.menuLink}>About</Typography>
+            <Typography className={classes.menuLink}>Submit Video</Typography>
+            <SocialGrid />
+          </Box>
         </Grid>
       </Grid>
       <Grid container spacing={2} className={classes.navbar}>
-        <Grid item>
-          <Box ml={3}>
+        <Grid item className={classes.cityPicker}>
+          <Box>
             <FormControl className={classes.formControl}>
               <InputLabel id="demo-simple-select-label">City</InputLabel>
               <Select
@@ -117,7 +140,7 @@ const Header = () => {
             </FormControl>
           </Box>
         </Grid>
-        <Grid item>
+        <Grid item className={classes.hashContainer}>
           <Box className={classes.left}>
             {/* search bar will be added later */}
             {/* <SearchBar /> */}

@@ -12,8 +12,8 @@ import { socialURLs } from "../app-constants";
 
 const useStyles = makeStyles((theme) => ({
   topGridSocials: {
-    textAlign: "right",
-    float: "right",
+    // textAlign: "right",
+    // float: "right",
   },
 }));
 
@@ -35,9 +35,7 @@ const SocialGrid = () => {
 
   return (
     <>
-      <Box mb={1} mr={2} mt={1}>
-        <Typography>Follow us</Typography>
-      </Box>
+      
       <Box mr={2} className={classes.topGridSocials}>
         <Grid container spacing={1}>
           <Grid item>{socialIcon(INSTAGRAM)}</Grid>
