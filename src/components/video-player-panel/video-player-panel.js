@@ -36,6 +36,10 @@ const useStyles = makeStyles({
     display: "flex",
     justifyContent: "flex-end",
   },
+  infoContainer: {
+    padding: 10,
+    paddingBottom: 30,
+  },
 });
 
 const VideoPanel = ({ video, clearSelectedVideo }) => {
@@ -58,8 +62,10 @@ const VideoPanel = ({ video, clearSelectedVideo }) => {
           primaryColor="#278A6E"
           // autoPlay
         />
-        <Typography>{video.title}Test Title</Typography>
-        <Typography>{video.description}I absolutely Adore being here with this and that and all the other stuff and even more of the other stuff and yeah and even more and more stuff that is just delicious and fun and exciting</Typography>
+        <Box className={classes.infoContainer}>
+          <Typography>{video.title}Test Title</Typography>
+          <Typography>{video.description}I absolutely Adore being here with this and that and all the other stuff and even more of the other stuff and yeah and even more and more stuff that is just delicious and fun and exciting</Typography>
+        </Box>
       </Box>
     </Box>
   );
