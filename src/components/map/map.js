@@ -163,14 +163,13 @@ const Map = ({
                       {selectedLocation.website}
                     </a>
                   </Typography>
-                  {/* <Box pt={1} pb={1}>
-                <Divider />
-              </Box>
-              <Typography>
-                <a href="#" onClick={onRelatedVideosClick}>
-                  See related videos
-                </a>
-              </Typography> */}
+                  <Box pt={1} pb={1}>
+                    <Divider />
+                  </Box>
+                  <Typography>
+                    {/* <a href="#" onClick={onRelatedVideosClick}> */}
+                    <a href="#">See related videos</a>
+                  </Typography>
                 </Box>
               </InfoWindow>
             )}
