@@ -1,11 +1,11 @@
 /*
-  header component
+  Header component
 
   author: Ryan Tsang <ryan@vivatheapp.com>
 */
 
 import React from "react";
-import logo from "../viva-logo-transparent.png";
+// import logo from "../assets/viva-logo-transparent.png";
 import {
   Box,
   Typography,
@@ -15,28 +15,27 @@ import {
   FormControl,
   InputLabel,
 } from "@material-ui/core";
-import PillBoxContainer from "./pill-box-container";
+import PillBoxContainer from "./pill-box/pill-box-container";
 import SocialGrid from "./social-grid";
 // import SearchBar from "./search-bar";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
   header: {
-    position: 'relative',
+    position: "relative",
     height: 140,
-    boxShadow: '1px 0px 5px rgba(0,0,0,0.5)',
+    boxShadow: "1px 0px 5px rgba(0,0,0,0.5)",
     zIndex: 100,
   },
   headerTop: {
     height: 60,
     margin: 0,
-    width: '100%',
+    width: "100%",
   },
   logoContainer: {
-    // float: "left",
     height: 60,
-    display: 'flex',
-    alignItems: 'center',
+    display: "flex",
+    alignItems: "center",
     paddingLeft: 15,
   },
   logo: {
@@ -50,26 +49,26 @@ const useStyles = makeStyles((theme) => ({
   navbar: {
     height: 80,
     margin: 0,
-    width: '100%',
+    width: "100%",
   },
   cityPicker: {
-    padding: '0 !important',
+    padding: "0 !important",
     height: 80,
-    display: 'flex',
-    alignItems: 'center',
+    display: "flex",
+    alignItems: "center",
   },
   formControl: {
     // margin: theme.spacing(1),
     minWidth: 150,
-    background: '#efefef',
+    background: "#efefef",
     // border: '1px solid #ddd',
     borderRadius: 15,
-    textAlign: 'center',
+    textAlign: "center",
     marginLeft: 15,
-    '& label': {
-      display: 'none',
+    "& label": {
+      display: "none",
     },
-    '& > div': {
+    "& > div": {
       marginTop: 0,
     },
   },
@@ -77,30 +76,17 @@ const useStyles = makeStyles((theme) => ({
     width: "100%",
   },
   hashContainer: {
-    padding: '0 !important',
-  },
-  topGrid: {
-    display: "flex",
-  },
-  topGridLogo: {
-    textAlign: "left",
-  },
-  topGridSocials: {
-    // textAlign: "right",
-    // float: "right",
-    display: 'flex',
-    justifyContent: 'end',
-    alignItems: 'center',
+    padding: "0 !important",
   },
   clear: {
-    padding: '0 !important',
-    margin: '0 !important',
+    padding: "0 !important",
+    margin: "0 !important",
   },
   menuLink: {
-    color: '#555',
+    color: "#555",
     fontSize: 18,
     marginRight: 18,
-  }
+  },
 }));
 
 const Header = () => {
@@ -123,10 +109,17 @@ const Header = () => {
             </Box>
           </Box>
         </Grid>
-        <Grid item xs={6} className={classes.topGridSocials}>
-          <Typography className={classes.menuLink}>About</Typography>
-          <Typography className={classes.menuLink}>Submit Video</Typography>
-          <SocialGrid />
+        <Grid item xs={6}>
+          <Box
+            display="flex"
+            justifyContent="flex-end"
+            alignItems="center"
+            pt={2}
+          >
+            <Typography className={classes.menuLink}>About</Typography>
+            <Typography className={classes.menuLink}>Submit Video</Typography>
+            <SocialGrid />
+          </Box>
         </Grid>
       </Grid>
       <Grid container spacing={2} className={classes.navbar}>

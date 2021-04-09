@@ -9,6 +9,7 @@ import { fetchVideos } from "../../actions/video-actions";
 import {
   selectVideoData,
   selectVideosByHashtag,
+  selectVideoIsLoading,
 } from "../../selectors/video-selectors";
 import VideoGrid from "./video-grid";
 
@@ -19,6 +20,7 @@ const mapStateToProps = (state, ownProps) => {
       : selectVideoData(state).videos,
     // to-do: find a way to do optional chaining
     // hashtags: selectVideoData(state)?.videos,
+    loading: selectVideoIsLoading(state),
   };
 };
 

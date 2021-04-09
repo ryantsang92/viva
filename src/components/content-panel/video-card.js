@@ -5,7 +5,7 @@
 */
 
 import React from "react";
-import defaultVideoImage from "./video-thumbnail.png";
+import defaultVideoImage from "../../assets/default-video-thumbnail.png";
 import { View, Image, StyleSheet } from "react-native";
 import { Typography, Box } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
@@ -18,7 +18,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     height: 240, // see if we can get this to display properly without hard-coding the height
     backgroundColor: "white",
-    // borderRadius: 15,
   },
   image: {
     width: "100%",
@@ -33,14 +32,6 @@ const useStyles = makeStyles({
     textAlign: "left",  
   }
 });
-
-const getThumbnail = (video) => {
-  return video.thumbnail || defaultVideoImage;
-};
-
-const getTitle = (video) => {
-  return video.title || "test title";
-};
 
 const VideoCard = ({
   video,
@@ -62,13 +53,13 @@ const classes = useStyles();
           <Image
             style={styles.image}
             source={{
-              uri: getThumbnail(video),
+              uri: video.thumbnail || defaultVideoImage,
             }}
             onClick={() => handleClick(video)}
             resizeMode="cover"
           />
         </View>
-        <Typography className={classes.title}>{getTitle(video)}</Typography>
+        <Typography className={classes.title}>{video.title || "Test Title"}</Typography>
       </Box>
     </>
   );

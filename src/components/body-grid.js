@@ -50,8 +50,6 @@ const useStyles = makeStyles({
 });
 
 const BodyGrid = ({ selectedVideo }) => {
-  console.log("selectedVideo");
-  console.log(selectedVideo);
   const classes = useStyles();
   return (
     <Box ml={1} className={classes.root}>

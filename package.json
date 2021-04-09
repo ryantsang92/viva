@@ -13,6 +13,7 @@
     "babel-preset-es2015": "^6.24.1",
     "bootstrap": "^4.6.0",
     "google-maps-react": "^2.0.6",
+    "lion-player": "^1.1.5",
     "lodash": "^4.17.21",
     "react": "^17.0.1",
     "react-bootstrap": "^1.5.0",

@@ -49,7 +49,7 @@ const PillBox = ({
 
   const hashtagComponents = (hashtags) => {
     return hashtags.map((hashtag) => (
-      <Box pl={1}>
+      <Box pr={1} pl={1} key={hashtag.id}>
         <ToggleButtonGroup
           size="small"
           value={selectedHashtag}

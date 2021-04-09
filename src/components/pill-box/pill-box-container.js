@@ -8,8 +8,8 @@ import { connect } from "react-redux";
 import {
   fetchHashtags,
   fetchSelectedHashtag,
-} from "../actions/hashtag-actions";
-import { selectHashtagData, selectSelectedHashtag } from "../selectors/hashtag-selectors";
+} from "../../actions/hashtag-actions";
+import { selectHashtagData, selectSelectedHashtag } from "../../selectors/hashtag-selectors";
 import PillBox from "./pill-box";
 
 const mapStateToProps = (state) => {
