@@ -9,12 +9,15 @@ import {
   FETCH_LOCATION_SUCCESS,
   SAVE_SELECTED_LOCATION,
   CLEAR_SELECTED_LOCATION,
+  SAVE_SELECTED_CITY,
+  CLEAR_SELECTED_CITY,
 } from "../actions/location-actions";
 
 const initialState = {
   isLoading: false,
   locations: [],
   error: null,
+  selectedCity: null,
 };
 
 const locationReducer = (state = initialState, action) => {
@@ -29,6 +32,16 @@ const locationReducer = (state = initialState, action) => {
         ...state,
         locations: action.payload,
         isLoading: false,
+      };
+    case SAVE_SELECTED_CITY:
+      return {
+        ...state,
+        selectedCity: action.data,
+      };
+    case CLEAR_SELECTED_CITY:
+      return {
+        ...state,
+        selectedCity: null,
       };
     case SAVE_SELECTED_LOCATION:
       return {

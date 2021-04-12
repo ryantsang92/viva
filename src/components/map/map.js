@@ -55,6 +55,7 @@ const Map = ({
   google,
   locations,
   selectedLocation,
+  selectedCity,
   fetchLocations,
   saveSelectedLocation,
   clearSelectedLocation,
@@ -77,7 +78,17 @@ const Map = ({
         setZoom(15);
       }
     }
-  }, [locations, selectedLocation]);
+    if (selectedCity) {
+      setCenter(
+        selectedCity === "Boston"
+          ? {
+              lat: 42.3601,
+              lng: -71.0589,
+            }
+          : { lat: 40.7128, lng: -74.006 }
+      );
+    }
+  }, [locations, selectedLocation, selectedCity]);
 
   const onMarkerClick = (marker) => {
     saveSelectedLocation(marker.markerData);
@@ -160,7 +171,11 @@ const Map = ({
                       href={selectedLocation.website}
                       target={selectedLocation.website}
                     >
-                      {selectedLocation.website}
+                      {
+                        selectedLocation.website
+                          .replace(/^(?:https?:\/\/)?(?:www\.)?/i, "")
+                          .split("/")[0]
+                      }
                     </a>
                   </Typography>
                   <Box pt={1} pb={1}>
@@ -185,6 +200,7 @@ Map.propTypes = {
   google: PropTypes.object,
   locations: PropTypes.array,
   selectedLocation: PropTypes.object,
+  selectedCity: PropTypes.string,
   fetchLocations: PropTypes.func,
   saveSelectedLocation: PropTypes.func,
 };
@@ -194,10 +210,12 @@ Map.defaultProps = {
   google: {},
   locations: [],
   selectedLocation: null,
+  selectedCity: null,
   fetchLocations() {},
   saveSelectedLocation() {},
 };
 
 export default GoogleApiWrapper({
   apiKey: "AIzaSyDxUpiuJMJwjPvtBeuXJyRcm66jqEx38kA",
+  // LoadingContainer: <Loading />,
 })(Map);

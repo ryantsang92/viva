@@ -16,6 +16,7 @@ const useStyles = makeStyles({
   pill: {
     marginLeft: 0,
     marginRight: 0,
+    height: 32,
     borderRadius: "25px",
     backgroundColor: "#F2F2F2",
     color: "#333333",

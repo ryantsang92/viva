@@ -10,6 +10,8 @@ export const FETCH_LOCATION_SUCCESS = "FETCH_LOCATION_SUCCESS";
 export const FETCH_LOCATION_ERROR = "FETCH_LOCATION_ERROR";
 export const SAVE_SELECTED_LOCATION = "SAVE_SELECTED_LOCATION";
 export const CLEAR_SELECTED_LOCATION = "CLEAR_SELECTED_LOCATION";
+export const SAVE_SELECTED_CITY = "SAVE_SELECTED_CITY";
+export const CLEAR_SELECTED_CITY = "CLEAR_SELECTED_CITY";
 
 const requestOptions = {
   method: "GET",
@@ -71,5 +73,18 @@ export const saveSelectedLocation = (data) => {
 export const clearSelectedLocation = () => {
   return {
     type: CLEAR_SELECTED_LOCATION,
+  };
+}
+
+export const saveSelectedCity = (data) => {
+  return {
+    type: SAVE_SELECTED_CITY,
+    data,
+  };
+};
+
+export const clearSelectedCity = () => {
+  return {
+    type: CLEAR_SELECTED_CITY,
   };
 }

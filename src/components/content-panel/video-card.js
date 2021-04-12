@@ -40,7 +40,6 @@ const VideoCard = ({
 }) => {
 
   const handleClick = (video) => {
-    clearSelectedVideo();
     saveSelectedVideo(video);
   };
 

@@ -4,10 +4,27 @@
   author: Ryan Tsang <ryan@vivatheapp.com>
 */
 
-import { selectVideosByHashtag } from "./video-selectors";
+import { selectVideos, selectVideosByHashtag } from "./video-selectors";
 
 export const selectLocationData = (state) => {
   return state ? state.locationData : null;
+};
+
+export const selectLocations = (state, hashtag = null, city = null) => {
+  const selectedVideos = selectVideos(state, hashtag, city);
+  // let returnData = selectLocationData(state).locations;
+
+  let combinedHashtags = [];
+  let locationIds = [];
+  if (selectedVideos) {
+    selectedVideos.forEach((video) => combinedHashtags.push(video.location_id));
+    locationIds = [].concat.apply([], combinedHashtags);
+  }
+  return state
+    ? state.locationData.locations.filter((location) =>
+        locationIds.includes(location.id)
+      )
+    : null;
 };
 
 export const selectLocationIsFetching = (state) => {
@@ -28,6 +45,10 @@ export const selectLocationById = (state, id) => {
 export const selectSelectedLocation = (state) => {
   const locationData = selectLocationData(state);
   return locationData ? locationData.selectedLocation : null;
+};
+
+export const selectSelectedCity = (state) => {
+  return state ? state.locationData.selectedCity : null;
 };
 
 export const selectLocationsByHashtag = (state, hashtag) => {

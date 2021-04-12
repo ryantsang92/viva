@@ -5,14 +5,14 @@
 */
 
 import React from "react";
-import { Box, Typography } from "@material-ui/core";
+import { Box, Typography, Divider } from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
 import { makeStyles } from "@material-ui/core/styles";
 import "./video-react.css";
 import { Player } from "video-react";
+import { SocialIcon } from "../social-icon";
 import PropTypes from "prop-types";
 
-// to-do: find a better way to style this
 const useStyles = makeStyles({
   playerBar: {
     padding: 8,
@@ -24,7 +24,7 @@ const useStyles = makeStyles({
     display: "flex",
   },
   playerArea: {
-    maxWidth: 400,
+    maxWidth: 310,
     position: "relative",
   },
   username: {
@@ -48,7 +48,7 @@ const VideoPanel = ({ video, clearSelectedVideo }) => {
   return (
     <Box className={classes.playerArea}>
       <Box className={classes.playerBar}>
-        <Typography className={classes.username}>Username (TikTok)</Typography>
+        <Typography variant="h6">{video.title || "Test Title"}</Typography>
         <CloseIcon
           className={classes.closeIcon}
           onClick={() => clearSelectedVideo()}
@@ -60,15 +60,23 @@ const VideoPanel = ({ video, clearSelectedVideo }) => {
           poster={video.thumbnail}
           src={video.url}
           fluid={false}
-          width={400}
+          width={310}
           height={550}
         />
         <Box className={classes.infoContainer}>
-          <Typography variant="h6">{video.title || "Test Title"}</Typography>
-          <Typography>
-            {video.description ||
-              "TEST DESCRIPTION I absolutely Adore being here with this and that and all the other stuff and even more of the other stuff and yeah and even more and more stuff that is just delicious and fun and exciting"}
-          </Typography>
+          {video.description && (
+            <>
+              <Typography>{video.description}</Typography>
+              <Box pt={1} pb={1}>
+                <Divider />
+              </Box>
+            </>
+          )}
+          <SocialIcon
+            user={video.user}
+            platform={video.user_platform}
+            hw={20}
+          />
         </Box>
       </Box>
     </Box>

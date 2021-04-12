@@ -4,7 +4,7 @@
   author: Ryan Tsang <ryan@vivatheapp.com>
 */
 
-import React from "react";
+import React, { useState } from "react";
 // import logo from "../assets/viva-logo-transparent.png";
 import {
   Box,
@@ -14,11 +14,15 @@ import {
   MenuItem,
   FormControl,
   InputLabel,
+  Modal,
+  Button,
 } from "@material-ui/core";
 import PillBoxContainer from "./pill-box/pill-box-container";
 import SocialGrid from "./social-grid";
+import { aboutText } from "../app-constants";
 // import SearchBar from "./search-bar";
-import { makeStyles } from "@material-ui/core/styles";
+import { withStyles, makeStyles } from "@material-ui/core/styles";
+import PropTypes from "prop-types";
 
 const useStyles = makeStyles((theme) => ({
   header: {
@@ -58,13 +62,12 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
   },
   formControl: {
-    // margin: theme.spacing(1),
     minWidth: 150,
     background: "#efefef",
-    // border: '1px solid #ddd',
     borderRadius: 15,
-    textAlign: "center",
+    textAlign: "left",
     marginLeft: 15,
+    height: 32,
     "& label": {
       display: "none",
     },
@@ -87,16 +90,60 @@ const useStyles = makeStyles((theme) => ({
     fontSize: 18,
     marginRight: 18,
   },
+  paper: {
+    position: "fixed",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: 400,
+    backgroundColor: theme.palette.background.paper,
+    border: "2px solid #000",
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(2, 4, 3),
+  },
+  selectBox: {
+    height: 32,
+    width: "100%",
+  },
+  modal: {
+    height: 500,
+    width: 700,
+  },
 }));
 
-const Header = () => {
+const Header = ({ saveSelectedCity, clearSelectedCity }) => {
   const classes = useStyles();
 
-  const [city, setCity] = React.useState("All");
+  const [city, setCity] = useState("All");
+  const [modalOpen, setModalOpen] = useState(false);
 
   const handleChange = (event) => {
     setCity(event.target.value);
+
+    // update redux store
+    if (event.target.value === "All") {
+      clearSelectedCity();
+    } else {
+      saveSelectedCity(event.target.value.replace(/\s/g, ""));
+    }
   };
+
+  const onAboutClick = () => {
+    setModalOpen(true);
+  };
+
+  const handleModalClose = () => {
+    setModalOpen(false);
+  };
+
+  const ThemeButton = withStyles({
+    root: {
+      backgroundColor: "#228B6E",
+      "&:hover": {
+        backgroundColor: "#228b8b",
+      },
+    },
+  })(Button);
 
   return (
     <div className={classes.header}>
@@ -116,40 +163,85 @@ const Header = () => {
             alignItems="center"
             pt={2}
           >
-            <Typography className={classes.menuLink}>About</Typography>
-            <Typography className={classes.menuLink}>Submit Video</Typography>
+            <Typography className={classes.menuLink}>
+              <ThemeButton
+                variant="contained"
+                color="primary"
+                onClick={onAboutClick}
+              >
+                About
+              </ThemeButton>
+            </Typography>
+            <Typography className={classes.menuLink}>
+              <ThemeButton
+                variant="contained"
+                color="primary"
+                onClick={onAboutClick}
+              >
+                Share Your Experience
+              </ThemeButton>
+            </Typography>
             <SocialGrid />
           </Box>
         </Grid>
       </Grid>
-      <Grid container spacing={2} className={classes.navbar}>
-        <Grid item className={classes.cityPicker}>
-          <Box>
+      <Box mt={1} mb={1}>
+        <Grid container spacing={2} className={classes.navbar}>
+          <Grid item className={classes.cityPicker}>
             <FormControl className={classes.formControl}>
               <InputLabel id="demo-simple-select-label">City</InputLabel>
-              <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value={city}
-                onChange={handleChange}
-              >
-                <MenuItem value={"All"}>All</MenuItem>
-                <MenuItem value={"Boston"}>Boston</MenuItem>
-                <MenuItem value={"New York"}>New York</MenuItem>
-              </Select>
+              <Box pl={2}>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  value={city}
+                  onChange={handleChange}
+                  className={classes.selectBox}
+                >
+                  <MenuItem value={"All"}>All</MenuItem>
+                  <MenuItem value={"Boston"}>Boston</MenuItem>
+                  <MenuItem value={"New York"}>New York</MenuItem>
+                </Select>
+              </Box>
             </FormControl>
-          </Box>
+          </Grid>
+          <Grid item className={classes.hashContainer}>
+            <Box className={classes.left}>
+              {/* search bar will be added later */}
+              {/* <SearchBar /> */}
+              <PillBoxContainer />
+            </Box>
+          </Grid>
         </Grid>
-        <Grid item className={classes.hashContainer}>
-          <Box className={classes.left}>
-            {/* search bar will be added later */}
-            {/* <SearchBar /> */}
-            <PillBoxContainer />
+      </Box>
+      <Modal
+        open={modalOpen}
+        onClose={handleModalClose}
+        className={classes.modal}
+        aria-labelledby="simple-modal-title"
+        aria-describedby="simple-modal-description"
+      >
+        <div className={classes.paper}>
+          <Box mb={1}>
+            <Typography variant="h4" id="simple-modal-title">
+              About Viva
+            </Typography>
           </Box>
-        </Grid>
-      </Grid>
+          <Typography id="simple-modal-description">{aboutText()}</Typography>
+        </div>
+      </Modal>
     </div>
   );
+};
+
+Header.propTypes = {
+  saveSelectedCity: PropTypes.func,
+  clearSelectedCity: PropTypes.func,
+};
+
+Header.defaultProps = {
+  saveSelectedCity() {},
+  clearSelectedCity() {},
 };
 
 export default Header;

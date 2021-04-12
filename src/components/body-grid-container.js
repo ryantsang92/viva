@@ -11,8 +11,6 @@ import BodyGrid from "./body-grid";
 const mapStateToProps = (state) => {
     return {
       selectedVideo: selectSelectedVideo(state),
-      // to-do: find a way to do optional chaining
-      // hashtags: selectLocationData(state)?.locations,
     };
   };
 
