@@ -13,26 +13,24 @@ import {
 import { selectSelectedHashtag } from "../../selectors/hashtag-selectors";
 import { selectSelectedVideo } from "../../selectors/video-selectors";
 import {
-  selectLocationData,
-  selectLocationsByHashtag,
+  selectLocations,
   selectSelectedLocation,
   selectLocationById,
   selectLocationIsFetching,
 } from "../../selectors/location-selectors";
+import { selectSelectedCity } from "../../selectors/location-selectors";
 import Map from "./map";
 
 const mapStateToProps = (state) => {
   const selectedHashtag = selectSelectedHashtag(state);
   const selectedVideo = selectSelectedVideo(state);
+  const selectedCity = selectSelectedCity(state);
+
   return {
-    locations: selectedHashtag
-      ? selectLocationsByHashtag(state, selectedHashtag)
-      : selectLocationData(state).locations,
+    locations: selectLocations(state, selectedHashtag, selectedCity),
     selectedLocation: selectedVideo
       ? selectLocationById(state, selectedVideo.location_id)
       : selectSelectedLocation(state),
-    // to-do: find a way to do optional chaining
-    // locations: selectLocationData(state)?.locations,
     loading: selectLocationIsFetching(state),
   };
 };

@@ -15,11 +15,13 @@ import {
   FormControl,
   InputLabel,
   Modal,
+  Button,
 } from "@material-ui/core";
 import PillBoxContainer from "./pill-box/pill-box-container";
 import SocialGrid from "./social-grid";
 // import SearchBar from "./search-bar";
-import { makeStyles } from "@material-ui/core/styles";
+import { withStyles, makeStyles } from "@material-ui/core/styles";
+import PropTypes from "prop-types";
 
 const useStyles = makeStyles((theme) => ({
   header: {
@@ -59,13 +61,12 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
   },
   formControl: {
-    // margin: theme.spacing(1),
     minWidth: 150,
     background: "#efefef",
-    // border: '1px solid #ddd',
     borderRadius: 15,
-    textAlign: "center",
+    textAlign: "left",
     marginLeft: 15,
+    height: 32,
     "& label": {
       display: "none",
     },
@@ -99,9 +100,13 @@ const useStyles = makeStyles((theme) => ({
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
   },
+  selectBox: {
+    height: 32,
+    width: "100%",
+  },
 }));
 
-const Header = () => {
+const Header = ({ saveSelectedCity, clearSelectedCity }) => {
   const classes = useStyles();
 
   const [city, setCity] = useState("All");
@@ -109,6 +114,13 @@ const Header = () => {
 
   const handleChange = (event) => {
     setCity(event.target.value);
+
+    // update redux store
+    if (event.target.value === "All") {
+      clearSelectedCity();
+    } else {
+      saveSelectedCity(event.target.value.replace(/\s/g, ""));
+    }
   };
 
   const onAboutClick = () => {
@@ -118,6 +130,15 @@ const Header = () => {
   const handleModalClose = () => {
     setModalOpen(false);
   };
+
+  const ThemeButton = withStyles({
+    root: {
+      backgroundColor: "#228B6E",
+      "&:hover": {
+        backgroundColor: "#228b8b",
+      },
+    },
+  })(Button);
 
   return (
     <div className={classes.header}>
@@ -138,41 +159,56 @@ const Header = () => {
             pt={2}
           >
             <Typography className={classes.menuLink}>
-              <a href="#" onClick={onAboutClick}>
+              <ThemeButton
+                variant="contained"
+                color="primary"
+                onClick={onAboutClick}
+              >
                 About
-              </a>
+              </ThemeButton>
             </Typography>
-            <Typography className={classes.menuLink}>Submit Video</Typography>
+            <Typography className={classes.menuLink}>
+              <ThemeButton
+                variant="contained"
+                color="primary"
+                onClick={onAboutClick}
+              >
+                Share Your Experience
+              </ThemeButton>
+            </Typography>
             <SocialGrid />
           </Box>
         </Grid>
       </Grid>
-      <Grid container spacing={2} className={classes.navbar}>
-        <Grid item className={classes.cityPicker}>
-          <Box>
+      <Box mt={1} mb={1}>
+        <Grid container spacing={2} className={classes.navbar}>
+          <Grid item className={classes.cityPicker}>
             <FormControl className={classes.formControl}>
               <InputLabel id="demo-simple-select-label">City</InputLabel>
-              <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value={city}
-                onChange={handleChange}
-              >
-                <MenuItem value={"All"}>All</MenuItem>
-                <MenuItem value={"Boston"}>Boston</MenuItem>
-                <MenuItem value={"New York"}>New York</MenuItem>
-              </Select>
+              <Box pl={2}>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  value={city}
+                  onChange={handleChange}
+                  className={classes.selectBox}
+                >
+                  <MenuItem value={"All"}>All</MenuItem>
+                  <MenuItem value={"Boston"}>Boston</MenuItem>
+                  <MenuItem value={"New York"}>New York</MenuItem>
+                </Select>
+              </Box>
             </FormControl>
-          </Box>
+          </Grid>
+          <Grid item className={classes.hashContainer}>
+            <Box className={classes.left}>
+              {/* search bar will be added later */}
+              {/* <SearchBar /> */}
+              <PillBoxContainer />
+            </Box>
+          </Grid>
         </Grid>
-        <Grid item className={classes.hashContainer}>
-          <Box className={classes.left}>
-            {/* search bar will be added later */}
-            {/* <SearchBar /> */}
-            <PillBoxContainer />
-          </Box>
-        </Grid>
-      </Grid>
+      </Box>
       <Modal
         open={modalOpen}
         onClose={handleModalClose}
@@ -186,19 +222,30 @@ const Header = () => {
             </Typography>
           </Box>
           <Typography id="simple-modal-description">
-            VIVA is an O2O (online-to-offline) social exploration platform that
-            redefines how people search, find and share experiences. If you ever
-            feel like changing up your day, VIVA gives you instant access to a
-            vast library of local experiences. From a picture-perfect coffee
-            shop, to a hidden art gallery or even the secret menu at your local
-            restaurant, VIVA makes your daily life fun and exciting. Beyond
-            local attractions, you can also find communities of like-minded
-            individuals to connect with. Join VIVA and be part of the adventure.
+            Hello, welcome to VIVA! VIVA is a social exploration platform where
+            you can quickly and easily discover local experiences from people
+            like you. If you ever feel like changing up your day, VIVA gets you
+            instant access to a vast library of recommendations from your local
+            community. From a cute coffee shop around the corner to a
+            picture-perfect hiking trail, VIVA uncovers all the local hidden
+            gems for you. Add your favorite attractions to a personalized
+            collection and share it with your friends to plan for your next
+            date. Start your exploration today!
           </Typography>
         </div>
       </Modal>
     </div>
   );
+};
+
+Header.propTypes = {
+  saveSelectedCity: PropTypes.func,
+  clearSelectedCity: PropTypes.func,
+};
+
+Header.defaultProps = {
+  saveSelectedCity() {},
+  clearSelectedCity() {},
 };
 
 export default Header;
