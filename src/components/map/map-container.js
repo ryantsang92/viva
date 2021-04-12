@@ -31,6 +31,7 @@ const mapStateToProps = (state) => {
     selectedLocation: selectedVideo
       ? selectLocationById(state, selectedVideo.location_id)
       : selectSelectedLocation(state),
+    selectedCity: selectedCity,
     loading: selectLocationIsFetching(state),
   };
 };
