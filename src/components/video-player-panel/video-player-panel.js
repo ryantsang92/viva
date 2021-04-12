@@ -10,9 +10,9 @@ import CloseIcon from "@material-ui/icons/Close";
 import { makeStyles } from "@material-ui/core/styles";
 import "./video-react.css";
 import { Player } from "video-react";
+import { SocialIcon } from "../social-icon";
 import PropTypes from "prop-types";
 
-// to-do: find a better way to style this
 const useStyles = makeStyles({
   playerBar: {
     padding: 8,
@@ -48,7 +48,6 @@ const VideoPanel = ({ video, clearSelectedVideo }) => {
   return (
     <Box className={classes.playerArea}>
       <Box className={classes.playerBar}>
-        {/* <Typography className={classes.username}>{video.user}</Typography> */}
         <Typography variant="h6">{video.title || "Test Title"}</Typography>
         <CloseIcon
           className={classes.closeIcon}
@@ -65,15 +64,15 @@ const VideoPanel = ({ video, clearSelectedVideo }) => {
           height={550}
         />
         <Box className={classes.infoContainer}>
-          {/* <Typography variant="h6">{video.title || "Test Title"}</Typography> */}
-          <Typography>
-            {video.description ||
-              "TEST DESCRIPTION I absolutely Adore being here with this and that and all the other stuff and even more of the other stuff and yeah and even more and more stuff that is just delicious and fun and exciting"}
-          </Typography>
+          <Typography>{video.description || "no description"}</Typography>
           <Box pt={1} pb={1}>
             <Divider />
           </Box>
-          <Typography>{video.user}</Typography>
+          <SocialIcon
+            user={video.user}
+            platform={video.user_platform}
+            hw={20}
+          />
         </Box>
       </Box>
     </Box>
