@@ -64,10 +64,14 @@ const VideoPanel = ({ video, clearSelectedVideo }) => {
           height={550}
         />
         <Box className={classes.infoContainer}>
-          <Typography>{video.description || "no description"}</Typography>
-          <Box pt={1} pb={1}>
-            <Divider />
-          </Box>
+          {video.description && (
+            <>
+              <Typography>{video.description}</Typography>
+              <Box pt={1} pb={1}>
+                <Divider />
+              </Box>
+            </>
+          )}
           <SocialIcon
             user={video.user}
             platform={video.user_platform}
