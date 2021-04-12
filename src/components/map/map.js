@@ -160,7 +160,7 @@ const Map = ({
                       href={selectedLocation.website}
                       target={selectedLocation.website}
                     >
-                      {selectedLocation.website}
+                      {selectedLocation.website.replace(/^(?:https?:\/\/)?(?:www\.)?/i, "").split('/')[0]}
                     </a>
                   </Typography>
                   <Box pt={1} pb={1}>
