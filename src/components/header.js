@@ -19,6 +19,7 @@ import {
 } from "@material-ui/core";
 import PillBoxContainer from "./pill-box/pill-box-container";
 import SocialGrid from "./social-grid";
+import { aboutText } from "../app-constants";
 // import SearchBar from "./search-bar";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 import PropTypes from "prop-types";
@@ -103,6 +104,10 @@ const useStyles = makeStyles((theme) => ({
   selectBox: {
     height: 32,
     width: "100%",
+  },
+  modal: {
+    height: 500,
+    width: 700,
   },
 }));
 
@@ -212,6 +217,7 @@ const Header = ({ saveSelectedCity, clearSelectedCity }) => {
       <Modal
         open={modalOpen}
         onClose={handleModalClose}
+        className={classes.modal}
         aria-labelledby="simple-modal-title"
         aria-describedby="simple-modal-description"
       >
@@ -221,17 +227,7 @@ const Header = ({ saveSelectedCity, clearSelectedCity }) => {
               About Viva
             </Typography>
           </Box>
-          <Typography id="simple-modal-description">
-            Hello, welcome to VIVA! VIVA is a social exploration platform where
-            you can quickly and easily discover local experiences from people
-            like you. If you ever feel like changing up your day, VIVA gets you
-            instant access to a vast library of recommendations from your local
-            community. From a cute coffee shop around the corner to a
-            picture-perfect hiking trail, VIVA uncovers all the local hidden
-            gems for you. Add your favorite attractions to a personalized
-            collection and share it with your friends to plan for your next
-            date. Start your exploration today!
-          </Typography>
+          <Typography id="simple-modal-description">{aboutText()}</Typography>
         </div>
       </Modal>
     </div>

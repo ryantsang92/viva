@@ -25,8 +25,8 @@ const useStyles = makeStyles({
     boxShadow: "1px 1px 3px rgba(0,0,0,0.3)",
   },
   videoPanel: {
-    minWidth: 400,
-    maxWidth: 400,
+    minWidth: 310,
+    maxWidth: 310,
     height: 'calc(100vh - 140px)',
     overflowY: 'scroll',
     overflowX: 'hidden',
