@@ -94,7 +94,6 @@ const Map = ({
   }, [locations, selectedLocation, selectedCity]);
 
   const onMarkerClick = (marker) => {
-    console.log('onMarkerClick');
     saveSelectedLocation(marker.markerData);
   };
 
@@ -106,7 +105,6 @@ const Map = ({
 
   const onRelatedVideosClick = (e) => {
     e.preventDefault();
-    console.log(selectedLocation);
     activateFilter();
   };
 
