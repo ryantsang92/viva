@@ -184,15 +184,6 @@ const Header = ({
                 About
               </ThemeButton>
             </Typography>
-            <Typography className={classes.menuLink}>
-              <ThemeButton
-                variant="contained"
-                color="primary"
-                onClick={onAboutClick}
-              >
-                Share Your Experience
-              </ThemeButton>
-            </Typography>
             <SocialGrid />
           </Box>
         </Grid>
