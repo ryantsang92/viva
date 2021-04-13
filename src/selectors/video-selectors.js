@@ -8,8 +8,12 @@ export const selectVideoData = (state) => {
   return state ? state.videoData : null;
 };
 
-export const selectVideos = (state, hashtag = null, city = null, location = null) => {
-  console.log(location);
+export const selectVideos = (
+  state,
+  hashtag = null,
+  city = null,
+  location = null
+) => {
   let returnData = selectVideoData(state).videos;
 
   if (hashtag) {
@@ -20,9 +24,10 @@ export const selectVideos = (state, hashtag = null, city = null, location = null
   if (city) {
     returnData = returnData.filter((video) => video.metro === city || null);
   }
-  if (location) {
-    console.log(returnData);
-    returnData = returnData.filter((video) => video.location_id === location.id || null);
+  if (location && location.filter) {
+    returnData = returnData.filter(
+      (video) => (video.location_id === location.id) || null
+    );
   }
 
   return returnData;

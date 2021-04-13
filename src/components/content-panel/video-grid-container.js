@@ -17,9 +17,7 @@ import VideoGrid from "./video-grid";
 const mapStateToProps = (state) => {
   const selectedHashtag = selectSelectedHashtag(state);
   const selectedCity = selectSelectedCity(state);
-  const selectedLocation = null;
-  // const selectedLocation = selectSelectedLocation(state);
-  console.log(selectedLocation);
+  const selectedLocation = selectSelectedLocation(state);
 
   return {
     videos: selectVideos(state, selectedHashtag, selectedCity, selectedLocation),

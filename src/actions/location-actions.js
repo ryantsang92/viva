@@ -12,6 +12,8 @@ export const SAVE_SELECTED_LOCATION = "SAVE_SELECTED_LOCATION";
 export const CLEAR_SELECTED_LOCATION = "CLEAR_SELECTED_LOCATION";
 export const SAVE_SELECTED_CITY = "SAVE_SELECTED_CITY";
 export const CLEAR_SELECTED_CITY = "CLEAR_SELECTED_CITY";
+export const ACTIVATE_FILTER = "ACTIVATE_FILTER";
+export const DEACTIVATE_FILTER = "DEACTIVATE_FILTER";
 
 const requestOptions = {
   method: "GET",
@@ -86,5 +88,17 @@ export const saveSelectedCity = (data) => {
 export const clearSelectedCity = () => {
   return {
     type: CLEAR_SELECTED_CITY,
+  };
+}
+
+export const activateFilter = () => {
+  return {
+    type: ACTIVATE_FILTER,
+  };
+}
+
+export const deactivateFilter = () => {
+  return {
+    type: DEACTIVATE_FILTER,
   };
 }

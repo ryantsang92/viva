@@ -31,11 +31,20 @@ const useStyles = makeStyles({
   },
 });
 
-const ContentPanel = ({ selectedHashtag, clearSelectedHashtag }) => {
+const ContentPanel = ({
+  selectedHashtag,
+  selectedLocation,
+  clearSelectedHashtag,
+  clearSelectedLocationFilter,
+}) => {
   const classes = useStyles();
 
-  const onClose = () => {
+  const onHashtagFilterClose = () => {
     clearSelectedHashtag();
+  };
+
+  const onLocationFilterClose = () => {
+    clearSelectedLocationFilter();
   };
 
   return (
@@ -45,7 +54,17 @@ const ContentPanel = ({ selectedHashtag, clearSelectedHashtag }) => {
           <Box pt={2}>
             <div className={classes.title}>
               {selectedHashtag.hashtag}{" "}
-              <IconButton onClick={onClose} size="small">
+              <IconButton onClick={onHashtagFilterClose} size="small">
+                <CloseIcon />
+              </IconButton>
+            </div>
+          </Box>
+        )}
+        {selectedLocation && (
+          <Box pt={2}>
+            <div className={classes.title}>
+              {selectedLocation.name}{" "}
+              <IconButton onClick={onLocationFilterClose} size="small">
                 <CloseIcon />
               </IconButton>
             </div>
@@ -59,12 +78,16 @@ const ContentPanel = ({ selectedHashtag, clearSelectedHashtag }) => {
 
 ContentPanel.propTypes = {
   selectedHashtag: PropTypes.object,
+  selectedLocation: PropTypes.object,
   clearSelectedHashtag: PropTypes.func,
+  clearSelectedLocationFilter: PropTypes.func,
 };
 
 ContentPanel.defaultProps = {
   selectedHashtag: null,
+  selectedLocation: null,
   clearSelectedHashtag() {},
+  clearSelectedLocationFilter() {},
 };
 
 export default ContentPanel;
