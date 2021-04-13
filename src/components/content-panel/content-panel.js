@@ -5,7 +5,8 @@
 */
 
 import React from "react";
-import { Box } from "@material-ui/core";
+import { Box, IconButton } from "@material-ui/core";
+import CloseIcon from "@material-ui/icons/Close";
 import { makeStyles } from "@material-ui/core/styles";
 import { SafeAreaView } from "react-native";
 import VideoGridContainer from "./video-grid-container";
@@ -22,17 +23,32 @@ const useStyles = makeStyles({
   },
   title: {
     fontWeight: "bold",
+    backgroundColor: "#F2F2F2",
+    display: "inline-block",
+    borderRadius: 25,
+    textAlign: "center",
+    padding: "5px 10px 5px",
   },
 });
 
-const ContentPanel = ({ selectedHashtag }) => {
+const ContentPanel = ({ selectedHashtag, clearSelectedHashtag }) => {
   const classes = useStyles();
+
+  const onClose = () => {
+    clearSelectedHashtag();
+  };
+
   return (
     <Box className={classes.root}>
       <SafeAreaView>
         {selectedHashtag && (
-          <Box className={classes.title} pt={2}>
-            {selectedHashtag.hashtag}
+          <Box pt={2}>
+            <div className={classes.title}>
+              {selectedHashtag.hashtag}{" "}
+              <IconButton onClick={onClose} size="small">
+                <CloseIcon />
+              </IconButton>
+            </div>
           </Box>
         )}
         <VideoGridContainer selectedHashtag={selectedHashtag} />
@@ -43,10 +59,12 @@ const ContentPanel = ({ selectedHashtag }) => {
 
 ContentPanel.propTypes = {
   selectedHashtag: PropTypes.object,
+  clearSelectedHashtag: PropTypes.func,
 };
 
 ContentPanel.defaultProps = {
   selectedHashtag: null,
+  clearSelectedHashtag() {},
 };
 
 export default ContentPanel;

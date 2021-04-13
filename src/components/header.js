@@ -118,9 +118,6 @@ const Header = ({
   clearSelectedCity,
   clearSelectedVideo,
 }) => {
-  console.log(selectedVideo);
-  console.log(selectedCity);
-
   const classes = useStyles();
 
   const [city, setCity] = useState("All");

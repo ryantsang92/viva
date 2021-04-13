@@ -28,9 +28,10 @@ const mapStateToProps = (state) => {
 
   return {
     locations: selectLocations(state, selectedHashtag, selectedCity),
-    selectedLocation: selectedVideo
-      ? selectLocationById(state, selectedVideo.location_id)
-      : selectSelectedLocation(state),
+    // selectedLocation: selectedVideo
+    //   ? selectLocationById(state, selectedVideo.location_id)
+    //   : selectSelectedLocation(state),
+    selectedLocation: selectSelectedLocation(state),
     selectedCity: selectedCity,
     loading: selectLocationIsFetching(state),
   };

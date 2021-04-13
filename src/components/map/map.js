@@ -14,6 +14,7 @@ import {
   InfoWindow,
   GoogleApiWrapper,
 } from "google-maps-react";
+import InfoWindowEx from "./info-window-ex";
 import Loading from "../loading";
 import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
@@ -71,7 +72,6 @@ const Map = ({
       fetchLocations();
     }
     if (selectedLocation) {
-      setInfoOpen(false);
       setInfoOpen(true);
       setCenter({ lat: selectedLocation.lat, lng: selectedLocation.lng });
       if (zoom < 15) {
@@ -79,6 +79,7 @@ const Map = ({
       }
     }
     if (selectedCity) {
+      setInfoOpen(false);
       setCenter(
         selectedCity === "Boston"
           ? {
@@ -92,6 +93,7 @@ const Map = ({
   }, [locations, selectedLocation, selectedCity]);
 
   const onMarkerClick = (marker) => {
+    console.log('onMarkerClick');
     saveSelectedLocation(marker.markerData);
   };
 
@@ -103,12 +105,9 @@ const Map = ({
 
   const onRelatedVideosClick = (e) => {
     e.preventDefault();
-    console.log("onRelatedVideosClick");
+    console.log(selectedLocation);
   };
 
-  // let ref;
-
-  // console.log(ref);
   return (
     <>
       {loading ? (
@@ -116,7 +115,6 @@ const Map = ({
       ) : (
         <Box mr={2} className={classes.test}>
           <GoogleMap
-            // ref={(mapRef) => (ref = mapRef)}
             google={google}
             zoom={zoom}
             mapTypeControl={false}
@@ -132,31 +130,29 @@ const Map = ({
             zoomControlOptions={{
               position: google.maps.ControlPosition.TOP_RIGHT,
             }}
-            // onCenterChanged={() => {
-            //   ref.getCenter(); // get the center, zoom, whatever using the ref
-            // }}
           >
-            {locations && locations.map((location) => {
-              return (
-                <Marker
-                  className={classes.marker}
-                  name={location.id}
-                  key={location.id}
-                  markerData={location}
-                  position={{ lat: location.lat, lng: location.lng }}
-                  onClick={onMarkerClick}
-                  icon={{
-                    url:
-                      selectedLocation && selectedLocation.id === location.id
-                        ? MapPinSelected
-                        : MapPinDefault,
-                    scaledSize: new google.maps.Size(30, 36),
-                  }}
-                />
-              );
-            })}
+            {locations &&
+              locations.map((location) => {
+                return (
+                  <Marker
+                    className={classes.marker}
+                    name={location.id}
+                    key={location.id}
+                    markerData={location}
+                    position={{ lat: location.lat, lng: location.lng }}
+                    onClick={onMarkerClick}
+                    icon={{
+                      url:
+                        selectedLocation && selectedLocation.id === location.id
+                          ? MapPinSelected
+                          : MapPinDefault,
+                      scaledSize: new google.maps.Size(30, 36),
+                    }}
+                  />
+                );
+              })}
             {selectedLocation && (
-              <InfoWindow
+              <InfoWindowEx
                 position={{
                   lat: selectedLocation.lat,
                   lng: selectedLocation.lng,
@@ -186,11 +182,13 @@ const Map = ({
                     <Divider />
                   </Box>
                   <Typography>
-                    {/* <a href="#" onClick={onRelatedVideosClick}> */}
-                    <a href="#">See related videos</a>
+                    <a href="#" onClick={onRelatedVideosClick}>
+                      See related videos
+                    </a>
+                    {/* <a href="#">See related videos</a> */}
                   </Typography>
                 </Box>
-              </InfoWindow>
+              </InfoWindowEx>
             )}
           </GoogleMap>
         </Box>
