@@ -25,25 +25,19 @@ const styles = StyleSheet.create({
     cursor: "pointer",
     borderRadius: 15,
   },
-  
 });
 const useStyles = makeStyles({
   title: {
-    textAlign: "left",  
-  }
+    textAlign: "left",
+  },
 });
 
-const VideoCard = ({
-  video,
-  clearSelectedVideo,
-  saveSelectedVideo,
-}) => {
-
+const VideoCard = ({ video, saveSelectedVideo }) => {
   const handleClick = (video) => {
     saveSelectedVideo(video);
   };
 
-const classes = useStyles();
+  const classes = useStyles();
 
   return (
     <>
@@ -58,7 +52,9 @@ const classes = useStyles();
             resizeMode="cover"
           />
         </View>
-        <Typography className={classes.title}>{video.title || "Test Title"}</Typography>
+        <Typography className={classes.title}>
+          {video.title || "Test Title"}
+        </Typography>
       </Box>
     </>
   );
@@ -66,13 +62,11 @@ const classes = useStyles();
 
 VideoCard.propTypes = {
   video: PropTypes.object,
-  clearSelectedVideo: PropTypes.func,
   saveSelectedVideo: PropTypes.func,
 };
 
 VideoCard.defaultProps = {
   video: {},
-  clearSelectedVideo() {},
   saveSelectedVideo() {},
 };
 

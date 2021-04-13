@@ -60,6 +60,8 @@ const Map = ({
   saveSelectedLocation,
   clearSelectedLocation,
 }) => {
+  console.log(locations);
+  console.log(selectedLocation);
   const classes = useStyles();
 
   const [center, setCenter] = useState(initialCenter);
@@ -67,7 +69,7 @@ const Map = ({
   const [infoOpen, setInfoOpen] = useState(false);
 
   useEffect(() => {
-    if (!locations || !locations.length) {
+    if (!locations) {
       fetchLocations();
     }
     if (selectedLocation) {
@@ -87,6 +89,7 @@ const Map = ({
             }
           : { lat: 40.7128, lng: -74.006 }
       );
+      setZoom(13);
     }
   }, [locations, selectedLocation, selectedCity]);
 
@@ -128,11 +131,14 @@ const Map = ({
             resetBoundsOnResize={true}
             center={center}
             initialCenter={center}
+            zoomControlOptions={{
+              position: google.maps.ControlPosition.TOP_RIGHT,
+            }}
             // onCenterChanged={() => {
             //   ref.getCenter(); // get the center, zoom, whatever using the ref
             // }}
           >
-            {locations.map((location) => {
+            {locations && locations.map((location) => {
               return (
                 <Marker
                   className={classes.marker}
@@ -146,7 +152,7 @@ const Map = ({
                       selectedLocation && selectedLocation.id === location.id
                         ? MapPinSelected
                         : MapPinDefault,
-                    scaledSize: new google.maps.Size(36, 36),
+                    scaledSize: new google.maps.Size(30, 36),
                   }}
                 />
               );
@@ -157,7 +163,7 @@ const Map = ({
                   lat: selectedLocation.lat,
                   lng: selectedLocation.lng,
                 }}
-                visible={infoOpen}
+                visible={selectedLocation}
                 onClose={onInfoWindowClose}
                 pixelOffset={new google.maps.Size(0, -35)}
               >
@@ -208,7 +214,7 @@ Map.propTypes = {
 Map.defaultProps = {
   loading: false,
   google: {},
-  locations: [],
+  locations: null,
   selectedLocation: null,
   selectedCity: null,
   fetchLocations() {},

@@ -15,7 +15,7 @@ import {
 
 const initialState = {
   isLoading: false,
-  locations: [],
+  locations: null,
   error: null,
   selectedCity: null,
 };

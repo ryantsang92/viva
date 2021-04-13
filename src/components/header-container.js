@@ -9,11 +9,22 @@ import {
   saveSelectedCity,
   clearSelectedCity,
 } from "../actions/location-actions";
+import { selectSelectedCity } from "../selectors/location-selectors";
+import { selectSelectedVideo } from "../selectors/video-selectors";
+import { clearSelectedVideo } from "../actions/video-actions";
 import Header from "./header";
+
+const mapStateToProps = (state) => {
+  return {
+    selectedVideo: selectSelectedVideo(state),
+    selectedCity: selectSelectedCity(state),
+  };
+};
 
 const mapDispatchToProps = (dispatch) => ({
   saveSelectedCity: (city) => dispatch(saveSelectedCity(city)),
   clearSelectedCity: () => dispatch(clearSelectedCity()),
+  clearSelectedVideo: () => dispatch(clearSelectedVideo()),
 });
 
-export default connect(null, mapDispatchToProps)(Header);
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

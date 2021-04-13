@@ -4,7 +4,7 @@
   author: Ryan Tsang <ryan@vivatheapp.com>
 */
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 // import logo from "../assets/viva-logo-transparent.png";
 import {
   Box,
@@ -111,11 +111,26 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Header = ({ saveSelectedCity, clearSelectedCity }) => {
+const Header = ({
+  selectedVideo,
+  selectedCity,
+  saveSelectedCity,
+  clearSelectedCity,
+  clearSelectedVideo,
+}) => {
+  console.log(selectedVideo);
+  console.log(selectedCity);
+
   const classes = useStyles();
 
   const [city, setCity] = useState("All");
   const [modalOpen, setModalOpen] = useState(false);
+
+  useEffect(() => {
+    if (selectedVideo && selectedCity && selectedVideo.metro !== selectedCity) {
+      clearSelectedVideo();
+    }
+  }, [selectedVideo, selectedCity]);
 
   const handleChange = (event) => {
     setCity(event.target.value);
@@ -235,11 +250,15 @@ const Header = ({ saveSelectedCity, clearSelectedCity }) => {
 };
 
 Header.propTypes = {
+  selectedVideo: PropTypes.object,
+  selectedLocation: PropTypes.string,
   saveSelectedCity: PropTypes.func,
   clearSelectedCity: PropTypes.func,
 };
 
 Header.defaultProps = {
+  selectedVideo: {},
+  selectedLocation: null,
   saveSelectedCity() {},
   clearSelectedCity() {},
 };

@@ -20,7 +20,7 @@ export const selectLocations = (state, hashtag = null, city = null) => {
     selectedVideos.forEach((video) => combinedHashtags.push(video.location_id));
     locationIds = [].concat.apply([], combinedHashtags);
   }
-  return state
+  return state.locationData.locations
     ? state.locationData.locations.filter((location) =>
         locationIds.includes(location.id)
       )
