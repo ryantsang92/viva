@@ -32,9 +32,10 @@ const useStyles = makeStyles({
   },
 });
 
-const VideoCard = ({ video, saveSelectedVideo }) => {
+const VideoCard = ({ video, videoLocation, saveSelectedVideo, saveSelectedLocation }) => {
   const handleClick = (video) => {
     saveSelectedVideo(video);
+    saveSelectedLocation(videoLocation);
   };
 
   const classes = useStyles();
@@ -62,12 +63,16 @@ const VideoCard = ({ video, saveSelectedVideo }) => {
 
 VideoCard.propTypes = {
   video: PropTypes.object,
+  videoLocation: PropTypes.array,
   saveSelectedVideo: PropTypes.func,
+  saveSelectedLocation: PropTypes.func,
 };
 
 VideoCard.defaultProps = {
   video: {},
+  videoLocation: null,
   saveSelectedVideo() {},
+  saveSelectedLocation() {},
 };
 
 export default VideoCard;

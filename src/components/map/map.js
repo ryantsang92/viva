@@ -60,8 +60,6 @@ const Map = ({
   saveSelectedLocation,
   clearSelectedLocation,
 }) => {
-  console.log(locations);
-  console.log(selectedLocation);
   const classes = useStyles();
 
   const [center, setCenter] = useState(initialCenter);
@@ -163,7 +161,7 @@ const Map = ({
                   lat: selectedLocation.lat,
                   lng: selectedLocation.lng,
                 }}
-                visible={selectedLocation}
+                visible={infoOpen}
                 onClose={onInfoWindowClose}
                 pixelOffset={new google.maps.Size(0, -35)}
               >
