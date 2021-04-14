@@ -190,25 +190,27 @@ const Header = ({
           </Box>
         </Grid>
       </Grid>
-      <Box mt={1} mb={1}>
+      <Box mt={1} mb={1} pr={1}>
         <Grid container spacing={2} className={classes.navbar}>
           <Grid item className={classes.cityPicker}>
-            <FormControl className={classes.formControl}>
-              <InputLabel id="demo-simple-select-label">City</InputLabel>
-              <Box pl={2}>
-                <Select
-                  labelId="demo-simple-select-label"
-                  id="demo-simple-select"
-                  value={city}
-                  onChange={handleChange}
-                  className={classes.selectBox}
-                >
-                  <MenuItem value={"All"}>All</MenuItem>
-                  <MenuItem value={"Boston"}>Boston</MenuItem>
-                  <MenuItem value={"New York"}>New York</MenuItem>
-                </Select>
-              </Box>
-            </FormControl>
+            <Box pr={1}>
+              <FormControl className={classes.formControl}>
+                <InputLabel id="demo-simple-select-label">City</InputLabel>
+                <Box pl={2}>
+                  <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={city}
+                    onChange={handleChange}
+                    className={classes.selectBox}
+                  >
+                    <MenuItem value={"All"}>All</MenuItem>
+                    <MenuItem value={"Boston"}>Boston</MenuItem>
+                    <MenuItem value={"New York"}>New York</MenuItem>
+                  </Select>
+                </Box>
+              </FormControl>
+            </Box>
           </Grid>
           <Grid item className={classes.hashContainer}>
             <Box className={classes.left}>

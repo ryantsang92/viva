@@ -11,6 +11,8 @@ import { ToggleButtonGroup, ToggleButton } from "@material-ui/lab";
 import ScrollMenu from "react-horizontal-scrolling-menu";
 import PropTypes from "prop-types";
 import "./PillBox.css";
+import chevronLeft from "../../assets/chevron-left.svg";
+import chevronRight from "../../assets/chevron-right.svg";
 
 const useStyles = makeStyles({
   pill: {
@@ -20,19 +22,15 @@ const useStyles = makeStyles({
     borderRadius: "25px",
     backgroundColor: "#F2F2F2",
     color: "#333333",
-    padding: '8px 13px',
+    padding: "8px 13px",
   },
   scrollMenu: {
-    width: "calc(100vw - 185px)",
+    width: "calc(100vw - 190px)",
+  },
+  arrow: {
+    cursor: "pointer",
   },
 });
-
-const Arrow = ({ text, className }) => {
-  return <div className={className}>{text}</div>;
-};
-
-const ArrowLeft = Arrow({ text: "<", className: "arrow-prev" });
-const ArrowRight = Arrow({ text: ">", className: "arrow-next" });
 
 const PillBox = ({
   hashtags,
@@ -41,6 +39,17 @@ const PillBox = ({
   fetchSelectedHashtag,
 }) => {
   const classes = useStyles();
+
+  const ArrowLeft = (
+    <Box pr={1}>
+      <img src={chevronLeft} alt="left" className={classes.arrow} />
+    </Box>
+  );
+  const ArrowRight = (
+    <Box pl={1}>
+      <img src={chevronRight} alt="right" className={classes.arrow} />
+    </Box>
+  );
 
   useEffect(() => {
     if (!hashtags || !hashtags.length) {
