@@ -1,5 +1,5 @@
 /*
-  Video Grid Container
+  Video grid container
 
   author: Ryan Tsang <ryan@vivatheapp.com>
 */

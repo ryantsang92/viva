@@ -1,5 +1,5 @@
 /*
-  Pill Box
+  Pill box component
 
   author: Ryan Tsang <ryan@vivatheapp.com>
 */

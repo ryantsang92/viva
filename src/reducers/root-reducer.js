@@ -1,5 +1,5 @@
 /*
-  Reducer
+  Root Reducer
 
   author: Ryan Tsang <ryan@vivatheapp.com>
 */

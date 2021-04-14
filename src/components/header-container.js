@@ -1,5 +1,5 @@
 /*
-  Header Container
+  Header container
 
   author: Ryan Tsang <ryan@vivatheapp.com>
 */

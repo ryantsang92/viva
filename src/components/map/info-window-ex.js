@@ -1,5 +1,5 @@
 /*
-  Info Window wrapper component (allows function callbacks in google maps info window)
+  Info window wrapper component (allows function callbacks in google maps info window)
 
   author: Ryan Tsang <ryan@vivatheapp.com>
 */

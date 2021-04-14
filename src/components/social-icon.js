@@ -1,5 +1,5 @@
 /*
-  Social grid component
+  Social icon component
 
   author: Ryan Tsang <ryan@vivatheapp.com>
 */

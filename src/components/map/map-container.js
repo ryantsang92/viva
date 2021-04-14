@@ -1,5 +1,5 @@
 /*
-  Map Container
+  Map container
 
   author: Ryan Tsang <ryan@vivatheapp.com>
 */

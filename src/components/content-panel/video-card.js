@@ -1,5 +1,5 @@
 /*
-  Video card 
+  Video card component
 
   author: Ryan Tsang <ryan@vivatheapp.com>
 */

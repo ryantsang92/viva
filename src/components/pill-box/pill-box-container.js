@@ -1,5 +1,5 @@
 /*
-  Pill Box Container
+  Pill box container
 
   author: Ryan Tsang <ryan@vivatheapp.com>
 */

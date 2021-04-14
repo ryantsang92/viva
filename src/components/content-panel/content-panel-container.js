@@ -1,5 +1,5 @@
 /*
-  Content Panel Container
+  Content panel container
 
   author: Ryan Tsang <ryan@vivatheapp.com>
 */
