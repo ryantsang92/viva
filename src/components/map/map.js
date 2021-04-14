@@ -70,7 +70,6 @@ const Map = ({
     if (selectedCity) {
       console.log("selectedCity hook");
       setInfoOpen(false);
-      // onInfoWindowClose();
       setCenter(
         selectedCity === "Boston"
           ? {

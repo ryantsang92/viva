@@ -9,12 +9,12 @@ import { Grid, Box } from "@material-ui/core";
 import ContentPanelContainer from "./content-panel/content-panel-container";
 import MapContainer from "./map/map-container";
 import VideoPanelContainer from "./video-player-panel/video-player-panel-container";
+import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles({
   root: {
     marginLeft: 0,
-    // height: 'calc(100vh - 160px)',
   },
   contentPanel: {
     position: "relative",
@@ -103,6 +103,14 @@ const BodyGrid = ({ selectedVideo }) => {
       </Grid>
     </Box>
   );
+};
+
+BodyGrid.propTypes = {
+  selectedVideo: PropTypes.object,
+};
+
+BodyGrid.defaultProps = {
+  selectedVideo: null,
 };
 
 export default BodyGrid;
