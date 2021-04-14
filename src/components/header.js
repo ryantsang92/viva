@@ -5,7 +5,7 @@
 */
 
 import React, { useState, useEffect } from "react";
-// import logo from "../assets/viva-logo-transparent.png";
+import logo from "../assets/new-viva-logo.svg";
 import {
   Box,
   Typography,
@@ -23,7 +23,6 @@ import { aboutText } from "../app-constants";
 // import SearchBar from "./search-bar";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 import PropTypes from "prop-types";
-import { clearSelectedLocation } from "../actions/location-actions";
 
 const useStyles = makeStyles((theme) => ({
   header: {
@@ -167,8 +166,7 @@ const Header = ({
         <Grid item xs={6} className={classes.clear}>
           <Box className={classes.logoContainer}>
             <Box className={classes.clear}>
-              <Typography className={classes.logoText}>VIVA</Typography>
-              {/* <img src={logo} alt="VIVA" className={classes.logo} /> */}
+              <img src={logo} alt="VIVA" className={classes.logo} />
             </Box>
           </Box>
         </Grid>
