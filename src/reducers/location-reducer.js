@@ -11,11 +11,13 @@ import {
   CLEAR_SELECTED_LOCATION,
   SAVE_SELECTED_CITY,
   CLEAR_SELECTED_CITY,
+  ACTIVATE_FILTER,
+  DEACTIVATE_FILTER,
 } from "../actions/location-actions";
 
 const initialState = {
   isLoading: false,
-  locations: [],
+  locations: null,
   error: null,
   selectedCity: null,
 };
@@ -52,6 +54,16 @@ const locationReducer = (state = initialState, action) => {
       return {
         ...state,
         selectedLocation: null,
+      };
+    case ACTIVATE_FILTER:
+      return {
+        ...state,
+        selectedLocation: { ...state.selectedLocation, filter: true },
+      };
+    case DEACTIVATE_FILTER:
+      return {
+        ...state,
+        selectedLocation: { ...state.selectedLocation, filter: false },
       };
     default:
       return state;

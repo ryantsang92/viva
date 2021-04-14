@@ -4,8 +4,8 @@
   author: Ryan Tsang <ryan@vivatheapp.com>
 */
 
-import React, { useState } from "react";
-// import logo from "../assets/viva-logo-transparent.png";
+import React, { useState, useEffect } from "react";
+import logo from "../assets/new-viva-logo.svg";
 import {
   Box,
   Typography,
@@ -16,9 +16,11 @@ import {
   InputLabel,
   Modal,
   Button,
+  IconButton,
 } from "@material-ui/core";
 import PillBoxContainer from "./pill-box/pill-box-container";
 import SocialGrid from "./social-grid";
+import CloseIcon from "@material-ui/icons/Close";
 import { aboutText } from "../app-constants";
 // import SearchBar from "./search-bar";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
@@ -45,10 +47,6 @@ const useStyles = makeStyles((theme) => ({
   logo: {
     width: "40%",
     height: "40%",
-    // display: 'none',
-  },
-  logoText: {
-    fontSize: 40,
   },
   navbar: {
     height: 80,
@@ -95,7 +93,7 @@ const useStyles = makeStyles((theme) => ({
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    width: 400,
+    width: 500,
     backgroundColor: theme.palette.background.paper,
     border: "2px solid #000",
     boxShadow: theme.shadows[5],
@@ -105,17 +103,26 @@ const useStyles = makeStyles((theme) => ({
     height: 32,
     width: "100%",
   },
-  modal: {
-    height: 500,
-    width: 700,
-  },
 }));
 
-const Header = ({ saveSelectedCity, clearSelectedCity }) => {
+const Header = ({
+  selectedVideo,
+  selectedCity,
+  saveSelectedCity,
+  clearSelectedCity,
+  clearSelectedVideo,
+  clearSelectedLocation,
+}) => {
   const classes = useStyles();
 
   const [city, setCity] = useState("All");
   const [modalOpen, setModalOpen] = useState(false);
+
+  useEffect(() => {
+    if (selectedVideo && selectedCity && selectedVideo.metro !== selectedCity) {
+      clearSelectedVideo();
+    }
+  }, [selectedVideo, selectedCity]);
 
   const handleChange = (event) => {
     setCity(event.target.value);
@@ -124,6 +131,7 @@ const Header = ({ saveSelectedCity, clearSelectedCity }) => {
     if (event.target.value === "All") {
       clearSelectedCity();
     } else {
+      clearSelectedLocation();
       saveSelectedCity(event.target.value.replace(/\s/g, ""));
     }
   };
@@ -151,8 +159,7 @@ const Header = ({ saveSelectedCity, clearSelectedCity }) => {
         <Grid item xs={6} className={classes.clear}>
           <Box className={classes.logoContainer}>
             <Box className={classes.clear}>
-              <Typography className={classes.logoText}>VIVA</Typography>
-              {/* <img src={logo} alt="VIVA" className={classes.logo} /> */}
+              <img src={logo} alt="VIVA" className={classes.logo} />
             </Box>
           </Box>
         </Grid>
@@ -172,15 +179,6 @@ const Header = ({ saveSelectedCity, clearSelectedCity }) => {
                 About
               </ThemeButton>
             </Typography>
-            <Typography className={classes.menuLink}>
-              <ThemeButton
-                variant="contained"
-                color="primary"
-                onClick={onAboutClick}
-              >
-                Share Your Experience
-              </ThemeButton>
-            </Typography>
             <SocialGrid />
           </Box>
         </Grid>
@@ -188,22 +186,24 @@ const Header = ({ saveSelectedCity, clearSelectedCity }) => {
       <Box mt={1} mb={1}>
         <Grid container spacing={2} className={classes.navbar}>
           <Grid item className={classes.cityPicker}>
-            <FormControl className={classes.formControl}>
-              <InputLabel id="demo-simple-select-label">City</InputLabel>
-              <Box pl={2}>
-                <Select
-                  labelId="demo-simple-select-label"
-                  id="demo-simple-select"
-                  value={city}
-                  onChange={handleChange}
-                  className={classes.selectBox}
-                >
-                  <MenuItem value={"All"}>All</MenuItem>
-                  <MenuItem value={"Boston"}>Boston</MenuItem>
-                  <MenuItem value={"New York"}>New York</MenuItem>
-                </Select>
-              </Box>
-            </FormControl>
+            <Box pr={1}>
+              <FormControl className={classes.formControl}>
+                <InputLabel id="demo-simple-select-label">City</InputLabel>
+                <Box pl={2}>
+                  <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={city}
+                    onChange={handleChange}
+                    className={classes.selectBox}
+                  >
+                    <MenuItem value={"All"}>All</MenuItem>
+                    <MenuItem value={"Boston"}>Boston</MenuItem>
+                    <MenuItem value={"New York"}>New York</MenuItem>
+                  </Select>
+                </Box>
+              </FormControl>
+            </Box>
           </Grid>
           <Grid item className={classes.hashContainer}>
             <Box className={classes.left}>
@@ -217,17 +217,36 @@ const Header = ({ saveSelectedCity, clearSelectedCity }) => {
       <Modal
         open={modalOpen}
         onClose={handleModalClose}
-        className={classes.modal}
         aria-labelledby="simple-modal-title"
         aria-describedby="simple-modal-description"
       >
         <div className={classes.paper}>
-          <Box mb={1}>
-            <Typography variant="h4" id="simple-modal-title">
-              About Viva
+          <Box mb={2} display="flex">
+            <Box width="100%">
+              <Typography variant="h4" id="simple-modal-title">
+                About Viva
+              </Typography>
+            </Box>
+            <Box flexShrink={0}>
+              <IconButton onClick={handleModalClose} size="small">
+                <CloseIcon />
+              </IconButton>
+            </Box>
+          </Box>
+          <Box mb={2}>
+            <Typography id="simple-modal-description">{aboutText()}</Typography>
+          </Box>
+          <Box display="flex" justifyContent="flex-end">
+            <Typography className={classes.menuLink}>
+              <ThemeButton
+                variant="contained"
+                color="primary"
+                onClick={handleModalClose}
+              >
+                Got it!
+              </ThemeButton>
             </Typography>
           </Box>
-          <Typography id="simple-modal-description">{aboutText()}</Typography>
         </div>
       </Modal>
     </div>
@@ -235,13 +254,19 @@ const Header = ({ saveSelectedCity, clearSelectedCity }) => {
 };
 
 Header.propTypes = {
+  selectedVideo: PropTypes.object,
+  selectedLocation: PropTypes.string,
   saveSelectedCity: PropTypes.func,
   clearSelectedCity: PropTypes.func,
+  clearSelectedLocation: PropTypes.func,
 };
 
 Header.defaultProps = {
+  selectedVideo: {},
+  selectedLocation: null,
   saveSelectedCity() {},
   clearSelectedCity() {},
+  clearSelectedLocation() {},
 };
 
 export default Header;

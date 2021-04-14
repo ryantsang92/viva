@@ -5,15 +5,11 @@
 */
 
 import React, { useEffect, useState } from "react";
-import { Box, Typography, Divider, Button } from "@material-ui/core";
+import { Box, Typography, Divider } from "@material-ui/core";
 import MapPinDefault from "../../assets/map-pin-default.png";
 import MapPinSelected from "../../assets/map-pin-selected.png";
-import {
-  Map as GoogleMap,
-  Marker,
-  InfoWindow,
-  GoogleApiWrapper,
-} from "google-maps-react";
+import { Map as GoogleMap, Marker, GoogleApiWrapper } from "google-maps-react";
+import InfoWindowEx from "./info-window-ex";
 import Loading from "../loading";
 import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
@@ -59,6 +55,7 @@ const Map = ({
   fetchLocations,
   saveSelectedLocation,
   clearSelectedLocation,
+  activateFilter,
 }) => {
   const classes = useStyles();
 
@@ -67,18 +64,13 @@ const Map = ({
   const [infoOpen, setInfoOpen] = useState(false);
 
   useEffect(() => {
-    if (!locations || !locations.length) {
+    if (!locations) {
       fetchLocations();
     }
-    if (selectedLocation) {
-      setInfoOpen(false);
-      setInfoOpen(true);
-      setCenter({ lat: selectedLocation.lat, lng: selectedLocation.lng });
-      if (zoom < 15) {
-        setZoom(15);
-      }
-    }
     if (selectedCity) {
+      console.log("selectedCity hook");
+      setInfoOpen(false);
+      // onInfoWindowClose();
       setCenter(
         selectedCity === "Boston"
           ? {
@@ -87,6 +79,14 @@ const Map = ({
             }
           : { lat: 40.7128, lng: -74.006 }
       );
+      setZoom(13);
+    }
+    if (selectedLocation) {
+      setInfoOpen(true);
+      setCenter({ lat: selectedLocation.lat, lng: selectedLocation.lng });
+      if (zoom < 15) {
+        setZoom(15);
+      }
     }
   }, [locations, selectedLocation, selectedCity]);
 
@@ -102,12 +102,10 @@ const Map = ({
 
   const onRelatedVideosClick = (e) => {
     e.preventDefault();
-    console.log("onRelatedVideosClick");
+    activateFilter();
   };
 
-  // let ref;
-
-  // console.log(ref);
+  console.log(infoOpen);
   return (
     <>
       {loading ? (
@@ -115,7 +113,6 @@ const Map = ({
       ) : (
         <Box mr={2} className={classes.test}>
           <GoogleMap
-            // ref={(mapRef) => (ref = mapRef)}
             google={google}
             zoom={zoom}
             mapTypeControl={false}
@@ -128,31 +125,32 @@ const Map = ({
             resetBoundsOnResize={true}
             center={center}
             initialCenter={center}
-            // onCenterChanged={() => {
-            //   ref.getCenter(); // get the center, zoom, whatever using the ref
-            // }}
+            zoomControlOptions={{
+              position: google.maps.ControlPosition.TOP_RIGHT,
+            }}
           >
-            {locations.map((location) => {
-              return (
-                <Marker
-                  className={classes.marker}
-                  name={location.id}
-                  key={location.id}
-                  markerData={location}
-                  position={{ lat: location.lat, lng: location.lng }}
-                  onClick={onMarkerClick}
-                  icon={{
-                    url:
-                      selectedLocation && selectedLocation.id === location.id
-                        ? MapPinSelected
-                        : MapPinDefault,
-                    scaledSize: new google.maps.Size(36, 36),
-                  }}
-                />
-              );
-            })}
+            {locations &&
+              locations.map((location) => {
+                return (
+                  <Marker
+                    className={classes.marker}
+                    name={location.id}
+                    key={location.id}
+                    markerData={location}
+                    position={{ lat: location.lat, lng: location.lng }}
+                    onClick={onMarkerClick}
+                    icon={{
+                      url:
+                        selectedLocation && selectedLocation.id === location.id
+                          ? MapPinSelected
+                          : MapPinDefault,
+                      scaledSize: new google.maps.Size(30, 36),
+                    }}
+                  />
+                );
+              })}
             {selectedLocation && (
-              <InfoWindow
+              <InfoWindowEx
                 position={{
                   lat: selectedLocation.lat,
                   lng: selectedLocation.lng,
@@ -182,11 +180,12 @@ const Map = ({
                     <Divider />
                   </Box>
                   <Typography>
-                    {/* <a href="#" onClick={onRelatedVideosClick}> */}
-                    <a href="#">See related videos</a>
+                    <a href="#" onClick={onRelatedVideosClick}>
+                      See related videos
+                    </a>
                   </Typography>
                 </Box>
-              </InfoWindow>
+              </InfoWindowEx>
             )}
           </GoogleMap>
         </Box>
@@ -203,16 +202,18 @@ Map.propTypes = {
   selectedCity: PropTypes.string,
   fetchLocations: PropTypes.func,
   saveSelectedLocation: PropTypes.func,
+  activateFilter: PropTypes.func,
 };
 
 Map.defaultProps = {
   loading: false,
   google: {},
-  locations: [],
+  locations: null,
   selectedLocation: null,
   selectedCity: null,
   fetchLocations() {},
   saveSelectedLocation() {},
+  activateFilter() {},
 };
 
 export default GoogleApiWrapper({

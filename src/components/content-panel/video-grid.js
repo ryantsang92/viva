@@ -1,5 +1,5 @@
 /*
-  Video grid 
+  Video grid component
 
   author: Ryan Tsang <ryan@vivatheapp.com>
 */

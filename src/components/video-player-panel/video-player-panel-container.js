@@ -1,5 +1,5 @@
 /*
-  Video Panel Container
+  Video player panel container
 
   author: Ryan Tsang <ryan@vivatheapp.com>
 */

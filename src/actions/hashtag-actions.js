@@ -9,6 +9,7 @@ export const FETCH_HASHTAG_IS_LOADING = "FETCH_HASHTAG_IS_LOADING";
 export const FETCH_HASHTAG_SUCCESS = "FETCH_HASHTAG_SUCCESS";
 export const FETCH_HASHTAG_ERROR = "FETCH_HASHTAG_ERROR";
 export const FETCH_SELECTED_HASHTAG = "FETCH_SELECTED_HASHTAG";
+export const CLEAR_SELECTED_HASHTAG = "CLEAR_SELECTED_HASHTAG";
 
 const requestOptions = {
   method: "GET",
@@ -66,3 +67,9 @@ export const fetchSelectedHashtag = (data) => {
     data,
   };
 };
+
+export const clearSelectedHashtag = () => {
+  return {
+    type: CLEAR_SELECTED_HASHTAG,
+  };
+}

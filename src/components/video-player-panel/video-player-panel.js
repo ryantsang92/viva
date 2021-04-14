@@ -1,5 +1,5 @@
 /*
-  Video panel
+  Video player panel component
 
   author: Ryan Tsang <ryan@vivatheapp.com>
 */

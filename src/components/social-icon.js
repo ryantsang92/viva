@@ -1,5 +1,5 @@
 /*
-  Social grid component
+  Social icon component
 
   author: Ryan Tsang <ryan@vivatheapp.com>
 */
@@ -16,6 +16,8 @@ const generateURL = (user, platform) => {
       return "https://www.tiktok.com/" + user;
     case "Instagram":
       return "https://www.instagram.com/" + user;
+    default:
+      return "#";
   }
 };
 
@@ -25,6 +27,8 @@ const getIcon = (platform) => {
       return tiktokIcon;
     case "Instagram":
       return instagramIcon;
+    default:
+      return null;
   }
 };
 
@@ -39,6 +43,7 @@ export const SocialIcon = ({ url, icon, user, platform, hw }) => {
         <Box pr={1}>
           <img
             src={icon || getIcon(platform)}
+            alt={platform}
             style={{ height: hw, width: hw }}
           />
         </Box>

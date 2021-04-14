@@ -6,10 +6,10 @@
   border: none;
 }
 
-.scroll-menu-arrow {
+/* .scroll-menu-arrow {
   padding: 20px;
   cursor: pointer;
-}
+} */
 
 .MuiToggleButton-label {
 	text-transform: lowercase;

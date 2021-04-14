@@ -9,9 +9,9 @@ import { selectSelectedVideo } from "../selectors/video-selectors";
 import BodyGrid from "./body-grid";
 
 const mapStateToProps = (state) => {
-    return {
-      selectedVideo: selectSelectedVideo(state),
-    };
+  return {
+    selectedVideo: selectSelectedVideo(state),
   };
+};
 
 export default connect(mapStateToProps, null)(BodyGrid);

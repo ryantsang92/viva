@@ -1,5 +1,5 @@
 /*
-  Body Grid Component (let's think of a better name for this)
+  Body Grid component (let's think of a better name for this)
 
   author: Ryan Tsang <ryan@vivatheapp.com>
 */
