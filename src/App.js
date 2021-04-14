@@ -4,7 +4,7 @@
   author: Ryan Tsang <ryan@vivatheapp.com>
 */
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
 import { Typography, Button } from "@material-ui/core";
 import HeaderContainer from "./components/header-container";
@@ -33,20 +33,36 @@ const ThemeButton = withStyles({
 
 const App = () => {
   const classes = useStyles();
+  const [width, setWidth] = useState(window.innerWidth);
+  
+  function handleWindowSizeChange() {
+    setWidth(window.innerWidth);
+  }
+  useEffect(() => {
+    window.addEventListener("resize", handleWindowSizeChange);
+    return () => {
+      window.removeEventListener("resize", handleWindowSizeChange);
+    };
+  }, []);
+
+  let isMobile = width <= 768;
+
   return (
     <>
       <div className="App">
         <HeaderContainer />
         <BodyGridContainer />
-        <Typography className={classes.margin}>
-          <ThemeButton
-            variant="contained"
-            color="primary"
-            // onClick={onAboutClick}
-          >
-            Share Your Experience
-          </ThemeButton>
-        </Typography>
+        {!isMobile && (
+          <Typography className={classes.margin}>
+            <ThemeButton
+              variant="contained"
+              color="primary"
+              // onClick={onAboutClick}
+            >
+              Share Your Experience
+            </ThemeButton>
+          </Typography>
+        )}
       </div>
     </>
   );

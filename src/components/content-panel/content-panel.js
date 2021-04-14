@@ -16,7 +16,8 @@ import PropTypes from "prop-types";
 const useStyles = makeStyles({
   root: {
     maxWidth: 400,
-    minHeight: 550,
+    // minHeight: 550,
+    height: "100%",
     marginLeft: 0,
     paddingLeft: 15,
     paddingRight: 15,

@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    height: 240, // see if we can get this to display properly without hard-coding the height
+    height: 240,
     backgroundColor: "white",
   },
   image: {
@@ -32,7 +32,12 @@ const useStyles = makeStyles({
   },
 });
 
-const VideoCard = ({ video, videoLocation, saveSelectedVideo, saveSelectedLocation }) => {
+const VideoCard = ({
+  video,
+  videoLocation,
+  saveSelectedVideo,
+  saveSelectedLocation,
+}) => {
   const handleClick = (video) => {
     saveSelectedVideo(video);
     saveSelectedLocation(videoLocation);
@@ -41,23 +46,21 @@ const VideoCard = ({ video, videoLocation, saveSelectedVideo, saveSelectedLocati
   const classes = useStyles();
 
   return (
-    <>
-      <Box>
-        <View style={styles.container}>
-          <Image
-            style={styles.image}
-            source={{
-              uri: video.thumbnail || defaultVideoImage,
-            }}
-            onClick={() => handleClick(video)}
-            resizeMode="cover"
-          />
-        </View>
-        <Typography className={classes.title}>
-          {video.title || "Test Title"}
-        </Typography>
-      </Box>
-    </>
+    <Box pr={2}>
+      <View style={styles.container}>
+        <Image
+          style={styles.image}
+          source={{
+            uri: video.thumbnail || defaultVideoImage,
+          }}
+          onClick={() => handleClick(video)}
+          resizeMode="cover"
+        />
+      </View>
+      <Typography className={classes.title}>
+        {video.title || "Test Title"}
+      </Typography>
+    </Box>
   );
 };
 

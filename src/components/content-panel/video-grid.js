@@ -52,7 +52,7 @@ const VideoGrid = ({ loading, videos, fetchVideos }) => {
                 <GridListTile
                   key={video.id}
                   cols={1}
-                  className={classes.videoBox}
+                  // className={classes.videoBox}
                 >
                   <VideoCardContainer video={video} />
                 </GridListTile>

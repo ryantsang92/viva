@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
     position: "relative",
     height: 140,
     boxShadow: "1px 0px 5px rgba(0,0,0,0.5)",
-    zIndex: 100,
+    zIndex: 2,
   },
   headerTop: {
     height: 60,
@@ -45,8 +45,12 @@ const useStyles = makeStyles((theme) => ({
     paddingLeft: 15,
   },
   logo: {
-    width: "40%",
-    height: "40%",
+    width: 144,
+    height: 56,
+  },
+  logoMobile: {
+    width: 108,
+    height: 52,
   },
   navbar: {
     height: 80,
@@ -117,12 +121,23 @@ const Header = ({
 
   const [city, setCity] = useState("All");
   const [modalOpen, setModalOpen] = useState(false);
+  const [width, setWidth] = useState(window.innerWidth);
+
+  function handleWindowSizeChange() {
+    setWidth(window.innerWidth);
+  }
 
   useEffect(() => {
     if (selectedVideo && selectedCity && selectedVideo.metro !== selectedCity) {
       clearSelectedVideo();
     }
+    window.addEventListener("resize", handleWindowSizeChange);
+    return () => {
+      window.removeEventListener("resize", handleWindowSizeChange);
+    };
   }, [selectedVideo, selectedCity]);
+
+  let isMobile = width <= 768;
 
   const handleChange = (event) => {
     setCity(event.target.value);
@@ -150,20 +165,25 @@ const Header = ({
       "&:hover": {
         backgroundColor: "#228b8b",
       },
+      height: 30,
     },
   })(Button);
 
   return (
     <div className={classes.header}>
       <Grid container className={classes.headerTop}>
-        <Grid item xs={6} className={classes.clear}>
+        <Grid item xs={2} className={classes.clear}>
           <Box className={classes.logoContainer}>
             <Box className={classes.clear}>
-              <img src={logo} alt="VIVA" className={classes.logo} />
+              <img
+                src={logo}
+                alt="VIVA"
+                className={isMobile ? classes.logoMobile : classes.logo}
+              />
             </Box>
           </Box>
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={10}>
           <Box
             display="flex"
             justifyContent="flex-end"

@@ -4,7 +4,7 @@
   author: Ryan Tsang <ryan@vivatheapp.com>
 */
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Box, Typography, Divider } from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
 import { makeStyles } from "@material-ui/core/styles";
@@ -27,6 +27,10 @@ const useStyles = makeStyles({
     maxWidth: 310,
     position: "relative",
   },
+  playerAreaMobile: {
+    width: '100%',
+    position: "relative",
+  },
   username: {
     fontSize: 20,
   },
@@ -45,8 +49,22 @@ const useStyles = makeStyles({
 
 const VideoPanel = ({ video, clearSelectedVideo }) => {
   const classes = useStyles();
+  const [width, setWidth] = useState(window.innerWidth);
+
+  function handleWindowSizeChange() {
+    setWidth(window.innerWidth);
+  }
+  useEffect(() => {
+    window.addEventListener("resize", handleWindowSizeChange);
+    return () => {
+      window.removeEventListener("resize", handleWindowSizeChange);
+    };
+  }, []);
+
+  let isMobile = width <= 768;
+
   return (
-    <Box className={classes.playerArea}>
+    <Box className={isMobile ? classes.playerAreaMobile : classes.playerArea}>
       <Box className={classes.playerBar}>
         <Typography variant="h6">{video.title || "Test Title"}</Typography>
         <CloseIcon
@@ -60,7 +78,7 @@ const VideoPanel = ({ video, clearSelectedVideo }) => {
           poster={video.thumbnail}
           src={video.url}
           fluid={false}
-          width={310}
+          width={isMobile ? width : 310}
           height={550}
         />
         <Box className={classes.infoContainer}>
