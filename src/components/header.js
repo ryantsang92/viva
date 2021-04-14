@@ -16,9 +16,11 @@ import {
   InputLabel,
   Modal,
   Button,
+  IconButton,
 } from "@material-ui/core";
 import PillBoxContainer from "./pill-box/pill-box-container";
 import SocialGrid from "./social-grid";
+import CloseIcon from "@material-ui/icons/Close";
 import { aboutText } from "../app-constants";
 // import SearchBar from "./search-bar";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
@@ -45,10 +47,6 @@ const useStyles = makeStyles((theme) => ({
   logo: {
     width: "40%",
     height: "40%",
-    // display: 'none',
-  },
-  logoText: {
-    fontSize: 40,
   },
   navbar: {
     height: 80,
@@ -95,7 +93,7 @@ const useStyles = makeStyles((theme) => ({
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    width: 400,
+    width: 500,
     backgroundColor: theme.palette.background.paper,
     border: "2px solid #000",
     boxShadow: theme.shadows[5],
@@ -104,10 +102,6 @@ const useStyles = makeStyles((theme) => ({
   selectBox: {
     height: 32,
     width: "100%",
-  },
-  modal: {
-    height: 500,
-    width: 700,
   },
 }));
 
@@ -136,7 +130,6 @@ const Header = ({
     // update redux store
     if (event.target.value === "All") {
       clearSelectedCity();
-      // only run when selected city is different to current one
     } else {
       clearSelectedLocation();
       saveSelectedCity(event.target.value.replace(/\s/g, ""));
@@ -190,7 +183,7 @@ const Header = ({
           </Box>
         </Grid>
       </Grid>
-      <Box mt={1} mb={1} pr={1}>
+      <Box mt={1} mb={1}>
         <Grid container spacing={2} className={classes.navbar}>
           <Grid item className={classes.cityPicker}>
             <Box pr={1}>
@@ -224,17 +217,36 @@ const Header = ({
       <Modal
         open={modalOpen}
         onClose={handleModalClose}
-        className={classes.modal}
         aria-labelledby="simple-modal-title"
         aria-describedby="simple-modal-description"
       >
         <div className={classes.paper}>
-          <Box mb={1}>
-            <Typography variant="h4" id="simple-modal-title">
-              About Viva
+          <Box mb={2} display="flex">
+            <Box width="100%">
+              <Typography variant="h4" id="simple-modal-title">
+                About Viva
+              </Typography>
+            </Box>
+            <Box flexShrink={0}>
+              <IconButton onClick={handleModalClose} size="small">
+                <CloseIcon />
+              </IconButton>
+            </Box>
+          </Box>
+          <Box mb={2}>
+            <Typography id="simple-modal-description">{aboutText()}</Typography>
+          </Box>
+          <Box display="flex" justifyContent="flex-end">
+            <Typography className={classes.menuLink}>
+              <ThemeButton
+                variant="contained"
+                color="primary"
+                onClick={handleModalClose}
+              >
+                Got it!
+              </ThemeButton>
             </Typography>
           </Box>
-          <Typography id="simple-modal-description">{aboutText()}</Typography>
         </div>
       </Modal>
     </div>

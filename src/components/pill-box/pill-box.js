@@ -25,7 +25,7 @@ const useStyles = makeStyles({
     padding: "8px 13px",
   },
   scrollMenu: {
-    width: "calc(100vw - 190px)",
+    width: "calc(100vw - 210px)",
   },
   arrow: {
     cursor: "pointer",

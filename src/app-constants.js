@@ -35,9 +35,7 @@ export const aboutText = () => {
         If you ever feel like changing up your day, VIVA gets you instant access
         to a vast library of recommendations from your local community. From a
         cute coffee shop around the corner to a picture-perfect hiking trail,
-        VIVA uncovers all the local hidden gems for you. Add your favorite
-        attractions to a personalized collection and share it with your friends
-        to plan for your next date.
+        VIVA uncovers all the local hidden gems for you.
       </Typography>
       <br></br>
       <Typography>Start exploring today!</Typography>
