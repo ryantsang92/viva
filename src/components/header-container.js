@@ -8,6 +8,7 @@ import { connect } from "react-redux";
 import {
   saveSelectedCity,
   clearSelectedCity,
+  clearSelectedLocation,
 } from "../actions/location-actions";
 import { selectSelectedCity } from "../selectors/location-selectors";
 import { selectSelectedVideo } from "../selectors/video-selectors";
@@ -25,6 +26,7 @@ const mapDispatchToProps = (dispatch) => ({
   saveSelectedCity: (city) => dispatch(saveSelectedCity(city)),
   clearSelectedCity: () => dispatch(clearSelectedCity()),
   clearSelectedVideo: () => dispatch(clearSelectedVideo()),
+  clearSelectedLocation: () => dispatch(clearSelectedLocation()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header);

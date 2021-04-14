@@ -72,15 +72,10 @@ const Map = ({
     if (!locations) {
       fetchLocations();
     }
-    if (selectedLocation) {
-      setInfoOpen(true);
-      setCenter({ lat: selectedLocation.lat, lng: selectedLocation.lng });
-      if (zoom < 15) {
-        setZoom(15);
-      }
-    }
     if (selectedCity) {
+      console.log('selectedCity hook');
       setInfoOpen(false);
+      // onInfoWindowClose();
       setCenter(
         selectedCity === "Boston"
           ? {
@@ -90,6 +85,13 @@ const Map = ({
           : { lat: 40.7128, lng: -74.006 }
       );
       setZoom(13);
+    }
+    if (selectedLocation) {
+      setInfoOpen(true);
+      setCenter({ lat: selectedLocation.lat, lng: selectedLocation.lng });
+      if (zoom < 15) {
+        setZoom(15);
+      }
     }
   }, [locations, selectedLocation, selectedCity]);
 
@@ -108,6 +110,7 @@ const Map = ({
     activateFilter();
   };
 
+  console.log(infoOpen);
   return (
     <>
       {loading ? (
@@ -185,7 +188,6 @@ const Map = ({
                     <a href="#" onClick={onRelatedVideosClick}>
                       See related videos
                     </a>
-                    {/* <a href="#">See related videos</a> */}
                   </Typography>
                 </Box>
               </InfoWindowEx>

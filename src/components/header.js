@@ -23,6 +23,7 @@ import { aboutText } from "../app-constants";
 // import SearchBar from "./search-bar";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 import PropTypes from "prop-types";
+import { clearSelectedLocation } from "../actions/location-actions";
 
 const useStyles = makeStyles((theme) => ({
   header: {
@@ -117,6 +118,7 @@ const Header = ({
   saveSelectedCity,
   clearSelectedCity,
   clearSelectedVideo,
+  clearSelectedLocation,
 }) => {
   const classes = useStyles();
 
@@ -135,7 +137,9 @@ const Header = ({
     // update redux store
     if (event.target.value === "All") {
       clearSelectedCity();
+      // only run when selected city is different to current one
     } else {
+      clearSelectedLocation();
       saveSelectedCity(event.target.value.replace(/\s/g, ""));
     }
   };
@@ -242,6 +246,7 @@ Header.propTypes = {
   selectedLocation: PropTypes.string,
   saveSelectedCity: PropTypes.func,
   clearSelectedCity: PropTypes.func,
+  clearSelectedLocation: PropTypes.func,
 };
 
 Header.defaultProps = {
@@ -249,6 +254,7 @@ Header.defaultProps = {
   selectedLocation: null,
   saveSelectedCity() {},
   clearSelectedCity() {},
+  clearSelectedLocation() {},
 };
 
 export default Header;
