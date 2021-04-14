@@ -5,15 +5,10 @@
 */
 
 import React, { useEffect, useState } from "react";
-import { Box, Typography, Divider, Button } from "@material-ui/core";
+import { Box, Typography, Divider } from "@material-ui/core";
 import MapPinDefault from "../../assets/map-pin-default.png";
 import MapPinSelected from "../../assets/map-pin-selected.png";
-import {
-  Map as GoogleMap,
-  Marker,
-  InfoWindow,
-  GoogleApiWrapper,
-} from "google-maps-react";
+import { Map as GoogleMap, Marker, GoogleApiWrapper } from "google-maps-react";
 import InfoWindowEx from "./info-window-ex";
 import Loading from "../loading";
 import PropTypes from "prop-types";
@@ -73,7 +68,7 @@ const Map = ({
       fetchLocations();
     }
     if (selectedCity) {
-      console.log('selectedCity hook');
+      console.log("selectedCity hook");
       setInfoOpen(false);
       // onInfoWindowClose();
       setCenter(

@@ -63,7 +63,7 @@ const VideoCard = ({ video, videoLocation, saveSelectedVideo, saveSelectedLocati
 
 VideoCard.propTypes = {
   video: PropTypes.object,
-  videoLocation: PropTypes.array,
+  videoLocation: PropTypes.object,
   saveSelectedVideo: PropTypes.func,
   saveSelectedLocation: PropTypes.func,
 };

@@ -9,10 +9,9 @@ import {
   clearSelectedLocation,
   fetchLocations,
   saveSelectedLocation,
-  activateFilter
+  activateFilter,
 } from "../../actions/location-actions";
 import { selectSelectedHashtag } from "../../selectors/hashtag-selectors";
-import { selectSelectedVideo } from "../../selectors/video-selectors";
 import {
   selectLocations,
   selectSelectedLocation,
@@ -23,7 +22,6 @@ import Map from "./map";
 
 const mapStateToProps = (state) => {
   const selectedHashtag = selectSelectedHashtag(state);
-  const selectedVideo = selectSelectedVideo(state);
   const selectedCity = selectSelectedCity(state);
 
   return {
