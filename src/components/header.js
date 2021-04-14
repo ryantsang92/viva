@@ -103,6 +103,17 @@ const useStyles = makeStyles((theme) => ({
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
   },
+  paperMobile: {
+    position: "fixed",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: 300,
+    backgroundColor: theme.palette.background.paper,
+    border: "2px solid #000",
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(2, 4, 3),
+  },
   selectBox: {
     height: 32,
     width: "100%",
@@ -240,7 +251,7 @@ const Header = ({
         aria-labelledby="simple-modal-title"
         aria-describedby="simple-modal-description"
       >
-        <div className={classes.paper}>
+        <div className={isMobile ? classes.paperMobile : classes.paper}>
           <Box mb={2} display="flex">
             <Box width="100%">
               <Typography variant="h4" id="simple-modal-title">
