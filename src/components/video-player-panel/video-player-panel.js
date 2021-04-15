@@ -11,6 +11,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import "./video-react.css";
 import { Player } from "video-react";
 import { SocialIcon } from "../social-icon";
+import MapPinDefault from "../../assets/map-pin-default.png";
 import PropTypes from "prop-types";
 
 const useStyles = makeStyles({
@@ -45,9 +46,14 @@ const useStyles = makeStyles({
     padding: 10,
     paddingBottom: 30,
   },
+  pin: {
+    // margin: "auto",
+    width: 20,
+    height: 24,
+  },
 });
 
-const VideoPanel = ({ video, clearSelectedVideo }) => {
+const VideoPanel = ({ video, selectedLocation, clearSelectedVideo }) => {
   const classes = useStyles();
   const [width, setWidth] = useState(window.innerWidth);
 
@@ -86,13 +92,36 @@ const VideoPanel = ({ video, clearSelectedVideo }) => {
         />
         <Box className={classes.infoContainer}>
           {video.description && (
-            <>
+            <Box pb={2}>
               <Typography>{video.description}</Typography>
-              <Box pt={1} pb={1}>
-                <Divider />
-              </Box>
-            </>
+            </Box>
           )}
+          <Box display="flex" justifyContent="flex-start">
+            <Box pr={1}>
+              <img src={MapPinDefault} alt="city" className={classes.pin} />
+            </Box>
+            <div>
+              <Typography fontFamily="Arial">
+                {selectedLocation.address_full}
+              </Typography>
+              <Typography>
+                <a
+                  href={selectedLocation.website}
+                  target={selectedLocation.website}
+                >
+                  {
+                    selectedLocation.website
+                      .replace(/^(?:https?:\/\/)?(?:www\.)?/i, "")
+                      .split("/")[0]
+                  }
+                </a>
+              </Typography>
+            </div>
+          </Box>
+
+          <Box pt={1} pb={1}>
+            <Divider />
+          </Box>
           <SocialIcon
             user={video.user}
             platform={video.user_platform}
@@ -106,11 +135,13 @@ const VideoPanel = ({ video, clearSelectedVideo }) => {
 
 VideoPanel.propTypes = {
   video: PropTypes.object,
+  selectedLocation: PropTypes.object,
   clearSelectedVideo: PropTypes.func,
 };
 
 VideoPanel.defaultProps = {
   video: {},
+  selectedLocation: {},
   clearSelectedVideo() {},
 };
 
