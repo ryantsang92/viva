@@ -18,7 +18,6 @@ const useStyles = makeStyles({
   },
   contentPanel: {
     position: "relative",
-    minWidth: 400,
     maxWidth: 500,
     padding: "0 !important",
     zIndex: 3,

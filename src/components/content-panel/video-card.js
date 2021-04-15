@@ -34,6 +34,7 @@ const useStyles = makeStyles({
 
 const VideoCard = ({
   video,
+  addPadding,
   videoLocation,
   saveSelectedVideo,
   saveSelectedLocation,
@@ -46,7 +47,7 @@ const VideoCard = ({
   const classes = useStyles();
 
   return (
-    <Box pr={2}>
+    <Box pr={addPadding ? 1 : 0} pb={1}>
       <View style={styles.container}>
         <Image
           style={styles.image}
@@ -66,6 +67,7 @@ const VideoCard = ({
 
 VideoCard.propTypes = {
   video: PropTypes.object,
+  addPadding: PropTypes.bool,
   videoLocation: PropTypes.object,
   saveSelectedVideo: PropTypes.func,
   saveSelectedLocation: PropTypes.func,
@@ -73,6 +75,7 @@ VideoCard.propTypes = {
 
 VideoCard.defaultProps = {
   video: {},
+  addPadding: false,
   videoLocation: null,
   saveSelectedVideo() {},
   saveSelectedLocation() {},

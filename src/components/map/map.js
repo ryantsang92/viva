@@ -68,7 +68,6 @@ const Map = ({
       fetchLocations();
     }
     if (selectedCity) {
-      console.log("selectedCity hook");
       setInfoOpen(false);
       setCenter(
         selectedCity === "Boston"
@@ -104,7 +103,6 @@ const Map = ({
     activateFilter();
   };
 
-  console.log(infoOpen);
   return (
     <>
       {loading ? (

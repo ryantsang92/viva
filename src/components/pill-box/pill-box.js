@@ -27,6 +27,9 @@ const useStyles = makeStyles({
   scrollMenu: {
     width: "calc(100vw - 210px)",
   },
+  scrollMenuMobile: {
+    width: "calc(100vw - 130px)",
+  },
   arrow: {
     cursor: "pointer",
   },
@@ -98,7 +101,7 @@ const PillBox = ({
   };
 
   return (
-    <Box className={classes.scrollMenu}>
+    <Box className={isMobile ? classes.scrollMenuMobile : classes.scrollMenu}>
       <ScrollMenu
         data={hashtagComponents(hashtags)}
         clickWhenDrag={false}

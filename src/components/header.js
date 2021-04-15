@@ -6,6 +6,7 @@
 
 import React, { useState, useEffect } from "react";
 import logo from "../assets/new-viva-logo.svg";
+import MapPinDefault from "../assets/map-pin-default.png";
 import {
   Box,
   Typography,
@@ -17,10 +18,19 @@ import {
   Modal,
   Button,
   IconButton,
+  Drawer,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  Divider,
 } from "@material-ui/core";
+import CloseIcon from "@material-ui/icons/Close";
+import MenuIcon from "@material-ui/icons/Menu";
+import InboxIcon from "@material-ui/icons/MoveToInbox";
+import InfoIcon from "@material-ui/icons/Info";
 import PillBoxContainer from "./pill-box/pill-box-container";
 import SocialGrid from "./social-grid";
-import CloseIcon from "@material-ui/icons/Close";
 import { aboutText } from "../app-constants";
 // import SearchBar from "./search-bar";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
@@ -52,6 +62,19 @@ const useStyles = makeStyles((theme) => ({
     width: 108,
     height: 52,
   },
+  // drawer: {
+  //   height: "100%",
+  // },
+  // logoDrawer: {
+  //   alignItems: "center",
+  //   bottom: 10,
+  // },
+  pin: {
+    // padding: "0 !important",
+    margin: "auto",
+    width: 20,
+    height: 24,
+  },
   navbar: {
     height: 80,
     margin: 0,
@@ -68,7 +91,19 @@ const useStyles = makeStyles((theme) => ({
     background: "#efefef",
     borderRadius: 15,
     textAlign: "left",
-    marginLeft: 15,
+    height: 32,
+    "& label": {
+      display: "none",
+    },
+    "& > div": {
+      marginTop: 0,
+    },
+  },
+  formControlMobile: {
+    minWidth: 75,
+    background: "#efefef",
+    borderRadius: 15,
+    textAlign: "left",
     height: 32,
     "& label": {
       display: "none",
@@ -133,6 +168,7 @@ const Header = ({
   const [city, setCity] = useState("All");
   const [modalOpen, setModalOpen] = useState(false);
   const [width, setWidth] = useState(window.innerWidth);
+  const [drawerOpen, setDrawerOpen] = useState(false);
 
   function handleWindowSizeChange() {
     setWidth(window.innerWidth);
@@ -164,10 +200,19 @@ const Header = ({
 
   const onAboutClick = () => {
     setModalOpen(true);
+    setDrawerOpen(false);
   };
 
   const handleModalClose = () => {
     setModalOpen(false);
+  };
+
+  const handleDrawerOpen = () => {
+    setDrawerOpen(true);
+  };
+
+  const handleDrawerClose = () => {
+    setDrawerOpen(false);
   };
 
   const ThemeButton = withStyles({
@@ -194,6 +239,7 @@ const Header = ({
             </Box>
           </Box>
         </Grid>
+
         <Grid item xs={10}>
           <Box
             display="flex"
@@ -201,30 +247,86 @@ const Header = ({
             alignItems="center"
             pt={2}
           >
-            <Typography className={classes.menuLink}>
-              <ThemeButton
-                variant="contained"
-                color="primary"
-                onClick={onAboutClick}
-              >
-                About
-              </ThemeButton>
-            </Typography>
+            {!isMobile && (
+              <Typography className={classes.menuLink}>
+                <ThemeButton
+                  variant="contained"
+                  color="primary"
+                  onClick={onAboutClick}
+                >
+                  About
+                </ThemeButton>
+              </Typography>
+            )}
             <SocialGrid />
+            {isMobile && (
+              <>
+                <IconButton onClick={handleDrawerOpen} size="medium">
+                  <MenuIcon />
+                </IconButton>
+                {/* <div className={classes.drawer}> */}
+                  <Drawer
+                    anchor={"right"}
+                    open={drawerOpen}
+                    onClose={handleDrawerClose}
+                  >
+                    <List>
+                      <ListItem button onClick={onAboutClick} key="about">
+                        <ListItemIcon>
+                          <InfoIcon />
+                        </ListItemIcon>
+                        <ListItemText primary="What is VIVA?" />
+                      </ListItem>
+                      <Divider />
+                      <ListItem
+                        button
+                        onClick={onAboutClick}
+                        key="shareYourExprience"
+                      >
+                        <ListItemIcon>
+                          <InboxIcon />
+                        </ListItemIcon>
+                        <ListItemText primary="Share Your Experience" />
+                      </ListItem>
+                      <Divider />
+                    </List>
+                    {/* <div className={classes.logoDrawer}>
+                      <img
+                        src={logo}
+                        alt="VIVA"
+                        className={isMobile ? classes.logoMobile : classes.logo}
+                      />
+                    </div> */}
+                  </Drawer>
+                {/* </div> */}
+              </>
+            )}
           </Box>
         </Grid>
       </Grid>
       <Box mt={1} mb={1}>
         <Grid container spacing={2} className={classes.navbar}>
           <Grid item className={classes.cityPicker}>
-            <Box pr={1}>
-              <FormControl className={classes.formControl}>
-                <InputLabel id="demo-simple-select-label">City</InputLabel>
-                <Box pl={2}>
+            <Box pl={1} pr={1}>
+              <FormControl
+                className={
+                  isMobile ? classes.formControlMobile : classes.formControl
+                }
+              >
+                <InputLabel id="city-picker-label">City</InputLabel>
+                <Box pl={1} display="flex" justifyContent="flex-start">
+                  <Box pr={1}>
+                    <img
+                      src={MapPinDefault}
+                      alt="city"
+                      className={classes.pin}
+                    />
+                  </Box>
                   <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
+                    labelId="city-picker-label"
+                    id="city-picker"
                     value={city}
+                    // input={<Input />}
                     onChange={handleChange}
                     className={classes.selectBox}
                   >
@@ -255,7 +357,7 @@ const Header = ({
           <Box mb={2} display="flex">
             <Box width="100%">
               <Typography variant="h4" id="simple-modal-title">
-                About Viva
+                What is VIVA?
               </Typography>
             </Box>
             <Box flexShrink={0}>

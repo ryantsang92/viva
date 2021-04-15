@@ -48,13 +48,16 @@ const VideoGrid = ({ loading, videos, fetchVideos }) => {
         <>
           {videos.length > 0 ? (
             <GridList className={classes.videoContainer} cellHeight="auto">
-              {videos.map((video) => (
+              {videos.map((video, index) => (
                 <GridListTile
                   key={video.id}
                   cols={1}
                   // className={classes.videoBox}
                 >
-                  <VideoCardContainer video={video} />
+                  <VideoCardContainer
+                    video={video}
+                    addPadding={index % 2 === 1 ? false : true}
+                  />
                 </GridListTile>
               ))}
             </GridList>
