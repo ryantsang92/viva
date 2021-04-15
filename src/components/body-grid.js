@@ -23,6 +23,13 @@ const useStyles = makeStyles({
     zIndex: 3,
     boxShadow: "1px 1px 3px rgba(0,0,0,0.3)",
   },
+  contentPanelMobile: {
+    position: "relative",
+    maxWidth: "100%",
+    padding: "0 !important",
+    zIndex: 3,
+    boxShadow: "1px 1px 3px rgba(0,0,0,0.3)",
+  },
   videoPanel: {
     minWidth: 310,
     maxWidth: 310,
@@ -83,7 +90,12 @@ const BodyGrid = ({ selectedVideo }) => {
   return (
     <Box ml={1} className={classes.root}>
       <Grid className={classes.grid} container>
-        <Grid item className={classes.contentPanel}>
+        <Grid
+          item
+          className={
+            isMobile ? classes.contentPanelMobile : classes.contentPanel
+          }
+        >
           <ContentPanelContainer />
         </Grid>
         {selectedVideo && (

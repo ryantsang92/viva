@@ -8,7 +8,16 @@ import React from "react";
 import loading from "../assets/loading.gif";
 
 const Loading = () => {
-  return <img src={loading} alt="loading" />;
+  return (
+    <img
+      src={loading}
+      alt="loading"
+      style={{
+        top: 10,
+        width: "100%",
+      }}
+    />
+  );
 };
 
 export default Loading;

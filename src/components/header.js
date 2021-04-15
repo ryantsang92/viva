@@ -16,24 +16,16 @@ import {
   FormControl,
   InputLabel,
   Modal,
-  Button,
   IconButton,
-  Drawer,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  Divider,
 } from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
-import MenuIcon from "@material-ui/icons/Menu";
-import InboxIcon from "@material-ui/icons/MoveToInbox";
-import InfoIcon from "@material-ui/icons/Info";
+import GreenButton from "./common/green-button";
+import MobileMenu from "./mobile-menu";
 import PillBoxContainer from "./pill-box/pill-box-container";
 import SocialGrid from "./social-grid";
 import { aboutText } from "../app-constants";
 // import SearchBar from "./search-bar";
-import { withStyles, makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import PropTypes from "prop-types";
 
 const useStyles = makeStyles((theme) => ({
@@ -62,15 +54,7 @@ const useStyles = makeStyles((theme) => ({
     width: 108,
     height: 52,
   },
-  // drawer: {
-  //   height: "100%",
-  // },
-  // logoDrawer: {
-  //   alignItems: "center",
-  //   bottom: 10,
-  // },
   pin: {
-    // padding: "0 !important",
     margin: "auto",
     width: 20,
     height: 24,
@@ -168,7 +152,6 @@ const Header = ({
   const [city, setCity] = useState("All");
   const [modalOpen, setModalOpen] = useState(false);
   const [width, setWidth] = useState(window.innerWidth);
-  const [drawerOpen, setDrawerOpen] = useState(false);
 
   function handleWindowSizeChange() {
     setWidth(window.innerWidth);
@@ -200,30 +183,11 @@ const Header = ({
 
   const onAboutClick = () => {
     setModalOpen(true);
-    setDrawerOpen(false);
   };
 
   const handleModalClose = () => {
     setModalOpen(false);
   };
-
-  const handleDrawerOpen = () => {
-    setDrawerOpen(true);
-  };
-
-  const handleDrawerClose = () => {
-    setDrawerOpen(false);
-  };
-
-  const ThemeButton = withStyles({
-    root: {
-      backgroundColor: "#228B6E",
-      "&:hover": {
-        backgroundColor: "#228b8b",
-      },
-      height: 30,
-    },
-  })(Button);
 
   return (
     <div className={classes.header}>
@@ -248,59 +212,12 @@ const Header = ({
             pt={2}
           >
             {!isMobile && (
-              <Typography className={classes.menuLink}>
-                <ThemeButton
-                  variant="contained"
-                  color="primary"
-                  onClick={onAboutClick}
-                >
-                  About
-                </ThemeButton>
-              </Typography>
+              <div className={classes.menuLink}>
+                <GreenButton buttonText="About" onClick={onAboutClick} />
+              </div>
             )}
             <SocialGrid />
-            {isMobile && (
-              <>
-                <IconButton onClick={handleDrawerOpen} size="medium">
-                  <MenuIcon />
-                </IconButton>
-                {/* <div className={classes.drawer}> */}
-                  <Drawer
-                    anchor={"right"}
-                    open={drawerOpen}
-                    onClose={handleDrawerClose}
-                  >
-                    <List>
-                      <ListItem button onClick={onAboutClick} key="about">
-                        <ListItemIcon>
-                          <InfoIcon />
-                        </ListItemIcon>
-                        <ListItemText primary="What is VIVA?" />
-                      </ListItem>
-                      <Divider />
-                      <ListItem
-                        button
-                        onClick={onAboutClick}
-                        key="shareYourExprience"
-                      >
-                        <ListItemIcon>
-                          <InboxIcon />
-                        </ListItemIcon>
-                        <ListItemText primary="Share Your Experience" />
-                      </ListItem>
-                      <Divider />
-                    </List>
-                    {/* <div className={classes.logoDrawer}>
-                      <img
-                        src={logo}
-                        alt="VIVA"
-                        className={isMobile ? classes.logoMobile : classes.logo}
-                      />
-                    </div> */}
-                  </Drawer>
-                {/* </div> */}
-              </>
-            )}
+            {isMobile && <MobileMenu />}
           </Box>
         </Grid>
       </Grid>
@@ -370,15 +287,7 @@ const Header = ({
             <Typography id="simple-modal-description">{aboutText()}</Typography>
           </Box>
           <Box display="flex" justifyContent="flex-end">
-            <Typography className={classes.menuLink}>
-              <ThemeButton
-                variant="contained"
-                color="primary"
-                onClick={handleModalClose}
-              >
-                Got it!
-              </ThemeButton>
-            </Typography>
+            <GreenButton buttonText="Got it!" onClick={handleModalClose} />
           </Box>
         </div>
       </Modal>

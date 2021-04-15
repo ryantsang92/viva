@@ -177,7 +177,7 @@ const Map = ({
                     <Divider />
                   </Box>
                   <Typography>
-                    <a href="#" onClick={onRelatedVideosClick}>
+                    <a href="/#" onClick={onRelatedVideosClick}>
                       See related videos
                     </a>
                   </Typography>
