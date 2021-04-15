@@ -122,16 +122,6 @@ const MobileMenu = () => {
             <Typography id="simple-modal-description">{aboutText()}</Typography>
           </Box>
           <Box display="flex" justifyContent="flex-end">
-            {/* <Typography className={classes.menuLink}> */}
-              {/* <ThemeButton
-                variant="contained"
-                color="primary"
-                onClick={handleModalClose}
-                className={classes.normalText}
-              >
-                Got it!
-              </ThemeButton> */}
-            {/* </Typography> */}
             <GreenButton buttonText="Got it!" onClick={handleModalClose} />
           </Box>
         </div>

@@ -14,7 +14,11 @@ import PropTypes from "prop-types";
 
 // to-do: find a better way to style this
 const useStyles = makeStyles({
+  loading: {
+    maxWidth: 400,
+  },
   videoContainer: {
+    maxWidth: 400,
     minHeight: 550,
     height: "calc(100vh - 140px)",
     paddingTop: 15,
@@ -57,7 +61,9 @@ const VideoGrid = ({ loading, videos, fetchVideos }) => {
   return (
     <>
       {loading ? (
-        <Loading />
+        <div className={classes.loading}>
+          <Loading />
+        </div>
       ) : (
         <>
           {videos.length > 0 ? (

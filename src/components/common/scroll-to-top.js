@@ -25,7 +25,7 @@ const ScrollToTop = () => {
   const [visible, setVisible] = useState(false);
 
   const toggleVisible = () => {
-      console.log(scrolled);
+    console.log(scrolled);
     const scrolled = document.documentElement.scrollTop;
     if (scrolled > 300) {
       setVisible(true);

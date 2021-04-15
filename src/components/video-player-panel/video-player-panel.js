@@ -5,7 +5,7 @@
 */
 
 import React, { useState, useEffect } from "react";
-import { Box, Typography, Divider } from "@material-ui/core";
+import { Box, Typography, Divider, IconButton } from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
 import { makeStyles } from "@material-ui/core/styles";
 import "./video-react.css";
@@ -28,7 +28,7 @@ const useStyles = makeStyles({
     position: "relative",
   },
   playerAreaMobile: {
-    width: '100%',
+    width: "100%",
     position: "relative",
   },
   username: {
@@ -67,10 +67,13 @@ const VideoPanel = ({ video, clearSelectedVideo }) => {
     <Box className={isMobile ? classes.playerAreaMobile : classes.playerArea}>
       <Box className={classes.playerBar}>
         <Typography variant="h6">{video.title || "Test Title"}</Typography>
-        <CloseIcon
-          className={classes.closeIcon}
+        <IconButton
           onClick={() => clearSelectedVideo()}
-        />
+          size="small"
+          className={classes.closeIcon}
+        >
+          <CloseIcon />
+        </IconButton>
       </Box>
       <Box>
         <Player
