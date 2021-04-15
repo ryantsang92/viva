@@ -9,14 +9,14 @@ import { Box, IconButton } from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
 import { makeStyles } from "@material-ui/core/styles";
 import { SafeAreaView } from "react-native";
+import ScrollToTop from "../common/scroll-to-top";
 import VideoGridContainer from "./video-grid-container";
 import PropTypes from "prop-types";
 
 // to-do: find a better way to style this
 const useStyles = makeStyles({
   root: {
-    maxWidth: 400,
-    minHeight: 550,
+    height: "100%",
     marginLeft: 0,
     paddingLeft: 15,
     paddingRight: 15,
@@ -50,6 +50,7 @@ const ContentPanel = ({
   return (
     <Box className={classes.root}>
       <SafeAreaView>
+        {/* <ScrollToTop /> */}
         {selectedHashtag && (
           <Box pt={2}>
             <div className={classes.title}>

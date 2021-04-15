@@ -68,9 +68,7 @@ const Map = ({
       fetchLocations();
     }
     if (selectedCity) {
-      console.log("selectedCity hook");
       setInfoOpen(false);
-      // onInfoWindowClose();
       setCenter(
         selectedCity === "Boston"
           ? {
@@ -105,7 +103,6 @@ const Map = ({
     activateFilter();
   };
 
-  console.log(infoOpen);
   return (
     <>
       {loading ? (
@@ -180,7 +177,7 @@ const Map = ({
                     <Divider />
                   </Box>
                   <Typography>
-                    <a href="#" onClick={onRelatedVideosClick}>
+                    <a href="/#" onClick={onRelatedVideosClick}>
                       See related videos
                     </a>
                   </Typography>

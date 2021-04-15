@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    height: 240, // see if we can get this to display properly without hard-coding the height
+    height: 240,
     backgroundColor: "white",
   },
   image: {
@@ -32,7 +32,13 @@ const useStyles = makeStyles({
   },
 });
 
-const VideoCard = ({ video, videoLocation, saveSelectedVideo, saveSelectedLocation }) => {
+const VideoCard = ({
+  video,
+  addPadding,
+  videoLocation,
+  saveSelectedVideo,
+  saveSelectedLocation,
+}) => {
   const handleClick = (video) => {
     saveSelectedVideo(video);
     saveSelectedLocation(videoLocation);
@@ -41,28 +47,27 @@ const VideoCard = ({ video, videoLocation, saveSelectedVideo, saveSelectedLocati
   const classes = useStyles();
 
   return (
-    <>
-      <Box>
-        <View style={styles.container}>
-          <Image
-            style={styles.image}
-            source={{
-              uri: video.thumbnail || defaultVideoImage,
-            }}
-            onClick={() => handleClick(video)}
-            resizeMode="cover"
-          />
-        </View>
-        <Typography className={classes.title}>
-          {video.title || "Test Title"}
-        </Typography>
-      </Box>
-    </>
+    <Box pr={addPadding ? 1 : 0} pb={1}>
+      <View style={styles.container}>
+        <Image
+          style={styles.image}
+          source={{
+            uri: video.thumbnail || defaultVideoImage,
+          }}
+          onClick={() => handleClick(video)}
+          resizeMode="cover"
+        />
+      </View>
+      <Typography className={classes.title}>
+        {video.title || "Test Title"}
+      </Typography>
+    </Box>
   );
 };
 
 VideoCard.propTypes = {
   video: PropTypes.object,
+  addPadding: PropTypes.bool,
   videoLocation: PropTypes.object,
   saveSelectedVideo: PropTypes.func,
   saveSelectedLocation: PropTypes.func,
@@ -70,6 +75,7 @@ VideoCard.propTypes = {
 
 VideoCard.defaultProps = {
   video: {},
+  addPadding: false,
   videoLocation: null,
   saveSelectedVideo() {},
   saveSelectedLocation() {},

@@ -4,15 +4,15 @@
   author: Ryan Tsang <ryan@vivatheapp.com>
 */
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
-import { Typography, Button } from "@material-ui/core";
+import GreenButton from "./components/common/green-button";
 import HeaderContainer from "./components/header-container";
 import BodyGridContainer from "./components/body-grid-container";
-import { withStyles, makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
-  margin: {
+  shareYourExprienceButton: {
     margin: theme.spacing(1),
     borderRadius: 25,
     position: "absolute",
@@ -22,31 +22,35 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ThemeButton = withStyles({
-  root: {
-    backgroundColor: "#228B6E",
-    "&:hover": {
-      backgroundColor: "#228b8b",
-    },
-  },
-})(Button);
-
 const App = () => {
   const classes = useStyles();
+  const [width, setWidth] = useState(window.innerWidth);
+
+  function handleWindowSizeChange() {
+    setWidth(window.innerWidth);
+  }
+  useEffect(() => {
+    window.addEventListener("resize", handleWindowSizeChange);
+    return () => {
+      window.removeEventListener("resize", handleWindowSizeChange);
+    };
+  }, []);
+
+  let isMobile = width <= 768;
+
   return (
     <>
       <div className="App">
         <HeaderContainer />
         <BodyGridContainer />
-        <Typography className={classes.margin}>
-          <ThemeButton
-            variant="contained"
-            color="primary"
-            // onClick={onAboutClick}
-          >
-            Share Your Experience
-          </ThemeButton>
-        </Typography>
+        {!isMobile && (
+          <div className={classes.shareYourExprienceButton}>
+            <GreenButton
+              buttonText="Share Your Experience"
+              // onClick={onAboutClick}
+            />
+          </div>
+        )}
       </div>
     </>
   );

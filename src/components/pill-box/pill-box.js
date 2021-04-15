@@ -4,7 +4,7 @@
   author: Ryan Tsang <ryan@vivatheapp.com>
 */
 
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Box } from "@material-ui/core";
 import { ToggleButtonGroup, ToggleButton } from "@material-ui/lab";
@@ -27,6 +27,9 @@ const useStyles = makeStyles({
   scrollMenu: {
     width: "calc(100vw - 210px)",
   },
+  scrollMenuMobile: {
+    width: "calc(100vw - 130px)",
+  },
   arrow: {
     cursor: "pointer",
   },
@@ -39,6 +42,19 @@ const PillBox = ({
   fetchSelectedHashtag,
 }) => {
   const classes = useStyles();
+  const [width, setWidth] = useState(window.innerWidth);
+
+  function handleWindowSizeChange() {
+    setWidth(window.innerWidth);
+  }
+  useEffect(() => {
+    window.addEventListener("resize", handleWindowSizeChange);
+    return () => {
+      window.removeEventListener("resize", handleWindowSizeChange);
+    };
+  }, []);
+
+  let isMobile = width <= 768;
 
   const ArrowLeft = (
     <Box pr={1}>
@@ -85,12 +101,12 @@ const PillBox = ({
   };
 
   return (
-    <Box className={classes.scrollMenu}>
+    <Box className={isMobile ? classes.scrollMenuMobile : classes.scrollMenu}>
       <ScrollMenu
         data={hashtagComponents(hashtags)}
         clickWhenDrag={false}
-        arrowLeft={ArrowLeft}
-        arrowRight={ArrowRight}
+        arrowLeft={isMobile ? null : ArrowLeft}
+        arrowRight={isMobile ? null : ArrowRight}
       />
     </Box>
   );

@@ -6,6 +6,7 @@
 
 import React, { useState, useEffect } from "react";
 import logo from "../assets/new-viva-logo.svg";
+import MapPinDefault from "../assets/map-pin-default.png";
 import {
   Box,
   Typography,
@@ -15,15 +16,16 @@ import {
   FormControl,
   InputLabel,
   Modal,
-  Button,
   IconButton,
 } from "@material-ui/core";
+import CloseIcon from "@material-ui/icons/Close";
+import GreenButton from "./common/green-button";
+import MobileMenu from "./mobile-menu";
 import PillBoxContainer from "./pill-box/pill-box-container";
 import SocialGrid from "./social-grid";
-import CloseIcon from "@material-ui/icons/Close";
 import { aboutText } from "../app-constants";
 // import SearchBar from "./search-bar";
-import { withStyles, makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import PropTypes from "prop-types";
 
 const useStyles = makeStyles((theme) => ({
@@ -31,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
     position: "relative",
     height: 140,
     boxShadow: "1px 0px 5px rgba(0,0,0,0.5)",
-    zIndex: 100,
+    zIndex: 2,
   },
   headerTop: {
     height: 60,
@@ -45,8 +47,17 @@ const useStyles = makeStyles((theme) => ({
     paddingLeft: 15,
   },
   logo: {
-    width: "40%",
-    height: "40%",
+    width: 144,
+    height: 56,
+  },
+  logoMobile: {
+    width: 108,
+    height: 52,
+  },
+  pin: {
+    margin: "auto",
+    width: 20,
+    height: 24,
   },
   navbar: {
     height: 80,
@@ -64,7 +75,19 @@ const useStyles = makeStyles((theme) => ({
     background: "#efefef",
     borderRadius: 15,
     textAlign: "left",
-    marginLeft: 15,
+    height: 32,
+    "& label": {
+      display: "none",
+    },
+    "& > div": {
+      marginTop: 0,
+    },
+  },
+  formControlMobile: {
+    minWidth: 75,
+    background: "#efefef",
+    borderRadius: 15,
+    textAlign: "left",
     height: 32,
     "& label": {
       display: "none",
@@ -99,6 +122,17 @@ const useStyles = makeStyles((theme) => ({
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
   },
+  paperMobile: {
+    position: "fixed",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: 300,
+    backgroundColor: theme.palette.background.paper,
+    border: "2px solid #000",
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(2, 4, 3),
+  },
   selectBox: {
     height: 32,
     width: "100%",
@@ -117,12 +151,23 @@ const Header = ({
 
   const [city, setCity] = useState("All");
   const [modalOpen, setModalOpen] = useState(false);
+  const [width, setWidth] = useState(window.innerWidth);
+
+  function handleWindowSizeChange() {
+    setWidth(window.innerWidth);
+  }
 
   useEffect(() => {
     if (selectedVideo && selectedCity && selectedVideo.metro !== selectedCity) {
       clearSelectedVideo();
     }
+    window.addEventListener("resize", handleWindowSizeChange);
+    return () => {
+      window.removeEventListener("resize", handleWindowSizeChange);
+    };
   }, [selectedVideo, selectedCity]);
+
+  let isMobile = width <= 768;
 
   const handleChange = (event) => {
     setCity(event.target.value);
@@ -144,56 +189,61 @@ const Header = ({
     setModalOpen(false);
   };
 
-  const ThemeButton = withStyles({
-    root: {
-      backgroundColor: "#228B6E",
-      "&:hover": {
-        backgroundColor: "#228b8b",
-      },
-    },
-  })(Button);
-
   return (
     <div className={classes.header}>
       <Grid container className={classes.headerTop}>
-        <Grid item xs={6} className={classes.clear}>
+        <Grid item xs={2} className={classes.clear}>
           <Box className={classes.logoContainer}>
             <Box className={classes.clear}>
-              <img src={logo} alt="VIVA" className={classes.logo} />
+              <img
+                src={logo}
+                alt="VIVA"
+                className={isMobile ? classes.logoMobile : classes.logo}
+              />
             </Box>
           </Box>
         </Grid>
-        <Grid item xs={6}>
+
+        <Grid item xs={10}>
           <Box
             display="flex"
             justifyContent="flex-end"
             alignItems="center"
             pt={2}
           >
-            <Typography className={classes.menuLink}>
-              <ThemeButton
-                variant="contained"
-                color="primary"
-                onClick={onAboutClick}
-              >
-                About
-              </ThemeButton>
-            </Typography>
+            {!isMobile && (
+              <div className={classes.menuLink}>
+                <GreenButton buttonText="About" onClick={onAboutClick} />
+              </div>
+            )}
             <SocialGrid />
+            {isMobile && <MobileMenu />}
           </Box>
         </Grid>
       </Grid>
       <Box mt={1} mb={1}>
         <Grid container spacing={2} className={classes.navbar}>
           <Grid item className={classes.cityPicker}>
-            <Box pr={1}>
-              <FormControl className={classes.formControl}>
-                <InputLabel id="demo-simple-select-label">City</InputLabel>
-                <Box pl={2}>
+            <Box pl={1} pr={1}>
+              <FormControl
+                className={
+                  isMobile ? classes.formControlMobile : classes.formControl
+                }
+              >
+                <InputLabel id="city-picker-label">City</InputLabel>
+                <Box pl={1} display="flex" justifyContent="flex-start">
+                  <Box pr={1}>
+                    <img
+                      src={MapPinDefault}
+                      alt="city"
+                      className={classes.pin}
+                    />
+                  </Box>
                   <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
+                    labelId="city-picker-label"
+                    id="city-picker"
                     value={city}
+                    // input={<Input />}
                     onChange={handleChange}
                     className={classes.selectBox}
                   >
@@ -220,11 +270,11 @@ const Header = ({
         aria-labelledby="simple-modal-title"
         aria-describedby="simple-modal-description"
       >
-        <div className={classes.paper}>
+        <div className={isMobile ? classes.paperMobile : classes.paper}>
           <Box mb={2} display="flex">
             <Box width="100%">
               <Typography variant="h4" id="simple-modal-title">
-                About Viva
+                What is VIVA?
               </Typography>
             </Box>
             <Box flexShrink={0}>
@@ -237,15 +287,7 @@ const Header = ({
             <Typography id="simple-modal-description">{aboutText()}</Typography>
           </Box>
           <Box display="flex" justifyContent="flex-end">
-            <Typography className={classes.menuLink}>
-              <ThemeButton
-                variant="contained"
-                color="primary"
-                onClick={handleModalClose}
-              >
-                Got it!
-              </ThemeButton>
-            </Typography>
+            <GreenButton buttonText="Got it!" onClick={handleModalClose} />
           </Box>
         </div>
       </Modal>
