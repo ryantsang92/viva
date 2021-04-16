@@ -9,14 +9,12 @@ import {
   Box,
   Typography,
   Modal,
-  Button,
   IconButton,
-  Drawer,
-  List,
   ListItem,
   ListItemIcon,
   ListItemText,
-  Divider,
+  MenuItem,
+  Menu,
 } from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
 import MenuIcon from "@material-ui/icons/Menu";
@@ -24,7 +22,6 @@ import InboxIcon from "@material-ui/icons/MoveToInbox";
 import InfoIcon from "@material-ui/icons/Info";
 import GreenButton from "./common/green-button";
 import { aboutText } from "../app-constants";
-// import SearchBar from "./search-bar";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
@@ -40,13 +37,45 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2, 4, 3),
   },
   normalText: {
-    textTransform: 'none'
-  }
+    textTransform: "none",
+  },
 }));
+
+const StyledMenu = withStyles({
+  paper: {
+    border: "1px solid #d3d4d5",
+  },
+})((props) => (
+  <Menu
+    elevation={0}
+    getContentAnchorEl={null}
+    anchorOrigin={{
+      vertical: "bottom",
+      horizontal: "center",
+    }}
+    transformOrigin={{
+      vertical: "top",
+      horizontal: "center",
+    }}
+    {...props}
+  />
+));
+
+const StyledMenuItem = withStyles((theme) => ({
+  root: {
+    "&:focus": {
+      backgroundColor: theme.palette.primary.main,
+      "& .MuiListItemIcon-root, & .MuiListItemText-primary": {
+        color: theme.palette.common.white,
+      },
+    },
+  },
+}))(MenuItem);
 
 const MobileMenu = () => {
   const classes = useStyles();
   const [modalOpen, setModalOpen] = useState(false);
+  const [anchorEl, setAnchorEl] = useState(null);
   const [drawerOpen, setDrawerOpen] = useState(false);
 
   const onAboutClick = () => {
@@ -58,47 +87,45 @@ const MobileMenu = () => {
     setModalOpen(false);
   };
 
-  const handleDrawerOpen = () => {
+  const handleDrawerOpen = (event) => {
     setDrawerOpen(true);
+    setAnchorEl(event.currentTarget);
   };
 
   const handleDrawerClose = () => {
     setDrawerOpen(false);
   };
 
-  const ThemeButton = withStyles({
-    root: {
-      backgroundColor: "#228B6E",
-      "&:hover": {
-        backgroundColor: "#228b8b",
-      },
-      height: 30,
-    },
-  })(Button);
-
   return (
     <>
       <IconButton onClick={handleDrawerOpen} size="medium">
         <MenuIcon />
       </IconButton>
-      <Drawer anchor={"right"} open={drawerOpen} onClose={handleDrawerClose}>
-        <List>
+      <StyledMenu
+        id="customized-menu"
+        anchorEl={anchorEl}
+        keepMounted
+        open={drawerOpen}
+        onClose={handleDrawerClose}
+      >
+        <StyledMenuItem>
           <ListItem button onClick={onAboutClick} key="about">
             <ListItemIcon>
               <InfoIcon />
             </ListItemIcon>
             <ListItemText primary="What is VIVA?" />
           </ListItem>
-          <Divider />
+        </StyledMenuItem>
+        <StyledMenuItem>
           <ListItem button onClick={onAboutClick} key="shareYourExprience">
             <ListItemIcon>
               <InboxIcon />
             </ListItemIcon>
             <ListItemText primary="Share Your Experience" />
           </ListItem>
-          <Divider />
-        </List>
-      </Drawer>
+        </StyledMenuItem>
+      </StyledMenu>
+
       <Modal
         open={modalOpen}
         onClose={handleModalClose}

@@ -30,6 +30,19 @@ const useStyles = makeStyles({
       display: "none",
     },
   },
+  videoContainerMobile: {
+    width: "100%",
+    minHeight: 550,
+    height: "calc(100vh - 140px)",
+    paddingTop: 15,
+    paddingBottom: 25,
+    margin: "0 !important",
+    "-ms-overflow-style": "none",
+    scrollbarWidth: "none",
+    "&::-webkit-scrollbar": {
+      display: "none",
+    },
+  },
   videoBox: {
     padding: "10px 8px 0 8px !important",
   },
@@ -68,9 +81,10 @@ const VideoGrid = ({ loading, videos, fetchVideos }) => {
         <>
           {videos.length > 0 ? (
             <GridList
-              className={classes.videoContainer}
+              className={isMobile ? classes.videoContainerMobile : classes.videoContainer}
               cellHeight="auto"
               cols={isMobile && width > 512 ? width / 256 : 2} // revisit this logic
+              // cols={isMobile ? width / 256 : 2} 
             >
               {videos.map((video, index) => (
                 <GridListTile key={video.id} cols={1}>

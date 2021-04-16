@@ -243,13 +243,12 @@ const Header = ({
                     labelId="city-picker-label"
                     id="city-picker"
                     value={city}
-                    // input={<Input />}
                     onChange={handleChange}
                     className={classes.selectBox}
                   >
                     <MenuItem value={"All"}>All</MenuItem>
-                    <MenuItem value={"Boston"}>Boston</MenuItem>
-                    <MenuItem value={"New York"}>New York</MenuItem>
+                    <MenuItem value={"Boston"}>BOS</MenuItem>
+                    <MenuItem value={"New York"}>NYC</MenuItem>
                   </Select>
                 </Box>
               </FormControl>

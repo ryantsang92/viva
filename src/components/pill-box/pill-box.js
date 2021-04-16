@@ -25,10 +25,14 @@ const useStyles = makeStyles({
     padding: "8px 13px",
   },
   scrollMenu: {
-    width: "calc(100vw - 210px)",
+    position: 'absolute',
+    left: 170,
+    right: 5,
   },
   scrollMenuMobile: {
-    width: "calc(100vw - 130px)",
+    position: 'absolute',
+    left: 85,
+    right: 0,
   },
   arrow: {
     cursor: "pointer",
