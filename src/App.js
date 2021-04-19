@@ -6,6 +6,7 @@
 
 import React, { useState, useEffect } from "react";
 import "./App.css";
+import { videoSubmissionLink } from "./app-constants";
 import GreenButton from "./components/common/green-button";
 import HeaderContainer from "./components/header-container";
 import BodyGridContainer from "./components/body-grid-container";
@@ -47,7 +48,7 @@ const App = () => {
           <div className={classes.shareYourExprienceButton}>
             <GreenButton
               buttonText="Share Your Experience"
-              // onClick={onAboutClick}
+              href={videoSubmissionLink}
             />
           </div>
         )}

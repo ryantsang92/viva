@@ -12,10 +12,15 @@ import PropTypes from "prop-types";
 const useStyles = makeStyles({
   normalText: {
     textTransform: "none",
+    // color: "inherit",
+    textDecoration: "none",
+    "&:hover": {
+      textDecoration: "none",
+    },
   },
 });
 
-const GreenButton = ({ buttonText, onClick }) => {
+const GreenButton = ({ buttonText, onClick, href }) => {
   const classes = useStyles();
 
   const ThemeButton = withStyles({
@@ -33,6 +38,9 @@ const GreenButton = ({ buttonText, onClick }) => {
       variant="contained"
       color="primary"
       onClick={onClick}
+      href={href}
+      rel={href ? "noreferrer" : null}
+      target={href ? "_blank" : null}
       className={classes.normalText}
     >
       {buttonText}
@@ -43,10 +51,12 @@ const GreenButton = ({ buttonText, onClick }) => {
 GreenButton.propTypes = {
   buttonText: PropTypes.string,
   onClick: PropTypes.func,
+  href: PropTypes.string,
 };
 
 GreenButton.defaultProps = {
   buttonText: "",
+  href: null,
   onClick() {},
 };
 

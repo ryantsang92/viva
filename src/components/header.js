@@ -117,26 +117,30 @@ const useStyles = makeStyles((theme) => ({
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    width: 500,
     backgroundColor: theme.palette.background.paper,
     border: "2px solid #000",
+    borderRadius: 15,
     boxShadow: theme.shadows[5],
-    padding: theme.spacing(2, 4, 3),
   },
   paperMobile: {
     position: "fixed",
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    width: 300,
     backgroundColor: theme.palette.background.paper,
-    border: "2px solid #000",
+    border: "1px solid #000",
+    borderRadius: 15,
     boxShadow: theme.shadows[5],
-    padding: theme.spacing(2, 4, 3),
   },
   selectBox: {
     height: 32,
     width: "100%",
+  },
+  modalLogo: {
+    borderRadius: 15,
+    height: "100%",
+    width: "100%",
+    backgroundColor: "#F7F0D7",
   },
 }));
 
@@ -270,26 +274,47 @@ const Header = ({
         aria-labelledby="simple-modal-title"
         aria-describedby="simple-modal-description"
       >
-        <div className={isMobile ? classes.paperMobile : classes.paper}>
-          <Box mb={2} display="flex">
-            <Box width="100%">
-              <Typography variant="h4" id="simple-modal-title">
-                What is VIVA?
-              </Typography>
-            </Box>
-            <Box flexShrink={0}>
-              <IconButton onClick={handleModalClose} size="small">
-                <CloseIcon />
-              </IconButton>
-            </Box>
-          </Box>
-          <Box mb={2}>
-            <Typography id="simple-modal-description">{aboutText()}</Typography>
-          </Box>
-          <Box display="flex" justifyContent="flex-end">
-            <GreenButton buttonText="Got it!" onClick={handleModalClose} />
-          </Box>
-        </div>
+        <Box className={classes.paper}>
+          <Grid container>
+            <Grid item xs={4}>
+              <Box
+                className={classes.modalLogo}
+                display="flex"
+                justifyContent="center"
+                alignItems="center"
+              >
+                <img src={logo} alt="VIVA" className={classes.logo} />
+              </Box>
+            </Grid>
+            <Grid item xs={8}>
+              <Box pl={1} pt={2} pb={2} pr={2}>
+                <Box mb={2} display="flex">
+                  <Box width="100%">
+                    <Typography variant="h4" id="simple-modal-title">
+                      What is VIVA?
+                    </Typography>
+                  </Box>
+                  <Box flexShrink={0}>
+                    <IconButton onClick={handleModalClose} size="small">
+                      <CloseIcon />
+                    </IconButton>
+                  </Box>
+                </Box>
+                <Box mb={2}>
+                  <Typography id="simple-modal-description">
+                    {aboutText()}
+                  </Typography>
+                </Box>
+                <Box display="flex" justifyContent="flex-end">
+                  <GreenButton
+                    buttonText="Got it!"
+                    onClick={handleModalClose}
+                  />
+                </Box>
+              </Box>
+            </Grid>
+          </Grid>
+        </Box>
       </Modal>
     </div>
   );

@@ -42,3 +42,5 @@ export const aboutText = () => {
     </>
   );
 };
+
+export const videoSubmissionLink = "https://forms.gle/EV2iqCNSu7PrPcDw8";
