@@ -4,12 +4,10 @@
   author: Ryan Tsang <ryan@vivatheapp.com>
 */
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Box, IconButton } from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
 import { makeStyles } from "@material-ui/core/styles";
-import { SafeAreaView } from "react-native";
-import ScrollToTop from "../common/scroll-to-top";
 import VideoGridContainer from "./video-grid-container";
 import PropTypes from "prop-types";
 
@@ -29,6 +27,35 @@ const useStyles = makeStyles({
     textAlign: "center",
     padding: "5px 10px 5px",
   },
+  videoContainer: {
+    width: 400,
+    height: "calc(100vh - 140px)",
+    margin: "0 !important",
+    "-ms-overflow-style": "none",
+    scrollbarWidth: "none",
+    "&::-webkit-scrollbar": {
+      display: "none",
+    },
+    overflow: "scroll",
+  },
+  videoContainerMobile: {
+    width: "100%",
+    height: "calc(100vh - 140px)",
+    margin: "0 !important",
+    "-ms-overflow-style": "none",
+    scrollbarWidth: "none",
+    "&::-webkit-scrollbar": {
+      display: "none",
+    },
+    overflow: "scroll",
+  },
+  titleContainer: {
+    padding: "16px 0",
+    position: "sticky",
+    top: 0,
+    background: "white",
+    zIndex: 99,
+  },
 });
 
 const ContentPanel = ({
@@ -38,6 +65,20 @@ const ContentPanel = ({
   clearSelectedLocationFilter,
 }) => {
   const classes = useStyles();
+
+  const [width, setWidth] = useState(window.innerWidth);
+
+  function handleWindowSizeChange() {
+    setWidth(window.innerWidth);
+  }
+  useEffect(() => {
+    window.addEventListener("resize", handleWindowSizeChange);
+    return () => {
+      window.removeEventListener("resize", handleWindowSizeChange);
+    };
+  }, []);
+
+  let isMobile = width <= 768;
 
   const onHashtagFilterClose = () => {
     clearSelectedHashtag();
@@ -49,30 +90,31 @@ const ContentPanel = ({
 
   return (
     <Box className={classes.root}>
-      <SafeAreaView>
-        {/* <ScrollToTop /> */}
-        {selectedHashtag && (
-          <Box pt={2}>
-            <div className={classes.title}>
-              {selectedHashtag.hashtag}{" "}
-              <IconButton onClick={onHashtagFilterClose} size="small">
-                <CloseIcon />
-              </IconButton>
-            </div>
-          </Box>
-        )}
-        {selectedLocation && (
-          <Box pt={2}>
-            <div className={classes.title}>
-              {selectedLocation.name}{" "}
-              <IconButton onClick={onLocationFilterClose} size="small">
-                <CloseIcon />
-              </IconButton>
-            </div>
-          </Box>
-        )}
+      <div
+        className={
+          isMobile ? classes.videoContainerMobile : classes.videoContainer
+        }
+      >
+        <div className={classes.titleContainer}>
+          {selectedHashtag && (
+              <div className={classes.title}>
+                {selectedHashtag.hashtag}{" "}
+                <IconButton onClick={onHashtagFilterClose} size="small">
+                  <CloseIcon />
+                </IconButton>
+              </div>
+          )}
+          {selectedLocation && (
+              <div className={classes.title}>
+                {selectedLocation.name}{" "}
+                <IconButton onClick={onLocationFilterClose} size="small">
+                  <CloseIcon />
+                </IconButton>
+              </div>
+          )}
+        </div>
         <VideoGridContainer selectedHashtag={selectedHashtag} />
-      </SafeAreaView>
+      </div>
     </Box>
   );
 };

@@ -77,6 +77,11 @@ const PillBox = ({
     }
   }, [hashtags]);
 
+  const handleChange = (event, hashtag) => {
+    console.log('handleChange');
+    fetchSelectedHashtag(hashtag);
+  };
+
   const hashtagComponents = (hashtags) => {
     return hashtags.map((hashtag) => (
       <Box pr={1} pl={1} key={hashtag.id}>
@@ -98,10 +103,6 @@ const PillBox = ({
         </ToggleButtonGroup>
       </Box>
     ));
-  };
-
-  const handleChange = (event, hashtag) => {
-    fetchSelectedHashtag(hashtag);
   };
 
   return (

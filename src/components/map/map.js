@@ -56,6 +56,7 @@ const Map = ({
   saveSelectedLocation,
   clearSelectedLocation,
   activateFilter,
+  clearSelectedHashtag,
 }) => {
   const classes = useStyles();
 
@@ -100,6 +101,7 @@ const Map = ({
 
   const onRelatedVideosClick = (e) => {
     e.preventDefault();
+    clearSelectedHashtag();
     activateFilter();
   };
 
@@ -200,6 +202,8 @@ Map.propTypes = {
   fetchLocations: PropTypes.func,
   saveSelectedLocation: PropTypes.func,
   activateFilter: PropTypes.func,
+  clearSelectedLocation: PropTypes.func,
+  clearSelectedHashtag: PropTypes.func,
 };
 
 Map.defaultProps = {
@@ -211,6 +215,8 @@ Map.defaultProps = {
   fetchLocations() {},
   saveSelectedLocation() {},
   activateFilter() {},
+  clearSelectedLocation() {},
+  clearSelectedHashtag() {},
 };
 
 export default GoogleApiWrapper({

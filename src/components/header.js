@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
     position: "relative",
     height: 140,
     boxShadow: "1px 0px 5px rgba(0,0,0,0.5)",
-    zIndex: 2,
+    zIndex: 100,
   },
   headerTop: {
     height: 60,
