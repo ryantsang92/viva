@@ -5,7 +5,7 @@
 */
 
 import React, { useState, useEffect } from "react";
-import logo from "../assets/new-viva-logo.svg";
+import logo from "../assets/viva-logo-final.svg";
 import MapPinDefault from "../assets/map-pin-default.png";
 import {
   Box,
@@ -47,6 +47,7 @@ const useStyles = makeStyles((theme) => ({
     paddingLeft: 15,
   },
   logo: {
+    paddingTop: 5,
     width: 144,
     height: 56,
   },

@@ -9,9 +9,9 @@ import { Box, Grid } from "@material-ui/core";
 import { SocialIcon } from "./social-icon";
 import { socialURLs } from "../app-constants";
 import { getWindowWidth } from "../common/common-functions";
-import instagramIcon from "../assets/IG_green.png";
-import twitterIcon from "../assets/twitter_green.png";
-import tiktokIcon from "../assets/tiktok_green.png";
+import instagramIcon from "../assets/instagram-logo.svg";
+import twitterIcon from "../assets/twitter-logo.svg";
+import tiktokIcon from "../assets/tiktok-logo.svg";
 
 const { INSTAGRAM, TWITTER, TIKTOK } = socialURLs;
 
