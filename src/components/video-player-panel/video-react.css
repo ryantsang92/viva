@@ -178,7 +178,7 @@
   vertical-align: top;
   box-sizing: border-box;
   color: #fff;
-  background-color: #000;
+  background-color: #FFF;
   position: relative;
   font-size: 10px;
   line-height: 1;
@@ -540,7 +540,7 @@ body.video-react-full-window .video-react-fullscreen {
   background-repeat: no-repeat;
   background-position: 50% 50%;
   background-size: contain;
-  background-color: #000000;
+  background-color: #FFFFFF;
   cursor: pointer;
   margin: 0;
   padding: 0;
