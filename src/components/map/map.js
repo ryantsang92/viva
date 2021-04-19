@@ -65,9 +65,9 @@ const Map = ({
   const [infoOpen, setInfoOpen] = useState(false);
 
   useEffect(() => {
-    if (!locations) {
-      fetchLocations();
-    }
+    // if (!locations) {
+    //   fetchLocations();
+    // }
     if (selectedCity) {
       setInfoOpen(false);
       setCenter(
@@ -87,7 +87,8 @@ const Map = ({
         setZoom(15);
       }
     }
-  }, [locations, selectedLocation, selectedCity]);
+    // }, [locations, selectedLocation, selectedCity]);
+  }, [selectedLocation, selectedCity]);
 
   const onMarkerClick = (marker) => {
     saveSelectedLocation(marker.markerData);

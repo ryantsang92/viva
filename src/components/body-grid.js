@@ -53,7 +53,7 @@ const useStyles = makeStyles({
     bottom: 0,
     position: "absolute",
     scrollbarWidth: "none",
-    zIndex: 4,
+    zIndex: 400,
     backgroundColor: "white",
     boxShadow: "-1px 1px 5px rgba(0,0,0,0.6)",
     "&::-webkit-scrollbar": {
@@ -70,8 +70,14 @@ const useStyles = makeStyles({
   },
 });
 
-const BodyGrid = ({ selectedVideo }) => {
+const BodyGrid = ({ selectedVideo, locations, fetchLocations }) => {
   const classes = useStyles();
+
+  useEffect(() => {
+    if (!locations) {
+      fetchLocations();
+    }
+  }, [locations]);
 
   const [width, setWidth] = useState(window.innerWidth);
 
@@ -108,7 +114,7 @@ const BodyGrid = ({ selectedVideo }) => {
         )}
         {!isMobile && (
           <Grid item xs className={classes.mapContainer}>
-            <MapContainer />
+            <MapContainer locations={locations} />
           </Grid>
         )}
       </Grid>
@@ -118,10 +124,14 @@ const BodyGrid = ({ selectedVideo }) => {
 
 BodyGrid.propTypes = {
   selectedVideo: PropTypes.object,
+  locations: PropTypes.array,
+  fetchLocations: PropTypes.func,
 };
 
 BodyGrid.defaultProps = {
   selectedVideo: null,
+  locations: null,
+  fetchLocations() {},
 };
 
 export default BodyGrid;
