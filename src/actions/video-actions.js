@@ -72,4 +72,4 @@ export const clearSelectedVideo = () => {
   return {
     type: CLEAR_SELECTED_VIDEO,
   };
-}
+};
