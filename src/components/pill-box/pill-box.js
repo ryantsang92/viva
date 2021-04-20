@@ -78,7 +78,6 @@ const PillBox = ({
   }, [hashtags]);
 
   const handleChange = (event, hashtag) => {
-    console.log('handleChange');
     fetchSelectedHashtag(hashtag);
   };
 

@@ -13,7 +13,7 @@ import BodyGridContainer from "./components/body-grid-container";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
-  shareYourExprienceButton: {
+  shareYourExperienceButton: {
     margin: theme.spacing(1),
     borderRadius: 25,
     position: "absolute",
@@ -45,7 +45,7 @@ const App = () => {
         <HeaderContainer />
         <BodyGridContainer />
         {!isMobile && (
-          <div className={classes.shareYourExprienceButton}>
+          <div className={classes.shareYourExperienceButton}>
             <GreenButton
               buttonText="Share Your Experience"
               href={videoSubmissionLink}

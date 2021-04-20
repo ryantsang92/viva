@@ -40,7 +40,7 @@ const VideoGrid = ({ loading, videos, fetchVideos }) => {
         <>
           {videos && videos.length > 0 ? (
             <>
-              <ScrollToTop />
+              {/* <ScrollToTop /> */}
               <GridList
                 cellHeight="auto"
                 // className={}

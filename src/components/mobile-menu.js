@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    width: 300,
+    width: 350,
     backgroundColor: theme.palette.background.paper,
     border: "2px solid #000",
     boxShadow: theme.shadows[5],
@@ -108,7 +108,7 @@ const MobileMenu = () => {
   );
 
   return (
-    <>
+    <Box pr={1}>
       <IconButton onClick={handleDrawerOpen} size="medium">
         <MenuIcon />
       </IconButton>
@@ -146,8 +146,8 @@ const MobileMenu = () => {
         <div className={classes.paperMobile}>
           <Box mb={2} display="flex">
             <Box width="100%">
-              <Typography variant="h4" id="simple-modal-title">
-                What is VIVA?
+              <Typography variant="h5" id="simple-modal-title">
+                Welcome to VIVA!
               </Typography>
             </Box>
             <Box flexShrink={0}>
@@ -164,7 +164,7 @@ const MobileMenu = () => {
           </Box>
         </div>
       </Modal>
-    </>
+    </Box>
   );
 };
 

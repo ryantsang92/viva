@@ -48,12 +48,11 @@ const useStyles = makeStyles((theme) => ({
   },
   logo: {
     paddingTop: 5,
-    width: 144,
-    height: 56,
+    height: 42,
   },
   logoMobile: {
-    width: 108,
-    height: 52,
+    paddingTop: 5,
+    height: 42,
   },
   pin: {
     margin: "auto",
@@ -287,11 +286,11 @@ const Header = ({
               </Box>
             </Grid>
             <Grid item xs={8}>
-              <Box pl={1} pt={2} pb={2} pr={2}>
+              <Box pl={2} pt={2} pb={2} pr={2}>
                 <Box mb={2} display="flex">
                   <Box width="100%">
-                    <Typography variant="h4" id="simple-modal-title">
-                      What is VIVA?
+                    <Typography variant="h5" id="simple-modal-title">
+                      Welcome to VIVA!
                     </Typography>
                   </Box>
                   <Box flexShrink={0}>

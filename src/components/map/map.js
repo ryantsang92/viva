@@ -65,9 +65,6 @@ const Map = ({
   const [infoOpen, setInfoOpen] = useState(false);
 
   useEffect(() => {
-    // if (!locations) {
-    //   fetchLocations();
-    // }
     if (selectedCity) {
       setInfoOpen(false);
       setCenter(
