@@ -15,11 +15,17 @@ const useStyles = makeStyles({
 });
 
 export const endpoint = {
-  VIDEO_URL: "http://ec2-3-23-128-254.us-east-2.compute.amazonaws.com/videos",
+  // VIDEO_URL: "http://ec2-3-23-128-254.us-east-2.compute.amazonaws.com/videos",
+  // HASHTAG_URL:
+  //   "http://ec2-3-23-128-254.us-east-2.compute.amazonaws.com/hashtags",
+  // LOCATION_URL:
+  //   "http://ec2-3-23-128-254.us-east-2.compute.amazonaws.com/locations",
+  VIDEO_URL:
+    "https://607e3c88cb531d568c0d1162--viva-endpoint.netlify.app/videos.json",
   HASHTAG_URL:
-    "http://ec2-3-23-128-254.us-east-2.compute.amazonaws.com/hashtags",
+    "https://607e3c88cb531d568c0d1162--viva-endpoint.netlify.app/hashtags.json",
   LOCATION_URL:
-    "http://ec2-3-23-128-254.us-east-2.compute.amazonaws.com/locations",
+    "https://607e3c88cb531d568c0d1162--viva-endpoint.netlify.app/locations.json",
 };
 
 export const socialURLs = {
@@ -43,9 +49,11 @@ export const aboutText = () => {
       </Typography>
       <br></br>
       <div className={classes.blockQuote}>
-      <Typography>Stop by a #pictureperfect coffee shop</Typography>
-      <Typography>Have #funwithfriends at a vineyard nearby</Typography>
-      <Typography>Discover cool restaurants that are #worththehype</Typography>
+        <Typography>Stop by a #pictureperfect coffee shop</Typography>
+        <Typography>Have #funwithfriends at a vineyard nearby</Typography>
+        <Typography>
+          Discover cool restaurants that are #worththehype
+        </Typography>
       </div>
       <br></br>
       <Typography>

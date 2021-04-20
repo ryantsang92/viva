@@ -72,4 +72,4 @@ export const clearSelectedHashtag = () => {
   return {
     type: CLEAR_SELECTED_HASHTAG,
   };
-}
+};
