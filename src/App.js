@@ -6,13 +6,14 @@
 
 import React, { useState, useEffect } from "react";
 import "./App.css";
+import { videoSubmissionLink } from "./app-constants";
 import GreenButton from "./components/common/green-button";
 import HeaderContainer from "./components/header-container";
 import BodyGridContainer from "./components/body-grid-container";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
-  shareYourExprienceButton: {
+  shareYourExperienceButton: {
     margin: theme.spacing(1),
     borderRadius: 25,
     position: "absolute",
@@ -44,10 +45,10 @@ const App = () => {
         <HeaderContainer />
         <BodyGridContainer />
         {!isMobile && (
-          <div className={classes.shareYourExprienceButton}>
+          <div className={classes.shareYourExperienceButton}>
             <GreenButton
               buttonText="Share Your Experience"
-              // onClick={onAboutClick}
+              href={videoSubmissionLink}
             />
           </div>
         )}

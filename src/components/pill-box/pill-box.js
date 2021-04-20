@@ -25,10 +25,14 @@ const useStyles = makeStyles({
     padding: "8px 13px",
   },
   scrollMenu: {
-    width: "calc(100vw - 210px)",
+    position: 'absolute',
+    left: 170,
+    right: 5,
   },
   scrollMenuMobile: {
-    width: "calc(100vw - 130px)",
+    position: 'absolute',
+    left: 85,
+    right: 0,
   },
   arrow: {
     cursor: "pointer",
@@ -73,6 +77,10 @@ const PillBox = ({
     }
   }, [hashtags]);
 
+  const handleChange = (event, hashtag) => {
+    fetchSelectedHashtag(hashtag);
+  };
+
   const hashtagComponents = (hashtags) => {
     return hashtags.map((hashtag) => (
       <Box pr={1} pl={1} key={hashtag.id}>
@@ -94,10 +102,6 @@ const PillBox = ({
         </ToggleButtonGroup>
       </Box>
     ));
-  };
-
-  const handleChange = (event, hashtag) => {
-    fetchSelectedHashtag(hashtag);
   };
 
   return (

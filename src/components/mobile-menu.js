@@ -9,22 +9,21 @@ import {
   Box,
   Typography,
   Modal,
-  Button,
   IconButton,
-  Drawer,
-  List,
   ListItem,
   ListItemIcon,
   ListItemText,
-  Divider,
+  MenuItem,
+  Menu,
+  Link,
 } from "@material-ui/core";
+import { videoSubmissionLink } from "../app-constants";
 import CloseIcon from "@material-ui/icons/Close";
 import MenuIcon from "@material-ui/icons/Menu";
 import InboxIcon from "@material-ui/icons/MoveToInbox";
 import InfoIcon from "@material-ui/icons/Info";
 import GreenButton from "./common/green-button";
 import { aboutText } from "../app-constants";
-// import SearchBar from "./search-bar";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
@@ -33,20 +32,52 @@ const useStyles = makeStyles((theme) => ({
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    width: 300,
+    width: 350,
     backgroundColor: theme.palette.background.paper,
     border: "2px solid #000",
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
   },
   normalText: {
-    textTransform: 'none'
-  }
+    textTransform: "none",
+  },
 }));
+
+const StyledMenu = withStyles({
+  paper: {
+    border: "1px solid #d3d4d5",
+  },
+})((props) => (
+  <Menu
+    elevation={0}
+    getContentAnchorEl={null}
+    anchorOrigin={{
+      vertical: "bottom",
+      horizontal: "center",
+    }}
+    transformOrigin={{
+      vertical: "top",
+      horizontal: "center",
+    }}
+    {...props}
+  />
+));
+
+const StyledMenuItem = withStyles((theme) => ({
+  root: {
+    "&:focus": {
+      backgroundColor: theme.palette.primary.main,
+      "& .MuiListItemIcon-root, & .MuiListItemText-primary": {
+        color: theme.palette.common.white,
+      },
+    },
+  },
+}))(MenuItem);
 
 const MobileMenu = () => {
   const classes = useStyles();
   const [modalOpen, setModalOpen] = useState(false);
+  const [anchorEl, setAnchorEl] = useState(null);
   const [drawerOpen, setDrawerOpen] = useState(false);
 
   const onAboutClick = () => {
@@ -58,47 +89,54 @@ const MobileMenu = () => {
     setModalOpen(false);
   };
 
-  const handleDrawerOpen = () => {
+  const handleDrawerOpen = (event) => {
     setDrawerOpen(true);
+    setAnchorEl(event.currentTarget);
   };
 
   const handleDrawerClose = () => {
     setDrawerOpen(false);
   };
 
-  const ThemeButton = withStyles({
-    root: {
-      backgroundColor: "#228B6E",
-      "&:hover": {
-        backgroundColor: "#228b8b",
-      },
-      height: 30,
-    },
-  })(Button);
+  const CustomLink = (props) => (
+    <Link
+      href={videoSubmissionLink}
+      {...props}
+      target="_blank"
+      rel="noreferrer"
+    />
+  );
 
   return (
-    <>
+    <Box pr={1}>
       <IconButton onClick={handleDrawerOpen} size="medium">
         <MenuIcon />
       </IconButton>
-      <Drawer anchor={"right"} open={drawerOpen} onClose={handleDrawerClose}>
-        <List>
+      <StyledMenu
+        id="customized-menu"
+        anchorEl={anchorEl}
+        keepMounted
+        open={drawerOpen}
+        onClose={handleDrawerClose}
+      >
+        <StyledMenuItem>
           <ListItem button onClick={onAboutClick} key="about">
             <ListItemIcon>
               <InfoIcon />
             </ListItemIcon>
             <ListItemText primary="What is VIVA?" />
           </ListItem>
-          <Divider />
-          <ListItem button onClick={onAboutClick} key="shareYourExprience">
+        </StyledMenuItem>
+        <StyledMenuItem>
+          <ListItem button component={CustomLink} key="shareYourExprience">
             <ListItemIcon>
               <InboxIcon />
             </ListItemIcon>
             <ListItemText primary="Share Your Experience" />
           </ListItem>
-          <Divider />
-        </List>
-      </Drawer>
+        </StyledMenuItem>
+      </StyledMenu>
+
       <Modal
         open={modalOpen}
         onClose={handleModalClose}
@@ -108,8 +146,8 @@ const MobileMenu = () => {
         <div className={classes.paperMobile}>
           <Box mb={2} display="flex">
             <Box width="100%">
-              <Typography variant="h4" id="simple-modal-title">
-                What is VIVA?
+              <Typography variant="h5" id="simple-modal-title">
+                Welcome to VIVA!
               </Typography>
             </Box>
             <Box flexShrink={0}>
@@ -126,7 +164,7 @@ const MobileMenu = () => {
           </Box>
         </div>
       </Modal>
-    </>
+    </Box>
   );
 };
 

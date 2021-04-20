@@ -8,13 +8,13 @@ import { makeStyles } from "@material-ui/core/styles";
 // to-do: find a better way to style this
 const useStyles = makeStyles({
   button: {
-    position: "fixed",
+    position: "absolute",
     width: "100%",
     // left: "50%",
     bottom: 40,
     height: 20,
     fontSize: "3rem",
-    zIndex: 4,
+    zIndex: 10,
     cursor: "pointer",
     color: "green",
   },
@@ -22,33 +22,28 @@ const useStyles = makeStyles({
 
 const ScrollToTop = () => {
   const classes = useStyles();
-  const [visible, setVisible] = useState(false);
+  const [showScroll, setShowScroll] = useState(false)
 
-  const toggleVisible = () => {
-    console.log(scrolled);
-    const scrolled = document.documentElement.scrollTop;
-    if (scrolled > 300) {
-      setVisible(true);
-    } else if (scrolled <= 300) {
-      setVisible(false);
+  const checkScrollTop = () => {
+    if (!showScroll && window.pageYOffset > 400){
+      setShowScroll(true)
+    } else if (showScroll && window.pageYOffset <= 400){
+      setShowScroll(false)
     }
   };
 
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-      /* you can also use 'auto' behaviour
-         in place of 'smooth' */
-    });
+  const scrollTop = () =>{
+    window.scrollTo({top: 0, behavior: 'smooth'});
   };
 
-  window.addEventListener("scroll", toggleVisible);
+  window.addEventListener('scroll', checkScrollTop)
 
-  console.log(visible);
+  console.log(showScroll);
   return (
-    <IconButton onClick={scrollToTop} size="small" className={classes.button}>
-      <ArrowUpwardIcon style={{ display: visible ? "inline" : "none" }} />
+    <IconButton onClick={scrollTop} size="small" className={classes.button}>
+     {/* <IconButton onClick={scrollToTop} size="small"> */}
+      {/* <ArrowUpwardIcon style={{ display: visible ? "inline" : "none" }} /> */}
+      <ArrowUpwardIcon style={{ display: "inline"}} />
     </IconButton>
   );
 };

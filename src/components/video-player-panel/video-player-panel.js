@@ -100,23 +100,25 @@ const VideoPanel = ({ video, selectedLocation, clearSelectedVideo }) => {
             <Box pr={1}>
               <img src={MapPinDefault} alt="city" className={classes.pin} />
             </Box>
-            <div>
-              <Typography fontFamily="Arial">
-                {selectedLocation.address_full}
-              </Typography>
-              <Typography>
-                <a
-                  href={selectedLocation.website}
-                  target={selectedLocation.website}
-                >
-                  {
-                    selectedLocation.website
-                      .replace(/^(?:https?:\/\/)?(?:www\.)?/i, "")
-                      .split("/")[0]
-                  }
-                </a>
-              </Typography>
-            </div>
+            {selectedLocation && (
+              <div>
+                <Typography fontFamily="Arial">
+                  {selectedLocation.address_full}
+                </Typography>
+                <Typography>
+                  <a
+                    href={selectedLocation.website}
+                    target={selectedLocation.website}
+                  >
+                    {
+                      selectedLocation.website
+                        .replace(/^(?:https?:\/\/)?(?:www\.)?/i, "")
+                        .split("/")[0]
+                    }
+                  </a>
+                </Typography>
+              </div>
+            )}
           </Box>
 
           <Box pt={1} pb={1}>
