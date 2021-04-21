@@ -23,7 +23,8 @@ const useStyles = makeStyles({
     width: 24,
   },
   test: {
-    height: "calc(100vh - 140px)",
+    // height: "100%",
+    height: "calc(100vh - 116px)",
     marginRight: 0,
   },
 });
@@ -52,11 +53,11 @@ const Map = ({
   locations,
   selectedLocation,
   selectedCity,
-  fetchLocations,
   saveSelectedLocation,
   clearSelectedLocation,
   activateFilter,
   clearSelectedHashtag,
+  clearSelectedVideo,
 }) => {
   const classes = useStyles();
 
@@ -95,6 +96,7 @@ const Map = ({
     setInfoOpen(false);
     setZoom(13);
     clearSelectedLocation();
+    clearSelectedVideo();
   };
 
   const onRelatedVideosClick = (e) => {
@@ -197,11 +199,11 @@ Map.propTypes = {
   locations: PropTypes.array,
   selectedLocation: PropTypes.object,
   selectedCity: PropTypes.string,
-  fetchLocations: PropTypes.func,
   saveSelectedLocation: PropTypes.func,
   activateFilter: PropTypes.func,
   clearSelectedLocation: PropTypes.func,
   clearSelectedHashtag: PropTypes.func,
+  clearSelectedVideo: PropTypes.func,
 };
 
 Map.defaultProps = {
@@ -210,11 +212,11 @@ Map.defaultProps = {
   locations: null,
   selectedLocation: null,
   selectedCity: null,
-  fetchLocations() {},
   saveSelectedLocation() {},
   activateFilter() {},
   clearSelectedLocation() {},
   clearSelectedHashtag() {},
+  clearSelectedVideo() {},
 };
 
 export default GoogleApiWrapper({

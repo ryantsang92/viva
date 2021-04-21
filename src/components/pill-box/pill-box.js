@@ -79,11 +79,12 @@ const PillBox = ({
 
   const handleChange = (event, hashtag) => {
     fetchSelectedHashtag(hashtag);
+    window.scrollTo(0, 0);
   };
 
   const hashtagComponents = (hashtags) => {
     return hashtags.map((hashtag) => (
-      <Box pr={1} pl={1} key={hashtag.id}>
+      <Box pr={1} key={hashtag.id}>
         <ToggleButtonGroup
           size="small"
           value={selectedHashtag}

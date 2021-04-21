@@ -14,7 +14,6 @@ import PropTypes from "prop-types";
 // to-do: find a better way to style this
 const useStyles = makeStyles({
   root: {
-    height: "100%",
     marginLeft: 0,
     paddingLeft: 15,
     paddingRight: 15,
@@ -29,7 +28,7 @@ const useStyles = makeStyles({
   },
   videoContainer: {
     width: 400,
-    height: "calc(100vh - 140px)",
+    height: "calc(100vh - 116px)",
     margin: "0 !important",
     "-ms-overflow-style": "none",
     scrollbarWidth: "none",
@@ -40,7 +39,7 @@ const useStyles = makeStyles({
   },
   videoContainerMobile: {
     width: "100%",
-    height: "calc(100vh - 140px)",
+    height: "calc(100vh - 116px)",
     margin: "0 !important",
     "-ms-overflow-style": "none",
     scrollbarWidth: "none",
