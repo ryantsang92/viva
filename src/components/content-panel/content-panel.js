@@ -60,6 +60,7 @@ const useStyles = makeStyles({
 const ContentPanel = ({
   selectedHashtag,
   selectedLocation,
+  filterOn,
   clearSelectedHashtag,
   clearSelectedLocationFilter,
 }) => {
@@ -87,6 +88,8 @@ const ContentPanel = ({
     clearSelectedLocationFilter();
   };
 
+  console.log(selectedLocation);
+  console.log(filterOn);
   return (
     <Box className={classes.root}>
       <div
@@ -104,7 +107,7 @@ const ContentPanel = ({
                 </IconButton>
               </div>
             )}
-            {selectedLocation && (
+            {selectedLocation && filterOn && (
               <div className={classes.title}>
                 {selectedLocation.name}{" "}
                 <IconButton onClick={onLocationFilterClose} size="small">
@@ -125,6 +128,7 @@ const ContentPanel = ({
 ContentPanel.propTypes = {
   selectedHashtag: PropTypes.object,
   selectedLocation: PropTypes.object,
+  filterOn: PropTypes.bool,
   clearSelectedHashtag: PropTypes.func,
   clearSelectedLocationFilter: PropTypes.func,
 };
@@ -132,6 +136,7 @@ ContentPanel.propTypes = {
 ContentPanel.defaultProps = {
   selectedHashtag: null,
   selectedLocation: null,
+  filterOn: false,
   clearSelectedHashtag() {},
   clearSelectedLocationFilter() {},
 };

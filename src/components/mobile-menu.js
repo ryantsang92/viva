@@ -63,17 +63,6 @@ const StyledMenu = withStyles({
   />
 ));
 
-const StyledMenuItem = withStyles((theme) => ({
-  root: {
-    "&:focus": {
-      backgroundColor: theme.palette.primary.main,
-      "& .MuiListItemIcon-root, & .MuiListItemText-primary": {
-        color: theme.palette.common.white,
-      },
-    },
-  },
-}))(MenuItem);
-
 const MobileMenu = () => {
   const classes = useStyles();
   const [modalOpen, setModalOpen] = useState(false);
@@ -119,22 +108,22 @@ const MobileMenu = () => {
         open={drawerOpen}
         onClose={handleDrawerClose}
       >
-        <StyledMenuItem>
+        <MenuItem>
           <ListItem button onClick={onAboutClick} key="about">
             <ListItemIcon>
               <InfoIcon />
             </ListItemIcon>
             <ListItemText primary="What is VIVA?" />
           </ListItem>
-        </StyledMenuItem>
-        <StyledMenuItem>
+        </MenuItem>
+        <MenuItem>
           <ListItem button component={CustomLink} key="shareYourExprience">
             <ListItemIcon>
               <InboxIcon />
             </ListItemIcon>
             <ListItemText primary="Share Your Experience" />
           </ListItem>
-        </StyledMenuItem>
+        </MenuItem>
       </StyledMenu>
 
       <Modal

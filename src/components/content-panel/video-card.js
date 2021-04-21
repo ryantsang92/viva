@@ -41,7 +41,9 @@ const VideoCard = ({
 }) => {
   const handleClick = (video) => {
     saveSelectedVideo(video);
-    saveSelectedLocation(videoLocation);
+    // if (videoLocation.id !== video.location_id) {
+      saveSelectedLocation(videoLocation);
+    // }
   };
 
   const classes = useStyles();

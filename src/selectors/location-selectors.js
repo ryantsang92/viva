@@ -58,3 +58,7 @@ export const selectLocationByVideo = (state, video) => {
       )[0]
     : null;
 };
+
+export const selectFilter = (state) => {
+  return state ? state.locationData.filter : null;
+};
