@@ -81,7 +81,10 @@ const Map = ({
     }
     if (selectedLocation) {
       setInfoOpen(true);
-      setCenter({ lat: selectedLocation.lat, lng: selectedLocation.lng });
+      setCenter({
+        lat: parseFloat(selectedLocation.lat),
+        lng: parseFloat(selectedLocation.lng),
+      });
       if (zoom < 15) {
         setZoom(15);
       }
@@ -138,7 +141,10 @@ const Map = ({
                     name={location.id}
                     key={location.id}
                     markerData={location}
-                    position={{ lat: location.lat, lng: location.lng }}
+                    position={{
+                      lat: parseFloat(location.lat),
+                      lng: parseFloat(location.lng),
+                    }}
                     onClick={onMarkerClick}
                     icon={{
                       url:
@@ -153,8 +159,8 @@ const Map = ({
             {selectedLocation && (
               <InfoWindowEx
                 position={{
-                  lat: selectedLocation.lat,
-                  lng: selectedLocation.lng,
+                  lat: parseFloat(selectedLocation.lat),
+                  lng: parseFloat(selectedLocation.lng),
                 }}
                 visible={infoOpen}
                 onClose={onInfoWindowClose}

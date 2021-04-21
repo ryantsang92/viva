@@ -88,8 +88,6 @@ const ContentPanel = ({
     clearSelectedLocationFilter();
   };
 
-  console.log(selectedLocation);
-  console.log(filterOn);
   return (
     <Box className={classes.root}>
       <div

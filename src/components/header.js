@@ -31,12 +31,10 @@ import PropTypes from "prop-types";
 const useStyles = makeStyles((theme) => ({
   header: {
     position: "relative",
-    // height: 140,
     boxShadow: "1px 0px 5px rgba(0,0,0,0.5)",
     zIndex: 100,
   },
   headerTop: {
-    // height: 60,
     margin: 0,
     width: "100%",
   },
@@ -49,10 +47,7 @@ const useStyles = makeStyles((theme) => ({
   logo: {
     paddingTop: 5,
     height: 42,
-  },
-  logoMobile: {
-    paddingTop: 5,
-    height: 42,
+    cursor: "pointer",
   },
   pin: {
     margin: "auto",
@@ -60,13 +55,11 @@ const useStyles = makeStyles((theme) => ({
     height: 24,
   },
   navbar: {
-    // height: 80,
     margin: 0,
     width: "100%",
   },
   cityPicker: {
     padding: "0 !important",
-    // height: 80,
     display: "flex",
     alignItems: "center",
   },
@@ -192,6 +185,10 @@ const Header = ({
     setModalOpen(false);
   };
 
+  const refreshPage = () => {
+    window.location.reload(true);
+  };
+
   return (
     <div className={classes.header}>
       <Box pb={1}>
@@ -202,7 +199,8 @@ const Header = ({
                 <img
                   src={logo}
                   alt="VIVA"
-                  className={isMobile ? classes.logoMobile : classes.logo}
+                  className={classes.logo}
+                  onClick={refreshPage}
                 />
               </Box>
             </Box>
