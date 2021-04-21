@@ -49,7 +49,7 @@ const useStyles = makeStyles({
     overflow: "scroll",
   },
   titleContainer: {
-    padding: "16px 0",
+    // padding: "16px 0",
     position: "sticky",
     top: 0,
     background: "white",
@@ -94,25 +94,29 @@ const ContentPanel = ({
           isMobile ? classes.videoContainerMobile : classes.videoContainer
         }
       >
-        <div className={classes.titleContainer}>
-          {selectedHashtag && (
+        {(selectedHashtag || selectedLocation) && (
+          <Box pt={2} className={classes.titleContainer}>
+            {selectedHashtag && (
               <div className={classes.title}>
                 {selectedHashtag.hashtag}{" "}
                 <IconButton onClick={onHashtagFilterClose} size="small">
                   <CloseIcon />
                 </IconButton>
               </div>
-          )}
-          {selectedLocation && (
+            )}
+            {selectedLocation && (
               <div className={classes.title}>
                 {selectedLocation.name}{" "}
                 <IconButton onClick={onLocationFilterClose} size="small">
                   <CloseIcon />
                 </IconButton>
               </div>
-          )}
-        </div>
-        <VideoGridContainer selectedHashtag={selectedHashtag} />
+            )}
+          </Box>
+        )}
+        <Box pt={2}>
+          <VideoGridContainer selectedHashtag={selectedHashtag} />
+        </Box>
       </div>
     </Box>
   );

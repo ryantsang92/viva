@@ -34,7 +34,7 @@ const useStyles = makeStyles({
   videoPanel: {
     minWidth: 310,
     maxWidth: 310,
-    // height: "calc(100vh - 140px)",
+    height: "calc(100vh - 116px)",
     overflowY: "scroll",
     overflowX: "hidden",
     position: "relative",
