@@ -38,15 +38,15 @@ const useStyles = makeStyles({
     overflow: "scroll",
   },
   videoContainerMobile: {
-    width: "100%",
-    height: "calc(100vh - 116px)",
+    // width: "100%",
+    // height: "calc(100vh - 116px)",
     margin: "0 !important",
     "-ms-overflow-style": "none",
     scrollbarWidth: "none",
     "&::-webkit-scrollbar": {
       display: "none",
     },
-    overflow: "scroll",
+    overflow: "hidden",
   },
   titleContainer: {
     // padding: "16px 0",

@@ -34,6 +34,11 @@ const useStyles = makeStyles((theme) => ({
     // height: 140,
     boxShadow: "1px 0px 5px rgba(0,0,0,0.5)",
     zIndex: 100,
+    "@media (max-width: 767px)": {
+      position: "sticky",
+      top: -70,
+      background: "white"
+    },
   },
   headerTop: {
     // height: 60,
