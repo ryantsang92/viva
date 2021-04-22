@@ -8,9 +8,7 @@ import React, { useEffect } from "react";
 import { GridList, GridListTile, Typography, Box } from "@material-ui/core";
 import MoodBadRoundedIcon from "@material-ui/icons/MoodBadRounded";
 import { makeStyles } from "@material-ui/core/styles";
-import ScrollingWrapper from "../common/scrolling-wrapper";
 import VideoCardContainer from "./video-card-container";
-// import ScrollToTop from "../common/scroll-to-top";
 import Loading from "../loading";
 import PropTypes from "prop-types";
 

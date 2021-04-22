@@ -7,6 +7,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Box } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import PropTypes from "prop-types";
 
 const useStyles = makeStyles({
   scrollingWrapperContainer: {
@@ -66,16 +67,17 @@ const useStyles = makeStyles({
   },
 });
 
-const ScrollingWrapper = (props) => {
+const ScrollingWrapper = ({children, refresh}) => {
   const classes = useStyles();
   const [hasScrolled, setHasScrolled] = useState(false);
   const scrollingWrapper = useRef(null);
 
   useEffect(() => {
-    if (props.refresh) {
+    // if (refresh) {
+      console.log(refresh);
       scrollToTop();
-    }
-  }, [props.refresh]);
+    // }
+  }, [refresh]);
 
   const scrollToTop = () => {
     scrollingWrapper.current.scrollTo({ top: 0, behavior: "smooth" });
@@ -88,8 +90,6 @@ const ScrollingWrapper = (props) => {
       setHasScrolled(false);
     }
   };
-
-  console.log(hasScrolled);
 
   return (
     <>
@@ -108,10 +108,20 @@ const ScrollingWrapper = (props) => {
         className={classes.scrollingWrapperContainer}
         ref={scrollingWrapper}
       >
-        {props.children}
+        {children}
       </div>
     </>
   );
+};
+
+ScrollingWrapper.propTypes = {
+  children: PropTypes.object,
+  refresh: PropTypes.bool,
+};
+
+ScrollingWrapper.defaultProps = {
+  children: null,
+  refresh: false,
 };
 
 export default ScrollingWrapper;

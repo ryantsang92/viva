@@ -93,6 +93,7 @@ const ContentPanel = ({
     clearSelectedLocationFilter();
   };
 
+  console.log(filterOn);
   return (
     <Box className={classes.root}>
       <div
@@ -120,11 +121,13 @@ const ContentPanel = ({
             )}
           </Box>
         )}
-          <ScrollingWrapper refresh={selectedHashtag || (selectedLocation && filterOn)}>
-            <Box pt={2}>
-              <VideoGridContainer selectedHashtag={selectedHashtag} />
-            </Box>
-          </ScrollingWrapper>
+        <ScrollingWrapper
+          refresh={selectedHashtag || (selectedLocation && filterOn) || false}
+        >
+          <Box pt={2}>
+            <VideoGridContainer selectedHashtag={selectedHashtag} />
+          </Box>
+        </ScrollingWrapper>
       </div>
     </Box>
   );
