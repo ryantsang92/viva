@@ -4,10 +4,12 @@
   author: Ryan Tsang <ryan@vivatheapp.com>
 */
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Box, IconButton } from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
 import { makeStyles } from "@material-ui/core/styles";
+import ScrollingWrapper from "../common/scrolling-wrapper";
+import ScrollToTop from 'react-router-scroll-top'
 import VideoGridContainer from "./video-grid-container";
 import PropTypes from "prop-types";
 
@@ -55,7 +57,15 @@ const useStyles = makeStyles({
     background: "white",
     zIndex: 99,
   },
+  scrollWrapper: {
+    scrollbarWidth: "none",
+    "&::-webkit-scrollbar": {
+      display: "none",
+    },
+  },
 });
+
+// const scrollToRef = (ref) => window.scrollTo(0, ref.current.offsetTop);
 
 const ContentPanel = ({
   selectedHashtag,
@@ -68,14 +78,27 @@ const ContentPanel = ({
 
   const [width, setWidth] = useState(window.innerWidth);
 
+  const myRef = useRef(null);
+  console.log(myRef);
+  const executeScroll = (ref) => {
+    console.log("executeScroll");
+    console.log(ref.current.offsetTop);
+    window.scrollTo(0, ref.current.offsetTop);
+  };
+
   function handleWindowSizeChange() {
     setWidth(window.innerWidth);
   }
   useEffect(() => {
+    // if (selectedHashtag || selectedLocation) {
+    //   console.log("here");
+    //   executeScroll(myRef);
+    // }
     window.addEventListener("resize", handleWindowSizeChange);
     return () => {
       window.removeEventListener("resize", handleWindowSizeChange);
     };
+    // }, [selectedHashtag, selectedLocation]);
   }, []);
 
   let isMobile = width <= 768;
@@ -96,7 +119,7 @@ const ContentPanel = ({
         }
       >
         {(selectedHashtag || selectedLocation) && (
-          <Box pt={2} className={classes.titleContainer}>
+          <Box pt={2} pb={1} className={classes.titleContainer}>
             {selectedHashtag && (
               <div className={classes.title}>
                 {selectedHashtag.hashtag}{" "}
@@ -115,9 +138,15 @@ const ContentPanel = ({
             )}
           </Box>
         )}
-        <Box pt={2}>
-          <VideoGridContainer selectedHashtag={selectedHashtag} />
-        </Box>
+        {/* <div id="videoGrid" ref={myRef}> */}
+        {/* <div className={classes.scrollWrapper}> */}
+          <ScrollingWrapper>
+            <Box pt={2}>
+              <VideoGridContainer selectedHashtag={selectedHashtag} />
+            </Box>
+          </ScrollingWrapper>
+        {/* </div> */}
+        {/* </div> */}
       </div>
     </Box>
   );

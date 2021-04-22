@@ -1,5 +1,5 @@
 /*
-  Body Grid component (let's think of a better name for this)
+  Body Grid component
 
   author: Ryan Tsang <ryan@vivatheapp.com>
 */
@@ -49,7 +49,7 @@ const useStyles = makeStyles({
     width: "100%",
     overflowY: "scroll",
     overflowX: "hidden",
-    top: 90,
+    top: 70,
     left: 0,
     bottom: 0,
     position: "absolute",

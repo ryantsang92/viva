@@ -7,6 +7,7 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
 import { videoSubmissionLink } from "./app-constants";
+import { SafeAreaView } from "react-native";
 import GreenButton from "./components/common/green-button";
 import HeaderContainer from "./components/header-container";
 import BodyGridContainer from "./components/body-grid-container";
@@ -40,7 +41,7 @@ const App = () => {
   let isMobile = width <= 768;
 
   return (
-    <>
+    <SafeAreaView>
       <div className="App">
         <HeaderContainer />
         <BodyGridContainer />
@@ -53,7 +54,7 @@ const App = () => {
           </div>
         )}
       </div>
-    </>
+    </SafeAreaView>
   );
 };
 

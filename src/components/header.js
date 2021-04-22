@@ -191,39 +191,37 @@ const Header = ({
 
   return (
     <div className={classes.header}>
-      <Box pb={1}>
-        <Grid container className={classes.headerTop}>
-          <Grid item xs={2} className={classes.clear}>
-            <Box className={classes.logoContainer}>
-              <Box className={classes.clear}>
-                <img
-                  src={logo}
-                  alt="VIVA"
-                  className={classes.logo}
-                  onClick={refreshPage}
-                />
-              </Box>
+      <Grid container className={classes.headerTop}>
+        <Grid item xs={2} className={classes.clear}>
+          <Box className={classes.logoContainer}>
+            <Box className={classes.clear}>
+              <img
+                src={logo}
+                alt="VIVA"
+                className={classes.logo}
+                onClick={refreshPage}
+              />
             </Box>
-          </Grid>
-          <Grid item xs={10}>
-            <Box
-              display="flex"
-              justifyContent="flex-end"
-              alignItems="center"
-              pt={2}
-            >
-              {!isMobile && (
-                <Box pr={2} className={classes.menuLink}>
-                  <GreenButton buttonText="About" onClick={onAboutClick} />
-                </Box>
-              )}
-              <SocialGrid />
-              {isMobile && <MobileMenu />}
-            </Box>
-          </Grid>
+          </Box>
         </Grid>
-      </Box>
-      <Box pb={2}>
+        <Grid item xs={10}>
+          <Box
+            display="flex"
+            justifyContent="flex-end"
+            alignItems="center"
+            pt={2}
+          >
+            {!isMobile && (
+              <Box pr={2} className={classes.menuLink}>
+                <GreenButton buttonText="About" onClick={onAboutClick} />
+              </Box>
+            )}
+            <SocialGrid />
+            {isMobile && <MobileMenu />}
+          </Box>
+        </Grid>
+      </Grid>
+      <Box pt={1} pb={2}>
         <Grid container spacing={2} className={classes.navbar}>
           <Grid item className={classes.cityPicker}>
             <Box pl={1} pr={1}>
