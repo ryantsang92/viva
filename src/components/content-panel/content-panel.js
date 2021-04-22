@@ -4,7 +4,7 @@
   author: Ryan Tsang <ryan@vivatheapp.com>
 */
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { Box, IconButton } from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
 import { makeStyles } from "@material-ui/core/styles";
@@ -49,7 +49,6 @@ const useStyles = makeStyles({
     overflow: "scroll",
   },
   titleContainer: {
-    // padding: "16px 0",
     position: "sticky",
     top: 0,
     background: "white",
@@ -63,8 +62,6 @@ const useStyles = makeStyles({
   },
 });
 
-// const scrollToRef = (ref) => window.scrollTo(0, ref.current.offsetTop);
-
 const ContentPanel = ({
   selectedHashtag,
   selectedLocation,
@@ -75,9 +72,6 @@ const ContentPanel = ({
   const classes = useStyles();
 
   const [width, setWidth] = useState(window.innerWidth);
-
-  const myRef = useRef(null);
-  console.log(myRef);
 
   function handleWindowSizeChange() {
     setWidth(window.innerWidth);
@@ -106,7 +100,7 @@ const ContentPanel = ({
           isMobile ? classes.videoContainerMobile : classes.videoContainer
         }
       >
-        {(selectedHashtag || selectedLocation) && (
+        {(selectedHashtag || (selectedLocation && filterOn)) && (
           <Box pt={2} pb={1} className={classes.titleContainer}>
             {selectedHashtag && (
               <div className={classes.title}>
@@ -126,7 +120,7 @@ const ContentPanel = ({
             )}
           </Box>
         )}
-          <ScrollingWrapper>
+          <ScrollingWrapper refresh={selectedHashtag || (selectedLocation && filterOn)}>
             <Box pt={2}>
               <VideoGridContainer selectedHashtag={selectedHashtag} />
             </Box>

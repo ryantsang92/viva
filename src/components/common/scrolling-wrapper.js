@@ -4,7 +4,7 @@
   author: Ryan Tsang <ryan@vivatheapp.com>
 */
 
-import React, { useState, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Box } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -22,8 +22,9 @@ const useStyles = makeStyles({
   },
   scrollToTopIconContainer: {
     position: "absolute",
-    top: 5,
+    top: 8,
     left: "50%",
+    // transform: "translate(-50%, -50%)",
     marginLeft: -50,
     zIndex: 2,
     cursor: "pointer",
@@ -53,7 +54,10 @@ const useStyles = makeStyles({
     // },
   },
   button: {
-    background: "black",
+    backgroundColor: "#228B6E",
+    "&:hover": {
+      backgroundColor: "#228b8b",
+    },
     color: "white",
     fontFamily: "Roboto",
     fontSize: 16,
@@ -67,17 +71,25 @@ const ScrollingWrapper = (props) => {
   const [hasScrolled, setHasScrolled] = useState(false);
   const scrollingWrapper = useRef(null);
 
+  useEffect(() => {
+    if (props.refresh) {
+      scrollToTop();
+    }
+  }, [props.refresh]);
+
   const scrollToTop = () => {
     scrollingWrapper.current.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const onScroll = (e) => {
-    if (e.target.scrollTop > 150 && !hasScrolled) {
+    if (e.target.scrollTop > 200 && !hasScrolled) {
       setHasScrolled(true);
-    } else if (e.target.scrollTop < 150 && hasScrolled) {
+    } else if (e.target.scrollTop < 200 && hasScrolled) {
       setHasScrolled(false);
     }
   };
+
+  console.log(hasScrolled);
 
   return (
     <>
