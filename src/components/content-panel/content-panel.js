@@ -9,11 +9,9 @@ import { Box, IconButton } from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
 import { makeStyles } from "@material-ui/core/styles";
 import ScrollingWrapper from "../common/scrolling-wrapper";
-import ScrollToTop from 'react-router-scroll-top'
 import VideoGridContainer from "./video-grid-container";
 import PropTypes from "prop-types";
 
-// to-do: find a better way to style this
 const useStyles = makeStyles({
   root: {
     marginLeft: 0,
@@ -80,25 +78,15 @@ const ContentPanel = ({
 
   const myRef = useRef(null);
   console.log(myRef);
-  const executeScroll = (ref) => {
-    console.log("executeScroll");
-    console.log(ref.current.offsetTop);
-    window.scrollTo(0, ref.current.offsetTop);
-  };
 
   function handleWindowSizeChange() {
     setWidth(window.innerWidth);
   }
   useEffect(() => {
-    // if (selectedHashtag || selectedLocation) {
-    //   console.log("here");
-    //   executeScroll(myRef);
-    // }
     window.addEventListener("resize", handleWindowSizeChange);
     return () => {
       window.removeEventListener("resize", handleWindowSizeChange);
     };
-    // }, [selectedHashtag, selectedLocation]);
   }, []);
 
   let isMobile = width <= 768;
@@ -138,15 +126,11 @@ const ContentPanel = ({
             )}
           </Box>
         )}
-        {/* <div id="videoGrid" ref={myRef}> */}
-        {/* <div className={classes.scrollWrapper}> */}
           <ScrollingWrapper>
             <Box pt={2}>
               <VideoGridContainer selectedHashtag={selectedHashtag} />
             </Box>
           </ScrollingWrapper>
-        {/* </div> */}
-        {/* </div> */}
       </div>
     </Box>
   );

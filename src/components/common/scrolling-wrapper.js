@@ -4,12 +4,11 @@
   author: Ryan Tsang <ryan@vivatheapp.com>
 */
 
-import React from "react";
+import React, { useState, useRef } from "react";
 import { Box } from "@material-ui/core";
-import styled from "styled-components";
-import { withStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 
-const styles = (theme) => ({
+const useStyles = makeStyles({
   scrollingWrapperContainer: {
     overflowY: "scroll",
     "&::-webkit-scrollbar": {
@@ -63,87 +62,44 @@ const styles = (theme) => ({
   },
 });
 
-class ScrollingWrapper extends React.Component {
-  state = { hasScrolled: false };
+const ScrollingWrapper = (props) => {
+  const classes = useStyles();
+  const [hasScrolled, setHasScrolled] = useState(false);
+  const scrollingWrapper = useRef(null);
 
-  componentDidMount() {
-    this.scrollingWrapper.addEventListener("scroll", this.onScroll);
-  }
+  const scrollToTop = () => {
+    scrollingWrapper.current.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
-  onScroll = () => {
-    if (this.scrollingWrapper.scrollTop > 150 && !this.state.hasScrolled) {
-      this.setState({ hasScrolled: true });
-    } else if (
-      this.scrollingWrapper.scrollTop < 150 &&
-      this.state.hasScrolled
-    ) {
-      this.setState({ hasScrolled: false });
+  const onScroll = (e) => {
+    if (e.target.scrollTop > 150 && !hasScrolled) {
+      setHasScrolled(true);
+    } else if (e.target.scrollTop < 150 && hasScrolled) {
+      setHasScrolled(false);
     }
   };
 
-  scrollToTop = () => {
-    this.scrollingWrapper.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
-  reference = (id) => (ref) => {
-    console.log(this[id]);
-    this[id] = ref;
-  };
-
-  render() {
-    const { classes } = this.props;
-    return (
-      <>
-        {this.state.hasScrolled && (
-          <div
-            className={classes.scrollToTopIconContainer}
-            onClick={this.scrollToTop}
-          >
-            <Box m={1} p={1} className={classes.button}>Back to top</Box>
-          </div>
-        )}
+  return (
+    <>
+      {hasScrolled && (
         <div
-          className={classes.scrollingWrapperContainer}
-          ref={this.reference("scrollingWrapper")}
+          className={classes.scrollToTopIconContainer}
+          onClick={() => scrollToTop()}
         >
-          {this.props.children}
+          <Box m={1} p={1} className={classes.button}>
+            Back to top
+          </Box>
         </div>
-      </>
-    );
-  }
-}
+      )}
+      <div
+        onScroll={onScroll}
+        className={classes.scrollingWrapperContainer}
+        ref={scrollingWrapper}
+      >
+        {props.children}
+      </div>
+    </>
+  );
+};
 
-export default withStyles(styles)(ScrollingWrapper);
-
-const ScrollToTopIconContainer = styled.div`
-  position: absolute;
-  top: 5px;
-  left: 50%;
-  margin-left: -50px;
-  z-index: 2;
-  cursor: pointer;
-  opacity: 0.4;
-  text-align: center;
-  &:hover {
-    opacity: 1;
-    animation: wiggle 1s ease;
-    animation-iteration-count: 1;
-  }
-  @keyframes wiggle {
-    20% {
-      transform: translateY(6px);
-    }
-    40% {
-      transform: translateY(-6px);
-    }
-    60% {
-      transform: translateY(4px);
-    }
-    80% {
-      transform: translateY(-2px);
-    }
-    100% {
-      transform: translateY(0);
-    }
-  }
-`;
+export default ScrollingWrapper;
