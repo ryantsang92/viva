@@ -71,10 +71,10 @@ class ScrollingWrapper extends React.Component {
   }
 
   onScroll = () => {
-    if (this.scrollingWrapper.scrollTop > 100 && !this.state.hasScrolled) {
+    if (this.scrollingWrapper.scrollTop > 150 && !this.state.hasScrolled) {
       this.setState({ hasScrolled: true });
     } else if (
-      this.scrollingWrapper.scrollTop < 100 &&
+      this.scrollingWrapper.scrollTop < 150 &&
       this.state.hasScrolled
     ) {
       this.setState({ hasScrolled: false });
@@ -82,10 +82,11 @@ class ScrollingWrapper extends React.Component {
   };
 
   scrollToTop = () => {
-    this.scrollingWrapper.scrollTop = 0;
+    this.scrollingWrapper.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   reference = (id) => (ref) => {
+    console.log(this[id]);
     this[id] = ref;
   };
 
