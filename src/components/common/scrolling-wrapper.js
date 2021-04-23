@@ -25,7 +25,6 @@ const useStyles = makeStyles({
     position: "absolute",
     top: 8,
     left: "50%",
-    // marginLeft: -50,
     transform: "translate(-50%)",
     zIndex: 2,
     cursor: "pointer",
