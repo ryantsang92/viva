@@ -14,7 +14,8 @@ const useStyles = makeStyles({
     textTransform: "none",
     // color: "inherit",
     textDecoration: "none",
-    "&:hover": {
+    "&:focus, &:hover, &:visited, &:link, &:active": {
+      color: "#FFFFFF",
       textDecoration: "none",
     },
   },

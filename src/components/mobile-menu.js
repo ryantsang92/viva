@@ -44,6 +44,15 @@ const useStyles = makeStyles((theme) => ({
   blockQuote: {
     paddingLeft: "15px",
   },
+  normalText: {
+    textTransform: "none",
+    textDecoration: "none",
+    color: "#000000",
+    "&:focus, &:hover, &:visited, &:link, &:active": {
+      color: "#000000",
+      textDecoration: "none",
+    },
+  },
 }));
 
 const StyledMenu = withStyles({
@@ -129,7 +138,10 @@ const MobileMenu = ({ fetchSelectedHashtag }) => {
             <ListItemIcon>
               <InboxIcon />
             </ListItemIcon>
-            <ListItemText primary="Share Your Experience" />
+            <ListItemText
+              className={classes.normalText}
+              primary="Share Your Experience"
+            />
           </ListItem>
         </MenuItem>
       </StyledMenu>
