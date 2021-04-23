@@ -47,7 +47,6 @@ const useStyles = makeStyles({
     paddingBottom: 30,
   },
   pin: {
-    // margin: "auto",
     width: 20,
     height: 24,
   },

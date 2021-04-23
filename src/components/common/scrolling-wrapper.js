@@ -37,10 +37,11 @@ const useStyles = makeStyles({
     },
   },
   scrollToTopIconContainerMobile: {
+    // height: "calc(100vh - 116px)",
     position: "fixed",
     top: 120,
     left: "50%",
-    marginLeft: -50,
+    transform: "translate(-50%)",
     zIndex: 2,
     cursor: "pointer",
     textAlign: "center",
@@ -84,7 +85,7 @@ const ScrollingWrapper = ({ children, refresh }) => {
   };
 
   const onScroll = (e) => {
-    console.log(e.target);
+    // console.log(e.target);
     if (e.target.scrollTop > 200 && !hasScrolled) {
       setHasScrolled(true);
     } else if (e.target.scrollTop < 200 && hasScrolled) {

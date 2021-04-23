@@ -12,7 +12,6 @@ import PropTypes from "prop-types";
 const useStyles = makeStyles({
   normalText: {
     textTransform: "none",
-    // color: "inherit",
     textDecoration: "none",
     "&:focus, &:hover, &:visited, &:link, &:active": {
       color: "#FFFFFF",

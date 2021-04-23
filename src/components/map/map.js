@@ -88,7 +88,6 @@ const Map = ({
         setZoom(15);
       }
     }
-    // }, [locations, selectedLocation, selectedCity]);
   }, [selectedLocation, selectedCity]);
 
   const onMarkerClick = (marker) => {

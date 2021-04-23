@@ -38,8 +38,6 @@ const useStyles = makeStyles({
     overflow: "scroll",
   },
   videoContainerMobile: {
-    height: "calc(100vh - 116px)",
-    // minHeight: "calc(100vh - 116px)",
     margin: "0 !important",
     "-ms-overflow-style": "none",
     scrollbarWidth: "none",
@@ -55,10 +53,7 @@ const useStyles = makeStyles({
     zIndex: 99,
   },
   scrollWrapper: {
-    scrollbarWidth: "none",
-    "&::-webkit-scrollbar": {
-      display: "none",
-    },
+    height: "calc(100vh - 116px)",
   },
 });
 
@@ -124,6 +119,7 @@ const ContentPanel = ({
           refresh={selectedHashtag || (selectedLocation && filterOn) || false}
         >
           <Box pt={2}>
+          {/* <Box pt={2} className={classes.scrollWrapper}> */}
             <VideoGridContainer selectedHashtag={selectedHashtag} />
           </Box>
         </ScrollingWrapper>

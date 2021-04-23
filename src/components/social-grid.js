@@ -12,19 +12,24 @@ import { getWindowWidth } from "../common/common-functions";
 import instagramIcon from "../assets/instagram-logo.svg";
 import twitterIcon from "../assets/twitter-logo.svg";
 import tiktokIcon from "../assets/tiktok-logo.svg";
+import PropTypes from "prop-types";
 
 const { INSTAGRAM, TWITTER, TIKTOK } = socialURLs;
 
-const SocialGrid = () => {
+const SocialGrid = ({ isMobile }) => {
   const getHeightWidth = () => {
     return getWindowWidth() <= 315 ? 20 : 30;
-  }
+  };
 
   return (
-    <Box mr={1}>
+    <Box mr={isMobile ? 0 : 1}>
       <Grid container>
         <Grid item>
-          <SocialIcon url={INSTAGRAM} icon={instagramIcon} hw={getHeightWidth()} />
+          <SocialIcon
+            url={INSTAGRAM}
+            icon={instagramIcon}
+            hw={getHeightWidth()}
+          />
         </Grid>
         <Grid item>
           <SocialIcon url={TWITTER} icon={twitterIcon} hw={getHeightWidth()} />
@@ -35,6 +40,14 @@ const SocialGrid = () => {
       </Grid>
     </Box>
   );
+};
+
+SocialGrid.propTypes = {
+  isMobile: PropTypes.bool,
+};
+
+SocialGrid.defaultProps = {
+  isMobile: false,
 };
 
 export default SocialGrid;

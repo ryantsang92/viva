@@ -229,7 +229,7 @@ const Header = ({
                 <GreenButton buttonText="About" onClick={onAboutClick} />
               </Box>
             )}
-            <SocialGrid />
+            <SocialGrid isMobile={isMobile}/>
             {isMobile && <MobileMenuContainer />}
           </Box>
         </Grid>
