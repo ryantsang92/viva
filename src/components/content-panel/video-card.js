@@ -29,6 +29,9 @@ const styles = StyleSheet.create({
 const useStyles = makeStyles({
   title: {
     textAlign: "left",
+    lineHeight: 1,
+    marginTop: 8,
+    fontSize: ".8rem",
   },
 });
 

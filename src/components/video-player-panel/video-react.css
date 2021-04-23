@@ -677,6 +677,7 @@ body.video-react-full-window .video-react-fullscreen {
   -ms-flex-align: center;
   align-items: center;
   min-width: 4em;
+  padding-right: 5px;
 }
 
 .video-react-live .video-react-progress-control {
@@ -837,6 +838,7 @@ body.video-react-full-window .video-react-fullscreen {
   flex: none;
 }
 .video-react .video-react-fullscreen-control {
+  display: none;
   cursor: pointer;
   -webkit-box-flex: none;
   -moz-box-flex: none;
