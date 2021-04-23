@@ -7,6 +7,7 @@
 import React from "react";
 import { Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import { fetchSelectedHashtag } from "./actions/hashtag-actions";
 
 const useStyles = makeStyles({
   blockQuote: {
@@ -24,6 +25,21 @@ export const socialURLs = {
   INSTAGRAM: "https://www.instagram.com/vivatheapp/",
   TWITTER: "https://twitter.com/vivatheapp",
   TIKTOK: "https://www.tiktok.com/@vivatheapp",
+};
+
+export const hashtagObjects = {
+  picturePerfect: {
+    hashtag: "#pictureperfect",
+    id: 104,
+  },
+  funWithFriends: {
+    hashtag: "#funwithfriends",
+    id: 131,
+  },
+  worthTheHype: {
+    hashtag: "#worththehype",
+    id: 132,
+  }
 };
 
 export const aboutText = () => {

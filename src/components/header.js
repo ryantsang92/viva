@@ -20,11 +20,10 @@ import {
 } from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
 import GreenButton from "./common/green-button";
-import MobileMenu from "./mobile-menu";
+import MobileMenuContainer from "./mobile-menu-container";
 import PillBoxContainer from "./pill-box/pill-box-container";
 import SocialGrid from "./social-grid";
-import { aboutText } from "../app-constants";
-// import SearchBar from "./search-bar";
+import { hashtagObjects } from "../app-constants";
 import { makeStyles } from "@material-ui/core/styles";
 import PropTypes from "prop-types";
 
@@ -36,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
     "@media (max-width: 767px)": {
       position: "sticky",
       top: -70,
-      background: "white"
+      background: "white",
     },
   },
   headerTop: {
@@ -138,6 +137,9 @@ const useStyles = makeStyles((theme) => ({
     width: "100%",
     backgroundColor: "#F7F0D7",
   },
+  blockQuote: {
+    paddingLeft: "15px",
+  },
 }));
 
 const Header = ({
@@ -147,6 +149,7 @@ const Header = ({
   clearSelectedCity,
   clearSelectedVideo,
   clearSelectedLocation,
+  fetchSelectedHashtag,
 }) => {
   const classes = useStyles();
 
@@ -194,6 +197,11 @@ const Header = ({
     window.location.reload(true);
   };
 
+  const onHashtagClick = (hashtag) => {
+    fetchSelectedHashtag(hashtag);
+    handleModalClose();
+  };
+
   return (
     <div className={classes.header}>
       <Grid container className={classes.headerTop}>
@@ -222,7 +230,7 @@ const Header = ({
               </Box>
             )}
             <SocialGrid />
-            {isMobile && <MobileMenu />}
+            {isMobile && <MobileMenuContainer />}
           </Box>
         </Grid>
       </Grid>
@@ -261,8 +269,6 @@ const Header = ({
           </Grid>
           <Grid item className={classes.hashContainer}>
             <Box className={classes.left}>
-              {/* search bar will be added later */}
-              {/* <SearchBar /> */}
               <PillBoxContainer />
             </Box>
           </Grid>
@@ -302,7 +308,62 @@ const Header = ({
                 </Box>
                 <Box mb={2}>
                   <Typography id="simple-modal-description">
-                    {aboutText()}
+                    <Typography>
+                      VIVA is a social exploration platform where you can
+                      quickly and easily discover places to go and things to do
+                      from people like you.
+                    </Typography>
+                    <br></br>
+                    <Typography>
+                      If you ever feel like changing up your day, VIVA gets you
+                      instant access to a vast library of recommendations from
+                      your local community.
+                    </Typography>
+                    <br></br>
+                    <div className={classes.blockQuote}>
+                      <Typography>
+                        Stop by a{" "}
+                        <a
+                          href="/#"
+                          onClick={() =>
+                            onHashtagClick(hashtagObjects.picturePerfect)
+                          }
+                        >
+                          #pictureperfect
+                        </a>{" "}
+                        coffee shop
+                      </Typography>
+                      <Typography>
+                        Have{" "}
+                        <a
+                          href="/#"
+                          onClick={() =>
+                            onHashtagClick(hashtagObjects.funWithFriends)
+                          }
+                        >
+                          #funwithfriends
+                        </a>{" "}
+                        at a vineyard nearby
+                      </Typography>
+                      <Typography>
+                        Discover cool restaurants that are{" "}
+                        <a
+                          href="/#"
+                          onClick={() =>
+                            onHashtagClick(hashtagObjects.worthTheHype)
+                          }
+                        >
+                          #worththehype
+                        </a>
+                      </Typography>
+                    </div>
+                    <br></br>
+                    <Typography>
+                      VIVA uncovers all the #hiddengems for you, making your
+                      everyday fun and exciting.
+                    </Typography>
+                    <br></br>
+                    <Typography>Happy exploring!</Typography>
                   </Typography>
                 </Box>
                 <Box display="flex" justifyContent="flex-end">

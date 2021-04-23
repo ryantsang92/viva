@@ -23,7 +23,7 @@ import MenuIcon from "@material-ui/icons/Menu";
 import InboxIcon from "@material-ui/icons/MoveToInbox";
 import InfoIcon from "@material-ui/icons/Info";
 import GreenButton from "./common/green-button";
-import { aboutText } from "../app-constants";
+import { hashtagObjects } from "../app-constants";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
@@ -40,6 +40,9 @@ const useStyles = makeStyles((theme) => ({
   },
   normalText: {
     textTransform: "none",
+  },
+  blockQuote: {
+    paddingLeft: "15px",
   },
 }));
 
@@ -63,7 +66,7 @@ const StyledMenu = withStyles({
   />
 ));
 
-const MobileMenu = () => {
+const MobileMenu = ({ fetchSelectedHashtag }) => {
   const classes = useStyles();
   const [modalOpen, setModalOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
@@ -95,6 +98,11 @@ const MobileMenu = () => {
       rel="noreferrer"
     />
   );
+
+  const onHashtagClick = (hashtag) => {
+    fetchSelectedHashtag(hashtag);
+    handleModalClose();
+  };
 
   return (
     <Box pr={1}>
@@ -146,7 +154,62 @@ const MobileMenu = () => {
             </Box>
           </Box>
           <Box mb={2}>
-            <Typography id="simple-modal-description">{aboutText()}</Typography>
+            <Typography id="simple-modal-description">
+              <Typography>
+                VIVA is a social exploration platform where you can quickly and
+                easily discover places to go and things to do from people like
+                you.
+              </Typography>
+              <br></br>
+              <Typography>
+                If you ever feel like changing up your day, VIVA gets you
+                instant access to a vast library of recommendations from your
+                local community.
+              </Typography>
+              <br></br>
+              <div className={classes.blockQuote}>
+                <Typography>
+                  Stop by a{" "}
+                  <a
+                    href="/#"
+                    onClick={() =>
+                      onHashtagClick(hashtagObjects.picturePerfect)
+                    }
+                  >
+                    #pictureperfect
+                  </a>{" "}
+                  coffee shop
+                </Typography>
+                <Typography>
+                  Have{" "}
+                  <a
+                    href="/#"
+                    onClick={() =>
+                      onHashtagClick(hashtagObjects.funWithFriends)
+                    }
+                  >
+                    #funwithfriends
+                  </a>{" "}
+                  at a vineyard nearby
+                </Typography>
+                <Typography>
+                  Discover cool restaurants that are{" "}
+                  <a
+                    href="/#"
+                    onClick={() => onHashtagClick(hashtagObjects.worthTheHype)}
+                  >
+                    #worththehype
+                  </a>
+                </Typography>
+              </div>
+              <br></br>
+              <Typography>
+                VIVA uncovers all the #hiddengems for you, making your everyday
+                fun and exciting.
+              </Typography>
+              <br></br>
+              <Typography>Happy exploring!</Typography>
+            </Typography>
           </Box>
           <Box display="flex" justifyContent="flex-end">
             <GreenButton buttonText="Got it!" onClick={handleModalClose} />
