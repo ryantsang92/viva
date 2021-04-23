@@ -12,7 +12,6 @@ export const selectLocationData = (state) => {
 
 export const selectLocations = (state, hashtag = null, city = null) => {
   const selectedVideos = selectVideos(state, hashtag, city);
-  // let returnData = selectLocationData(state).locations;
 
   let combinedHashtags = [];
   let locationIds = [];
