@@ -7,12 +7,12 @@
 import { connect } from "react-redux";
 import {
   clearSelectedLocation,
-  fetchLocations,
   saveSelectedLocation,
   activateFilter,
 } from "../../actions/location-actions";
 import { selectSelectedHashtag } from "../../selectors/hashtag-selectors";
 import { clearSelectedHashtag } from "../../actions/hashtag-actions";
+import { clearSelectedVideo } from "../../actions/video-actions";
 import {
   selectLocations,
   selectSelectedLocation,
@@ -34,11 +34,11 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  fetchLocations: () => dispatch(fetchLocations()),
   saveSelectedLocation: (location) => dispatch(saveSelectedLocation(location)),
   clearSelectedLocation: () => dispatch(clearSelectedLocation()),
   activateFilter: () => dispatch(activateFilter()),
   clearSelectedHashtag: () => dispatch(clearSelectedHashtag()),
+  clearSelectedVideo: () => dispatch(clearSelectedVideo()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Map);

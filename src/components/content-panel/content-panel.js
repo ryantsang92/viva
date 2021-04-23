@@ -14,7 +14,6 @@ import PropTypes from "prop-types";
 // to-do: find a better way to style this
 const useStyles = makeStyles({
   root: {
-    height: "100%",
     marginLeft: 0,
     paddingLeft: 15,
     paddingRight: 15,
@@ -29,7 +28,7 @@ const useStyles = makeStyles({
   },
   videoContainer: {
     width: 400,
-    height: "calc(100vh - 140px)",
+    height: "calc(100vh - 116px)",
     margin: "0 !important",
     "-ms-overflow-style": "none",
     scrollbarWidth: "none",
@@ -39,18 +38,18 @@ const useStyles = makeStyles({
     overflow: "scroll",
   },
   videoContainerMobile: {
-    width: "100%",
-    height: "calc(100vh - 140px)",
+    // width: "100%",
+    // height: "calc(100vh - 116px)",
     margin: "0 !important",
     "-ms-overflow-style": "none",
     scrollbarWidth: "none",
     "&::-webkit-scrollbar": {
       display: "none",
     },
-    overflow: "scroll",
+    overflow: "hidden",
   },
   titleContainer: {
-    padding: "16px 0",
+    // padding: "16px 0",
     position: "sticky",
     top: 0,
     background: "white",
@@ -95,25 +94,29 @@ const ContentPanel = ({
           isMobile ? classes.videoContainerMobile : classes.videoContainer
         }
       >
-        <div className={classes.titleContainer}>
-          {selectedHashtag && (
+        {(selectedHashtag || selectedLocation) && (
+          <Box pt={2} className={classes.titleContainer}>
+            {selectedHashtag && (
               <div className={classes.title}>
                 {selectedHashtag.hashtag}{" "}
                 <IconButton onClick={onHashtagFilterClose} size="small">
                   <CloseIcon />
                 </IconButton>
               </div>
-          )}
-          {selectedLocation && (
+            )}
+            {selectedLocation && (
               <div className={classes.title}>
                 {selectedLocation.name}{" "}
                 <IconButton onClick={onLocationFilterClose} size="small">
                   <CloseIcon />
                 </IconButton>
               </div>
-          )}
-        </div>
-        <VideoGridContainer selectedHashtag={selectedHashtag} />
+            )}
+          </Box>
+        )}
+        <Box pt={2}>
+          <VideoGridContainer selectedHashtag={selectedHashtag} />
+        </Box>
       </div>
     </Box>
   );

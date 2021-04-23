@@ -88,7 +88,7 @@ const VideoPanel = ({ video, selectedLocation, clearSelectedVideo }) => {
           src={video.url}
           fluid={false}
           width={isMobile ? width : 310}
-          height={550}
+          height={isMobile ? 666: 550}
         />
         <Box className={classes.infoContainer}>
           {video.description && (

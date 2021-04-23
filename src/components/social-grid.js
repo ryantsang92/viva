@@ -22,7 +22,7 @@ const SocialGrid = () => {
 
   return (
     <Box mr={1}>
-      <Grid container spacing={1}>
+      <Grid container>
         <Grid item>
           <SocialIcon url={INSTAGRAM} icon={instagramIcon} hw={getHeightWidth()} />
         </Grid>

@@ -31,12 +31,17 @@ import PropTypes from "prop-types";
 const useStyles = makeStyles((theme) => ({
   header: {
     position: "relative",
-    height: 140,
+    // height: 140,
     boxShadow: "1px 0px 5px rgba(0,0,0,0.5)",
     zIndex: 100,
+    "@media (max-width: 767px)": {
+      position: "sticky",
+      top: -70,
+      background: "white"
+    },
   },
   headerTop: {
-    height: 60,
+    // height: 60,
     margin: 0,
     width: "100%",
   },
@@ -60,13 +65,13 @@ const useStyles = makeStyles((theme) => ({
     height: 24,
   },
   navbar: {
-    height: 80,
+    // height: 80,
     margin: 0,
     width: "100%",
   },
   cityPicker: {
     padding: "0 !important",
-    height: 80,
+    // height: 80,
     display: "flex",
     alignItems: "center",
   },
@@ -109,7 +114,6 @@ const useStyles = makeStyles((theme) => ({
   menuLink: {
     color: "#555",
     fontSize: 18,
-    marginRight: 18,
   },
   paper: {
     position: "fixed",
@@ -195,37 +199,38 @@ const Header = ({
 
   return (
     <div className={classes.header}>
-      <Grid container className={classes.headerTop}>
-        <Grid item xs={2} className={classes.clear}>
-          <Box className={classes.logoContainer}>
-            <Box className={classes.clear}>
-              <img
-                src={logo}
-                alt="VIVA"
-                className={isMobile ? classes.logoMobile : classes.logo}
-              />
+      <Box pb={1}>
+        <Grid container className={classes.headerTop}>
+          <Grid item xs={2} className={classes.clear}>
+            <Box className={classes.logoContainer}>
+              <Box className={classes.clear}>
+                <img
+                  src={logo}
+                  alt="VIVA"
+                  className={isMobile ? classes.logoMobile : classes.logo}
+                />
+              </Box>
             </Box>
-          </Box>
+          </Grid>
+          <Grid item xs={10}>
+            <Box
+              display="flex"
+              justifyContent="flex-end"
+              alignItems="center"
+              pt={2}
+            >
+              {!isMobile && (
+                <Box pr={2} className={classes.menuLink}>
+                  <GreenButton buttonText="About" onClick={onAboutClick} />
+                </Box>
+              )}
+              <SocialGrid />
+              {isMobile && <MobileMenu />}
+            </Box>
+          </Grid>
         </Grid>
-
-        <Grid item xs={10}>
-          <Box
-            display="flex"
-            justifyContent="flex-end"
-            alignItems="center"
-            pt={2}
-          >
-            {!isMobile && (
-              <div className={classes.menuLink}>
-                <GreenButton buttonText="About" onClick={onAboutClick} />
-              </div>
-            )}
-            <SocialGrid />
-            {isMobile && <MobileMenu />}
-          </Box>
-        </Grid>
-      </Grid>
-      <Box mt={1} mb={1}>
+      </Box>
+      <Box pb={2}>
         <Grid container spacing={2} className={classes.navbar}>
           <Grid item className={classes.cityPicker}>
             <Box pl={1} pr={1}>

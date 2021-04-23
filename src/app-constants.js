@@ -15,17 +15,9 @@ const useStyles = makeStyles({
 });
 
 export const endpoint = {
-  // VIDEO_URL: "http://ec2-3-23-128-254.us-east-2.compute.amazonaws.com/videos",
-  // HASHTAG_URL:
-  //   "http://ec2-3-23-128-254.us-east-2.compute.amazonaws.com/hashtags",
-  // LOCATION_URL:
-  //   "http://ec2-3-23-128-254.us-east-2.compute.amazonaws.com/locations",
-  VIDEO_URL:
-    "https://607e3c88cb531d568c0d1162--viva-endpoint.netlify.app/videos.json",
-  HASHTAG_URL:
-    "https://607e3c88cb531d568c0d1162--viva-endpoint.netlify.app/hashtags.json",
-  LOCATION_URL:
-    "https://607e3c88cb531d568c0d1162--viva-endpoint.netlify.app/locations.json",
+  VIDEO_URL: "https://api.vivatheapp.com/videos",
+  HASHTAG_URL: "https://api.vivatheapp.com/hashtags",
+  LOCATION_URL: "https://api.vivatheapp.com/locations",
 };
 
 export const socialURLs = {

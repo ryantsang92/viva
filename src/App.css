@@ -8,14 +8,7 @@
 .MuiInput-underline::before, .MuiInput-underline::after {
 	display: none;
 }
-#demo-simple-select {
-	padding-top: 10px;
-	padding-bottom: 10px;
-}
 .MuiSvgIcon-root.MuiSelect-icon {
 	top: calc(50% - 15px);
 	right: 5px;
-}
-.horizontal-menu {
-	height: 80px;
 }

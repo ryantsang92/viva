@@ -22,7 +22,7 @@ const useStyles = makeStyles({
     borderRadius: "25px",
     backgroundColor: "#F2F2F2",
     color: "#333333",
-    padding: "8px 13px",
+    padding: "0px 13px",
   },
   scrollMenu: {
     position: 'absolute',
@@ -79,11 +79,16 @@ const PillBox = ({
 
   const handleChange = (event, hashtag) => {
     fetchSelectedHashtag(hashtag);
+    window.scrollTo(0, 0);
+  };
+
+  const goLeft = (e, t) => {
+    console.log('yo')
   };
 
   const hashtagComponents = (hashtags) => {
     return hashtags.map((hashtag) => (
-      <Box pr={1} pl={1} key={hashtag.id}>
+      <Box pr={1} key={hashtag.id}>
         <ToggleButtonGroup
           size="small"
           value={selectedHashtag}
@@ -109,8 +114,12 @@ const PillBox = ({
       <ScrollMenu
         data={hashtagComponents(hashtags)}
         clickWhenDrag={false}
+        hideSingleArrow={true}
+        translate={0}
+        scrollBy={2}
         arrowLeft={isMobile ? null : ArrowLeft}
         arrowRight={isMobile ? null : ArrowRight}
+        handleArrowClick={goLeft}
       />
     </Box>
   );

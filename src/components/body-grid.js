@@ -14,6 +14,7 @@ import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles({
   root: {
+    height: "100%",
     marginLeft: 0,
   },
   contentPanel: {
@@ -33,7 +34,7 @@ const useStyles = makeStyles({
   videoPanel: {
     minWidth: 310,
     maxWidth: 310,
-    height: "calc(100vh - 140px)",
+    height: "calc(100vh - 116px)",
     overflowY: "scroll",
     overflowX: "hidden",
     position: "relative",
@@ -48,14 +49,16 @@ const useStyles = makeStyles({
     width: "100%",
     overflowY: "scroll",
     overflowX: "hidden",
-    top: 90,
+    top: 20,
     left: 0,
     bottom: 0,
-    position: "absolute",
+    position: "fixed",
     scrollbarWidth: "none",
     zIndex: 400,
     backgroundColor: "white",
     boxShadow: "-1px 1px 5px rgba(0,0,0,0.6)",
+    borderTopLeftRadius: 15,
+    borderTopRightRadius: 15,
     "&::-webkit-scrollbar": {
       display: "none",
     },
