@@ -36,27 +36,10 @@ const useStyles = makeStyles({
       animation: "wiggle 1s ease",
       animationIterationCount: 1,
     },
-    // "@keyframes wiggle": {
-    //   "20%": {
-    //     transform: "translateY(6)",
-    //   },
-    //   "40%": {
-    //     transform: "translateY(-6)",
-    //   },
-    //   "60%": {
-    //     transform: "translateY(4)",
-    //   },
-    //   "80%": {
-    //     transform: "translateY(-2)",
-    //   },
-    //   "100%": {
-    //     transform: "translateY(0)",
-    //   },
-    // },
   },
   scrollToTopIconContainerMobile: {
-    position: "absolute",
-    // top: 8,
+    position: "fixed",
+    top: 120,
     left: "50%",
     marginLeft: -50,
     zIndex: 2,
@@ -102,6 +85,7 @@ const ScrollingWrapper = ({ children, refresh }) => {
   };
 
   const onScroll = (e) => {
+    console.log(e.target);
     if (e.target.scrollTop > 200 && !hasScrolled) {
       setHasScrolled(true);
     } else if (e.target.scrollTop < 200 && hasScrolled) {

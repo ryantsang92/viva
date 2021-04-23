@@ -38,8 +38,8 @@ const useStyles = makeStyles({
     overflow: "scroll",
   },
   videoContainerMobile: {
-    // width: "100%",
-    // height: "calc(100vh - 116px)",
+    height: "calc(100vh - 116px)",
+    // minHeight: "calc(100vh - 116px)",
     margin: "0 !important",
     "-ms-overflow-style": "none",
     scrollbarWidth: "none",
