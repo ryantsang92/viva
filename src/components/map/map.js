@@ -23,7 +23,6 @@ const useStyles = makeStyles({
     width: 24,
   },
   test: {
-    // height: "100%",
     height: "calc(100vh - 116px)",
     marginRight: 0,
   },
@@ -34,7 +33,7 @@ const initialCenter = {
   lng: -71.0589,
 };
 
-const mapStyle = {
+const style = {
   float: "left",
   width: "100%",
   height: "100%",
@@ -110,6 +109,63 @@ const Map = ({
     activateFilter();
   };
 
+  const mapStyle = [
+    {
+      "featureType": "poi.business",
+      "stylers": [
+        {
+          "visibility": "off"
+        }
+      ]
+    },
+    {
+      "featureType": "poi.government",
+      "stylers": [
+        {
+          "visibility": "off"
+        }
+      ]
+    },
+    {
+      "featureType": "poi.medical",
+      "stylers": [
+        {
+          "visibility": "off"
+        }
+      ]
+    },
+    {
+      "featureType": "poi.place_of_worship",
+      "stylers": [
+        {
+          "visibility": "off"
+        }
+      ]
+    },
+    {
+      "featureType": "poi.school",
+      "stylers": [
+        {
+          "visibility": "off"
+        }
+      ]
+    },
+    {
+      "featureType": "poi.sports_complex",
+      "stylers": [
+        {
+          "visibility": "simplified"
+        }
+      ]
+    }
+  ]
+
+  const mapLoaded = (mapProps, map) => {
+    map.setOptions({
+      styles: mapStyle,
+    });
+  };
+
   return (
     <>
       {loading ? (
@@ -125,13 +181,14 @@ const Map = ({
             fullscreenControl={false}
             zoomControl
             containerStyle={mapContainerStyle}
-            style={mapStyle}
+            style={style}
             resetBoundsOnResize={true}
             center={center}
             initialCenter={center}
             zoomControlOptions={{
               position: google.maps.ControlPosition.TOP_RIGHT,
             }}
+            onReady={(mapProps, map) => mapLoaded(mapProps, map)}
           >
             {locations &&
               locations.map((location) => {

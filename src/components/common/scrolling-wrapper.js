@@ -25,11 +25,11 @@ const useStyles = makeStyles({
     position: "absolute",
     top: 8,
     left: "50%",
-    // transform: "translate(-50%, -50%)",
-    marginLeft: -50,
+    // marginLeft: -50,
+    transform: "translate(-50%)",
     zIndex: 2,
     cursor: "pointer",
-    opacity: 0.4,
+    opacity: 0.7,
     textAlign: "center",
     "&:hover": {
       opacity: 1,
@@ -54,11 +54,17 @@ const useStyles = makeStyles({
     //   },
     // },
   },
+  scrollToTopIconContainerMobile: {
+    position: "absolute",
+    // top: 8,
+    left: "50%",
+    marginLeft: -50,
+    zIndex: 2,
+    cursor: "pointer",
+    textAlign: "center",
+  },
   button: {
     backgroundColor: "#228B6E",
-    "&:hover": {
-      backgroundColor: "#228b8b",
-    },
     color: "white",
     fontFamily: "Roboto",
     fontSize: 16,
@@ -67,16 +73,28 @@ const useStyles = makeStyles({
   },
 });
 
-const ScrollingWrapper = ({children, refresh}) => {
+const ScrollingWrapper = ({ children, refresh }) => {
   const classes = useStyles();
   const [hasScrolled, setHasScrolled] = useState(false);
+  const [width, setWidth] = useState(window.innerWidth);
+
+  function handleWindowSizeChange() {
+    setWidth(window.innerWidth);
+  }
+
+  useEffect(() => {
+    window.addEventListener("resize", handleWindowSizeChange);
+    return () => {
+      window.removeEventListener("resize", handleWindowSizeChange);
+    };
+  }, []);
+
+  let isMobile = width <= 768;
+
   const scrollingWrapper = useRef(null);
 
   useEffect(() => {
-    // if (refresh) {
-      console.log(refresh);
-      scrollToTop();
-    // }
+    scrollToTop();
   }, [refresh]);
 
   const scrollToTop = () => {
@@ -95,10 +113,14 @@ const ScrollingWrapper = ({children, refresh}) => {
     <>
       {hasScrolled && (
         <div
-          className={classes.scrollToTopIconContainer}
+          className={
+            isMobile
+              ? classes.scrollToTopIconContainerMobile
+              : classes.scrollToTopIconContainer
+          }
           onClick={() => scrollToTop()}
         >
-          <Box m={1} p={1} className={classes.button}>
+          <Box mt={1} p={1} className={classes.button}>
             Back to top
           </Box>
         </div>
