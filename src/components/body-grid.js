@@ -6,13 +6,15 @@
 
 import React, { useState, useEffect } from "react";
 import { Grid, Box } from "@material-ui/core";
+import { videoSubmissionLink } from "../app-constants";
+import GreenButton from "./common/green-button";
 import ContentPanelContainer from "./content-panel/content-panel-container";
 import MapContainer from "./map/map-container";
 import VideoPanelContainer from "./video-player-panel/video-player-panel-container";
 import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   root: {
     height: "100%",
     marginLeft: 0,
@@ -72,7 +74,15 @@ const useStyles = makeStyles({
   mapContainer: {
     zIndex: 1,
   },
-});
+  shareYourExperienceButton: {
+    margin: theme.spacing(1),
+    borderRadius: 25,
+    position: "absolute",
+    bottom: 10,
+    right: 10,
+    zIndex: 1,
+  },
+}));
 
 const BodyGrid = ({ selectedVideo, locations, fetchLocations }) => {
   const classes = useStyles();
@@ -117,9 +127,17 @@ const BodyGrid = ({ selectedVideo, locations, fetchLocations }) => {
           </Grid>
         )}
         {!isMobile && (
-          <Grid item xs className={classes.mapContainer}>
-            <MapContainer locations={locations} />
-          </Grid>
+          <>
+            <Grid item xs className={classes.mapContainer}>
+              <MapContainer locations={locations} />
+            </Grid>
+            <div className={classes.shareYourExperienceButton}>
+              <GreenButton
+                buttonText="Share Your Experience"
+                href={videoSubmissionLink}
+              />
+            </div>
+          </>
         )}
       </Grid>
     </Box>
