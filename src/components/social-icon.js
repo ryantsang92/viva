@@ -7,6 +7,8 @@
 import React from "react";
 import { Box, Typography } from "@material-ui/core";
 import PropTypes from "prop-types";
+import instagramIcon from "../assets/instagram-logo.svg";
+import tiktokIcon from "../assets/tiktok-logo.svg";
 
 const generateURL = (user, platform) => {
   switch (platform) {
@@ -16,6 +18,17 @@ const generateURL = (user, platform) => {
       return "https://www.instagram.com/" + user;
     default:
       return "#";
+  }
+};
+
+const getIcon = (platform) => {
+  switch (platform) {
+    case "TikTok":
+      return tiktokIcon;
+    case "Instagram":
+      return instagramIcon;
+    default:
+      return null;
   }
 };
 
@@ -29,7 +42,7 @@ export const SocialIcon = ({ url, icon, user, platform, hw }) => {
       <Box display="flex" flexDirection="row" alignItems="center">
         <Box pr={1}>
           <img
-            src={icon}
+            src={icon || getIcon(platform)}
             alt={platform}
             style={{ height: hw, width: hw }}
           />
