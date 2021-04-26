@@ -9,7 +9,21 @@
       content="VIVA is a social exploration platform where you can quickly and easily discover places to go and things to do from people like you."
     />
     <title>VIVA - Get in. Get out. Get going.</title>
-    <link rel="viva-icon" type="image/png" href="/favicon.ico"/>
+    <link rel="viva-icon" type="image/png" href="/favicon.ico" />
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-891QBFCRV4"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-891QBFCRV4");
+    </script>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
@@ -19,7 +33,7 @@
     <script type="text/javascript">
       (function () {
         window.insp = window.insp || [];
-        insp.push(["wid", 778221177]);
+        insp.push(["wid", 702781831]);
         var ldinsp = function () {
           if (typeof window.inspld != "undefined") return;
           window.__inspld = 1;
@@ -29,7 +43,7 @@
           insp.id = "inspsync";
           insp.src =
             ("https:" == document.location.protocol ? "https" : "http") +
-            "://cdn.inspectlet.com/inspectlet.js?wid=778221177&r=" +
+            "://cdn.inspectlet.com/inspectlet.js?wid=702781831&r=" +
             Math.floor(new Date().getTime() / 3600000);
           var x = document.getElementsByTagName("script")[0];
           x.parentNode.insertBefore(insp, x);
@@ -39,7 +53,9 @@
     </script>
     <!-- End Inspectlet Asynchronous Code -->
     <div id="root"></div>
-    <noscript>Why did the child component have such great self-esteem?</noscript>
+    <noscript
+      >Why did the child component have such great self-esteem?</noscript
+    >
     <noscript>Because its parent kept giving it props</noscript>
   </body>
 </html>
