@@ -13,9 +13,11 @@ const useStyles = makeStyles({
   normalText: {
     textTransform: "none",
     textDecoration: "none",
+    boxShadow: "none",
     "&:focus, &:hover, &:visited, &:link, &:active": {
       color: "#FFFFFF",
       textDecoration: "none",
+      boxShadow: "none",
     },
   },
 });

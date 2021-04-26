@@ -10,7 +10,7 @@
   display: none;
 }
 .MuiSvgIcon-root.MuiSelect-icon {
-  top: calc(50% - 15px);
+  top: calc(50% - 12px);
   right: 5px;
 }
 .MuiToggleButton-root.Mui-selected {
