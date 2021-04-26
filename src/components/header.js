@@ -20,28 +20,25 @@ import {
 } from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
 import GreenButton from "./common/green-button";
-import MobileMenu from "./mobile-menu";
+import MobileMenuContainer from "./mobile-menu-container";
 import PillBoxContainer from "./pill-box/pill-box-container";
 import SocialGrid from "./social-grid";
-import { aboutText } from "../app-constants";
-// import SearchBar from "./search-bar";
+import { hashtagObjects } from "../app-constants";
 import { makeStyles } from "@material-ui/core/styles";
 import PropTypes from "prop-types";
 
 const useStyles = makeStyles((theme) => ({
   header: {
     position: "relative",
-    // height: 140,
     boxShadow: "1px 0px 5px rgba(0,0,0,0.5)",
     zIndex: 100,
     "@media (max-width: 767px)": {
       position: "sticky",
-      top: -70,
-      background: "white"
+      top: -55,
+      background: "white",
     },
   },
   headerTop: {
-    // height: 60,
     margin: 0,
     width: "100%",
   },
@@ -54,10 +51,7 @@ const useStyles = makeStyles((theme) => ({
   logo: {
     paddingTop: 5,
     height: 42,
-  },
-  logoMobile: {
-    paddingTop: 5,
-    height: 42,
+    cursor: "pointer",
   },
   pin: {
     margin: "auto",
@@ -65,13 +59,11 @@ const useStyles = makeStyles((theme) => ({
     height: 24,
   },
   navbar: {
-    // height: 80,
     margin: 0,
     width: "100%",
   },
   cityPicker: {
     padding: "0 !important",
-    // height: 80,
     display: "flex",
     alignItems: "center",
   },
@@ -145,6 +137,9 @@ const useStyles = makeStyles((theme) => ({
     width: "100%",
     backgroundColor: "#F7F0D7",
   },
+  blockQuote: {
+    paddingLeft: "15px",
+  },
 }));
 
 const Header = ({
@@ -154,6 +149,7 @@ const Header = ({
   clearSelectedCity,
   clearSelectedVideo,
   clearSelectedLocation,
+  fetchSelectedHashtag,
 }) => {
   const classes = useStyles();
 
@@ -197,40 +193,48 @@ const Header = ({
     setModalOpen(false);
   };
 
+  const refreshPage = () => {
+    window.location.reload(true);
+  };
+
+  const onHashtagClick = (hashtag) => {
+    fetchSelectedHashtag(hashtag);
+    handleModalClose();
+  };
+
   return (
     <div className={classes.header}>
-      <Box pb={1}>
-        <Grid container className={classes.headerTop}>
-          <Grid item xs={2} className={classes.clear}>
-            <Box className={classes.logoContainer}>
-              <Box className={classes.clear}>
-                <img
-                  src={logo}
-                  alt="VIVA"
-                  className={isMobile ? classes.logoMobile : classes.logo}
-                />
-              </Box>
+      <Grid container className={classes.headerTop}>
+        <Grid item xs={2} className={classes.clear}>
+          <Box className={classes.logoContainer}>
+            <Box className={classes.clear}>
+              <img
+                src={logo}
+                alt="VIVA"
+                className={classes.logo}
+                onClick={refreshPage}
+              />
             </Box>
-          </Grid>
-          <Grid item xs={10}>
-            <Box
-              display="flex"
-              justifyContent="flex-end"
-              alignItems="center"
-              pt={2}
-            >
-              {!isMobile && (
-                <Box pr={2} className={classes.menuLink}>
-                  <GreenButton buttonText="About" onClick={onAboutClick} />
-                </Box>
-              )}
-              <SocialGrid />
-              {isMobile && <MobileMenu />}
-            </Box>
-          </Grid>
+          </Box>
         </Grid>
-      </Box>
-      <Box pb={2}>
+        <Grid item xs={10}>
+          <Box
+            display="flex"
+            justifyContent="flex-end"
+            alignItems="center"
+            pt={2}
+          >
+            {!isMobile && (
+              <Box pr={2} className={classes.menuLink}>
+                <GreenButton buttonText="About" onClick={onAboutClick} />
+              </Box>
+            )}
+            <SocialGrid isMobile={isMobile}/>
+            {isMobile && <MobileMenuContainer />}
+          </Box>
+        </Grid>
+      </Grid>
+      <Box pt={1} pb={2}>
         <Grid container spacing={2} className={classes.navbar}>
           <Grid item className={classes.cityPicker}>
             <Box pl={1} pr={1}>
@@ -265,8 +269,6 @@ const Header = ({
           </Grid>
           <Grid item className={classes.hashContainer}>
             <Box className={classes.left}>
-              {/* search bar will be added later */}
-              {/* <SearchBar /> */}
               <PillBoxContainer />
             </Box>
           </Grid>
@@ -306,7 +308,62 @@ const Header = ({
                 </Box>
                 <Box mb={2}>
                   <Typography id="simple-modal-description">
-                    {aboutText()}
+                    <Typography>
+                      VIVA is a social exploration platform where you can
+                      quickly and easily discover places to go and things to do
+                      from people like you.
+                    </Typography>
+                    <br></br>
+                    <Typography>
+                      If you ever feel like changing up your day, VIVA gets you
+                      instant access to a vast library of recommendations from
+                      your local community.
+                    </Typography>
+                    <br></br>
+                    <div className={classes.blockQuote}>
+                      <Typography>
+                        Stop by a{" "}
+                        <a
+                          href="/#"
+                          onClick={() =>
+                            onHashtagClick(hashtagObjects.picturePerfect)
+                          }
+                        >
+                          #pictureperfect
+                        </a>{" "}
+                        coffee shop
+                      </Typography>
+                      <Typography>
+                        Have{" "}
+                        <a
+                          href="/#"
+                          onClick={() =>
+                            onHashtagClick(hashtagObjects.funWithFriends)
+                          }
+                        >
+                          #funwithfriends
+                        </a>{" "}
+                        at a vineyard nearby
+                      </Typography>
+                      <Typography>
+                        Discover cool restaurants that are{" "}
+                        <a
+                          href="/#"
+                          onClick={() =>
+                            onHashtagClick(hashtagObjects.worthTheHype)
+                          }
+                        >
+                          #worththehype
+                        </a>
+                      </Typography>
+                    </div>
+                    <br></br>
+                    <Typography>
+                      VIVA uncovers all the #hiddengems for you, making your
+                      everyday fun and exciting.
+                    </Typography>
+                    <br></br>
+                    <Typography>Happy exploring!</Typography>
                   </Typography>
                 </Box>
                 <Box display="flex" justifyContent="flex-end">

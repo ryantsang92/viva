@@ -5,10 +5,18 @@
   height: 100%;
   overflow: "hidden";
 }
-.MuiInput-underline::before, .MuiInput-underline::after {
-	display: none;
+.MuiInput-underline::before,
+.MuiInput-underline::after {
+  display: none;
 }
 .MuiSvgIcon-root.MuiSelect-icon {
-	top: calc(50% - 15px);
-	right: 5px;
+  top: calc(50% - 12px);
+  right: 5px;
+}
+.MuiToggleButton-root.Mui-selected {
+  background-color: #228b6e !important;
+  color: #ffffff !important;
+}
+.MuiSelect-select:focus {
+  background-color: transparent !important;
 }

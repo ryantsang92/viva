@@ -8,10 +8,10 @@ import React, { useState, useEffect } from "react";
 import { Box, IconButton } from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
 import { makeStyles } from "@material-ui/core/styles";
+import ScrollingWrapper from "../common/scrolling-wrapper";
 import VideoGridContainer from "./video-grid-container";
 import PropTypes from "prop-types";
 
-// to-do: find a better way to style this
 const useStyles = makeStyles({
   root: {
     marginLeft: 0,
@@ -38,8 +38,6 @@ const useStyles = makeStyles({
     overflow: "scroll",
   },
   videoContainerMobile: {
-    // width: "100%",
-    // height: "calc(100vh - 116px)",
     margin: "0 !important",
     "-ms-overflow-style": "none",
     scrollbarWidth: "none",
@@ -49,17 +47,20 @@ const useStyles = makeStyles({
     overflow: "hidden",
   },
   titleContainer: {
-    // padding: "16px 0",
     position: "sticky",
     top: 0,
     background: "white",
     zIndex: 99,
+  },
+  scrollWrapper: {
+    height: "calc(100vh - 116px)",
   },
 });
 
 const ContentPanel = ({
   selectedHashtag,
   selectedLocation,
+  filterOn,
   clearSelectedHashtag,
   clearSelectedLocationFilter,
 }) => {
@@ -94,8 +95,8 @@ const ContentPanel = ({
           isMobile ? classes.videoContainerMobile : classes.videoContainer
         }
       >
-        {(selectedHashtag || selectedLocation) && (
-          <Box pt={2} className={classes.titleContainer}>
+        {(selectedHashtag || (selectedLocation && filterOn)) && (
+          <Box pt={2} pb={1} className={classes.titleContainer}>
             {selectedHashtag && (
               <div className={classes.title}>
                 {selectedHashtag.hashtag}{" "}
@@ -104,7 +105,7 @@ const ContentPanel = ({
                 </IconButton>
               </div>
             )}
-            {selectedLocation && (
+            {selectedLocation && filterOn && (
               <div className={classes.title}>
                 {selectedLocation.name}{" "}
                 <IconButton onClick={onLocationFilterClose} size="small">
@@ -114,9 +115,14 @@ const ContentPanel = ({
             )}
           </Box>
         )}
-        <Box pt={2}>
-          <VideoGridContainer selectedHashtag={selectedHashtag} />
-        </Box>
+        <ScrollingWrapper
+          refresh={selectedHashtag || (selectedLocation && filterOn) || false}
+        >
+          <Box pt={2}>
+          {/* <Box pt={2} className={classes.scrollWrapper}> */}
+            <VideoGridContainer selectedHashtag={selectedHashtag} />
+          </Box>
+        </ScrollingWrapper>
       </div>
     </Box>
   );
@@ -125,6 +131,7 @@ const ContentPanel = ({
 ContentPanel.propTypes = {
   selectedHashtag: PropTypes.object,
   selectedLocation: PropTypes.object,
+  filterOn: PropTypes.bool,
   clearSelectedHashtag: PropTypes.func,
   clearSelectedLocationFilter: PropTypes.func,
 };
@@ -132,6 +139,7 @@ ContentPanel.propTypes = {
 ContentPanel.defaultProps = {
   selectedHashtag: null,
   selectedLocation: null,
+  filterOn: false,
   clearSelectedHashtag() {},
   clearSelectedLocationFilter() {},
 };

@@ -11,16 +11,27 @@ import {
   selectVideoIsLoading,
 } from "../../selectors/video-selectors";
 import { selectSelectedHashtag } from "../../selectors/hashtag-selectors";
-import { selectSelectedCity, selectSelectedLocation } from "../../selectors/location-selectors";
+import {
+  selectFilter,
+  selectSelectedCity,
+  selectSelectedLocation,
+} from "../../selectors/location-selectors";
 import VideoGrid from "./video-grid";
 
 const mapStateToProps = (state) => {
   const selectedHashtag = selectSelectedHashtag(state);
   const selectedCity = selectSelectedCity(state);
   const selectedLocation = selectSelectedLocation(state);
+  const filterOn = selectFilter(state);
 
   return {
-    videos: selectVideos(state, selectedHashtag, selectedCity, selectedLocation),
+    videos: selectVideos(
+      state,
+      selectedHashtag,
+      selectedCity,
+      selectedLocation,
+      filterOn
+    ),
     loading: selectVideoIsLoading(state),
   };
 };

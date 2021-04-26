@@ -18,6 +18,7 @@ import {
 const initialState = {
   isLoading: false,
   locations: null,
+  filter: false,
   error: null,
   selectedCity: null,
 };
@@ -59,11 +60,13 @@ const locationReducer = (state = initialState, action) => {
       return {
         ...state,
         selectedLocation: { ...state.selectedLocation, filter: true },
+        filter: true,
       };
     case DEACTIVATE_FILTER:
       return {
         ...state,
         selectedLocation: { ...state.selectedLocation, filter: false },
+        filter: false,
       };
     default:
       return state;

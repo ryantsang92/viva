@@ -25,13 +25,13 @@ const useStyles = makeStyles({
     padding: "0px 13px",
   },
   scrollMenu: {
-    position: 'absolute',
+    position: "absolute",
     left: 170,
     right: 5,
   },
   scrollMenuMobile: {
-    position: 'absolute',
-    left: 85,
+    position: "absolute",
+    left: 100,
     right: 0,
   },
   arrow: {
@@ -83,7 +83,7 @@ const PillBox = ({
   };
 
   const goLeft = (e, t) => {
-    console.log('yo')
+    console.log("yo");
   };
 
   const hashtagComponents = (hashtags) => {

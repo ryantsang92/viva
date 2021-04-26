@@ -7,8 +7,8 @@
 import React from "react";
 import { Box, Typography } from "@material-ui/core";
 import PropTypes from "prop-types";
-import instagramIcon from "../assets/IG_green.png";
-import tiktokIcon from "../assets/tiktok_green.png";
+import instagramIcon from "../assets/instagram-logo.svg";
+import tiktokIcon from "../assets/tiktok-logo.svg";
 
 const generateURL = (user, platform) => {
   switch (platform) {

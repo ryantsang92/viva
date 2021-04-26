@@ -23,7 +23,6 @@ const useStyles = makeStyles({
     width: 24,
   },
   test: {
-    // height: "100%",
     height: "calc(100vh - 116px)",
     marginRight: 0,
   },
@@ -34,7 +33,7 @@ const initialCenter = {
   lng: -71.0589,
 };
 
-const mapStyle = {
+const style = {
   float: "left",
   width: "100%",
   height: "100%",
@@ -56,6 +55,7 @@ const Map = ({
   saveSelectedLocation,
   clearSelectedLocation,
   activateFilter,
+  deactivateFilter,
   clearSelectedHashtag,
   clearSelectedVideo,
 }) => {
@@ -80,16 +80,19 @@ const Map = ({
     }
     if (selectedLocation) {
       setInfoOpen(true);
-      setCenter({ lat: selectedLocation.lat, lng: selectedLocation.lng });
+      setCenter({
+        lat: parseFloat(selectedLocation.lat),
+        lng: parseFloat(selectedLocation.lng),
+      });
       if (zoom < 15) {
         setZoom(15);
       }
     }
-    // }, [locations, selectedLocation, selectedCity]);
   }, [selectedLocation, selectedCity]);
 
   const onMarkerClick = (marker) => {
     saveSelectedLocation(marker.markerData);
+    deactivateFilter();
   };
 
   const onInfoWindowClose = () => {
@@ -103,6 +106,63 @@ const Map = ({
     e.preventDefault();
     clearSelectedHashtag();
     activateFilter();
+  };
+
+  const mapStyle = [
+    {
+      "featureType": "poi.business",
+      "stylers": [
+        {
+          "visibility": "off"
+        }
+      ]
+    },
+    {
+      "featureType": "poi.government",
+      "stylers": [
+        {
+          "visibility": "off"
+        }
+      ]
+    },
+    {
+      "featureType": "poi.medical",
+      "stylers": [
+        {
+          "visibility": "off"
+        }
+      ]
+    },
+    {
+      "featureType": "poi.place_of_worship",
+      "stylers": [
+        {
+          "visibility": "off"
+        }
+      ]
+    },
+    {
+      "featureType": "poi.school",
+      "stylers": [
+        {
+          "visibility": "off"
+        }
+      ]
+    },
+    {
+      "featureType": "poi.sports_complex",
+      "stylers": [
+        {
+          "visibility": "simplified"
+        }
+      ]
+    }
+  ]
+
+  const mapLoaded = (mapProps, map) => {
+    map.setOptions({
+      styles: mapStyle,
+    });
   };
 
   return (
@@ -120,13 +180,14 @@ const Map = ({
             fullscreenControl={false}
             zoomControl
             containerStyle={mapContainerStyle}
-            style={mapStyle}
+            style={style}
             resetBoundsOnResize={true}
             center={center}
             initialCenter={center}
             zoomControlOptions={{
               position: google.maps.ControlPosition.TOP_RIGHT,
             }}
+            onReady={(mapProps, map) => mapLoaded(mapProps, map)}
           >
             {locations &&
               locations.map((location) => {
@@ -136,7 +197,10 @@ const Map = ({
                     name={location.id}
                     key={location.id}
                     markerData={location}
-                    position={{ lat: location.lat, lng: location.lng }}
+                    position={{
+                      lat: parseFloat(location.lat),
+                      lng: parseFloat(location.lng),
+                    }}
                     onClick={onMarkerClick}
                     icon={{
                       url:
@@ -151,8 +215,8 @@ const Map = ({
             {selectedLocation && (
               <InfoWindowEx
                 position={{
-                  lat: selectedLocation.lat,
-                  lng: selectedLocation.lng,
+                  lat: parseFloat(selectedLocation.lat),
+                  lng: parseFloat(selectedLocation.lng),
                 }}
                 visible={infoOpen}
                 onClose={onInfoWindowClose}
@@ -201,6 +265,7 @@ Map.propTypes = {
   selectedCity: PropTypes.string,
   saveSelectedLocation: PropTypes.func,
   activateFilter: PropTypes.func,
+  deactivateFilter: PropTypes.func,
   clearSelectedLocation: PropTypes.func,
   clearSelectedHashtag: PropTypes.func,
   clearSelectedVideo: PropTypes.func,
@@ -214,6 +279,7 @@ Map.defaultProps = {
   selectedCity: null,
   saveSelectedLocation() {},
   activateFilter() {},
+  deactivateFilter() {},
   clearSelectedLocation() {},
   clearSelectedHashtag() {},
   clearSelectedVideo() {},

@@ -26,6 +26,21 @@ export const socialURLs = {
   TIKTOK: "https://www.tiktok.com/@vivatheapp",
 };
 
+export const hashtagObjects = {
+  picturePerfect: {
+    hashtag: "#pictureperfect",
+    id: 104,
+  },
+  funWithFriends: {
+    hashtag: "#funwithfriends",
+    id: 131,
+  },
+  worthTheHype: {
+    hashtag: "#worththehype",
+    id: 132,
+  }
+};
+
 export const aboutText = () => {
   const classes = useStyles();
   return (

@@ -12,7 +12,8 @@ export const selectVideos = (
   state,
   hashtag = null,
   city = null,
-  location = null
+  location = null,
+  filter = false
 ) => {
   let returnData = selectVideoData(state).videos;
 
@@ -24,7 +25,7 @@ export const selectVideos = (
   if (city) {
     returnData = returnData.filter((video) => video.metro === city || null);
   }
-  if (location && location.filter) {
+  if (location && filter) {
     returnData = returnData.filter(
       (video) => video.location_id === location.id || null
     );

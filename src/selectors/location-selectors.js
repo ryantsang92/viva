@@ -12,7 +12,6 @@ export const selectLocationData = (state) => {
 
 export const selectLocations = (state, hashtag = null, city = null) => {
   const selectedVideos = selectVideos(state, hashtag, city);
-  // let returnData = selectLocationData(state).locations;
 
   let combinedHashtags = [];
   let locationIds = [];
@@ -57,4 +56,8 @@ export const selectLocationByVideo = (state, video) => {
         (location) => location.id === video.location_id
       )[0]
     : null;
+};
+
+export const selectFilter = (state) => {
+  return state ? state.locationData.filter : null;
 };
