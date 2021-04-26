@@ -181,7 +181,7 @@ const Map = ({
             zoomControl
             containerStyle={mapContainerStyle}
             style={style}
-            resetBoundsOnResize={true}
+            resetBoundsOnResize
             center={center}
             initialCenter={center}
             zoomControlOptions={{

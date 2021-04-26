@@ -2,6 +2,8 @@
 
 VIVA is an O2O (online-to-offline) social exploration platform that redefines how people search, find and share experiences. If you ever feel like changing up your day, VIVA gives you instant access to a vast library of local experiences. From a picture-perfect coffee shop, to a hidden art gallery or even the secret menu at your local restaurant, VIVA makes your daily life fun and exciting. Beyond local attractions, you can also find communities of like-minded individuals to connect with. Join VIVA and be part of the adventure.
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/02f40b2e-6f7f-484c-b81c-d8ee211e05da/deploy-status)](https://app.netlify.com/sites/vivatheapp/deploys)
+
 ## Available Scripts
 
 In the project directory, you can run:
