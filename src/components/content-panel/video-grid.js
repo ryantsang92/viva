@@ -23,7 +23,9 @@ const VideoGrid = ({ loading, videos, fetchVideos }) => {
   const classes = useStyles();
 
   useEffect(() => {
-    if (!videos || !videos.length) {
+    console.log(videos);
+    if (videos === null) {
+      console.log('here');
       fetchVideos();
     }
   }, [videos]);
@@ -53,7 +55,7 @@ const VideoGrid = ({ loading, videos, fetchVideos }) => {
               ))}
             </GridList>
           ) : (
-            <Box pt={4}>
+            <Box pt={1}>
               <Typography>
                 No content found <MoodBadRoundedIcon />
               </Typography>
@@ -73,7 +75,7 @@ VideoGrid.propTypes = {
 
 VideoGrid.defaultProps = {
   loading: false,
-  videos: [],
+  videos: null,
   fetchVideos() {},
 };
 

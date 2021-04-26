@@ -31,7 +31,7 @@ const useStyles = makeStyles({
   },
   scrollMenuMobile: {
     position: "absolute",
-    left: 85,
+    left: 100,
     right: 0,
   },
   arrow: {

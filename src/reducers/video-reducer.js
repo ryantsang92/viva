@@ -13,7 +13,7 @@ import {
 
 const initialState = {
   pending: false,
-  videos: [],
+  videos: null,
   error: null,
   selectedVideo: null,
 };

@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
     zIndex: 100,
     "@media (max-width: 767px)": {
       position: "sticky",
-      top: -70,
+      top: -55,
       background: "white",
     },
   },
