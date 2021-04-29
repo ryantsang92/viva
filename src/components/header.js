@@ -154,7 +154,7 @@ const Header = ({
   const classes = useStyles();
 
   const [city, setCity] = useState("All");
-  const [modalOpen, setModalOpen] = useState(false);
+  const [modalOpen, setModalOpen] = useState(true);
   const [width, setWidth] = useState(window.innerWidth);
 
   function handleWindowSizeChange() {
@@ -229,7 +229,7 @@ const Header = ({
                 <GreenButton buttonText="About" onClick={onAboutClick} />
               </Box>
             )}
-            <SocialGrid isMobile={isMobile}/>
+            <SocialGrid isMobile={isMobile} />
             {isMobile && <MobileMenuContainer />}
           </Box>
         </Grid>
@@ -274,109 +274,111 @@ const Header = ({
           </Grid>
         </Grid>
       </Box>
-      <Modal
-        open={modalOpen}
-        onClose={handleModalClose}
-        aria-labelledby="simple-modal-title"
-        aria-describedby="simple-modal-description"
-      >
-        <Box className={classes.paper}>
-          <Grid container>
-            <Grid item xs={4}>
-              <Box
-                className={classes.modalLogo}
-                display="flex"
-                justifyContent="center"
-                alignItems="center"
-              >
-                <img src={logo} alt="VIVA" className={classes.logo} />
-              </Box>
-            </Grid>
-            <Grid item xs={8}>
-              <Box pl={2} pt={2} pb={2} pr={2}>
-                <Box mb={2} display="flex">
-                  <Box width="100%">
-                    <Typography variant="h5" id="simple-modal-title">
-                      Welcome to VIVA!
+      {!isMobile && (
+        <Modal
+          open={modalOpen}
+          onClose={handleModalClose}
+          aria-labelledby="simple-modal-title"
+          aria-describedby="simple-modal-description"
+        >
+          <Box className={classes.paper}>
+            <Grid container>
+              <Grid item xs={4}>
+                <Box
+                  className={classes.modalLogo}
+                  display="flex"
+                  justifyContent="center"
+                  alignItems="center"
+                >
+                  <img src={logo} alt="VIVA" className={classes.logo} />
+                </Box>
+              </Grid>
+              <Grid item xs={8}>
+                <Box pl={2} pt={2} pb={2} pr={2}>
+                  <Box mb={2} display="flex">
+                    <Box width="100%">
+                      <Typography variant="h5" id="simple-modal-title">
+                        Welcome to VIVA!
+                      </Typography>
+                    </Box>
+                    <Box flexShrink={0}>
+                      <IconButton onClick={handleModalClose} size="small">
+                        <CloseIcon />
+                      </IconButton>
+                    </Box>
+                  </Box>
+                  <Box mb={2}>
+                    <Typography id="simple-modal-description">
+                      <Typography>
+                        VIVA is a social exploration platform where you can
+                        quickly and easily discover places to go and things to
+                        do from people like you.
+                      </Typography>
+                      <br></br>
+                      <Typography>
+                        If you ever feel like changing up your day, VIVA gets
+                        you instant access to a vast library of recommendations
+                        from your local community.
+                      </Typography>
+                      <br></br>
+                      <div className={classes.blockQuote}>
+                        <Typography>
+                          Stop by a{" "}
+                          <a
+                            href="/#"
+                            onClick={() =>
+                              onHashtagClick(hashtagObjects.picturePerfect)
+                            }
+                          >
+                            #pictureperfect
+                          </a>{" "}
+                          coffee shop
+                        </Typography>
+                        <Typography>
+                          Have{" "}
+                          <a
+                            href="/#"
+                            onClick={() =>
+                              onHashtagClick(hashtagObjects.funWithFriends)
+                            }
+                          >
+                            #funwithfriends
+                          </a>{" "}
+                          at a vineyard nearby
+                        </Typography>
+                        <Typography>
+                          Discover cool restaurants that are{" "}
+                          <a
+                            href="/#"
+                            onClick={() =>
+                              onHashtagClick(hashtagObjects.worthTheHype)
+                            }
+                          >
+                            #worththehype
+                          </a>
+                        </Typography>
+                      </div>
+                      <br></br>
+                      <Typography>
+                        VIVA uncovers all the #hiddengems for you, making your
+                        everyday fun and exciting.
+                      </Typography>
+                      <br></br>
+                      <Typography>Happy exploring!</Typography>
                     </Typography>
                   </Box>
-                  <Box flexShrink={0}>
-                    <IconButton onClick={handleModalClose} size="small">
-                      <CloseIcon />
-                    </IconButton>
+                  <Box display="flex" justifyContent="flex-end">
+                    <GreenButton
+                      buttonText="Got it!"
+                      onClick={handleModalClose}
+                    />
                   </Box>
                 </Box>
-                <Box mb={2}>
-                  <Typography id="simple-modal-description">
-                    <Typography>
-                      VIVA is a social exploration platform where you can
-                      quickly and easily discover places to go and things to do
-                      from people like you.
-                    </Typography>
-                    <br></br>
-                    <Typography>
-                      If you ever feel like changing up your day, VIVA gets you
-                      instant access to a vast library of recommendations from
-                      your local community.
-                    </Typography>
-                    <br></br>
-                    <div className={classes.blockQuote}>
-                      <Typography>
-                        Stop by a{" "}
-                        <a
-                          href="/#"
-                          onClick={() =>
-                            onHashtagClick(hashtagObjects.picturePerfect)
-                          }
-                        >
-                          #pictureperfect
-                        </a>{" "}
-                        coffee shop
-                      </Typography>
-                      <Typography>
-                        Have{" "}
-                        <a
-                          href="/#"
-                          onClick={() =>
-                            onHashtagClick(hashtagObjects.funWithFriends)
-                          }
-                        >
-                          #funwithfriends
-                        </a>{" "}
-                        at a vineyard nearby
-                      </Typography>
-                      <Typography>
-                        Discover cool restaurants that are{" "}
-                        <a
-                          href="/#"
-                          onClick={() =>
-                            onHashtagClick(hashtagObjects.worthTheHype)
-                          }
-                        >
-                          #worththehype
-                        </a>
-                      </Typography>
-                    </div>
-                    <br></br>
-                    <Typography>
-                      VIVA uncovers all the #hiddengems for you, making your
-                      everyday fun and exciting.
-                    </Typography>
-                    <br></br>
-                    <Typography>Happy exploring!</Typography>
-                  </Typography>
-                </Box>
-                <Box display="flex" justifyContent="flex-end">
-                  <GreenButton
-                    buttonText="Got it!"
-                    onClick={handleModalClose}
-                  />
-                </Box>
-              </Box>
+              </Grid>
             </Grid>
-          </Grid>
-        </Box>
-      </Modal>
+          </Box>
+        </Modal>
+      )}
     </div>
   );
 };

@@ -27,6 +27,7 @@ const Image = ({ alt, src, height, width, caption, onClick }) => {
         height={height}
         width={width}
         onClick={onClick}
+        effect="opacity"
         className={classes.image}
       />
       {caption && <span>{caption}</span>}

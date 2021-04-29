@@ -74,7 +74,7 @@ const StyledMenu = withStyles({
 
 const MobileMenu = ({ fetchSelectedHashtag }) => {
   const classes = useStyles();
-  const [modalOpen, setModalOpen] = useState(false);
+  const [modalOpen, setModalOpen] = useState(true);
   const [anchorEl, setAnchorEl] = useState(null);
   const [drawerOpen, setDrawerOpen] = useState(false);
 
