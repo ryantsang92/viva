@@ -9,7 +9,6 @@ import {
   clearSelectedLocation,
   saveSelectedLocation,
   activateFilter,
-  deactivateFilter,
 } from "../../actions/location-actions";
 import { selectSelectedHashtag } from "../../selectors/hashtag-selectors";
 import { clearSelectedHashtag } from "../../actions/hashtag-actions";
@@ -40,7 +39,6 @@ const mapDispatchToProps = (dispatch) => ({
   activateFilter: () => dispatch(activateFilter()),
   clearSelectedHashtag: () => dispatch(clearSelectedHashtag()),
   clearSelectedVideo: () => dispatch(clearSelectedVideo()),
-  deactivateFilter: () => dispatch(deactivateFilter()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Map);

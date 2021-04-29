@@ -82,10 +82,6 @@ const PillBox = ({
     window.scrollTo(0, 0);
   };
 
-  const goLeft = (e, t) => {
-    console.log("yo");
-  };
-
   const hashtagComponents = (hashtags) => {
     return hashtags.map((hashtag) => (
       <Box pr={1} key={hashtag.id}>
@@ -120,7 +116,6 @@ const PillBox = ({
         scrollBy={2}
         arrowLeft={isMobile ? null : ArrowLeft}
         arrowRight={isMobile ? null : ArrowRight}
-        handleArrowClick={goLeft}
       />
     </Box>
   );

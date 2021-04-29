@@ -55,7 +55,6 @@ const Map = ({
   saveSelectedLocation,
   clearSelectedLocation,
   activateFilter,
-  deactivateFilter,
   clearSelectedHashtag,
   clearSelectedVideo,
 }) => {
@@ -92,7 +91,8 @@ const Map = ({
 
   const onMarkerClick = (marker) => {
     saveSelectedLocation(marker.markerData);
-    deactivateFilter();
+    activateFilter();
+    clearSelectedHashtag();
   };
 
   const onInfoWindowClose = () => {
@@ -265,7 +265,6 @@ Map.propTypes = {
   selectedCity: PropTypes.string,
   saveSelectedLocation: PropTypes.func,
   activateFilter: PropTypes.func,
-  deactivateFilter: PropTypes.func,
   clearSelectedLocation: PropTypes.func,
   clearSelectedHashtag: PropTypes.func,
   clearSelectedVideo: PropTypes.func,
@@ -279,7 +278,6 @@ Map.defaultProps = {
   selectedCity: null,
   saveSelectedLocation() {},
   activateFilter() {},
-  deactivateFilter() {},
   clearSelectedLocation() {},
   clearSelectedHashtag() {},
   clearSelectedVideo() {},
