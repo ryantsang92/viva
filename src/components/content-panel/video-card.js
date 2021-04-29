@@ -26,6 +26,28 @@ const useStyles = makeStyles({
     backgroundColor: "white",
     cursor: "pointer",
   },
+  videoThumbnail: {
+    boxSizing: "border-box",
+    position: "relative",
+    display: "block",
+    transform: "scale(var(--ggs,1))",
+    width: 22,
+    height: 22,
+
+    "&:before": {
+      content: "",
+      display: "block",
+      boxSizing: "border-box",
+      position: "absolute",
+      width: 0,
+      height: 10,
+      borderTop: "5px solid transparent",
+      borderBottom: "5px solid transparent",
+      borderLeft: "6px solid",
+      top: 6,
+      left: 9,
+    },
+  },
 });
 
 const VideoCard = ({
@@ -45,6 +67,7 @@ const VideoCard = ({
   return (
     <Box pr={addPadding ? 1 : 0} pb={1}>
       <div className={classes.container}>
+        {/* <div className={classes.videoThumbnail} /> */}
         <Image
           alt={video.title}
           height="100%"
