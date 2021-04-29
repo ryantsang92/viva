@@ -97,7 +97,7 @@ const Map = ({
 
   const onInfoWindowClose = () => {
     setInfoOpen(false);
-    setZoom(13);
+    // setZoom(13);
     clearSelectedLocation();
     clearSelectedVideo();
   };
