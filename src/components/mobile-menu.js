@@ -37,6 +37,8 @@ const useStyles = makeStyles((theme) => ({
     border: "2px solid #000",
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
+    overflow: "scroll",
+    maxHeight: "100%",
   },
   blockQuote: {
     paddingLeft: "15px",
@@ -74,7 +76,7 @@ const StyledMenu = withStyles({
 
 const MobileMenu = ({ fetchSelectedHashtag }) => {
   const classes = useStyles();
-  const [modalOpen, setModalOpen] = useState(false);
+  const [modalOpen, setModalOpen] = useState(true);
   const [anchorEl, setAnchorEl] = useState(null);
   const [drawerOpen, setDrawerOpen] = useState(false);
 
@@ -148,6 +150,7 @@ const MobileMenu = ({ fetchSelectedHashtag }) => {
         onClose={handleModalClose}
         aria-labelledby="simple-modal-title"
         aria-describedby="simple-modal-description"
+        // className={classes.modalMobile}
       >
         <div className={classes.paperMobile}>
           <Box mb={2} display="flex">

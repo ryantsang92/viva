@@ -85,8 +85,6 @@ const ScrollingWrapper = ({ children, refresh }) => {
   };
 
   const onScroll = (e) => {
-    // console.log(e.target);
-    // console.log('scrolled');
     if (e.target.scrollTop > 200 && !hasScrolled) {
       setHasScrolled(true);
     } else if (e.target.scrollTop < 200 && hasScrolled) {

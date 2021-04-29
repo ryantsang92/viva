@@ -114,7 +114,8 @@ const PillBox = ({
       <ScrollMenu
         data={hashtagComponents(hashtags)}
         clickWhenDrag={false}
-        hideSingleArrow={true}
+        hideSingleArrow
+        inertiaScrolling
         translate={0}
         scrollBy={2}
         arrowLeft={isMobile ? null : ArrowLeft}
