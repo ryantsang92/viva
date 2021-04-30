@@ -150,7 +150,6 @@ const MobileMenu = ({ fetchSelectedHashtag }) => {
         onClose={handleModalClose}
         aria-labelledby="simple-modal-title"
         aria-describedby="simple-modal-description"
-        // className={classes.modalMobile}
       >
         <div className={classes.paperMobile}>
           <Box mb={2} display="flex">
