@@ -12,10 +12,10 @@ export const selectVideoData = (state) => {
 
 export const selectVideos = (
   state,
-  hashtag,
-  city,
-  location,
-  filter,
+  hashtag = null,
+  city = null,
+  location = null,
+  filter = false,
   shuffle = false
 ) => {
 
