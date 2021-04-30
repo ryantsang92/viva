@@ -4,18 +4,26 @@
   author: Ryan Tsang <ryan@vivatheapp.com>
 */
 
+import { shuffleArray } from "../common/common-functions";
+
 export const selectVideoData = (state) => {
   return state ? state.videoData : null;
 };
 
 export const selectVideos = (
   state,
-  hashtag = null,
-  city = null,
-  location = null,
-  filter = false
+  hashtag,
+  city,
+  location,
+  filter,
+  shuffle = false
 ) => {
+
   let returnData = selectVideoData(state).videos;
+
+  if (shuffle && !filter && !location && !hashtag) {
+    shuffleArray(returnData);
+  }
 
   if (hashtag) {
     returnData = returnData.filter((video) =>
