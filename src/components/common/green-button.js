@@ -6,11 +6,11 @@
 
 import React from "react";
 import { Button } from "@material-ui/core";
-import { withStyles, makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import PropTypes from "prop-types";
 
 const useStyles = makeStyles({
-  normalText: {
+  button: {
     textTransform: "none",
     textDecoration: "none",
     boxShadow: "none",
@@ -19,34 +19,29 @@ const useStyles = makeStyles({
       textDecoration: "none",
       boxShadow: "none",
     },
+    backgroundColor: "#228B6E",
+      "&:hover": {
+        backgroundColor: "#228b8b",
+      },
+      height: 30,
   },
 });
 
 const GreenButton = ({ buttonText, onClick, href }) => {
   const classes = useStyles();
 
-  const ThemeButton = withStyles({
-    root: {
-      backgroundColor: "#228B6E",
-      "&:hover": {
-        backgroundColor: "#228b8b",
-      },
-      height: 30,
-    },
-  })(Button);
-
   return (
-    <ThemeButton
+    <Button
       variant="contained"
       color="primary"
       onClick={onClick}
       href={href}
       rel={href ? "noreferrer" : null}
       target={href ? "_blank" : null}
-      className={classes.normalText}
+      className={classes.button}
     >
       {buttonText}
-    </ThemeButton>
+    </Button>
   );
 };
 
