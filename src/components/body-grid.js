@@ -4,7 +4,7 @@
   author: Ryan Tsang <ryan@vivatheapp.com>
 */
 
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { Grid, Box } from "@material-ui/core";
 import { videoSubmissionLink } from "../app-constants";
 import GreenButton from "./common/green-button";
