@@ -10,7 +10,6 @@ import { videoSubmissionLink } from "../app-constants";
 import GreenButton from "./common/green-button";
 import ContentPanelContainer from "./content-panel/content-panel-container";
 import MapContainer from "./map/map-container";
-import VideoPanelContainer from "./video-player-panel/video-player-panel-container";
 import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -21,50 +20,17 @@ const useStyles = makeStyles((theme) => ({
   },
   contentPanel: {
     position: "relative",
-    // maxWidth: 310,
     padding: "0 !important",
     zIndex: 3,
     boxShadow: "1px 1px 3px rgba(0,0,0,0.3)",
   },
   contentPanelMobile: {
     position: "relative",
+    width: "100%",
     maxWidth: "100%",
     padding: "0 !important",
     zIndex: 3,
     boxShadow: "1px 1px 3px rgba(0,0,0,0.3)",
-  },
-  videoPanel: {
-    minWidth: 310,
-    maxWidth: 310,
-    height: "calc(100vh - 116px)",
-    overflowY: "scroll",
-    overflowX: "hidden",
-    position: "relative",
-    scrollbarWidth: "none",
-    zIndex: 2,
-    boxShadow: "1px 1px 3px rgba(0,0,0,0.3)",
-    "&::-webkit-scrollbar": {
-      display: "none",
-    },
-  },
-  videoPanelMobile: {
-    width: "100%",
-    overflowY: "scroll",
-    overflowX: "hidden",
-    // top: 70,
-    top: 20,
-    left: 0,
-    bottom: 0,
-    position: "fixed",
-    scrollbarWidth: "none",
-    zIndex: 400,
-    backgroundColor: "white",
-    boxShadow: "-1px 1px 5px rgba(0,0,0,0.6)",
-    borderTopLeftRadius: 15,
-    borderTopRightRadius: 15,
-    "&::-webkit-scrollbar": {
-      display: "none",
-    },
   },
   grid: {
     width: "100%",
@@ -84,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const BodyGrid = ({ selectedVideo, locations, fetchLocations, isMobile }) => {
+const BodyGrid = ({ locations, fetchLocations, isMobile }) => {
   const classes = useStyles();
 
   useEffect(() => {
@@ -104,14 +70,6 @@ const BodyGrid = ({ selectedVideo, locations, fetchLocations, isMobile }) => {
         >
           <ContentPanelContainer isMobile={isMobile} />
         </Grid>
-        {/* {selectedVideo && (
-          <Grid
-            item
-            className={isMobile ? classes.videoPanelMobile : classes.videoPanel}
-          >
-            <VideoPanelContainer video={selectedVideo} isMobile={isMobile} />
-          </Grid>
-        )} */}
         {!isMobile && (
           <>
             <Grid item xs className={classes.mapContainer}>
@@ -131,14 +89,12 @@ const BodyGrid = ({ selectedVideo, locations, fetchLocations, isMobile }) => {
 };
 
 BodyGrid.propTypes = {
-  selectedVideo: PropTypes.object,
   locations: PropTypes.array,
   isMobile: PropTypes.bool,
   fetchLocations: PropTypes.func,
 };
 
 BodyGrid.defaultProps = {
-  selectedVideo: null,
   locations: null,
   isMobile: false,
   fetchLocations() {},

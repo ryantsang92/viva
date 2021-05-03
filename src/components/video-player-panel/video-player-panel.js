@@ -6,7 +6,6 @@
 
 import React, { useState } from "react";
 import { Box, Typography, Divider, IconButton } from "@material-ui/core";
-import CloseIcon from "@material-ui/icons/Close";
 import { makeStyles } from "@material-ui/core/styles";
 import "./video-react.css";
 import { Player } from "video-react";
@@ -70,13 +69,6 @@ const VideoPanel = ({
           {inView && (
             <Typography variant="h6">{video.title || "Test Title"}</Typography>
           )}
-          {/* <IconButton
-            onClick={() => clearSelectedVideo()}
-            size="small"
-            className={classes.closeIcon}
-          >
-            <CloseIcon />
-          </IconButton> */}
         </Box>
         {inView && (
           <Box>
