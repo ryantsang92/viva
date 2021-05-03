@@ -10,7 +10,7 @@ import MapPinDefault from "../../assets/map-pin-default.png";
 import MapPinSelected from "../../assets/map-pin-selected.png";
 import { Map as GoogleMap, Marker, GoogleApiWrapper } from "google-maps-react";
 import InfoWindowEx from "./info-window-ex";
-import Loading from "../loading";
+import Loading from "../common/loading";
 import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
 

@@ -5,12 +5,13 @@
 */
 
 import React, { useState } from "react";
-import { Box, Typography, Divider, IconButton } from "@material-ui/core";
+import { Box, Typography, Divider } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import "./video-react.css";
 import { Player } from "video-react";
 import { SocialIcon } from "../social-icon";
 import { InView } from "react-intersection-observer";
+import Loading from "../common/loading";
 import MapPinDefault from "../../assets/map-pin-default.png";
 import PropTypes from "prop-types";
 
@@ -50,6 +51,13 @@ const useStyles = makeStyles({
     width: 20,
     height: 24,
   },
+  loading: {
+    alignItems: "center",
+    justifyContent: "center",
+    objectFit: "cover",
+    width: 300,
+    height: 225,
+  },
 });
 
 const VideoPanel = ({
@@ -70,7 +78,7 @@ const VideoPanel = ({
             <Typography variant="h6">{video.title || "Test Title"}</Typography>
           )}
         </Box>
-        {inView && (
+        {inView ? (
           <Box>
             <Player
               playsInline
@@ -121,6 +129,10 @@ const VideoPanel = ({
               />
             </Box>
           </Box>
+        ) : (
+          <div className={classes.loading}>
+            <Loading />
+          </div>
         )}
       </Box>
     </InView>

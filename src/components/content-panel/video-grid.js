@@ -9,13 +9,16 @@ import { Typography, Box } from "@material-ui/core";
 import MoodBadRoundedIcon from "@material-ui/icons/MoodBadRounded";
 import { makeStyles } from "@material-ui/core/styles";
 import VideoPlayerPanelContainer from "../video-player-panel/video-player-panel-container";
-import Loading from "../loading";
+import Loading from "../common/loading";
 import PropTypes from "prop-types";
 
 const useStyles = makeStyles({
   loading: {
-    width: "100%",
-    height: "100%",
+    alignItems: "center",
+    justifyContent: "center",
+    objectFit: "cover",
+    width: 300,
+    height: 225,
   },
 });
 
@@ -39,7 +42,12 @@ const VideoGrid = ({ loading, videos, fetchVideos, isMobile }) => {
           {videos && videos.length > 0 ? (
             <>
               {videos.map((video, index) => (
-                <VideoPlayerPanelContainer video={video} isMobile={isMobile} />
+                <div key={index}>
+                  <VideoPlayerPanelContainer
+                    video={video}
+                    isMobile={isMobile}
+                  />
+                </div>
               ))}
             </>
           ) : (
