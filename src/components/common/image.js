@@ -13,6 +13,7 @@ import PropTypes from "prop-types";
 const useStyles = makeStyles({
   image: {
     borderRadius: 15,
+    objectFit: "cover",
   },
 });
 
