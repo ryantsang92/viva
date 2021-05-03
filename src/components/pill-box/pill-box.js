@@ -4,7 +4,7 @@
   author: Ryan Tsang <ryan@vivatheapp.com>
 */
 
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Box } from "@material-ui/core";
 import { ToggleButtonGroup, ToggleButton } from "@material-ui/lab";
@@ -42,23 +42,11 @@ const useStyles = makeStyles({
 const PillBox = ({
   hashtags,
   selectedHashtag,
+  isMobile,
   fetchHashtags,
   fetchSelectedHashtag,
 }) => {
   const classes = useStyles();
-  const [width, setWidth] = useState(window.innerWidth);
-
-  function handleWindowSizeChange() {
-    setWidth(window.innerWidth);
-  }
-  useEffect(() => {
-    window.addEventListener("resize", handleWindowSizeChange);
-    return () => {
-      window.removeEventListener("resize", handleWindowSizeChange);
-    };
-  }, []);
-
-  let isMobile = width <= 768;
 
   const ArrowLeft = (
     <Box pr={1}>
@@ -80,10 +68,6 @@ const PillBox = ({
   const handleChange = (event, hashtag) => {
     fetchSelectedHashtag(hashtag);
     window.scrollTo(0, 0);
-  };
-
-  const goLeft = (e, t) => {
-    console.log("yo");
   };
 
   const hashtagComponents = (hashtags) => {
@@ -120,7 +104,6 @@ const PillBox = ({
         scrollBy={2}
         arrowLeft={isMobile ? null : ArrowLeft}
         arrowRight={isMobile ? null : ArrowRight}
-        handleArrowClick={goLeft}
       />
     </Box>
   );
@@ -128,12 +111,16 @@ const PillBox = ({
 
 PillBox.propTypes = {
   hashtags: PropTypes.array,
+  selectedHashtag: PropTypes.object,
+  isMobile: PropTypes.bool,
   fetchHashtags: PropTypes.func,
   fetchSelectedHashtag: PropTypes.func,
 };
 
 PillBox.defaultProps = {
   hashtags: [],
+  selectedHashtag: {},
+  isMobile: false,
   fetchHashtags() {},
   fetchSelectedHashtag() {},
 };

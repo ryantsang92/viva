@@ -67,7 +67,7 @@ const VideoCard = ({
   return (
     <Box pr={addPadding ? 1 : 0} pb={1}>
       <div className={classes.container}>
-        {/* <div className={classes.videoThumbnail} /> */}
+        {/* <span className={classes.videoThumbnail} /> */}
         <Image
           alt={video.title}
           height="100%"

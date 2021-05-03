@@ -39,7 +39,6 @@ const VideoGrid = ({ loading, videos, fetchVideos }) => {
           {videos && videos.length > 0 ? (
             <GridList
               cellHeight="auto"
-              // className={}
               // cols={isMobile && width > 512 ? width / 256 : 2} // revisit this logic
               // cols={isMobile ? width / 256 : 2}
             >

@@ -76,7 +76,7 @@ const StyledMenu = withStyles({
 
 const MobileMenu = ({ fetchSelectedHashtag }) => {
   const classes = useStyles();
-  const [modalOpen, setModalOpen] = useState(true);
+  const [modalOpen, setModalOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
   const [drawerOpen, setDrawerOpen] = useState(false);
 
@@ -150,7 +150,6 @@ const MobileMenu = ({ fetchSelectedHashtag }) => {
         onClose={handleModalClose}
         aria-labelledby="simple-modal-title"
         aria-describedby="simple-modal-description"
-        // className={classes.modalMobile}
       >
         <div className={classes.paperMobile}>
           <Box mb={2} display="flex">

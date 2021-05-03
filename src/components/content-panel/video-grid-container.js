@@ -30,7 +30,8 @@ const mapStateToProps = (state) => {
       selectedHashtag,
       selectedCity,
       selectedLocation,
-      filterOn
+      filterOn,
+      true,
     ),
     loading: selectVideoIsLoading(state),
   };

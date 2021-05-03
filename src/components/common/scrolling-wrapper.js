@@ -56,23 +56,9 @@ const useStyles = makeStyles({
   },
 });
 
-const ScrollingWrapper = ({ children, refresh }) => {
+const ScrollingWrapper = ({ children, refresh, isMobile }) => {
   const classes = useStyles();
   const [hasScrolled, setHasScrolled] = useState(false);
-  const [width, setWidth] = useState(window.innerWidth);
-
-  function handleWindowSizeChange() {
-    setWidth(window.innerWidth);
-  }
-
-  useEffect(() => {
-    window.addEventListener("resize", handleWindowSizeChange);
-    return () => {
-      window.removeEventListener("resize", handleWindowSizeChange);
-    };
-  }, []);
-
-  let isMobile = width <= 768;
 
   const scrollingWrapper = useRef(null);
 
@@ -122,11 +108,13 @@ const ScrollingWrapper = ({ children, refresh }) => {
 ScrollingWrapper.propTypes = {
   children: PropTypes.object,
   refresh: PropTypes.bool,
+  isMobile: PropTypes.bool,
 };
 
 ScrollingWrapper.defaultProps = {
   children: null,
   refresh: false,
+  isMobile: false,
 };
 
 export default ScrollingWrapper;

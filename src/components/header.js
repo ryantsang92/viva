@@ -113,7 +113,6 @@ const useStyles = makeStyles((theme) => ({
     left: "50%",
     transform: "translate(-50%, -50%)",
     backgroundColor: theme.palette.background.paper,
-    border: "2px solid #000",
     borderRadius: 15,
     boxShadow: theme.shadows[5],
   },
@@ -123,7 +122,6 @@ const useStyles = makeStyles((theme) => ({
     left: "50%",
     transform: "translate(-50%, -50%)",
     backgroundColor: theme.palette.background.paper,
-    border: "1px solid #000",
     borderRadius: 15,
     boxShadow: theme.shadows[5],
   },
@@ -150,28 +148,18 @@ const Header = ({
   clearSelectedVideo,
   clearSelectedLocation,
   fetchSelectedHashtag,
+  isMobile,
 }) => {
   const classes = useStyles();
 
   const [city, setCity] = useState("All");
-  const [modalOpen, setModalOpen] = useState(true);
-  const [width, setWidth] = useState(window.innerWidth);
-
-  function handleWindowSizeChange() {
-    setWidth(window.innerWidth);
-  }
+  const [modalOpen, setModalOpen] = useState(false);
 
   useEffect(() => {
     if (selectedVideo && selectedCity && selectedVideo.metro !== selectedCity) {
       clearSelectedVideo();
     }
-    window.addEventListener("resize", handleWindowSizeChange);
-    return () => {
-      window.removeEventListener("resize", handleWindowSizeChange);
-    };
   }, [selectedVideo, selectedCity]);
-
-  let isMobile = width <= 768;
 
   const handleChange = (event) => {
     setCity(event.target.value);
@@ -269,7 +257,7 @@ const Header = ({
           </Grid>
           <Grid item className={classes.hashContainer}>
             <Box className={classes.left}>
-              <PillBoxContainer />
+              <PillBoxContainer isMobile={isMobile}/>
             </Box>
           </Grid>
         </Grid>
@@ -386,17 +374,23 @@ const Header = ({
 Header.propTypes = {
   selectedVideo: PropTypes.object,
   selectedLocation: PropTypes.string,
+  isMobile: PropTypes.bool,
   saveSelectedCity: PropTypes.func,
   clearSelectedCity: PropTypes.func,
   clearSelectedLocation: PropTypes.func,
+  clearSelectedVideo: PropTypes.func,
+  fetchSelectedHashtag: PropTypes.func,
 };
 
 Header.defaultProps = {
   selectedVideo: {},
   selectedLocation: null,
+  isMobile: false,
   saveSelectedCity() {},
   clearSelectedCity() {},
   clearSelectedLocation() {},
+  clearSelectedVideo() {},
+  fetchSelectedHashtag() {},
 };
 
 export default Header;

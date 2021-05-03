@@ -4,7 +4,7 @@
   author: Ryan Tsang <ryan@vivatheapp.com>
 */
 
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { Grid, Box } from "@material-ui/core";
 import { videoSubmissionLink } from "../app-constants";
 import GreenButton from "./common/green-button";
@@ -84,7 +84,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const BodyGrid = ({ selectedVideo, locations, fetchLocations }) => {
+const BodyGrid = ({ selectedVideo, locations, fetchLocations, isMobile }) => {
   const classes = useStyles();
 
   useEffect(() => {
@@ -92,20 +92,6 @@ const BodyGrid = ({ selectedVideo, locations, fetchLocations }) => {
       fetchLocations();
     }
   }, [locations]);
-
-  const [width, setWidth] = useState(window.innerWidth);
-
-  function handleWindowSizeChange() {
-    setWidth(window.innerWidth);
-  }
-  useEffect(() => {
-    window.addEventListener("resize", handleWindowSizeChange);
-    return () => {
-      window.removeEventListener("resize", handleWindowSizeChange);
-    };
-  }, []);
-
-  let isMobile = width <= 768;
 
   return (
     <Box ml={1} className={classes.root}>
@@ -116,14 +102,14 @@ const BodyGrid = ({ selectedVideo, locations, fetchLocations }) => {
             isMobile ? classes.contentPanelMobile : classes.contentPanel
           }
         >
-          <ContentPanelContainer />
+          <ContentPanelContainer isMobile={isMobile} />
         </Grid>
         {selectedVideo && (
           <Grid
             item
             className={isMobile ? classes.videoPanelMobile : classes.videoPanel}
           >
-            <VideoPanelContainer video={selectedVideo} />
+            <VideoPanelContainer video={selectedVideo} isMobile={isMobile} />
           </Grid>
         )}
         {!isMobile && (
@@ -147,12 +133,14 @@ const BodyGrid = ({ selectedVideo, locations, fetchLocations }) => {
 BodyGrid.propTypes = {
   selectedVideo: PropTypes.object,
   locations: PropTypes.array,
+  isMobile: PropTypes.bool,
   fetchLocations: PropTypes.func,
 };
 
 BodyGrid.defaultProps = {
   selectedVideo: null,
   locations: null,
+  isMobile: false,
   fetchLocations() {},
 };
 
