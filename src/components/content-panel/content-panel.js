@@ -15,8 +15,6 @@ import PropTypes from "prop-types";
 const useStyles = makeStyles({
   root: {
     marginLeft: 0,
-    paddingLeft: 15,
-    paddingRight: 15,
   },
   title: {
     fontWeight: "bold",
@@ -27,7 +25,7 @@ const useStyles = makeStyles({
     padding: "5px 10px 5px",
   },
   videoContainer: {
-    width: 400,
+    minWidth: 310,
     height: "calc(100vh - 116px)",
     margin: "0 !important",
     "-ms-overflow-style": "none",
@@ -74,7 +72,7 @@ const ContentPanel = ({
   };
 
   return (
-    <Box className={classes.root}>
+    <Box className={classes.root} ml={1} mr={1}>
       <div
         className={
           isMobile ? classes.videoContainerMobile : classes.videoContainer

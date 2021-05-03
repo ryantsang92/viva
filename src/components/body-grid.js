@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
   },
   contentPanel: {
     position: "relative",
-    maxWidth: 500,
+    // maxWidth: 310,
     padding: "0 !important",
     zIndex: 3,
     boxShadow: "1px 1px 3px rgba(0,0,0,0.3)",
@@ -104,14 +104,14 @@ const BodyGrid = ({ selectedVideo, locations, fetchLocations, isMobile }) => {
         >
           <ContentPanelContainer isMobile={isMobile} />
         </Grid>
-        {selectedVideo && (
+        {/* {selectedVideo && (
           <Grid
             item
             className={isMobile ? classes.videoPanelMobile : classes.videoPanel}
           >
             <VideoPanelContainer video={selectedVideo} isMobile={isMobile} />
           </Grid>
-        )}
+        )} */}
         {!isMobile && (
           <>
             <Grid item xs className={classes.mapContainer}>
