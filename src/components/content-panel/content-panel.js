@@ -59,24 +59,11 @@ const ContentPanel = ({
   selectedHashtag,
   selectedLocation,
   filterOn,
+  isMobile,
   clearSelectedHashtag,
   clearSelectedLocationFilter,
 }) => {
   const classes = useStyles();
-
-  const [width, setWidth] = useState(window.innerWidth);
-
-  function handleWindowSizeChange() {
-    setWidth(window.innerWidth);
-  }
-  useEffect(() => {
-    window.addEventListener("resize", handleWindowSizeChange);
-    return () => {
-      window.removeEventListener("resize", handleWindowSizeChange);
-    };
-  }, []);
-
-  let isMobile = width <= 768;
 
   const onHashtagFilterClose = () => {
     clearSelectedHashtag();
@@ -116,6 +103,7 @@ const ContentPanel = ({
         {!isMobile ? (
           <ScrollingWrapper
             refresh={selectedHashtag || (selectedLocation && filterOn) || false}
+            isMobile={isMobile}
           >
             <Box pt={2}>
               <VideoGridContainer selectedHashtag={selectedHashtag} />
@@ -135,6 +123,7 @@ ContentPanel.propTypes = {
   selectedHashtag: PropTypes.object,
   selectedLocation: PropTypes.object,
   filterOn: PropTypes.bool,
+  isMobile: PropTypes.bool,
   clearSelectedHashtag: PropTypes.func,
   clearSelectedLocationFilter: PropTypes.func,
 };
@@ -143,6 +132,7 @@ ContentPanel.defaultProps = {
   selectedHashtag: null,
   selectedLocation: null,
   filterOn: false,
+  isMobile: false,
   clearSelectedHashtag() {},
   clearSelectedLocationFilter() {},
 };

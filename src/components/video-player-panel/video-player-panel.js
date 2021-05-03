@@ -52,21 +52,13 @@ const useStyles = makeStyles({
   },
 });
 
-const VideoPanel = ({ video, selectedLocation, clearSelectedVideo }) => {
+const VideoPanel = ({
+  video,
+  selectedLocation,
+  isMobile,
+  clearSelectedVideo,
+}) => {
   const classes = useStyles();
-  const [width, setWidth] = useState(window.innerWidth);
-
-  function handleWindowSizeChange() {
-    setWidth(window.innerWidth);
-  }
-  useEffect(() => {
-    window.addEventListener("resize", handleWindowSizeChange);
-    return () => {
-      window.removeEventListener("resize", handleWindowSizeChange);
-    };
-  }, []);
-
-  let isMobile = width <= 768;
 
   return (
     <Box className={isMobile ? classes.playerAreaMobile : classes.playerArea}>
@@ -86,8 +78,8 @@ const VideoPanel = ({ video, selectedLocation, clearSelectedVideo }) => {
           poster={video.thumbnail}
           src={video.url}
           fluid={false}
-          width={isMobile ? width : 310}
-          height={isMobile ? 666: 550}
+          width={isMobile ? "100%" : 310}
+          height={isMobile ? 660 : 550}
         />
         <Box className={classes.infoContainer}>
           {video.description && (
@@ -137,12 +129,14 @@ const VideoPanel = ({ video, selectedLocation, clearSelectedVideo }) => {
 VideoPanel.propTypes = {
   video: PropTypes.object,
   selectedLocation: PropTypes.object,
+  isMobile: PropTypes.bool,
   clearSelectedVideo: PropTypes.func,
 };
 
 VideoPanel.defaultProps = {
   video: {},
   selectedLocation: {},
+  isMobile: false,
   clearSelectedVideo() {},
 };
 

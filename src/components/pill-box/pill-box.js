@@ -42,23 +42,11 @@ const useStyles = makeStyles({
 const PillBox = ({
   hashtags,
   selectedHashtag,
+  isMobile,
   fetchHashtags,
   fetchSelectedHashtag,
 }) => {
   const classes = useStyles();
-  const [width, setWidth] = useState(window.innerWidth);
-
-  function handleWindowSizeChange() {
-    setWidth(window.innerWidth);
-  }
-  useEffect(() => {
-    window.addEventListener("resize", handleWindowSizeChange);
-    return () => {
-      window.removeEventListener("resize", handleWindowSizeChange);
-    };
-  }, []);
-
-  let isMobile = width <= 768;
 
   const ArrowLeft = (
     <Box pr={1}>
@@ -123,12 +111,16 @@ const PillBox = ({
 
 PillBox.propTypes = {
   hashtags: PropTypes.array,
+  selectedHashtag: PropTypes.object,
+  isMobile: PropTypes.bool,
   fetchHashtags: PropTypes.func,
   fetchSelectedHashtag: PropTypes.func,
 };
 
 PillBox.defaultProps = {
   hashtags: [],
+  selectedHashtag: {},
+  isMobile: false,
   fetchHashtags() {},
   fetchSelectedHashtag() {},
 };
