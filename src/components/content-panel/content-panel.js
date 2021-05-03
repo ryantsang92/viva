@@ -106,7 +106,10 @@ const ContentPanel = ({
             isMobile={isMobile}
           >
             <Box pt={2}>
-              <VideoGridContainer selectedHashtag={selectedHashtag} />
+              <VideoGridContainer
+                selectedHashtag={selectedHashtag}
+                isMobile={isMobile}
+              />
             </Box>
           </ScrollingWrapper>
         ) : (

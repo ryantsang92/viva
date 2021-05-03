@@ -134,8 +134,8 @@ VideoPanel.propTypes = {
 };
 
 VideoPanel.defaultProps = {
-  video: {},
-  selectedLocation: {},
+  video: null,
+  selectedLocation: null,
   isMobile: false,
   clearSelectedVideo() {},
 };
