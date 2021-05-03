@@ -64,7 +64,6 @@ const VideoPanel = ({
   video,
   selectedLocation,
   isMobile,
-  clearSelectedVideo,
 }) => {
   const classes = useStyles();
 
@@ -143,14 +142,12 @@ VideoPanel.propTypes = {
   video: PropTypes.object,
   selectedLocation: PropTypes.object,
   isMobile: PropTypes.bool,
-  clearSelectedVideo: PropTypes.func,
 };
 
 VideoPanel.defaultProps = {
   video: null,
   selectedLocation: null,
   isMobile: false,
-  clearSelectedVideo() {},
 };
 
 export default VideoPanel;
