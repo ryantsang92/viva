@@ -153,7 +153,7 @@ const Header = ({
   const classes = useStyles();
 
   const [city, setCity] = useState("All");
-  const [modalOpen, setModalOpen] = useState(true);
+  const [modalOpen, setModalOpen] = useState(false);
 
   useEffect(() => {
     if (selectedVideo && selectedCity && selectedVideo.metro !== selectedCity) {
