@@ -7,8 +7,13 @@
 import React, { useState } from "react";
 import { Box, Typography, Divider } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import "./video-react.css";
-import { Player } from "video-react";
+import {
+  Player,
+  BigPlayButton,
+  ControlBar,
+  PlayToggle,
+  VolumeMenuButton,
+} from "video-react";
 import { SocialIcon } from "../social-icon";
 import { InView } from "react-intersection-observer";
 import Loading from "../common/loading";
@@ -60,18 +65,17 @@ const useStyles = makeStyles({
   },
 });
 
-const VideoPanel = ({
-  video,
-  selectedLocation,
-  isMobile,
-}) => {
+const VideoPanel = ({ video, selectedLocation, isMobile }) => {
   const classes = useStyles();
 
   const [inView, setInView] = useState(false);
 
   return (
     <InView onChange={setInView}>
-      <Box className={isMobile ? classes.playerAreaMobile : classes.playerArea} borderBottom={1}>
+      <Box
+        className={isMobile ? classes.playerAreaMobile : classes.playerArea}
+        borderBottom={1}
+      >
         <Box className={classes.playerBar}>
           {inView && (
             <Typography variant="h6">{video.title || "Test Title"}</Typography>
@@ -80,7 +84,7 @@ const VideoPanel = ({
         {inView ? (
           <Box>
             <Player
-              playsInline
+              // playsInline
               autoPlay
               muted
               poster={video.thumbnail}
@@ -88,7 +92,13 @@ const VideoPanel = ({
               fluid={false}
               width={isMobile ? "100%" : 310}
               height={isMobile ? 660 : 550}
-            />
+            >
+              <BigPlayButton position="center" />
+              <ControlBar autoHide={false} disableDefaultControls={false}>
+                <PlayToggle />
+                <VolumeMenuButton vertical />
+              </ControlBar>
+            </Player>
             <Box className={classes.infoContainer}>
               {video.description && (
                 <Box pb={2}>

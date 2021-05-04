@@ -9,6 +9,12 @@
 .MuiInput-underline::after {
   display: none;
 }
+.video-react .video-react-fullscreen-control {
+  display: none;
+}
+.video-react .video-react-progress-control {
+  padding-right: 5px;
+}
 .MuiSvgIcon-root.MuiSelect-icon {
   top: calc(50% - 12px);
   right: 5px;
