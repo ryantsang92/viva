@@ -9,6 +9,22 @@ import { Box } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import PropTypes from "prop-types";
 
+const scrollToTopIconContainer = {
+  position: "absolute",
+  top: 45,
+  left: "50%",
+  transform: "translate(-50%)",
+  zIndex: 999,
+  cursor: "pointer",
+  opacity: 0.7,
+  textAlign: "center",
+  "&:hover": {
+    opacity: 1,
+    animation: "wiggle 1s ease",
+    animationIterationCount: 1,
+  },
+};
+
 const useStyles = makeStyles({
   scrollingWrapperContainer: {
     overflowY: "scroll",
@@ -22,19 +38,11 @@ const useStyles = makeStyles({
     position: "relative",
   },
   scrollToTopIconContainer: {
-    position: "absolute",
-    top: 8,
-    left: "50%",
-    transform: "translate(-50%)",
-    zIndex: 2,
-    cursor: "pointer",
-    opacity: 0.7,
-    textAlign: "center",
-    "&:hover": {
-      opacity: 1,
-      animation: "wiggle 1s ease",
-      animationIterationCount: 1,
-    },
+    ...scrollToTopIconContainer
+  },
+  scrollToTopIconContainerWithFilter: {
+    ...scrollToTopIconContainer,
+    top: 115,
   },
   scrollToTopIconContainerMobile: {
     // height: "calc(100vh - 116px)",
@@ -42,7 +50,7 @@ const useStyles = makeStyles({
     top: 120,
     left: "50%",
     transform: "translate(-50%)",
-    zIndex: 2,
+    zIndex: 999,
     cursor: "pointer",
     textAlign: "center",
   },
@@ -56,7 +64,7 @@ const useStyles = makeStyles({
   },
 });
 
-const ScrollingWrapper = ({ children, refresh, isMobile }) => {
+const ScrollingWrapper = ({ children, refresh, filterOn, isMobile }) => {
   const classes = useStyles();
   const [hasScrolled, setHasScrolled] = useState(false);
 
@@ -83,8 +91,8 @@ const ScrollingWrapper = ({ children, refresh, isMobile }) => {
       {hasScrolled && (
         <div
           className={
-            isMobile
-              ? classes.scrollToTopIconContainerMobile
+            filterOn
+              ? classes.scrollToTopIconContainerWithFilter
               : classes.scrollToTopIconContainer
           }
           onClick={() => scrollToTop()}
@@ -108,12 +116,14 @@ const ScrollingWrapper = ({ children, refresh, isMobile }) => {
 ScrollingWrapper.propTypes = {
   children: PropTypes.object,
   refresh: PropTypes.bool,
+  filterOn: PropTypes.bool,
   isMobile: PropTypes.bool,
 };
 
 ScrollingWrapper.defaultProps = {
   children: null,
   refresh: false,
+  filterOn: false,
   isMobile: false,
 };
 

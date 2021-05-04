@@ -5,21 +5,24 @@
 */
 
 import React, { useEffect } from "react";
-import { GridList, GridListTile, Typography, Box } from "@material-ui/core";
+import { Typography, Box } from "@material-ui/core";
 import MoodBadRoundedIcon from "@material-ui/icons/MoodBadRounded";
 import { makeStyles } from "@material-ui/core/styles";
-import VideoCardContainer from "./video-card-container";
-import Loading from "../loading";
+import VideoPlayerPanelContainer from "../video-player-panel/video-player-panel-container";
+import Loading from "../common/loading";
 import PropTypes from "prop-types";
 
 const useStyles = makeStyles({
   loading: {
-    width: "100%",
-    height: "100%",
+    alignItems: "center",
+    justifyContent: "center",
+    objectFit: "cover",
+    width: 300,
+    height: 225,
   },
 });
 
-const VideoGrid = ({ loading, videos, fetchVideos }) => {
+const VideoGrid = ({ loading, videos, fetchVideos, isMobile }) => {
   const classes = useStyles();
 
   useEffect(() => {
@@ -37,20 +40,16 @@ const VideoGrid = ({ loading, videos, fetchVideos }) => {
       ) : (
         <>
           {videos && videos.length > 0 ? (
-            <GridList
-              cellHeight="auto"
-              // cols={isMobile && width > 512 ? width / 256 : 2} // revisit this logic
-              // cols={isMobile ? width / 256 : 2}
-            >
+            <>
               {videos.map((video, index) => (
-                <GridListTile key={video.id} cols={1}>
-                  <VideoCardContainer
+                <div key={index}>
+                  <VideoPlayerPanelContainer
                     video={video}
-                    addPadding={index % 2 === 1 ? false : true}
+                    isMobile={isMobile}
                   />
-                </GridListTile>
+                </div>
               ))}
-            </GridList>
+            </>
           ) : (
             <Box pt={1}>
               <Typography>
@@ -66,12 +65,14 @@ const VideoGrid = ({ loading, videos, fetchVideos }) => {
 
 VideoGrid.propTypes = {
   loading: PropTypes.bool,
+  isMobile: PropTypes.bool,
   videos: PropTypes.array,
   fetchVideos: PropTypes.func,
 };
 
 VideoGrid.defaultProps = {
   loading: false,
+  isMobile: false,
   videos: null,
   fetchVideos() {},
 };

@@ -9,15 +9,10 @@ import { Box, IconButton } from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
 import { makeStyles } from "@material-ui/core/styles";
 import ScrollingWrapper from "../common/scrolling-wrapper";
-import VideoGridContainer from "./video-grid-container";
+import VideoFeedContainer from "./video-feed-container";
 import PropTypes from "prop-types";
 
 const useStyles = makeStyles({
-  root: {
-    marginLeft: 0,
-    paddingLeft: 15,
-    paddingRight: 15,
-  },
   title: {
     fontWeight: "bold",
     backgroundColor: "#F2F2F2",
@@ -27,7 +22,7 @@ const useStyles = makeStyles({
     padding: "5px 10px 5px",
   },
   videoContainer: {
-    width: 400,
+    minWidth: 310,
     height: "calc(100vh - 116px)",
     margin: "0 !important",
     "-ms-overflow-style": "none",
@@ -39,6 +34,7 @@ const useStyles = makeStyles({
   },
   videoContainerMobile: {
     width: "100%",
+    // height: "calc(100vh - 116px)",
     margin: "0 !important",
     "-ms-overflow-style": "none",
     scrollbarWidth: "none",
@@ -46,12 +42,17 @@ const useStyles = makeStyles({
       display: "none",
     },
     overflow: "hidden",
+    // overflow: "scroll",
   },
   titleContainer: {
     position: "sticky",
+    backgroundColor: "white",
     top: 0,
-    background: "white",
     zIndex: 99,
+  },
+  bottomBorder: {
+    borderBottom: 2,
+    borderBottomColor: "#000000",
   },
 });
 
@@ -74,14 +75,19 @@ const ContentPanel = ({
   };
 
   return (
-    <Box className={classes.root}>
+    <Box ml={1} mr={1}>
       <div
         className={
           isMobile ? classes.videoContainerMobile : classes.videoContainer
         }
       >
         {(selectedHashtag || (selectedLocation && filterOn)) && (
-          <Box pt={2} pb={1} className={classes.titleContainer}>
+          <Box
+            pt={2}
+            pb={1}
+            borderBottom={1}
+            className={classes.titleContainer}
+          >
             {selectedHashtag && (
               <div className={classes.title}>
                 {selectedHashtag.hashtag}{" "}
@@ -103,16 +109,19 @@ const ContentPanel = ({
         {!isMobile ? (
           <ScrollingWrapper
             refresh={selectedHashtag || (selectedLocation && filterOn) || false}
+            filterOn={selectedHashtag || (selectedLocation && filterOn)}
             isMobile={isMobile}
           >
-            <Box pt={2}>
-              <VideoGridContainer selectedHashtag={selectedHashtag} />
-            </Box>
+            <VideoFeedContainer
+              selectedHashtag={selectedHashtag}
+              isMobile={isMobile}
+            />
           </ScrollingWrapper>
         ) : (
-          <Box pt={2}>
-            <VideoGridContainer selectedHashtag={selectedHashtag} />
-          </Box>
+          <VideoFeedContainer
+            selectedHashtag={selectedHashtag}
+            isMobile={isMobile}
+          />
         )}
       </div>
     </Box>

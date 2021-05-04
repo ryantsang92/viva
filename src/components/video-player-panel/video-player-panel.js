@@ -4,13 +4,14 @@
   author: Ryan Tsang <ryan@vivatheapp.com>
 */
 
-import React from "react";
-import { Box, Typography, Divider, IconButton } from "@material-ui/core";
-import CloseIcon from "@material-ui/icons/Close";
+import React, { useState } from "react";
+import { Box, Typography, Divider } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import "./video-react.css";
 import { Player } from "video-react";
 import { SocialIcon } from "../social-icon";
+import { InView } from "react-intersection-observer";
+import Loading from "../common/loading";
 import MapPinDefault from "../../assets/map-pin-default.png";
 import PropTypes from "prop-types";
 
@@ -21,7 +22,7 @@ const useStyles = makeStyles({
     top: 0,
     width: "100%",
     background: "white",
-    zIndex: 99,
+    zIndex: 4,
     display: "flex",
   },
   playerArea: {
@@ -50,79 +51,92 @@ const useStyles = makeStyles({
     width: 20,
     height: 24,
   },
+  loading: {
+    alignItems: "center",
+    justifyContent: "center",
+    objectFit: "cover",
+    width: 300,
+    height: 225,
+  },
 });
 
 const VideoPanel = ({
   video,
   selectedLocation,
   isMobile,
-  clearSelectedVideo,
 }) => {
   const classes = useStyles();
 
-  return (
-    <Box className={isMobile ? classes.playerAreaMobile : classes.playerArea}>
-      <Box className={classes.playerBar}>
-        <Typography variant="h6">{video.title || "Test Title"}</Typography>
-        <IconButton
-          onClick={() => clearSelectedVideo()}
-          size="small"
-          className={classes.closeIcon}
-        >
-          <CloseIcon />
-        </IconButton>
-      </Box>
-      <Box>
-        <Player
-          playsInline
-          poster={video.thumbnail}
-          src={video.url}
-          fluid={false}
-          width={isMobile ? "100%" : 310}
-          height={isMobile ? 660 : 550}
-        />
-        <Box className={classes.infoContainer}>
-          {video.description && (
-            <Box pb={2}>
-              <Typography>{video.description}</Typography>
-            </Box>
-          )}
-          <Box display="flex" justifyContent="flex-start">
-            <Box pr={1}>
-              <img src={MapPinDefault} alt="city" className={classes.pin} />
-            </Box>
-            {selectedLocation && (
-              <div>
-                <Typography fontFamily="Arial">
-                  {selectedLocation.address_full}
-                </Typography>
-                <Typography>
-                  <a
-                    href={selectedLocation.website}
-                    target={selectedLocation.website}
-                  >
-                    {
-                      selectedLocation.website
-                        .replace(/^(?:https?:\/\/)?(?:www\.)?/i, "")
-                        .split("/")[0]
-                    }
-                  </a>
-                </Typography>
-              </div>
-            )}
-          </Box>
+  const [inView, setInView] = useState(false);
 
-          <Box pt={1} pb={1}>
-            <Divider />
-          </Box>
-          <SocialIcon
-            user={video.user}
-            platform={video.user_platform}
-            hw={20}
-          />
+  return (
+    <InView onChange={setInView}>
+      <Box className={isMobile ? classes.playerAreaMobile : classes.playerArea} borderBottom={1}>
+        <Box className={classes.playerBar}>
+          {inView && (
+            <Typography variant="h6">{video.title || "Test Title"}</Typography>
+          )}
         </Box>
+        {inView ? (
+          <Box>
+            <Player
+              playsInline
+              autoPlay
+              muted
+              poster={video.thumbnail}
+              src={video.url}
+              fluid={false}
+              width={isMobile ? "100%" : 310}
+              height={isMobile ? 660 : 550}
+            />
+            <Box className={classes.infoContainer}>
+              {video.description && (
+                <Box pb={2}>
+                  <Typography>{video.description}</Typography>
+                </Box>
+              )}
+              <Box display="flex" justifyContent="flex-start">
+                <Box pr={1}>
+                  <img src={MapPinDefault} alt="city" className={classes.pin} />
+                </Box>
+                {selectedLocation && (
+                  <div>
+                    <Typography fontFamily="Arial">
+                      {selectedLocation.address_full}
+                    </Typography>
+                    <Typography>
+                      <a
+                        href={selectedLocation.website}
+                        target={selectedLocation.website}
+                      >
+                        {
+                          selectedLocation.website
+                            .replace(/^(?:https?:\/\/)?(?:www\.)?/i, "")
+                            .split("/")[0]
+                        }
+                      </a>
+                    </Typography>
+                  </div>
+                )}
+              </Box>
+
+              <Box pt={1} pb={1}>
+                <Divider />
+              </Box>
+              <SocialIcon
+                user={video.user}
+                platform={video.user_platform}
+                hw={20}
+              />
+            </Box>
+          </Box>
+        ) : (
+          <div className={classes.loading}>
+            <Loading />
+          </div>
+        )}
       </Box>
-    </Box>
+    </InView>
   );
 };
 
@@ -130,14 +144,12 @@ VideoPanel.propTypes = {
   video: PropTypes.object,
   selectedLocation: PropTypes.object,
   isMobile: PropTypes.bool,
-  clearSelectedVideo: PropTypes.func,
 };
 
 VideoPanel.defaultProps = {
-  video: {},
-  selectedLocation: {},
+  video: null,
+  selectedLocation: null,
   isMobile: false,
-  clearSelectedVideo() {},
 };
 
 export default VideoPanel;

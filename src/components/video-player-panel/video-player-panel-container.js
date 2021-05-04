@@ -5,16 +5,11 @@
 */
 
 import { connect } from "react-redux";
-import { clearSelectedVideo } from "../../actions/video-actions";
-import { selectSelectedLocation } from "../../selectors/location-selectors";
+import { selectLocationByVideo } from "../../selectors/location-selectors";
 import VideoPanel from "./video-player-panel";
 
-const mapStateToProps = (state) => ({
-  selectedLocation: selectSelectedLocation(state),
+const mapStateToProps = (state, ownProps) => ({
+  selectedLocation: selectLocationByVideo(state, ownProps.video),
 });
 
-const mapDispatchToProps = (dispatch) => ({
-    clearSelectedVideo: () => dispatch(clearSelectedVideo()),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(VideoPanel);
+export default connect(mapStateToProps)(VideoPanel);
