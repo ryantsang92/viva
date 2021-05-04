@@ -71,7 +71,7 @@ const VideoPanel = ({
 
   return (
     <InView onChange={setInView}>
-      <Box className={isMobile ? classes.playerAreaMobile : classes.playerArea}>
+      <Box className={isMobile ? classes.playerAreaMobile : classes.playerArea} borderBottom={1}>
         <Box className={classes.playerBar}>
           {inView && (
             <Typography variant="h6">{video.title || "Test Title"}</Typography>
