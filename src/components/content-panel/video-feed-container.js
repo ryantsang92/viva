@@ -16,7 +16,7 @@ import {
   selectSelectedCity,
   selectSelectedLocation,
 } from "../../selectors/location-selectors";
-import VideoGrid from "./video-grid";
+import VideoFeed from "./video-feed";
 
 const mapStateToProps = (state) => {
   const selectedHashtag = selectSelectedHashtag(state);
@@ -41,4 +41,4 @@ const mapDispatchToProps = (dispatch) => ({
   fetchVideos: () => dispatch(fetchVideos()),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(VideoGrid);
+export default connect(mapStateToProps, mapDispatchToProps)(VideoFeed);

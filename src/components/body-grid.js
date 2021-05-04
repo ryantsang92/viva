@@ -16,7 +16,6 @@ import { makeStyles } from "@material-ui/core/styles";
 const useStyles = makeStyles((theme) => ({
   root: {
     height: "100%",
-    marginLeft: 0,
   },
   contentPanel: {
     position: "relative",
@@ -60,7 +59,7 @@ const BodyGrid = ({ locations, fetchLocations, isMobile }) => {
   }, [locations]);
 
   return (
-    <Box ml={1} className={classes.root}>
+    <Box className={classes.root}>
       <Grid className={classes.grid} container>
         <Grid
           item

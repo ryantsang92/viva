@@ -16,8 +16,6 @@ const mapStateToProps = (state) => {
   return {
     selectedHashtag: selectSelectedHashtag(state),
     hashtags: selectHashtagData(state).hashtags,
-    // to-do: find a way to do optional chaining
-    // hashtags: selectHashtagData(state)?.hashtags,
   };
 };
 

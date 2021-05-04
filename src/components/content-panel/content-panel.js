@@ -9,13 +9,10 @@ import { Box, IconButton } from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
 import { makeStyles } from "@material-ui/core/styles";
 import ScrollingWrapper from "../common/scrolling-wrapper";
-import VideoGridContainer from "./video-grid-container";
+import VideoFeedContainer from "./video-feed-container";
 import PropTypes from "prop-types";
 
 const useStyles = makeStyles({
-  root: {
-    marginLeft: 0,
-  },
   title: {
     fontWeight: "bold",
     backgroundColor: "#F2F2F2",
@@ -48,8 +45,11 @@ const useStyles = makeStyles({
   titleContainer: {
     position: "sticky",
     top: 0,
-    background: "white",
     zIndex: 99,
+  },
+  bottomBorder: {
+    borderBottom: 2,
+    borderBottomColor: "#000000",
   },
 });
 
@@ -72,14 +72,19 @@ const ContentPanel = ({
   };
 
   return (
-    <Box className={classes.root} ml={1} mr={1}>
+    <Box ml={1} mr={1}>
       <div
         className={
           isMobile ? classes.videoContainerMobile : classes.videoContainer
         }
       >
         {(selectedHashtag || (selectedLocation && filterOn)) && (
-          <Box pt={2} pb={1} className={classes.titleContainer}>
+          <Box
+            pt={2}
+            pb={1}
+            borderBottom={1}
+            className={classes.titleContainer}
+          >
             {selectedHashtag && (
               <div className={classes.title}>
                 {selectedHashtag.hashtag}{" "}
@@ -103,20 +108,16 @@ const ContentPanel = ({
             refresh={selectedHashtag || (selectedLocation && filterOn) || false}
             isMobile={isMobile}
           >
-            <Box pt={2}>
-              <VideoGridContainer
-                selectedHashtag={selectedHashtag}
-                isMobile={isMobile}
-              />
-            </Box>
-          </ScrollingWrapper>
-        ) : (
-          <Box pt={2}>
-            <VideoGridContainer
+            <VideoFeedContainer
               selectedHashtag={selectedHashtag}
               isMobile={isMobile}
             />
-          </Box>
+          </ScrollingWrapper>
+        ) : (
+          <VideoFeedContainer
+            selectedHashtag={selectedHashtag}
+            isMobile={isMobile}
+          />
         )}
       </div>
     </Box>
