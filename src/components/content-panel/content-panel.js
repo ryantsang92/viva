@@ -44,6 +44,7 @@ const useStyles = makeStyles({
   },
   titleContainer: {
     position: "sticky",
+    backgroundColor: "white",
     top: 0,
     zIndex: 99,
   },
