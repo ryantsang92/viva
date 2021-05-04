@@ -81,6 +81,8 @@ const VideoPanel = ({
           <Box>
             <Player
               playsInline
+              autoPlay
+              muted
               poster={video.thumbnail}
               src={video.url}
               fluid={false}
