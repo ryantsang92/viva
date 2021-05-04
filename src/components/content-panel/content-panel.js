@@ -34,6 +34,7 @@ const useStyles = makeStyles({
   },
   videoContainerMobile: {
     width: "100%",
+    // height: "calc(100vh - 116px)",
     margin: "0 !important",
     "-ms-overflow-style": "none",
     scrollbarWidth: "none",
@@ -41,6 +42,7 @@ const useStyles = makeStyles({
       display: "none",
     },
     overflow: "hidden",
+    // overflow: "scroll",
   },
   titleContainer: {
     position: "sticky",
@@ -107,6 +109,7 @@ const ContentPanel = ({
         {!isMobile ? (
           <ScrollingWrapper
             refresh={selectedHashtag || (selectedLocation && filterOn) || false}
+            filterOn={selectedHashtag || (selectedLocation && filterOn)}
             isMobile={isMobile}
           >
             <VideoFeedContainer
