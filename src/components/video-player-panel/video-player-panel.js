@@ -11,7 +11,6 @@ import {
   Player,
   BigPlayButton,
   ControlBar,
-  PlayToggle,
   VolumeMenuButton,
 } from "video-react";
 import { SocialIcon } from "../social-icon";
@@ -84,7 +83,6 @@ const VideoPanel = ({ video, selectedLocation, isMobile }) => {
         {inView ? (
           <Box>
             <Player
-              // playsInline
               autoPlay
               muted
               poster={video.thumbnail}
@@ -95,7 +93,6 @@ const VideoPanel = ({ video, selectedLocation, isMobile }) => {
             >
               <BigPlayButton position="center" />
               <ControlBar autoHide={false} disableDefaultControls={false}>
-                <PlayToggle />
                 <VolumeMenuButton vertical />
               </ControlBar>
             </Player>
