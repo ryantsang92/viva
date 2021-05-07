@@ -58,9 +58,9 @@ const useStyles = makeStyles({
   loading: {
     alignItems: "center",
     justifyContent: "center",
-    objectFit: "cover",
-    width: 300,
-    height: 225,
+    objectFit: "contain",
+    width: 310,
+    height: 550,
   },
 });
 
@@ -81,67 +81,66 @@ const VideoPanel = ({ video, selectedLocation, isMobile }) => {
           )}
         </Box>
         {inView ? (
-          <Box>
-            <Player
-              autoPlay
-              muted
-              poster={video.thumbnail}
-              src={video.url}
-              fluid={false}
-              width={isMobile ? "100%" : 310}
-              height={isMobile ? 660 : 550}
-            >
-              <BigPlayButton position="center" />
-              <ControlBar autoHide={false} disableDefaultControls={false}>
-                <VolumeMenuButton vertical />
-              </ControlBar>
-            </Player>
-            <Box className={classes.infoContainer}>
-              {video.description && (
-                <Box pb={2}>
-                  <Typography>{video.description}</Typography>
-                </Box>
-              )}
-              <Box display="flex" justifyContent="flex-start">
-                <Box pr={1}>
-                  <img src={MapPinDefault} alt="city" className={classes.pin} />
-                </Box>
-                {selectedLocation && (
-                  <div>
-                    <Typography fontFamily="Arial">
-                      {selectedLocation.address_full}
-                    </Typography>
-                    <Typography>
-                      <a
-                        href={selectedLocation.website}
-                        target={selectedLocation.website}
-                      >
-                        {
-                          selectedLocation.website
-                            .replace(/^(?:https?:\/\/)?(?:www\.)?/i, "")
-                            .split("/")[0]
-                        }
-                      </a>
-                    </Typography>
-                  </div>
-                )}
-              </Box>
-
-              <Box pt={1} pb={1}>
-                <Divider />
-              </Box>
-              <SocialIcon
-                user={video.user}
-                platform={video.user_platform}
-                hw={20}
-              />
-            </Box>
-          </Box>
+          <Player
+            autoPlay
+            muted
+            preload="none"
+            poster={video.thumbnail}
+            src={video.url}
+            fluid={false}
+            width={isMobile ? "100%" : 310}
+            height={isMobile ? 660 : 550}
+          >
+            <BigPlayButton position="center" />
+            <ControlBar autoHide={false} disableDefaultControls={false}>
+              <VolumeMenuButton vertical />
+            </ControlBar>
+          </Player>
         ) : (
           <div className={classes.loading}>
             <Loading />
           </div>
         )}
+        <Box className={classes.infoContainer}>
+          {video.description && (
+            <Box pb={2}>
+              <Typography>{video.description}</Typography>
+            </Box>
+          )}
+          <Box display="flex" justifyContent="flex-start">
+            <Box pr={1}>
+              <img src={MapPinDefault} alt="city" className={classes.pin} />
+            </Box>
+            {selectedLocation && (
+              <div>
+                <Typography fontFamily="Arial">
+                  {selectedLocation.address_full}
+                </Typography>
+                <Typography>
+                  <a
+                    href={selectedLocation.website}
+                    target={selectedLocation.website}
+                  >
+                    {
+                      selectedLocation.website
+                        .replace(/^(?:https?:\/\/)?(?:www\.)?/i, "")
+                        .split("/")[0]
+                    }
+                  </a>
+                </Typography>
+              </div>
+            )}
+          </Box>
+
+          <Box pt={1} pb={1}>
+            <Divider />
+          </Box>
+          <SocialIcon
+            user={video.user}
+            platform={video.user_platform}
+            hw={20}
+          />
+        </Box>
       </Box>
     </InView>
   );
