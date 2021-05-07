@@ -59,6 +59,7 @@ const useStyles = makeStyles({
     alignItems: "center",
     justifyContent: "center",
     objectFit: "contain",
+    display: "flex",
     width: 310,
     height: 550,
   },
