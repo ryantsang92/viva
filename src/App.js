@@ -6,6 +6,7 @@
 
 import React, { useState, useEffect } from "react";
 import "./App.css";
+import "../node_modules/video-react/dist/video-react.css";
 import { SafeAreaView } from "react-native";
 import HeaderContainer from "./components/header-container";
 import BodyGridContainer from "./components/body-grid-container";

@@ -4,7 +4,8 @@
   author: Ryan Tsang <ryan@vivatheapp.com>
 */
 
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
+import InfiniteScroll from "react-infinite-scroll-component";
 import { Typography, Box } from "@material-ui/core";
 import MoodBadRoundedIcon from "@material-ui/icons/MoodBadRounded";
 import { makeStyles } from "@material-ui/core/styles";
@@ -20,35 +21,72 @@ const useStyles = makeStyles({
     width: 300,
     height: 225,
   },
+  infiniteScroll: {
+    scrollbarWidth: "none",
+    "&::-webkit-scrollbar": {
+      display: "none",
+    },
+  },
 });
 
 const VideoGrid = ({ loading, videos, fetchVideos, isMobile }) => {
   const classes = useStyles();
+  const [items, setItems] = useState([]);
+  const [hasMore, setHasMore] = useState(true);
 
   useEffect(() => {
     if (videos === null) {
       fetchVideos();
+    } else {
+      setItems(videos.slice(0, 5));
     }
   }, [videos]);
+
+  const fetchMoreData = () => {
+    if (items.length >= videos.length) {
+      setHasMore(false);
+    } else {
+      setItems(items.concat(videos.slice(items.length - 1, items.length + 4)));
+    }
+  };
+
+  const loadingComponent = (
+    <div className={classes.loading}>
+      <Loading />
+    </div>
+  );
 
   return (
     <>
       {loading ? (
-        <div className={classes.loading}>
-          <Loading />
-        </div>
+        <>{loadingComponent}</>
       ) : (
         <>
           {videos && videos.length > 0 ? (
             <>
-              {videos.map((video, index) => (
-                <div key={index}>
-                  <VideoPlayerPanelContainer
-                    video={video}
-                    isMobile={isMobile}
-                  />
-                </div>
-              ))}
+              <InfiniteScroll
+                className={classes.infiniteScroll}
+                dataLength={items.length}
+                scrollThreshold={0.9}
+                next={fetchMoreData}
+                hasMore={hasMore}
+                loader={<>{loadingComponent}</>}
+                height="calc(100vh - 116px)"
+                endMessage={
+                  <p style={{ textAlign: "center" }}>
+                    <b>Yay! You have seen it all</b>
+                  </p>
+                }
+              >
+                {items.map((video, index) => (
+                  <div key={index}>
+                    <VideoPlayerPanelContainer
+                      video={video}
+                      isMobile={isMobile}
+                    />
+                  </div>
+                ))}
+              </InfiniteScroll>
             </>
           ) : (
             <Box pt={1}>
