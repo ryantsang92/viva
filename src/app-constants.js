@@ -18,6 +18,8 @@ export const endpoint = {
   VIDEO_URL: "https://api.vivatheapp.com/videos",
   HASHTAG_URL: "https://api.vivatheapp.com/hashtags",
   LOCATION_URL: "https://api.vivatheapp.com/locations",
+  GOOGLE_URL: "https://api.vivatheapp.com/google/",
+  YELP_URL: "https://api.vivatheapp.com/yelp/",
 };
 
 export const socialURLs = {
@@ -38,7 +40,7 @@ export const hashtagObjects = {
   worthTheHype: {
     hashtag: "#worththehype",
     id: 132,
-  }
+  },
 };
 
 export const aboutText = () => {

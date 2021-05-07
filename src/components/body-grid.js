@@ -9,6 +9,7 @@ import { Grid, Box } from "@material-ui/core";
 import { videoSubmissionLink } from "../app-constants";
 import GreenButton from "./common/green-button";
 import ContentPanelContainer from "./content-panel/content-panel-container";
+import PlacesPanelContainer from "./places-panel/places-panel-container";
 import MapContainer from "./map/map-container";
 import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
@@ -49,7 +50,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const BodyGrid = ({ locations, fetchLocations, isMobile }) => {
+const BodyGrid = ({
+  locations,
+  fetchLocations,
+  selectedLocation,
+  isMobile,
+}) => {
   const classes = useStyles();
 
   useEffect(() => {
@@ -82,6 +88,19 @@ const BodyGrid = ({ locations, fetchLocations, isMobile }) => {
             </div>
           </>
         )}
+        {selectedLocation && (
+          <Grid
+            item
+            className={
+              isMobile ? classes.contentPanelMobile : classes.contentPanel
+            }
+          >
+            <PlacesPanelContainer
+              selectedLocation={selectedLocation}
+              isMobile={isMobile}
+            />
+          </Grid>
+        )}
       </Grid>
     </Box>
   );
@@ -89,12 +108,14 @@ const BodyGrid = ({ locations, fetchLocations, isMobile }) => {
 
 BodyGrid.propTypes = {
   locations: PropTypes.array,
+  selectedLocation: PropTypes.object,
   isMobile: PropTypes.bool,
   fetchLocations: PropTypes.func,
 };
 
 BodyGrid.defaultProps = {
   locations: null,
+  selectedLocation: null,
   isMobile: false,
   fetchLocations() {},
 };
