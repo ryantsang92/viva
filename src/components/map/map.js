@@ -8,11 +8,14 @@ import React, { useEffect, useState } from "react";
 import { Box, Typography, Divider } from "@material-ui/core";
 import MapPinDefault from "../../assets/map-pin-default.png";
 import MapPinSelected from "../../assets/map-pin-selected.png";
+import { apiKeys } from "../../app-constants";
 import { Map as GoogleMap, Marker, GoogleApiWrapper } from "google-maps-react";
 import InfoWindowEx from "./info-window-ex";
 import Loading from "../common/loading";
 import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
+
+const {clientSideKey} = apiKeys;
 
 const useStyles = makeStyles({
   infoWindow: {
@@ -291,6 +294,6 @@ Map.defaultProps = {
 };
 
 export default GoogleApiWrapper({
-  apiKey: "AIzaSyDxUpiuJMJwjPvtBeuXJyRcm66jqEx38kA",
+  apiKey: clientSideKey,
   LoadingContainer: loading,
 })(Map);

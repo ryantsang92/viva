@@ -14,6 +14,11 @@ const useStyles = makeStyles({
   },
 });
 
+export const apiKeys = {
+  serverSideKey: "AIzaSyD1l7AgmTWUKEUHBwLRqAWlXuG2hLifcRs",
+  clientSideKey: "AIzaSyAweiAnxKvsA6fMtup9dJJrDGd1AK-mPSs"
+}
+
 export const endpoint = {
   VIDEO_URL: "https://api.vivatheapp.com/videos",
   HASHTAG_URL: "https://api.vivatheapp.com/hashtags",
