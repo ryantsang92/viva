@@ -5,20 +5,36 @@
 */
 
 import React, { useEffect } from "react";
+import { makeStyles } from "@material-ui/core/styles";
 import { Typography } from "@material-ui/core";
 import PropTypes from "prop-types";
 
+const useStyles = makeStyles({
+    placePanel: {
+      width: 300
+    },
+  });
+
 const PlacesPanel = ({ selectedLocation, placeData, fetchPlaceData }) => {
-  useEffect(() => {
-    console.log(selectedLocation.g_place_id);
-    fetchPlaceData(selectedLocation.g_place_id);
+    const classes = useStyles();
+
+    useEffect(() => {
+    if (selectedLocation) {
+      console.log(selectedLocation.g_place_id);
+      fetchPlaceData(selectedLocation.g_place_id);
+    }
   }, [selectedLocation]);
 
+  console.log(selectedLocation);
   console.log(placeData);
   return (
     <>
-      <Typography>{placeData.result.name}</Typography>
-      {/* <img src={placeData.result.photos[0]} alt={placeData.result.name} /> */}
+      {placeData.result && (
+        <div className={classes.placePanel}>
+          <Typography>{placeData.result.name}</Typography>
+          <img src={placeData.result.photos[0]} alt={placeData.result.name} />
+        </div>
+      )}
     </>
   );
 };

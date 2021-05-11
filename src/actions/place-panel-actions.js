@@ -17,6 +17,7 @@ const requestOptions = {
 };
 
 const fetchEndpoint = (url) => {
+  console.log(url);
   const fetchFunction = () => {
     return fetch(url, requestOptions).then((response) =>
       Promise.all([response, response.json()])
