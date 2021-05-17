@@ -7,6 +7,7 @@
 import React, { useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Typography, Box, IconButton } from "@material-ui/core";
+import HorizontalScrollMenu from "../common/horizontal-scroll-menu";
 import CloseIcon from "@material-ui/icons/Close";
 import PropTypes from "prop-types";
 import { apiKeys } from "../../app-constants";
@@ -22,6 +23,7 @@ const useStyles = makeStyles({
 const PlacesPanel = ({
   selectedLocation,
   placeData,
+  isMobile,
   fetchPlaceData,
   clearSelectedLocation,
 }) => {
@@ -29,7 +31,6 @@ const PlacesPanel = ({
 
   useEffect(() => {
     if (selectedLocation) {
-      console.log(selectedLocation.g_place_id);
       fetchPlaceData(selectedLocation.g_place_id);
     }
   }, [selectedLocation]);
@@ -38,11 +39,26 @@ const PlacesPanel = ({
     clearSelectedLocation();
   };
 
-//   const {
-//     name,
-//     photos,
-//     types
-//   } = placeData?.result;
+  //   const {
+  //     name,
+  //     photos,
+  //     types
+  //   } = placeData?.result;
+
+  // const images =
+  //   (placeData.result.photos || []).map((photo) => {
+  //     return (
+  //       <img
+  //         src={
+  //           "https://maps.googleapis.com/maps/api/place/photo?maxwidth=300&photoreference=" +
+  //           photo.photo_reference +
+  //           "&key=" +
+  //           clientSideKey
+  //         }
+  //         alt={placeData.result.name}
+  //       />
+  //     );
+  //   });
 
   return (
     <>
@@ -56,17 +72,31 @@ const PlacesPanel = ({
               <Typography align="center">{placeData.result.name}</Typography>
             </Box>
           </Box>
-          <img
-            src={
-              "https://maps.googleapis.com/maps/api/place/photo?maxwidth=300&photoreference=" +
-              placeData.result.photos[0].photo_reference +
-              "&key=" +
-              clientSideKey
-            }
-            alt={placeData.result.name}
-          />
-          <Typography>{placeData.result.name}</Typography>
-          {/* <Typography>{types[0]}</Typography> */}
+          <Box pl={1} pr={1}>
+            <HorizontalScrollMenu
+              data={(placeData.result.photos || []).map((photo) => {
+                return (
+                  <img
+                    src={
+                      "https://maps.googleapis.com/maps/api/place/photo?maxwidth=300&photoreference=" +
+                      photo.photo_reference +
+                      "&key=" +
+                      clientSideKey
+                    }
+                    alt={placeData.result.name}
+                  />
+                );
+              })}
+              isMobile={isMobile}
+            />
+            <h6>
+              <Typography>{placeData.result.name}</Typography>
+            </h6>
+            <Typography>{placeData.result.formatted_address}</Typography>
+            {placeData.result.opening_hours.weekday_text.map((day) => {
+              return <Typography>{day}</Typography>;
+            })}
+          </Box>
         </div>
       )}
     </>
@@ -75,10 +105,18 @@ const PlacesPanel = ({
 
 PlacesPanel.propTypes = {
   selectedLocation: PropTypes.object,
+  placeData: PropTypes.object,
+  isMobile: PropTypes.bool,
+  fetchPlaceData: PropTypes.func,
+  clearSelectedLocation: PropTypes.func,
 };
 
 PlacesPanel.defaultProps = {
   selectedLocation: {},
+  placeData: {},
+  isMobile: false,
+  fetchPlaceData() {},
+  clearSelectedLocation() {},
 };
 
 export default PlacesPanel;
