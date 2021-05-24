@@ -206,6 +206,7 @@ const Header = ({
             display="flex"
             justifyContent="flex-end"
             alignItems="center"
+            flexDirection="row"
             pt={2}
           >
             <SocialGrid />
