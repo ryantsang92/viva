@@ -23,6 +23,7 @@ import LaunchIcon from "@material-ui/icons/Launch";
 import PhoneIcon from "@material-ui/icons/Phone";
 import PropTypes from "prop-types";
 import { apiKeys } from "../../app-constants";
+import StarRating from "./star-rating";
 
 const { clientSideKey } = apiKeys;
 
@@ -40,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
   photo: {
     maxHeight: 500,
     maxWidth: 500,
-    objectFit: 'cover'
+    objectFit: "cover",
   },
   icon: {
     width: 24,
@@ -98,9 +99,11 @@ const PlacesPanel = ({
                 <Typography align="center">{placeData.result.name}</Typography>
               </h4>
             </Box>
-            <IconButton onClick={handlePanelClose} size="small">
+            {/* empty div for now */}
+            <div className={classes.icon}></div>
+            {/* <IconButton onClick={handlePanelClose} size="small">
               <LaunchIcon />
-            </IconButton>
+            </IconButton> */}
           </Box>
           <Box pl={1} pr={1}>
             <Box
@@ -123,7 +126,7 @@ const PlacesPanel = ({
             </h6>
             <Box display="flex" justifyContent="flex-start">
               <Box pr={1}>
-                <img src={MapPinDefault} alt="city" className={classes.pin} />
+                <img src={MapPinDefault} alt="pin" className={classes.pin} />
               </Box>
               <Typography>{placeData.result.formatted_address}</Typography>
             </Box>
@@ -161,7 +164,7 @@ const PlacesPanel = ({
               <Box pr={1}>
                 <img
                   src={placeData.result.icon}
-                  alt="city"
+                  alt="website"
                   className={classes.icon}
                 />
               </Box>
@@ -188,6 +191,34 @@ const PlacesPanel = ({
             <Box pt={1} pb={1}>
               <Divider />
             </Box>
+            <Box pb={1}>
+              <Typography>Reviews</Typography>
+            </Box>
+            {placeData.result.reviews.map((review) => {
+              return (
+                <>
+                  <Box
+                    pr={1}
+                    display="flex"
+                    justifyContent="flex-start"
+                    alignItems="center"
+                  >
+                    <Box pr={1}>
+                      <img
+                        src={review.profile_photo_url}
+                        alt={review.author_name}
+                        className={classes.icon}
+                      />
+                    </Box>
+                    <Typography>{review.author_name}</Typography>
+                  </Box>
+                  <StarRating stars={review.rating} />
+                  <Box pt={1} pb={1}>
+                    <Divider />
+                  </Box>
+                </>
+              );
+            })}
           </Box>
         </div>
       )}
