@@ -20,6 +20,7 @@ import ScheduleIcon from "@material-ui/icons/Schedule";
 import CloseIcon from "@material-ui/icons/Close";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import LaunchIcon from "@material-ui/icons/Launch";
+import PhoneIcon from "@material-ui/icons/Phone";
 import PropTypes from "prop-types";
 import { apiKeys } from "../../app-constants";
 
@@ -35,6 +36,15 @@ const useStyles = makeStyles((theme) => ({
     "&::-webkit-scrollbar": {
       display: "none",
     },
+  },
+  photo: {
+    maxHeight: 500,
+    maxWidth: 500,
+    objectFit: 'cover'
+  },
+  icon: {
+    width: 24,
+    height: 24,
   },
   pin: {
     width: 20,
@@ -84,9 +94,9 @@ const PlacesPanel = ({
               <CloseIcon />
             </IconButton>
             <Box justifyContent="center" pt={1}>
-              <h5>
+              <h4>
                 <Typography align="center">{placeData.result.name}</Typography>
-              </h5>
+              </h4>
             </Box>
             <IconButton onClick={handlePanelClose} size="small">
               <LaunchIcon />
@@ -99,12 +109,13 @@ const PlacesPanel = ({
             >
               <img
                 src={
-                  "https://maps.googleapis.com/maps/api/place/photo?maxwidth=300&photoreference=" +
+                  "https://maps.googleapis.com/maps/api/place/photo?maxwidth=500&photoreference=" +
                   placeData.result.photos[0].photo_reference +
                   "&key=" +
                   clientSideKey
                 }
                 alt={placeData.result.name}
+                className={classes.photo}
               />
             </Box>
             <h6>
@@ -116,52 +127,67 @@ const PlacesPanel = ({
               </Box>
               <Typography>{placeData.result.formatted_address}</Typography>
             </Box>
-            <Box pt={1} pb={1}>
-              <Divider />
-            </Box>
-            <Accordion
-              expanded={expanded === "panel1"}
-              onChange={handleChange("panel1")}
-            >
-              <AccordionSummary
-                expandIcon={<ExpandMoreIcon />}
-                aria-controls="panel1bh-content"
-                id="panel1bh-header"
+            <Box pt={1} pb={2}>
+              <Accordion
+                expanded={expanded === "openHours"}
+                onChange={handleChange("openHours")}
               >
-                <Box
-                  display="flex"
-                  justifyContent="flex-start"
-                  alignItems="center"
+                <AccordionSummary
+                  expandIcon={<ExpandMoreIcon />}
+                  aria-controls="openHours-bh-content"
+                  id="openHours-bh-header"
                 >
-                  <Box pr={1}>
-                    <ScheduleIcon />
+                  <Box
+                    display="flex"
+                    justifyContent="flex-start"
+                    alignItems="center"
+                  >
+                    <Box pr={1}>
+                      <ScheduleIcon />
+                    </Box>
+                    <Typography>Opening Hours</Typography>
                   </Box>
-                  <Typography className={classes.secondaryHeading}>
-                    Opening Hours
-                  </Typography>
-                </Box>
-              </AccordionSummary>
-              <AccordionDetails>
-                <div>
-                  {placeData.result.opening_hours.weekday_text.map((day) => {
-                    return <Typography>{day}</Typography>;
-                  })}
-                </div>
-              </AccordionDetails>
-            </Accordion>
+                </AccordionSummary>
+                <AccordionDetails>
+                  <div>
+                    {placeData.result.opening_hours.weekday_text.map((day) => {
+                      return <Typography>{day}</Typography>;
+                    })}
+                  </div>
+                </AccordionDetails>
+              </Accordion>
+            </Box>
+            <Box display="flex" justifyContent="flex-start">
+              <Box pr={1}>
+                <img
+                  src={placeData.result.icon}
+                  alt="city"
+                  className={classes.icon}
+                />
+              </Box>
+              <a
+                href={placeData.result.website}
+                target={placeData.result.website}
+              >
+                {
+                  placeData.result.website
+                    .replace(/^(?:https?:\/\/)?(?:www\.)?/i, "")
+                    .split("/")[0]
+                }
+              </a>
+            </Box>
             <Box pt={1} pb={1}>
               <Divider />
             </Box>
-            <a
-              href={placeData.result.website}
-              target={placeData.result.website}
-            >
-              {
-                placeData.result.website
-                  .replace(/^(?:https?:\/\/)?(?:www\.)?/i, "")
-                  .split("/")[0]
-              }
-            </a>
+            <Box display="flex" justifyContent="flex-start">
+              <Box pr={1}>
+                <PhoneIcon />
+              </Box>
+              <Typography>{placeData.result.formatted_phone_number}</Typography>
+            </Box>
+            <Box pt={1} pb={1}>
+              <Divider />
+            </Box>
           </Box>
         </div>
       )}
