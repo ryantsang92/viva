@@ -114,7 +114,7 @@ const MobileMenu = ({ fetchSelectedHashtag }) => {
 
   return (
     <Box pr={1}>
-      <IconButton onClick={handleDrawerOpen} size="medium">
+      <IconButton onClick={handleDrawerOpen} size="small">
         <MenuIcon />
       </IconButton>
       <StyledMenu

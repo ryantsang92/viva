@@ -173,10 +173,6 @@ const Header = ({
     }
   };
 
-  const onAboutClick = () => {
-    setModalOpen(true);
-  };
-
   const handleModalClose = () => {
     setModalOpen(false);
   };
@@ -212,13 +208,8 @@ const Header = ({
             alignItems="center"
             pt={2}
           >
-            {!isMobile && (
-              <Box pr={2} className={classes.menuLink}>
-                <GreenButton buttonText="About" onClick={onAboutClick} />
-              </Box>
-            )}
-            <SocialGrid isMobile={isMobile} />
-            {isMobile && <MobileMenuContainer />}
+            <SocialGrid />
+            <MobileMenuContainer />
           </Box>
         </Grid>
       </Grid>

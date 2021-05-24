@@ -6,8 +6,6 @@
 
 import React, { useEffect } from "react";
 import { Grid, Box } from "@material-ui/core";
-import { videoSubmissionLink } from "../app-constants";
-import GreenButton from "./common/green-button";
 import ContentPanelContainer from "./content-panel/content-panel-container";
 import PlacesPanelContainer from "./places-panel/places-panel-container";
 import MapContainer from "./map/map-container";
@@ -76,17 +74,9 @@ const BodyGrid = ({
           <ContentPanelContainer isMobile={isMobile} />
         </Grid>
         {!isMobile && (
-          <>
-            <Grid item xs className={classes.mapContainer}>
-              <MapContainer locations={locations} />
-            </Grid>
-            <div className={classes.shareYourExperienceButton}>
-              <GreenButton
-                buttonText="Share Your Experience"
-                href={videoSubmissionLink}
-              />
-            </div>
-          </>
+          <Grid item xs className={classes.mapContainer}>
+            <MapContainer locations={locations} />
+          </Grid>
         )}
         {selectedLocation && (
           <Grid

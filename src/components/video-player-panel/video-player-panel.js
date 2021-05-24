@@ -117,18 +117,20 @@ const VideoPanel = ({ video, selectedLocation, isMobile }) => {
                 <Typography fontFamily="Arial">
                   {selectedLocation.address_full}
                 </Typography>
-                <Typography>
-                  <a
-                    href={selectedLocation.website}
-                    target={selectedLocation.website}
-                  >
-                    {
-                      selectedLocation.website
-                        .replace(/^(?:https?:\/\/)?(?:www\.)?/i, "")
-                        .split("/")[0]
-                    }
-                  </a>
-                </Typography>
+                {selectedLocation.website && (
+                  <Typography>
+                    <a
+                      href={selectedLocation.website}
+                      target={selectedLocation.website}
+                    >
+                      {
+                        selectedLocation.website
+                          .replace(/^(?:https?:\/\/)?(?:www\.)?/i, "")
+                          .split("/")[0]
+                      }
+                    </a>
+                  </Typography>
+                )}
               </div>
             )}
           </Box>

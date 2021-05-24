@@ -5,17 +5,16 @@
 */
 
 import React, { useEffect, useState } from "react";
-import { Box, Typography, Divider } from "@material-ui/core";
+import { Box } from "@material-ui/core";
 import MapPinDefault from "../../assets/map-pin-default.png";
 import MapPinSelected from "../../assets/map-pin-selected.png";
 import { apiKeys } from "../../app-constants";
 import { Map as GoogleMap, Marker, GoogleApiWrapper } from "google-maps-react";
-import InfoWindowEx from "./info-window-ex";
 import Loading from "../common/loading";
 import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
 
-const {clientSideKey} = apiKeys;
+const { clientSideKey } = apiKeys;
 
 const useStyles = makeStyles({
   infoWindow: {
@@ -52,9 +51,6 @@ const mapContainerStyle = {
 const loading = (props) => (
   <div
     style={{
-      // top: "50%",
-      // left: "50%",
-      // transform: "translate(-50%, -50%)",
       width: 400,
       height: 300,
     }}
@@ -79,11 +75,9 @@ const Map = ({
 
   const [center, setCenter] = useState(initialCenter);
   const [zoom, setZoom] = useState(13);
-  const [infoOpen, setInfoOpen] = useState(false);
 
   useEffect(() => {
     if (selectedCity) {
-      setInfoOpen(false);
       setCenter(
         selectedCity === "Boston"
           ? {
@@ -95,7 +89,6 @@ const Map = ({
       setZoom(13);
     }
     if (selectedLocation) {
-      setInfoOpen(true);
       setCenter({
         lat: parseFloat(selectedLocation.lat),
         lng: parseFloat(selectedLocation.lng),
@@ -110,12 +103,6 @@ const Map = ({
     saveSelectedLocation(marker.markerData);
     activateFilter();
     clearSelectedHashtag();
-  };
-
-  const onInfoWindowClose = () => {
-    setInfoOpen(false);
-    clearSelectedLocation();
-    clearSelectedVideo();
   };
 
   const onRelatedVideosClick = (e) => {
@@ -224,44 +211,6 @@ const Map = ({
               />
             );
           })}
-        {selectedLocation && (
-          <InfoWindowEx
-            position={{
-              lat: parseFloat(selectedLocation.lat),
-              lng: parseFloat(selectedLocation.lng),
-            }}
-            visible={infoOpen}
-            onClose={onInfoWindowClose}
-            pixelOffset={new google.maps.Size(0, -35)}
-          >
-            <Box className={classes.infoWindow}>
-              <h6>{selectedLocation.name}</h6>
-              <Typography fontFamily="Arial">
-                {selectedLocation.address_full}
-              </Typography>
-              <Typography>
-                <a
-                  href={selectedLocation.website}
-                  target={selectedLocation.website}
-                >
-                  {
-                    selectedLocation.website
-                      .replace(/^(?:https?:\/\/)?(?:www\.)?/i, "")
-                      .split("/")[0]
-                  }
-                </a>
-              </Typography>
-              <Box pt={1} pb={1}>
-                <Divider />
-              </Box>
-              <Typography>
-                <a href="/#" onClick={onRelatedVideosClick}>
-                  See related videos
-                </a>
-              </Typography>
-            </Box>
-          </InfoWindowEx>
-        )}
       </GoogleMap>
     </Box>
   );
