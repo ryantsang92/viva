@@ -15,6 +15,8 @@ import {
   AccordionDetails,
   AccordionSummary,
 } from "@material-ui/core";
+import { apiKeys } from "../../app-constants";
+import GoogleReviews from "./google-reviews";
 import MapPinDefault from "../../assets/map-pin-default.png";
 import ScheduleIcon from "@material-ui/icons/Schedule";
 import CloseIcon from "@material-ui/icons/Close";
@@ -22,8 +24,6 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import LaunchIcon from "@material-ui/icons/Launch";
 import PhoneIcon from "@material-ui/icons/Phone";
 import PropTypes from "prop-types";
-import { apiKeys } from "../../app-constants";
-import StarRating from "./star-rating";
 
 const { clientSideKey } = apiKeys;
 
@@ -100,10 +100,8 @@ const PlacesPanel = ({
             <IconButton onClick={handlePanelClose} size="small">
               <CloseIcon />
             </IconButton>
-            <Box justifyContent="center" pt={1}>
-              <Typography align="center" fontSize={20}>
-                {placeData.result.name}
-              </Typography>
+            <Box justifyContent="center" pt={1} fontSize={20}>
+              {placeData.result.name}
             </Box>
             {/* empty div for now */}
             <div className={classes.icon}></div>
@@ -127,10 +125,10 @@ const PlacesPanel = ({
             />
           </Box>
           <Box pl={1} pr={1}>
-            <Box pt={1} fontSize={28}>
+            <Box pt={1} fontSize={20}>
               {placeData.result.name}
             </Box>
-            <Box display="flex" justifyContent="flex-start">
+            <Box pt={1} display="flex" justifyContent="flex-start">
               <Box pr={1}>
                 <img src={MapPinDefault} alt="pin" className={classes.pin} />
               </Box>
@@ -197,49 +195,7 @@ const PlacesPanel = ({
             <Box pt={1} pb={1}>
               <Divider />
             </Box>
-            <Box pb={1}>
-              <Typography>Google Reviews</Typography>
-            </Box>
-            {placeData.result.reviews.map((review) => {
-              return (
-                <>
-                  <Box
-                    pr={1}
-                    display="flex"
-                    justifyContent="flex-start"
-                    alignItems="center"
-                  >
-                    <Box pr={1}>
-                      <img
-                        src={review.profile_photo_url}
-                        alt={review.author_name}
-                        className={classes.icon}
-                      />
-                    </Box>
-                    <Typography>{review.author_name}</Typography>
-                  </Box>
-                  <Box
-                    display="flex"
-                    justifyContent="flex-start"
-                    alignItems="center"
-                    pt={1}
-                  >
-                    <StarRating stars={review.rating} />
-                    <Box pl={1}>
-                      <Typography>
-                        {review.relative_time_description}
-                      </Typography>
-                    </Box>
-                  </Box>
-                  <Box pt={1}>
-                    <Typography>{review.text}</Typography>
-                  </Box>
-                  <Box pt={1} pb={1}>
-                    <Divider />
-                  </Box>
-                </>
-              );
-            })}
+            <GoogleReviews reviews={placeData.result.reviews} />
             <Box pb={1}>
               <Typography>Yelp Reviews</Typography>
             </Box>
