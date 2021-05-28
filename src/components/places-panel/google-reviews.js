@@ -22,9 +22,7 @@ const GoogleReviews = ({ reviews }) => {
 
   return (
     <>
-      <Box pb={1}>
-        <Typography>Google Reviews</Typography>
-      </Box>
+      <Box pb={1}>Google Reviews</Box>
       {reviews.map((review) => {
         return (
           <>
@@ -50,12 +48,12 @@ const GoogleReviews = ({ reviews }) => {
               pt={1}
             >
               <StarRating stars={review.rating} />
-              <Box pl={1}>
-                <Typography>{review.relative_time_description}</Typography>
+              <Box pl={1} fontSize={12}>
+                {review.relative_time_description}
               </Box>
             </Box>
-            <Box pt={1}>
-              <Typography>{review.text}</Typography>
+            <Box pt={1} fontSize={14}>
+              {review.text}
             </Box>
             <Box pt={1} pb={1}>
               <Divider />
