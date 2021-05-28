@@ -8,7 +8,6 @@ import { connect } from "react-redux";
 import { fetchSelectedHashtag } from "../actions/hashtag-actions";
 import MobileMenu from "./mobile-menu";
 
-
 const mapDispatchToProps = (dispatch) => ({
   fetchSelectedHashtag: (hashtag) => dispatch(fetchSelectedHashtag(hashtag)),
 });

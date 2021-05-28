@@ -58,11 +58,11 @@ const useStyles = makeStyles({
 
 const ContentPanel = ({
   selectedHashtag,
-  selectedLocation,
-  filterOn,
+  // selectedLocation,
+  // filterOn,
   isMobile,
   clearSelectedHashtag,
-  clearSelectedLocationFilter,
+  // clearSelectedLocationFilter,
 }) => {
   const classes = useStyles();
 
@@ -70,9 +70,9 @@ const ContentPanel = ({
     clearSelectedHashtag();
   };
 
-  const onLocationFilterClose = () => {
-    clearSelectedLocationFilter();
-  };
+  // const onLocationFilterClose = () => {
+  //   clearSelectedLocationFilter();
+  // };
 
   return (
     <Box ml={1} mr={1}>
@@ -81,7 +81,8 @@ const ContentPanel = ({
           isMobile ? classes.videoContainerMobile : classes.videoContainer
         }
       >
-        {(selectedHashtag || (selectedLocation && filterOn)) && (
+        {/* {(selectedHashtag || (selectedLocation && filterOn)) && ( */}
+        {selectedHashtag && (
           <Box
             pt={2}
             pb={1}
@@ -96,20 +97,22 @@ const ContentPanel = ({
                 </IconButton>
               </div>
             )}
-            {selectedLocation && filterOn && (
+            {/* {selectedLocation && filterOn && (
               <div className={classes.title}>
                 {selectedLocation.name}{" "}
                 <IconButton onClick={onLocationFilterClose} size="small">
                   <CloseIcon />
                 </IconButton>
               </div>
-            )}
+            )} */}
           </Box>
         )}
         {!isMobile ? (
           <ScrollingWrapper
-            refresh={selectedHashtag || (selectedLocation && filterOn) || false}
-            filterOn={selectedHashtag || (selectedLocation && filterOn)}
+            // refresh={selectedHashtag || (selectedLocation && filterOn) || false}
+            // filterOn={selectedHashtag || (selectedLocation && filterOn)}
+            refresh={selectedHashtag || false}
+            filterOn={selectedHashtag}
             isMobile={isMobile}
           >
             <VideoFeedContainer
@@ -130,20 +133,20 @@ const ContentPanel = ({
 
 ContentPanel.propTypes = {
   selectedHashtag: PropTypes.object,
-  selectedLocation: PropTypes.object,
-  filterOn: PropTypes.bool,
+  // selectedLocation: PropTypes.object,
+  // filterOn: PropTypes.bool,
   isMobile: PropTypes.bool,
   clearSelectedHashtag: PropTypes.func,
-  clearSelectedLocationFilter: PropTypes.func,
+  // clearSelectedLocationFilter: PropTypes.func,
 };
 
 ContentPanel.defaultProps = {
   selectedHashtag: null,
-  selectedLocation: null,
-  filterOn: false,
+  // selectedLocation: null,
+  // filterOn: false,
   isMobile: false,
   clearSelectedHashtag() {},
-  clearSelectedLocationFilter() {},
+  // clearSelectedLocationFilter() {},
 };
 
 export default ContentPanel;

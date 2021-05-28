@@ -14,14 +14,11 @@ export const selectVideos = (
   state,
   hashtag = null,
   city = null,
-  location = null,
-  filter = false,
   shuffle = false
 ) => {
-
   let returnData = selectVideoData(state).videos;
 
-  if (shuffle && !filter && !location && !hashtag) {
+  if (shuffle && !hashtag) {
     shuffleArray(returnData);
   }
 
@@ -32,11 +29,6 @@ export const selectVideos = (
   }
   if (city) {
     returnData = returnData.filter((video) => video.metro === city || null);
-  }
-  if (location && filter) {
-    returnData = returnData.filter(
-      (video) => video.location_id === location.id || null
-    );
   }
 
   return returnData;

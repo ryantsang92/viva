@@ -37,19 +37,12 @@ const useStyles = makeStyles({
     width: "100%",
     position: "relative",
   },
-  username: {
-    fontSize: 20,
-  },
   closeIcon: {
     cursor: "pointer",
     textAlign: "right",
     marginLeft: "auto",
     display: "flex",
     justifyContent: "flex-end",
-  },
-  infoContainer: {
-    padding: 10,
-    paddingBottom: 30,
   },
   pin: {
     width: 20,
@@ -102,7 +95,7 @@ const VideoPanel = ({ video, selectedLocation, isMobile }) => {
             <Loading />
           </div>
         )}
-        <Box className={classes.infoContainer}>
+        <Box p={1} pb={4}>
           {video.description && (
             <Box pb={2}>
               <Typography>{video.description}</Typography>

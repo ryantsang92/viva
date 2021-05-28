@@ -17,7 +17,7 @@ import ContentPanel from "./content-panel";
 const mapStateToProps = (state) => {
   return {
     selectedHashtag: selectSelectedHashtag(state),
-    selectedLocation: selectSelectedLocation(state),
+    // selectedLocation: selectSelectedLocation(state),
     filterOn: selectFilter(state),
   };
 };

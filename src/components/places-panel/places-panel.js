@@ -29,7 +29,7 @@ const { clientSideKey } = apiKeys;
 
 const useStyles = makeStyles((theme) => ({
   placePanel: {
-    width: 300,
+    width: 326,
     height: "calc(100vh - 116px)",
     overflow: "auto",
     "-ms-overflow-style": "none",
@@ -39,7 +39,8 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   photo: {
-    maxHeight: 500,
+    width: "100%",
+    maxHeight: 300,
     maxWidth: 500,
     objectFit: "cover",
   },
@@ -90,14 +91,19 @@ const PlacesPanel = ({
     <>
       {placeData.result && (
         <div className={classes.placePanel}>
-          <Box display="flex" justifyContent="space-between" pr={1}>
+          <Box
+            display="flex"
+            justifyContent="space-between"
+            alignItems="center"
+            pr={1}
+          >
             <IconButton onClick={handlePanelClose} size="small">
               <CloseIcon />
             </IconButton>
             <Box justifyContent="center" pt={1}>
-              <h4>
-                <Typography align="center">{placeData.result.name}</Typography>
-              </h4>
+              <Typography align="center" fontSize={20}>
+                {placeData.result.name}
+              </Typography>
             </Box>
             {/* empty div for now */}
             <div className={classes.icon}></div>
@@ -105,25 +111,25 @@ const PlacesPanel = ({
               <LaunchIcon />
             </IconButton> */}
           </Box>
+          <Box
+            key={placeData.result.photos[0].photo_reference}
+            overflow="hidden"
+          >
+            <img
+              src={
+                "https://maps.googleapis.com/maps/api/place/photo?maxwidth=500&photoreference=" +
+                placeData.result.photos[0].photo_reference +
+                "&key=" +
+                clientSideKey
+              }
+              alt={placeData.result.name}
+              className={classes.photo}
+            />
+          </Box>
           <Box pl={1} pr={1}>
-            <Box
-              key={placeData.result.photos[0].photo_reference}
-              overflow="hidden"
-            >
-              <img
-                src={
-                  "https://maps.googleapis.com/maps/api/place/photo?maxwidth=500&photoreference=" +
-                  placeData.result.photos[0].photo_reference +
-                  "&key=" +
-                  clientSideKey
-                }
-                alt={placeData.result.name}
-                className={classes.photo}
-              />
+            <Box pt={1} fontSize={28}>
+              {placeData.result.name}
             </Box>
-            <h6>
-              <Typography>{placeData.result.name}</Typography>
-            </h6>
             <Box display="flex" justifyContent="flex-start">
               <Box pr={1}>
                 <img src={MapPinDefault} alt="pin" className={classes.pin} />
@@ -192,7 +198,7 @@ const PlacesPanel = ({
               <Divider />
             </Box>
             <Box pb={1}>
-              <Typography>Reviews</Typography>
+              <Typography>Google Reviews</Typography>
             </Box>
             {placeData.result.reviews.map((review) => {
               return (
@@ -212,13 +218,31 @@ const PlacesPanel = ({
                     </Box>
                     <Typography>{review.author_name}</Typography>
                   </Box>
-                  <StarRating stars={review.rating} />
+                  <Box
+                    display="flex"
+                    justifyContent="flex-start"
+                    alignItems="center"
+                    pt={1}
+                  >
+                    <StarRating stars={review.rating} />
+                    <Box pl={1}>
+                      <Typography>
+                        {review.relative_time_description}
+                      </Typography>
+                    </Box>
+                  </Box>
+                  <Box pt={1}>
+                    <Typography>{review.text}</Typography>
+                  </Box>
                   <Box pt={1} pb={1}>
                     <Divider />
                   </Box>
                 </>
               );
             })}
+            <Box pb={1}>
+              <Typography>Yelp Reviews</Typography>
+            </Box>
           </Box>
         </div>
       )}
