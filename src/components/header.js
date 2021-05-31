@@ -159,7 +159,7 @@ const Header = ({
     if (selectedVideo && selectedCity && selectedVideo.metro !== selectedCity) {
       clearSelectedVideo();
     }
-  }, [selectedVideo, selectedCity]);
+  }, [selectedVideo, selectedCity, clearSelectedVideo]);
 
   const handleChange = (event) => {
     setCity(event.target.value);

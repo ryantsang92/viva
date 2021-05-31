@@ -60,16 +60,13 @@ const loading = (props) => (
 );
 
 const Map = ({
-  loading,
   google,
   locations,
   selectedLocation,
   selectedCity,
   saveSelectedLocation,
-  clearSelectedLocation,
   activateFilter,
   clearSelectedHashtag,
-  clearSelectedVideo,
 }) => {
   const classes = useStyles();
 
@@ -97,18 +94,12 @@ const Map = ({
         setZoom(15);
       }
     }
-  }, [selectedLocation, selectedCity]);
+  }, [selectedLocation, selectedCity, zoom]);
 
   const onMarkerClick = (marker) => {
     saveSelectedLocation(marker.markerData);
     activateFilter();
     clearSelectedHashtag();
-  };
-
-  const onRelatedVideosClick = (e) => {
-    e.preventDefault();
-    clearSelectedHashtag();
-    activateFilter();
   };
 
   const mapStyle = [
@@ -188,29 +179,28 @@ const Map = ({
         }}
         onReady={(mapProps, map) => mapLoaded(mapProps, map)}
       >
-        {locations &&
-          locations.map((location) => {
-            return (
-              <Marker
-                className={classes.marker}
-                name={location.id}
-                key={location.id}
-                markerData={location}
-                position={{
-                  lat: parseFloat(location.lat),
-                  lng: parseFloat(location.lng),
-                }}
-                onClick={onMarkerClick}
-                icon={{
-                  url:
-                    selectedLocation && selectedLocation.id === location.id
-                      ? MapPinSelected
-                      : MapPinDefault,
-                  scaledSize: new google.maps.Size(30, 36),
-                }}
-              />
-            );
-          })}
+        {locations?.map((location) => {
+          const { id, lat, lng } = location;
+
+          return (
+            <Marker
+              className={classes.marker}
+              name={id}
+              key={id}
+              markerData={location}
+              position={{
+                lat: parseFloat(lat),
+                lng: parseFloat(lng),
+              }}
+              onClick={onMarkerClick}
+              icon={{
+                url:
+                  selectedLocation?.id === id ? MapPinSelected : MapPinDefault,
+                scaledSize: new google.maps.Size(30, 36),
+              }}
+            />
+          );
+        })}
       </GoogleMap>
     </Box>
   );
@@ -224,9 +214,7 @@ Map.propTypes = {
   selectedCity: PropTypes.string,
   saveSelectedLocation: PropTypes.func,
   activateFilter: PropTypes.func,
-  clearSelectedLocation: PropTypes.func,
   clearSelectedHashtag: PropTypes.func,
-  clearSelectedVideo: PropTypes.func,
 };
 
 Map.defaultProps = {
@@ -237,9 +225,7 @@ Map.defaultProps = {
   selectedCity: null,
   saveSelectedLocation() {},
   activateFilter() {},
-  clearSelectedLocation() {},
   clearSelectedHashtag() {},
-  clearSelectedVideo() {},
 };
 
 export default GoogleApiWrapper({

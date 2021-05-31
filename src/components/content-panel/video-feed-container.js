@@ -11,28 +11,15 @@ import {
   selectVideoIsLoading,
 } from "../../selectors/video-selectors";
 import { selectSelectedHashtag } from "../../selectors/hashtag-selectors";
-import {
-  selectFilter,
-  selectSelectedCity,
-  selectSelectedLocation,
-} from "../../selectors/location-selectors";
+import { selectSelectedCity } from "../../selectors/location-selectors";
 import VideoFeed from "./video-feed";
 
 const mapStateToProps = (state) => {
   const selectedHashtag = selectSelectedHashtag(state);
   const selectedCity = selectSelectedCity(state);
-  const selectedLocation = selectSelectedLocation(state);
-  const filterOn = selectFilter(state);
 
   return {
-    videos: selectVideos(
-      state,
-      selectedHashtag,
-      selectedCity,
-      // selectedLocation,
-      // filterOn,
-      true,
-    ),
+    videos: selectVideos(state, selectedHashtag, selectedCity, true),
     loading: selectVideoIsLoading(state),
   };
 };

@@ -40,7 +40,7 @@ const VideoGrid = ({ loading, videos, fetchVideos, isMobile }) => {
     } else {
       setItems(videos.slice(0, 5));
     }
-  }, [videos]);
+  }, [videos, fetchVideos]);
 
   const fetchMoreData = () => {
     if (items.length >= videos.length) {

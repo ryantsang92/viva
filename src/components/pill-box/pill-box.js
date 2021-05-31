@@ -63,7 +63,7 @@ const PillBox = ({
     if (!hashtags || !hashtags.length) {
       fetchHashtags();
     }
-  }, [hashtags]);
+  }, [hashtags,fetchHashtags]);
 
   const handleChange = (event, hashtag) => {
     fetchSelectedHashtag(hashtag);

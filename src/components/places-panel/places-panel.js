@@ -21,7 +21,6 @@ import MapPinDefault from "../../assets/map-pin-default.png";
 import ScheduleIcon from "@material-ui/icons/Schedule";
 import CloseIcon from "@material-ui/icons/Close";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import LaunchIcon from "@material-ui/icons/Launch";
 import PhoneIcon from "@material-ui/icons/Phone";
 import PropTypes from "prop-types";
 
@@ -68,7 +67,7 @@ const PlacesPanel = ({
     if (selectedLocation) {
       fetchPlaceData(selectedLocation?.g_place_id);
     }
-  }, [selectedLocation]);
+  }, [selectedLocation, fetchPlaceData]);
 
   const handleChange = (panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
@@ -102,9 +101,6 @@ const PlacesPanel = ({
             </Box>
             {/* empty div for now */}
             <div className={classes.icon}></div>
-            {/* <IconButton onClick={handlePanelClose} size="small">
-              <LaunchIcon />
-            </IconButton> */}
           </Box>
           <Box
             key={placeData.result.photos[0].photo_reference}
@@ -187,7 +183,7 @@ const PlacesPanel = ({
               <Box pr={1}>
                 <PhoneIcon />
               </Box>
-              <Typography>{placeData.result.formatted_phone_number}</Typography>
+              <Typography>{placeData.result.formatted_phone_number || 'None'}</Typography>
             </Box>
             <Box pt={1} pb={1}>
               <Divider />

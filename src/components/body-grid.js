@@ -60,7 +60,7 @@ const BodyGrid = ({
     if (!locations) {
       fetchLocations();
     }
-  }, [locations]);
+  }, [locations, fetchLocations]);
 
   return (
     <Box className={classes.root}>
