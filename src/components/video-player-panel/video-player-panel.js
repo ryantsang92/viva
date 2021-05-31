@@ -64,6 +64,7 @@ const VideoPanel = ({ video, location, isMobile }) => {
   const [inView, setInView] = useState(false);
 
   const { thumbnail, url, title, description, user, user_platform } = video;
+  const { address_full, website } = location;
 
   return (
     <InView onChange={setInView}>
@@ -108,14 +109,12 @@ const VideoPanel = ({ video, location, isMobile }) => {
               <img src={MapPinDefault} alt="city" className={classes.pin} />
             </Box>
             <div>
-              <Typography fontFamily="Arial">
-                {location?.address_full}
-              </Typography>
-              {location?.website && (
+              <Typography fontFamily="Arial">{address_full}</Typography>
+              {website && (
                 <Typography>
-                  <a href={location?.website} target={location?.website}>
+                  <a href={website} target={website}>
                     {
-                      location?.website
+                      website
                         .replace(/^(?:https?:\/\/)?(?:www\.)?/i, "")
                         .split("/")[0]
                     }
@@ -143,7 +142,7 @@ VideoPanel.propTypes = {
 
 VideoPanel.defaultProps = {
   video: null,
-  location: null,
+  location: {},
   isMobile: false,
 };
 
