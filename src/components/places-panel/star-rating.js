@@ -6,31 +6,22 @@
 
 import React from "react";
 import { Box } from "@material-ui/core";
+import { yellow } from "@material-ui/core/colors";
 import StarIcon from "@material-ui/icons/Star";
 import StarOutlineIcon from "@material-ui/icons/StarOutline";
-import { makeStyles } from "@material-ui/core/styles";
 import PropTypes from "prop-types";
 
-const useStyles = makeStyles({
-  image: {
-    borderRadius: 15,
-    objectFit: "cover",
-  },
-});
-
 const StarRating = ({ stars }) => {
-  const classes = useStyles();
-
   const buildStars = (stars) => {
     let returnNode = [];
     for (let i = 0; i < stars; i++) {
-      returnNode.push(<StarIcon />);
+      returnNode.push(<StarIcon key={'star'+i} style={{ color: yellow[600] }} />);
     }
     for (let i = 0; i < 5 - stars; i++) {
-      returnNode.push(<StarOutlineIcon />);
+      returnNode.push(<StarOutlineIcon key={'emptyStar'+i} style={{ color: yellow[600] }} />);
     }
     return returnNode;
-  }
+  };
 
   return (
     <Box display="flex" justifyContent="flex-start" alignItems="center">

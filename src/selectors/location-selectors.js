@@ -55,7 +55,7 @@ export const selectLocationByVideo = (state, video) => {
     ? state.locationData.locations.filter(
         (location) => location.id === video.location_id
       )[0]
-    : null;
+    : {};
 };
 
 export const selectFilter = (state) => {

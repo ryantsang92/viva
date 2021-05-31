@@ -24,8 +24,17 @@ const GoogleReviews = ({ reviews }) => {
     <>
       <Box pb={1}>Google Reviews</Box>
       {reviews.map((review) => {
+        const {
+          profile_photo_url,
+          author_name,
+          rating,
+          relative_time_description,
+          text,
+          time,
+        } = review;
+        
         return (
-          <>
+          <div key={author_name + time}>
             <Box
               pr={1}
               display="flex"
@@ -34,12 +43,12 @@ const GoogleReviews = ({ reviews }) => {
             >
               <Box pr={1}>
                 <img
-                  src={review.profile_photo_url}
-                  alt={review.author_name}
+                  src={profile_photo_url}
+                  alt={author_name}
                   className={classes.icon}
                 />
               </Box>
-              <Typography>{review.author_name}</Typography>
+              <Typography>{author_name}</Typography>
             </Box>
             <Box
               display="flex"
@@ -47,18 +56,18 @@ const GoogleReviews = ({ reviews }) => {
               alignItems="center"
               pt={1}
             >
-              <StarRating stars={review.rating} />
+              <StarRating stars={rating} />
               <Box pl={1} fontSize={12}>
-                {review.relative_time_description}
+                {relative_time_description}
               </Box>
             </Box>
             <Box pt={1} fontSize={14}>
-              {review.text}
+              {text}
             </Box>
             <Box pt={1} pb={1}>
               <Divider />
             </Box>
-          </>
+          </div>
         );
       })}
     </>

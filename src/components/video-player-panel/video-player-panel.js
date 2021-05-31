@@ -142,7 +142,10 @@ VideoPanel.propTypes = {
 
 VideoPanel.defaultProps = {
   video: null,
-  location: {},
+  location: {
+    address_full: null,
+    website: null,
+  },
   isMobile: false,
 };
 
