@@ -58,10 +58,12 @@ const useStyles = makeStyles({
   },
 });
 
-const VideoPanel = ({ video, selectedLocation, isMobile }) => {
+const VideoPanel = ({ video, location, isMobile }) => {
   const classes = useStyles();
 
   const [inView, setInView] = useState(false);
+
+  const { thumbnail, url, title, description, user, user_platform } = video;
 
   return (
     <InView onChange={setInView}>
@@ -71,7 +73,7 @@ const VideoPanel = ({ video, selectedLocation, isMobile }) => {
       >
         <Box className={classes.playerBar}>
           {inView && (
-            <Typography variant="h6">{video.title || "Test Title"}</Typography>
+            <Typography variant="h6">{title || "Test Title"}</Typography>
           )}
         </Box>
         {inView ? (
@@ -79,8 +81,8 @@ const VideoPanel = ({ video, selectedLocation, isMobile }) => {
             autoPlay
             muted
             preload="none"
-            poster={video.thumbnail}
-            src={video.url}
+            poster={thumbnail}
+            src={url}
             fluid={false}
             width={isMobile ? "100%" : 310}
             height={isMobile ? 660 : 550}
@@ -96,46 +98,37 @@ const VideoPanel = ({ video, selectedLocation, isMobile }) => {
           </div>
         )}
         <Box p={1} pb={4}>
-          {video.description && (
+          {description && (
             <Box pb={2}>
-              <Typography>{video.description}</Typography>
+              <Typography>{description}</Typography>
             </Box>
           )}
           <Box display="flex" justifyContent="flex-start">
             <Box pr={1}>
               <img src={MapPinDefault} alt="city" className={classes.pin} />
             </Box>
-            {selectedLocation && (
-              <div>
-                <Typography fontFamily="Arial">
-                  {selectedLocation.address_full}
+            <div>
+              <Typography fontFamily="Arial">
+                {location?.address_full}
+              </Typography>
+              {location?.website && (
+                <Typography>
+                  <a href={location?.website} target={location?.website}>
+                    {
+                      location?.website
+                        .replace(/^(?:https?:\/\/)?(?:www\.)?/i, "")
+                        .split("/")[0]
+                    }
+                  </a>
                 </Typography>
-                {selectedLocation.website && (
-                  <Typography>
-                    <a
-                      href={selectedLocation.website}
-                      target={selectedLocation.website}
-                    >
-                      {
-                        selectedLocation.website
-                          .replace(/^(?:https?:\/\/)?(?:www\.)?/i, "")
-                          .split("/")[0]
-                      }
-                    </a>
-                  </Typography>
-                )}
-              </div>
-            )}
+              )}
+            </div>
           </Box>
 
           <Box pt={1} pb={1}>
             <Divider />
           </Box>
-          <SocialIcon
-            user={video.user}
-            platform={video.user_platform}
-            hw={20}
-          />
+          <SocialIcon user={user} platform={user_platform} hw={20} />
         </Box>
       </Box>
     </InView>
@@ -144,13 +137,13 @@ const VideoPanel = ({ video, selectedLocation, isMobile }) => {
 
 VideoPanel.propTypes = {
   video: PropTypes.object,
-  selectedLocation: PropTypes.object,
+  location: PropTypes.object,
   isMobile: PropTypes.bool,
 };
 
 VideoPanel.defaultProps = {
   video: null,
-  selectedLocation: null,
+  location: null,
   isMobile: false,
 };
 

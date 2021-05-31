@@ -66,7 +66,7 @@ const PlacesPanel = ({
 
   useEffect(() => {
     if (selectedLocation) {
-      fetchPlaceData(selectedLocation.g_place_id);
+      fetchPlaceData(selectedLocation?.g_place_id);
     }
   }, [selectedLocation]);
 
@@ -77,6 +77,12 @@ const PlacesPanel = ({
   const handlePanelClose = () => {
     clearSelectedLocation();
   };
+
+  // const {
+  //   name,
+  //   photos,
+  //   formatted_address
+  // } = placeData?.result;
 
   return (
     <>
@@ -168,7 +174,7 @@ const PlacesPanel = ({
                 target={placeData.result.website}
               >
                 {
-                  placeData.result.website
+                  placeData.result?.website
                     .replace(/^(?:https?:\/\/)?(?:www\.)?/i, "")
                     .split("/")[0]
                 }
