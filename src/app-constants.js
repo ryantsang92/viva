@@ -13,6 +13,7 @@ export const endpoint = {
   VIDEO_URL: "https://api.vivatheapp.com/videos",
   HASHTAG_URL: "https://api.vivatheapp.com/hashtags",
   LOCATION_URL: "https://api.vivatheapp.com/locations",
+  LOCATION_URL_V2: "https://api.vivatheapp.com/locs",
   GOOGLE_URL: "https://api.vivatheapp.com/google/",
   YELP_URL: "https://api.vivatheapp.com/yelp/",
 };

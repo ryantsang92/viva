@@ -6,6 +6,7 @@
 
 import { connect } from "react-redux";
 import {
+  fetchLocationsV2,
   clearSelectedLocation,
   saveSelectedLocation,
   activateFilter,
@@ -39,6 +40,8 @@ const mapDispatchToProps = (dispatch) => ({
   activateFilter: () => dispatch(activateFilter()),
   clearSelectedHashtag: () => dispatch(clearSelectedHashtag()),
   clearSelectedVideo: () => dispatch(clearSelectedVideo()),
+  fetchLocationsV2: (latMin, latMax, lngMin, lngMax) =>
+    dispatch(fetchLocationsV2(latMin, latMax, lngMin, lngMax)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Map);

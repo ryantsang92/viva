@@ -7,6 +7,8 @@ import { endpoint } from "../app-constants";
 
 export const FETCH_LOCATION_IS_LOADING = "FETCH_LOCATION_IS_LOADING";
 export const FETCH_LOCATION_SUCCESS = "FETCH_LOCATION_SUCCESS";
+export const FETCH_LOCATION_IS_LOADING_V2 = "FETCH_LOCATION_IS_LOADING_V2";
+export const FETCH_LOCATION_SUCCESS_V2 = "FETCH_LOCATION_SUCCESS_V2";
 export const FETCH_LOCATION_ERROR = "FETCH_LOCATION_ERROR";
 export const SAVE_SELECTED_LOCATION = "SAVE_SELECTED_LOCATION";
 export const CLEAR_SELECTED_LOCATION = "CLEAR_SELECTED_LOCATION";
@@ -22,9 +24,9 @@ const requestOptions = {
   },
 };
 
-const fetchEndpoint = (url) => {
+const fetchEndpoint = (url, params = "") => {
   const fetchFunction = () => {
-    return fetch(url, requestOptions).then((response) =>
+    return fetch(url + params, requestOptions).then((response) =>
       Promise.all([response, response.json()])
     );
   };
@@ -45,15 +47,22 @@ export const fetchLocations = () => {
   return fetchEndpoint(endpoint.LOCATION_URL);
 };
 
+export const fetchLocationsV2 = (latMin, latMax, lngMin, lngMax) => {
+  return fetchEndpoint(
+    endpoint.LOCATION_URL_V2,
+    '/' + latMin + "," + latMax + "," + lngMin + "," + lngMax
+  );
+};
+
 const fetchIsLoading = () => {
   return {
-    type: FETCH_LOCATION_IS_LOADING,
+    type: FETCH_LOCATION_IS_LOADING_V2,
   };
 };
 
 const fetchSuccess = (payload) => {
   return {
-    type: FETCH_LOCATION_SUCCESS,
+    type: FETCH_LOCATION_SUCCESS_V2,
     payload,
   };
 };
@@ -76,7 +85,7 @@ export const clearSelectedLocation = () => {
   return {
     type: CLEAR_SELECTED_LOCATION,
   };
-}
+};
 
 export const saveSelectedCity = (data) => {
   return {
@@ -89,16 +98,16 @@ export const clearSelectedCity = () => {
   return {
     type: CLEAR_SELECTED_CITY,
   };
-}
+};
 
 export const activateFilter = () => {
   return {
     type: ACTIVATE_FILTER,
   };
-}
+};
 
 export const deactivateFilter = () => {
   return {
     type: DEACTIVATE_FILTER,
   };
-}
+};

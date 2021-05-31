@@ -4,7 +4,7 @@
   author: Ryan Tsang <ryan@vivatheapp.com>
 */
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Box } from "@material-ui/core";
 import MapPinDefault from "../../assets/map-pin-default.png";
 import MapPinSelected from "../../assets/map-pin-selected.png";
@@ -67,11 +67,16 @@ const Map = ({
   saveSelectedLocation,
   activateFilter,
   clearSelectedHashtag,
+  fetchLocationsV2,
 }) => {
   const classes = useStyles();
 
   const [center, setCenter] = useState(initialCenter);
   const [zoom, setZoom] = useState(13);
+  const [latMin, setLatMin] = useState(null);
+  const [latMax, setLatMax] = useState(null);
+  const [lngMin, setLngMin] = useState(null);
+  const [lngMax, setLngMax] = useState(null);
 
   useEffect(() => {
     if (selectedCity) {
@@ -94,7 +99,10 @@ const Map = ({
         setZoom(15);
       }
     }
-  }, [selectedLocation, selectedCity, zoom]);
+    if (latMin && latMax && lngMin && lngMax) {
+      fetchLocationsV2(latMin, latMax, lngMin, lngMax);
+    }
+  }, [selectedLocation, selectedCity, zoom, latMin, latMax, lngMin, lngMax]);
 
   const onMarkerClick = (marker) => {
     saveSelectedLocation(marker.markerData);
@@ -159,10 +167,25 @@ const Map = ({
     });
   };
 
+  const onMapChange = (mapProps, map) => {
+    console.log(map.getBounds().Qa.i); //3
+    console.log(map.getBounds().Qa.j); //4
+    console.log(map.getBounds().Va.i); //1
+    console.log(map.getBounds().Va.j); //2
+
+    setLatMin(map.getBounds().Va.i);
+    setLatMax(map.getBounds().Va.j);
+    setLngMin(map.getBounds().Qa.i);
+    setLngMax(map.getBounds().Qa.j);
+  };
+
   return (
     <Box mr={2} className={classes.test}>
       <GoogleMap
         google={google}
+        onIdle={(mapProps, map) => 
+          onMapChange(mapProps, map)
+        }
         zoom={zoom}
         mapTypeControl={false}
         scaleControl={false}
