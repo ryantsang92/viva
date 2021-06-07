@@ -58,21 +58,14 @@ const useStyles = makeStyles({
 
 const ContentPanel = ({
   selectedHashtag,
-  // selectedLocation,
-  // filterOn,
   isMobile,
   clearSelectedHashtag,
-  // clearSelectedLocationFilter,
 }) => {
   const classes = useStyles();
 
   const onHashtagFilterClose = () => {
     clearSelectedHashtag();
   };
-
-  // const onLocationFilterClose = () => {
-  //   clearSelectedLocationFilter();
-  // };
 
   return (
     <Box ml={1} mr={1}>
@@ -81,7 +74,6 @@ const ContentPanel = ({
           isMobile ? classes.videoContainerMobile : classes.videoContainer
         }
       >
-        {/* {(selectedHashtag || (selectedLocation && filterOn)) && ( */}
         {selectedHashtag && (
           <Box
             pt={2}
@@ -97,20 +89,10 @@ const ContentPanel = ({
                 </IconButton>
               </div>
             )}
-            {/* {selectedLocation && filterOn && (
-              <div className={classes.title}>
-                {selectedLocation.name}{" "}
-                <IconButton onClick={onLocationFilterClose} size="small">
-                  <CloseIcon />
-                </IconButton>
-              </div>
-            )} */}
           </Box>
         )}
         {!isMobile ? (
           <ScrollingWrapper
-            // refresh={selectedHashtag || (selectedLocation && filterOn) || false}
-            // filterOn={selectedHashtag || (selectedLocation && filterOn)}
             refresh={selectedHashtag || false}
             filterOn={selectedHashtag}
             isMobile={isMobile}
@@ -133,20 +115,14 @@ const ContentPanel = ({
 
 ContentPanel.propTypes = {
   selectedHashtag: PropTypes.object,
-  // selectedLocation: PropTypes.object,
-  // filterOn: PropTypes.bool,
   isMobile: PropTypes.bool,
   clearSelectedHashtag: PropTypes.func,
-  // clearSelectedLocationFilter: PropTypes.func,
 };
 
 ContentPanel.defaultProps = {
   selectedHashtag: null,
-  // selectedLocation: null,
-  // filterOn: false,
   isMobile: false,
   clearSelectedHashtag() {},
-  // clearSelectedLocationFilter() {},
 };
 
 export default ContentPanel;
