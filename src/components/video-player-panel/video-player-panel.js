@@ -5,7 +5,14 @@
 */
 
 import React, { useState } from "react";
-import { Box, Typography, Divider } from "@material-ui/core";
+import {
+  Box,
+  Typography,
+  Divider,
+  Card,
+  CardActionArea,
+  CardContent,
+} from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import {
   Player,
@@ -16,7 +23,7 @@ import {
 import { SocialIcon } from "../social-icon";
 import { InView } from "react-intersection-observer";
 import Loading from "../common/loading";
-import MapPinDefault from "../../assets/map-pin-default.png";
+import LocationCard from "./location-card";
 import PropTypes from "prop-types";
 
 const useStyles = makeStyles({
@@ -64,7 +71,7 @@ const VideoPanel = ({ video, location, isMobile }) => {
   const [inView, setInView] = useState(false);
 
   const { thumbnail, url, title, description, user, user_platform } = video;
-  const { address, website } = location;
+  const { address, website, name } = location;
 
   return (
     <InView onChange={setInView}>
@@ -104,29 +111,8 @@ const VideoPanel = ({ video, location, isMobile }) => {
               <Typography>{description}</Typography>
             </Box>
           )}
-          <Box display="flex" justifyContent="flex-start">
-            <Box pr={1}>
-              <img src={MapPinDefault} alt="city" className={classes.pin} />
-            </Box>
-            <div>
-              <Typography fontFamily="Arial">{address}</Typography>
-              {website && (
-                <Typography>
-                  <a href={website} target={website}>
-                    {
-                      website
-                        .replace(/^(?:https?:\/\/)?(?:www\.)?/i, "")
-                        .split("/")[0]
-                    }
-                  </a>
-                </Typography>
-              )}
-            </div>
-          </Box>
-
-          <Box pt={1} pb={1}>
-            <Divider />
-          </Box>
+          <LocationCard location={location} />
+          <Box pt={1} />
           <SocialIcon user={user} platform={user_platform} hw={20} />
         </Box>
       </Box>
