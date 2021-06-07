@@ -7,6 +7,8 @@ import { endpoint } from "../app-constants";
 
 export const FETCH_VIDEO_IS_LOADING = "FETCH_VIDEO_IS_LOADING";
 export const FETCH_VIDEO_SUCCESS = "FETCH_VIDEO_SUCCESS";
+export const FETCH_VIDEO_IS_LOADING_V2 = "FETCH_VIDEO_IS_LOADING_V2";
+export const FETCH_VIDEO_SUCCESS_V2 = "FETCH_VIDEO_SUCCESS_V2";
 export const FETCH_VIDEO_ERROR = "FETCH_VIDEO_ERROR";
 export const SAVE_SELECTED_VIDEO = "SAVE_SELECTED_VIDEO";
 export const CLEAR_SELECTED_VIDEO = "CLEAR_SELECTED_VIDEO";
@@ -18,9 +20,9 @@ const requestOptions = {
   },
 };
 
-const fetchEndpoint = (url) => {
+const fetchEndpoint = (url, params = "") => {
   const fetchFunction = () => {
-    return fetch(url, requestOptions).then((response) =>
+    return fetch(url + params, requestOptions).then((response) =>
       Promise.all([response, response.json()])
     );
   };
@@ -41,15 +43,22 @@ export const fetchVideos = () => {
   return fetchEndpoint(endpoint.VIDEO_URL);
 };
 
+export const fetchVideosV2 = (latMin, latMax, lngMin, lngMax) => {
+  return fetchEndpoint(
+    endpoint.VIDEO_URL_V2,
+    "/" + latMin + "," + latMax + "," + lngMin + "," + lngMax
+  );
+};
+
 const fetchIsLoading = () => {
   return {
-    type: FETCH_VIDEO_IS_LOADING,
+    type: FETCH_VIDEO_IS_LOADING_V2,
   };
 };
 
 const fetchSuccess = (payload) => {
   return {
-    type: FETCH_VIDEO_SUCCESS,
+    type: FETCH_VIDEO_SUCCESS_V2,
     payload,
   };
 };

@@ -13,6 +13,7 @@ import { Map as GoogleMap, Marker, GoogleApiWrapper } from "google-maps-react";
 import Loading from "../common/loading";
 import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
+import GreenButton from "../common/green-button";
 
 const { clientSideKey } = apiKeys;
 
@@ -25,8 +26,16 @@ const useStyles = makeStyles({
     width: 24,
   },
   test: {
+    position: "relative",
     height: "calc(100vh - 116px)",
     marginRight: 0,
+    textAlign: "center",
+  },
+  refreshButton: {
+    position: "absolute",
+    top: 10,
+    display: "inline-block",
+    zIndex: 500,
   },
 });
 
@@ -68,15 +77,17 @@ const Map = ({
   activateFilter,
   clearSelectedHashtag,
   fetchLocationsV2,
+  saveMapBounds,
+  mapBounds,
 }) => {
   const classes = useStyles();
 
+  // const mapRef = useRef(null);
+
+  const [mapRef, setMapRef] = useState(null);
   const [center, setCenter] = useState(initialCenter);
   const [zoom, setZoom] = useState(13);
-  const [latMin, setLatMin] = useState(null);
-  const [latMax, setLatMax] = useState(null);
-  const [lngMin, setLngMin] = useState(null);
-  const [lngMax, setLngMax] = useState(null);
+  const [showRefresh, setShowRefresh] = useState(false);
 
   useEffect(() => {
     if (selectedCity) {
@@ -95,15 +106,15 @@ const Map = ({
         lat: parseFloat(selectedLocation.lat),
         lng: parseFloat(selectedLocation.lng),
       });
-      if (zoom < 15) {
-        setZoom(15);
-      }
     }
-    if (latMin && latMax && lngMin && lngMax) {
-      fetchLocationsV2(latMin, latMax, lngMin, lngMax);
-    }
-  }, [selectedLocation, selectedCity, zoom, latMin, latMax, lngMin, lngMax]);
+    // if (!!(!locations && mapBounds)) {
+    //   onRefreshButtonClick();
+    // }
+  }, [selectedLocation, selectedCity, locations, mapBounds]);
 
+  // console.log(mapBounds);
+  // console.log(locations);
+  // console.log(!!(!locations && mapBounds));
   const onMarkerClick = (marker) => {
     saveSelectedLocation(marker.markerData);
     activateFilter();
@@ -162,30 +173,54 @@ const Map = ({
   ];
 
   const mapLoaded = (mapProps, map) => {
+    getAndSaveBounds(map);
+    // onRefreshButtonClick();
     map.setOptions({
       styles: mapStyle,
     });
   };
 
-  const onMapChange = (mapProps, map) => {
-    console.log(map.getBounds().Qa.i); //3
-    console.log(map.getBounds().Qa.j); //4
-    console.log(map.getBounds().Va.i); //1
-    console.log(map.getBounds().Va.j); //2
+  const getAndSaveBounds = (map) => {
+    const latMin = map?.getBounds()?.getSouthWest()?.lat();
+    const latMax = map?.getBounds()?.getNorthEast()?.lat();
+    const lngMin = map?.getBounds()?.getSouthWest()?.lng();
+    const lngMax = map?.getBounds()?.getNorthEast()?.lng();
 
-    setLatMin(map.getBounds().Va.i);
-    setLatMax(map.getBounds().Va.j);
-    setLngMin(map.getBounds().Qa.i);
-    setLngMax(map.getBounds().Qa.j);
+    saveMapBounds({
+      latMin: latMin,
+      latMax: latMax,
+      lngMin: lngMin,
+      lngMax: lngMax,
+    });
+  };
+
+  const onMapChange = (mapProps, map) => {
+    console.log('onMapChange');
+    setMapRef(map);
+    setShowRefresh(true);
+  };
+
+  const onRefreshButtonClick = () => {
+    const { latMin, latMax, lngMin, lngMax } = mapBounds;
+    getAndSaveBounds(mapRef);
+    fetchLocationsV2(latMin, latMax, lngMin, lngMax);
+    setShowRefresh(false);
   };
 
   return (
     <Box mr={2} className={classes.test}>
+      {showRefresh && (
+        <div className={classes.refreshButton}>
+          <GreenButton
+            buttonText="Refresh"
+            onClick={() => onRefreshButtonClick()}
+          />
+        </div>
+      )}
       <GoogleMap
         google={google}
-        onIdle={(mapProps, map) => 
-          onMapChange(mapProps, map)
-        }
+        onBoundsChanged={(mapProps, map) => onMapChange(mapProps, map)}
+        onZoomChanged={(mapProps, map) => onMapChange(mapProps, map)}
         zoom={zoom}
         mapTypeControl={false}
         scaleControl={false}
@@ -238,6 +273,9 @@ Map.propTypes = {
   saveSelectedLocation: PropTypes.func,
   activateFilter: PropTypes.func,
   clearSelectedHashtag: PropTypes.func,
+  fetchLocationsV2: PropTypes.func,
+  saveMapBounds: PropTypes.func,
+  mapBounds: PropTypes.object,
 };
 
 Map.defaultProps = {
@@ -249,6 +287,9 @@ Map.defaultProps = {
   saveSelectedLocation() {},
   activateFilter() {},
   clearSelectedHashtag() {},
+  fetchLocationsV2() {},
+  saveMapBounds() {},
+  mapBounds: null,
 };
 
 export default GoogleApiWrapper({

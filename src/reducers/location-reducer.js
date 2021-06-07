@@ -5,8 +5,6 @@
 */
 
 import {
-  FETCH_LOCATION_IS_LOADING,
-  FETCH_LOCATION_SUCCESS,
   FETCH_LOCATION_IS_LOADING_V2,
   FETCH_LOCATION_SUCCESS_V2,
   SAVE_SELECTED_LOCATION,
@@ -15,12 +13,14 @@ import {
   CLEAR_SELECTED_CITY,
   ACTIVATE_FILTER,
   DEACTIVATE_FILTER,
+  SAVE_MAP_BOUNDS,
 } from "../actions/location-actions";
 
 const initialState = {
   isLoading: false,
   locations: null,
   locationsV2: null,
+  mapBounds: null,
   filter: false,
   error: null,
   selectedCity: null,
@@ -28,17 +28,6 @@ const initialState = {
 
 const locationReducer = (state = initialState, action) => {
   switch (action.type) {
-    // case FETCH_LOCATION_IS_LOADING:
-    //   return {
-    //     ...state,
-    //     isLoading: true,
-    //   };
-    // case FETCH_LOCATION_SUCCESS:
-    //   return {
-    //     ...state,
-    //     locations: action.payload,
-    //     isLoading: false,
-    //   };
     case FETCH_LOCATION_IS_LOADING_V2:
       return {
         ...state,
@@ -81,6 +70,11 @@ const locationReducer = (state = initialState, action) => {
         ...state,
         selectedLocation: { ...state.selectedLocation, filter: false },
         filter: false,
+      };
+    case SAVE_MAP_BOUNDS:
+      return {
+        ...state,
+        mapBounds: action.data,
       };
     default:
       return state;

@@ -16,7 +16,7 @@ const requestOptions = {
   },
 };
 
-const fetchEndpoint = (url) => {
+const fetchEndpoint = (url, fetchSuccess, fetchError) => {
   console.log(url);
   const fetchFunction = () => {
     return fetch(url, requestOptions).then((response) =>
@@ -37,7 +37,7 @@ const fetchEndpoint = (url) => {
 };
 
 export const fetchPlaceData = (placeId) => {
-  return fetchEndpoint(endpoint.GOOGLE_URL + placeId);
+  return fetchEndpoint(endpoint.GOOGLE_URL + placeId, fetchSuccess, fetchError);
 };
 
 const fetchIsLoading = () => {

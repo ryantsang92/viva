@@ -50,17 +50,19 @@ const useStyles = makeStyles((theme) => ({
 
 const BodyGrid = ({
   locations,
-  fetchLocations,
+  mapBounds,
+  fetchLocationsV2,
   selectedLocation,
   isMobile,
 }) => {
   const classes = useStyles();
 
   useEffect(() => {
-    if (!locations) {
-      fetchLocations();
+    if (!locations && mapBounds) {
+      const { latMin, latMax, lngMin, lngMax } = mapBounds;
+      fetchLocationsV2(latMin, latMax, lngMin, lngMax);
     }
-  }, [locations, fetchLocations]);
+  }, [locations, fetchLocationsV2, mapBounds]);
 
   return (
     <Box className={classes.root}>
@@ -99,15 +101,17 @@ const BodyGrid = ({
 BodyGrid.propTypes = {
   locations: PropTypes.array,
   selectedLocation: PropTypes.object,
+  mapBounds: PropTypes.object,
   isMobile: PropTypes.bool,
-  fetchLocations: PropTypes.func,
+  fetchLocationsV2: PropTypes.func,
 };
 
 BodyGrid.defaultProps = {
   locations: null,
   selectedLocation: null,
+  mapBounds: null,
   isMobile: false,
-  fetchLocations() {},
+  fetchLocationsV2() {},
 };
 
 export default BodyGrid;

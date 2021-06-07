@@ -16,6 +16,7 @@ export const SAVE_SELECTED_CITY = "SAVE_SELECTED_CITY";
 export const CLEAR_SELECTED_CITY = "CLEAR_SELECTED_CITY";
 export const ACTIVATE_FILTER = "ACTIVATE_FILTER";
 export const DEACTIVATE_FILTER = "DEACTIVATE_FILTER";
+export const SAVE_MAP_BOUNDS = "SAVE_MAP_BOUNDS";
 
 const requestOptions = {
   method: "GET",
@@ -109,5 +110,12 @@ export const activateFilter = () => {
 export const deactivateFilter = () => {
   return {
     type: DEACTIVATE_FILTER,
+  };
+};
+
+export const saveMapBounds = (data) => {
+  return {
+    type: SAVE_MAP_BOUNDS,
+    data,
   };
 };

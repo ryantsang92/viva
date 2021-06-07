@@ -29,7 +29,14 @@ const useStyles = makeStyles({
   },
 });
 
-const VideoGrid = ({ loading, videos, fetchVideos, isMobile }) => {
+const VideoGrid = ({
+  loading,
+  videos,
+  mapBounds,
+  fetchVideos,
+  fetchVideosV2,
+  isMobile,
+}) => {
   const classes = useStyles();
   const [items, setItems] = useState([]);
   const [hasMore, setHasMore] = useState(true);
@@ -37,16 +44,26 @@ const VideoGrid = ({ loading, videos, fetchVideos, isMobile }) => {
   useEffect(() => {
     if (videos === null) {
       fetchVideos();
+      // const { latMin, latMax, lngMin, lngMax } = mapBounds;
+      // fetchVideosV2(latMin, latMax, lngMin, lngMax);
     } else {
-      setItems(videos.slice(0, 5));
+      setItems(videos?.slice(0, 5));
     }
-  }, [videos, fetchVideos]);
+    // if (mapBounds) {
+    //   console.log('test');
+    //   const { latMin, latMax, lngMin, lngMax } = mapBounds;
+    //   fetchVideosV2(latMin, latMax, lngMin, lngMax);
+    // }
+    // if (videos !== null) {
+    //   setItems(videos?.slice(0, 5));
+    // }
+  }, [videos, fetchVideos, mapBounds]);
 
   const fetchMoreData = () => {
-    if (items.length >= videos.length) {
+    if (items?.length >= videos?.length) {
       setHasMore(false);
     } else {
-      setItems(items.concat(videos.slice(items.length - 1, items.length + 4)));
+      setItems(items?.concat(videos?.slice(items?.length - 1, items?.length + 4)));
     }
   };
 
@@ -62,11 +79,11 @@ const VideoGrid = ({ loading, videos, fetchVideos, isMobile }) => {
         <>{loadingComponent}</>
       ) : (
         <>
-          {videos && videos.length > 0 ? (
+          {videos?.length > 0 ? (
             <>
               <InfiniteScroll
                 className={classes.infiniteScroll}
-                dataLength={items.length}
+                dataLength={items?.length}
                 scrollThreshold={0.9}
                 next={fetchMoreData}
                 hasMore={hasMore}
@@ -78,7 +95,7 @@ const VideoGrid = ({ loading, videos, fetchVideos, isMobile }) => {
                   </p>
                 }
               >
-                {items.map((video, index) => (
+                {items?.map((video, index) => (
                   <div key={index}>
                     <VideoPlayerPanelContainer
                       video={video}
@@ -105,6 +122,7 @@ VideoGrid.propTypes = {
   loading: PropTypes.bool,
   isMobile: PropTypes.bool,
   videos: PropTypes.array,
+  mapBounds: PropTypes.object,
   fetchVideos: PropTypes.func,
 };
 
@@ -112,6 +130,7 @@ VideoGrid.defaultProps = {
   loading: false,
   isMobile: false,
   videos: null,
+  mapBounds: null,
   fetchVideos() {},
 };
 
