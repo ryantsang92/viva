@@ -22,7 +22,7 @@ const SocialGrid = () => {
 
   return (
     <>
-      <Grid container>
+      <Grid container justify="flex-end">
         <Grid item>
           <SocialIcon
             url={INSTAGRAM}

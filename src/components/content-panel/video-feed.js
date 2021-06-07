@@ -42,28 +42,25 @@ const VideoGrid = ({
   const [hasMore, setHasMore] = useState(true);
 
   useEffect(() => {
-    if (videos === null) {
-      fetchVideos();
-      // const { latMin, latMax, lngMin, lngMax } = mapBounds;
-      // fetchVideosV2(latMin, latMax, lngMin, lngMax);
-    } else {
+    if (videos !== null && mapBounds) {
       setItems(videos?.slice(0, 5));
     }
-    // if (mapBounds) {
-    //   console.log('test');
-    //   const { latMin, latMax, lngMin, lngMax } = mapBounds;
-    //   fetchVideosV2(latMin, latMax, lngMin, lngMax);
-    // }
-    // if (videos !== null) {
-    //   setItems(videos?.slice(0, 5));
-    // }
   }, [videos, fetchVideos, mapBounds]);
+
+  useEffect(() => {
+    if (mapBounds) {
+      const { latMin, latMax, lngMin, lngMax } = mapBounds;
+      fetchVideosV2(latMin, latMax, lngMin, lngMax);
+    }
+  }, [mapBounds, fetchVideosV2]);
 
   const fetchMoreData = () => {
     if (items?.length >= videos?.length) {
       setHasMore(false);
     } else {
-      setItems(items?.concat(videos?.slice(items?.length - 1, items?.length + 4)));
+      setItems(
+        items?.concat(videos?.slice(items?.length - 1, items?.length + 4))
+      );
     }
   };
 
@@ -83,7 +80,7 @@ const VideoGrid = ({
             <>
               <InfiniteScroll
                 className={classes.infiniteScroll}
-                dataLength={items?.length}
+                dataLength={items?.length || 0}
                 scrollThreshold={0.9}
                 next={fetchMoreData}
                 hasMore={hasMore}
@@ -106,8 +103,8 @@ const VideoGrid = ({
               </InfiniteScroll>
             </>
           ) : (
-            <Box pt={1}>
-              <Typography>
+            <Box pt={1} justifyContent="center">
+              <Typography align="center">
                 No content found <MoodBadRoundedIcon />
               </Typography>
             </Box>

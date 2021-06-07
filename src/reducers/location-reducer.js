@@ -19,7 +19,6 @@ import {
 const initialState = {
   isLoading: false,
   locations: null,
-  locationsV2: null,
   mapBounds: null,
   filter: false,
   error: null,

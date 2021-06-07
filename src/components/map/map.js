@@ -82,8 +82,6 @@ const Map = ({
 }) => {
   const classes = useStyles();
 
-  // const mapRef = useRef(null);
-
   const [mapRef, setMapRef] = useState(null);
   const [center, setCenter] = useState(initialCenter);
   const [zoom, setZoom] = useState(13);
@@ -107,14 +105,8 @@ const Map = ({
         lng: parseFloat(selectedLocation.lng),
       });
     }
-    // if (!!(!locations && mapBounds)) {
-    //   onRefreshButtonClick();
-    // }
   }, [selectedLocation, selectedCity, locations, mapBounds]);
 
-  // console.log(mapBounds);
-  // console.log(locations);
-  // console.log(!!(!locations && mapBounds));
   const onMarkerClick = (marker) => {
     saveSelectedLocation(marker.markerData);
     activateFilter();
@@ -186,16 +178,23 @@ const Map = ({
     const lngMin = map?.getBounds()?.getSouthWest()?.lng();
     const lngMax = map?.getBounds()?.getNorthEast()?.lng();
 
-    saveMapBounds({
-      latMin: latMin,
-      latMax: latMax,
-      lngMin: lngMin,
-      lngMax: lngMax,
-    });
+    if (
+      latMin !== null &&
+      latMax !== null &&
+      lngMin !== null &&
+      lngMax !== null
+    ) {
+      saveMapBounds({
+        latMin: latMin,
+        latMax: latMax,
+        lngMin: lngMin,
+        lngMax: lngMax,
+      });
+    }
   };
 
   const onMapChange = (mapProps, map) => {
-    console.log('onMapChange');
+    console.log("onMapChange");
     setMapRef(map);
     setShowRefresh(true);
   };
