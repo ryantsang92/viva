@@ -41,6 +41,8 @@ const VideoGrid = ({
   const [items, setItems] = useState([]);
   const [hasMore, setHasMore] = useState(true);
 
+  console.log(mapBounds);
+  
   useEffect(() => {
     if (videos !== null && mapBounds) {
       setItems(videos?.slice(0, 5));

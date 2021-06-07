@@ -64,7 +64,7 @@ const VideoPanel = ({ video, location, isMobile }) => {
   const [inView, setInView] = useState(false);
 
   const { thumbnail, url, title, description, user, user_platform } = video;
-  const { address_full, website } = location;
+  const { address, website } = location;
 
   return (
     <InView onChange={setInView}>
@@ -109,7 +109,7 @@ const VideoPanel = ({ video, location, isMobile }) => {
               <img src={MapPinDefault} alt="city" className={classes.pin} />
             </Box>
             <div>
-              <Typography fontFamily="Arial">{address_full}</Typography>
+              <Typography fontFamily="Arial">{address}</Typography>
               {website && (
                 <Typography>
                   <a href={website} target={website}>

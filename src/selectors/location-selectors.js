@@ -51,11 +51,9 @@ export const selectSelectedCity = (state) => {
 };
 
 export const selectLocationByVideo = (state, video) => {
-  return state.locationData.locations
-    ? state.locationData.locations.filter(
-        (location) => location.id === video.location_id
-      )[0]
-    : {};
+  return state?.locationData?.locations?.filter(
+    (location) => location?.id === video?.location_id
+  )[0] || {};
 };
 
 export const selectFilter = (state) => {
