@@ -11,8 +11,6 @@ import {
   CLEAR_SELECTED_LOCATION,
   SAVE_SELECTED_CITY,
   CLEAR_SELECTED_CITY,
-  ACTIVATE_FILTER,
-  DEACTIVATE_FILTER,
   SAVE_MAP_BOUNDS,
 } from "../actions/location-actions";
 
@@ -57,18 +55,6 @@ const locationReducer = (state = initialState, action) => {
       return {
         ...state,
         selectedLocation: null,
-      };
-    case ACTIVATE_FILTER:
-      return {
-        ...state,
-        selectedLocation: { ...state.selectedLocation, filter: true },
-        filter: true,
-      };
-    case DEACTIVATE_FILTER:
-      return {
-        ...state,
-        selectedLocation: { ...state.selectedLocation, filter: false },
-        filter: false,
       };
     case SAVE_MAP_BOUNDS:
       return {

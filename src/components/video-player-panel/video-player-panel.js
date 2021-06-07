@@ -23,7 +23,7 @@ import {
 import { SocialIcon } from "../social-icon";
 import { InView } from "react-intersection-observer";
 import Loading from "../common/loading";
-import LocationCard from "./location-card";
+import LocationCardContainer from "./location-card-container";
 import PropTypes from "prop-types";
 
 const useStyles = makeStyles({
@@ -71,7 +71,7 @@ const VideoPanel = ({ video, location, isMobile }) => {
   const [inView, setInView] = useState(false);
 
   const { thumbnail, url, title, description, user, user_platform } = video;
-  const { address, website, name } = location;
+  // const { address, website, name } = location;
 
   return (
     <InView onChange={setInView}>
@@ -111,7 +111,7 @@ const VideoPanel = ({ video, location, isMobile }) => {
               <Typography>{description}</Typography>
             </Box>
           )}
-          <LocationCard location={location} />
+          <LocationCardContainer location={location} />
           <Box pt={1} />
           <SocialIcon user={user} platform={user_platform} hw={20} />
         </Box>

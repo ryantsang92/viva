@@ -5,7 +5,6 @@
 */
 
 import { connect } from "react-redux";
-import { deactivateFilter } from "../../actions/location-actions";
 import { clearSelectedHashtag } from "../../actions/hashtag-actions";
 import { selectSelectedHashtag } from "../../selectors/hashtag-selectors";
 import { selectFilter } from "../../selectors/location-selectors";
@@ -20,7 +19,6 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => ({
   clearSelectedHashtag: () => dispatch(clearSelectedHashtag()),
-  clearSelectedLocationFilter: () => dispatch(deactivateFilter()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ContentPanel);

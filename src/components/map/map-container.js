@@ -9,7 +9,6 @@ import {
   fetchLocationsV2,
   clearSelectedLocation,
   saveSelectedLocation,
-  activateFilter,
   saveMapBounds,
 } from "../../actions/location-actions";
 import { selectSelectedHashtag } from "../../selectors/hashtag-selectors";
@@ -40,7 +39,6 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => ({
   saveSelectedLocation: (location) => dispatch(saveSelectedLocation(location)),
   clearSelectedLocation: () => dispatch(clearSelectedLocation()),
-  activateFilter: () => dispatch(activateFilter()),
   clearSelectedHashtag: () => dispatch(clearSelectedHashtag()),
   clearSelectedVideo: () => dispatch(clearSelectedVideo()),
   fetchLocationsV2: (latMin, latMax, lngMin, lngMax) =>

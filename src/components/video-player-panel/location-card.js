@@ -12,7 +12,7 @@ import {
   CardActionArea,
   CardContent,
 } from "@material-ui/core";
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import { makeStyles } from "@material-ui/core/styles";
 import MapPinDefault from "../../assets/map-pin-default.png";
 import PropTypes from "prop-types";
@@ -24,14 +24,25 @@ const useStyles = makeStyles({
   },
 });
 
-const LocationCard = ({ location }) => {
+const LocationCard = ({
+  location,
+  fetchPlaceData,
+  saveSelectedLocation,
+  clearSelectedHashtag,
+}) => {
   const classes = useStyles();
 
-  const { address, website, name } = location;
+  const { address, g_place_id, name } = location;
+
+  const onCardClick = () => {
+    fetchPlaceData(g_place_id);
+    saveSelectedLocation(location);
+    clearSelectedHashtag();
+  };
 
   return (
     <Card>
-      <CardActionArea>
+      <CardActionArea onClick={onCardClick}>
         <CardContent>
           <Box display="flex" alignItems="center">
             <Box>
@@ -57,6 +68,15 @@ const LocationCard = ({ location }) => {
 
 LocationCard.propTypes = {
   location: PropTypes.object.isRequired,
+  fetchPlaceData: PropTypes.func,
+  saveSelectedLocation: PropTypes.func,
+  clearSelectedHashtag: PropTypes.func,
+};
+
+LocationCard.defaultProps = {
+  fetchPlaceData() {},
+  saveSelectedLocation() {},
+  clearSelectedHashtag() {},
 };
 
 export default LocationCard;

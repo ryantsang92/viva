@@ -74,7 +74,6 @@ const Map = ({
   selectedLocation,
   selectedCity,
   saveSelectedLocation,
-  activateFilter,
   clearSelectedHashtag,
   fetchLocationsV2,
   saveMapBounds,
@@ -109,7 +108,6 @@ const Map = ({
 
   const onMarkerClick = (marker) => {
     saveSelectedLocation(marker.markerData);
-    activateFilter();
     clearSelectedHashtag();
   };
 
@@ -270,7 +268,6 @@ Map.propTypes = {
   selectedLocation: PropTypes.object,
   selectedCity: PropTypes.string,
   saveSelectedLocation: PropTypes.func,
-  activateFilter: PropTypes.func,
   clearSelectedHashtag: PropTypes.func,
   fetchLocationsV2: PropTypes.func,
   saveMapBounds: PropTypes.func,
@@ -284,7 +281,6 @@ Map.defaultProps = {
   selectedLocation: null,
   selectedCity: null,
   saveSelectedLocation() {},
-  activateFilter() {},
   clearSelectedHashtag() {},
   fetchLocationsV2() {},
   saveMapBounds() {},
