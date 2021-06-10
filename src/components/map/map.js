@@ -104,7 +104,7 @@ const Map = ({
         lng: parseFloat(selectedLocation.lng),
       });
     }
-  }, [selectedLocation, selectedCity, locations, mapBounds]);
+  }, [selectedLocation, selectedCity, locations]);
 
   const onMarkerClick = (marker) => {
     saveSelectedLocation(marker.markerData);

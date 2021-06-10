@@ -58,7 +58,9 @@ const LocationCard = ({
                 {address}
               </Typography>
             </Box>
-            <ChevronRightIcon />
+            <Box pl={1}>
+              <ChevronRightIcon />
+            </Box>
           </Box>
         </CardContent>
       </CardActionArea>
