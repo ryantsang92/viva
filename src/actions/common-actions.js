@@ -1,3 +1,9 @@
+/*
+  Common actions
+
+  author: Ryan Tsang <ryan@vivatheapp.com>
+*/
+
 const requestOptions = {
   method: "GET",
   headers: {

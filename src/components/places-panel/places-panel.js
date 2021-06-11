@@ -60,6 +60,7 @@ const PlacesPanel = ({
   placeData,
   fetchGooglePlaceData,
   fetchYelpPlaceData,
+  fetchInstagramPlaceData,
   clearSelectedLocation,
 }) => {
   const classes = useStyles();
@@ -70,6 +71,7 @@ const PlacesPanel = ({
     if (selectedLocation) {
       fetchGooglePlaceData(selectedLocation?.g_place_id);
       fetchYelpPlaceData(sanitizeYelpURL(selectedLocation?.yelp));
+      fetchInstagramPlaceData(selectedLocation?.ig);
     }
   }, [selectedLocation, fetchGooglePlaceData]);
 
@@ -204,6 +206,7 @@ PlacesPanel.propTypes = {
   isMobile: PropTypes.bool,
   fetchGooglePlaceData: PropTypes.func,
   fetchYelpPlaceData: PropTypes.func,
+  fetchInstagramPlaceData: PropTypes.func,
   clearSelectedLocation: PropTypes.func,
 };
 
@@ -212,6 +215,7 @@ PlacesPanel.defaultProps = {
   isMobile: false,
   fetchGooglePlaceData() {},
   fetchYelpPlaceData() {},
+  fetchInstagramPlaceData() {},
   clearSelectedLocation() {},
 };
 

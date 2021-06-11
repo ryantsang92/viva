@@ -94,7 +94,6 @@ const ContentPanel = ({
         {!isMobile ? (
           <ScrollingWrapper
             refresh={selectedHashtag || false}
-            filterOn={selectedHashtag}
             isMobile={isMobile}
           >
             <VideoFeedContainer

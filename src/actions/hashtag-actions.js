@@ -3,6 +3,7 @@
 
   author: Ryan Tsang <ryan@vivatheapp.com>
 */
+
 import { endpoint } from "../app-constants";
 
 export const FETCH_HASHTAG_IS_LOADING = "FETCH_HASHTAG_IS_LOADING";
