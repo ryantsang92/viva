@@ -77,11 +77,16 @@ const PlacesPanel = ({
     clearSelectedLocation();
   };
 
-  // const {
-  //   name,
-  //   photos,
-  //   formatted_address
-  // } = placeData?.result;
+  const {
+    name,
+    photos,
+    formatted_address,
+    opening_hours,
+    icon,
+    website,
+    formatted_phone_number,
+    reviews
+  } = placeData?.result || {};
 
   return (
     <>
@@ -97,35 +102,35 @@ const PlacesPanel = ({
               <CloseIcon />
             </IconButton>
             <Box justifyContent="center" pt={1} fontSize={20}>
-              {placeData.result.name}
+              {name}
             </Box>
             {/* empty div for now */}
             <div className={classes.icon}></div>
           </Box>
           <Box
-            key={placeData.result.photos[0].photo_reference}
+            key={photos[0].photo_reference}
             overflow="hidden"
           >
             <img
               src={
                 "https://maps.googleapis.com/maps/api/place/photo?maxwidth=500&photoreference=" +
-                placeData.result.photos[0].photo_reference +
+                photos[0].photo_reference +
                 "&key=" +
                 clientSideKey
               }
-              alt={placeData.result.name}
+              alt={name}
               className={classes.photo}
             />
           </Box>
           <Box pl={1} pr={1}>
             <Box pt={1} fontSize={20}>
-              {placeData.result.name}
+              {name}
             </Box>
             <Box pt={1} display="flex" justifyContent="flex-start">
               <Box pr={1}>
                 <img src={MapPinDefault} alt="pin" className={classes.pin} />
               </Box>
-              <Typography>{placeData.result.formatted_address}</Typography>
+              <Typography>{formatted_address}</Typography>
             </Box>
             <Box pt={1} pb={2}>
               <Accordion
@@ -150,7 +155,7 @@ const PlacesPanel = ({
                 </AccordionSummary>
                 <AccordionDetails>
                   <div>
-                    {placeData.result.opening_hours.weekday_text.map((day) => {
+                    {opening_hours.weekday_text.map((day) => {
                       return <Typography>{day}</Typography>;
                     })}
                   </div>
@@ -160,17 +165,17 @@ const PlacesPanel = ({
             <Box display="flex" justifyContent="flex-start">
               <Box pr={1}>
                 <img
-                  src={placeData.result.icon}
+                  src={icon}
                   alt="website"
                   className={classes.icon}
                 />
               </Box>
               <a
-                href={placeData.result.website}
-                target={placeData.result.website}
+                href={website}
+                target={website}
               >
                 {
-                  placeData.result?.website
+                  website
                     .replace(/^(?:https?:\/\/)?(?:www\.)?/i, "")
                     .split("/")[0]
                 }
@@ -183,12 +188,12 @@ const PlacesPanel = ({
               <Box pr={1}>
                 <PhoneIcon />
               </Box>
-              <Typography>{placeData.result.formatted_phone_number || 'None'}</Typography>
+              <Typography>{formatted_phone_number || 'None'}</Typography>
             </Box>
             <Box pt={1} pb={1}>
               <Divider />
             </Box>
-            <GoogleReviews reviews={placeData.result.reviews} />
+            <GoogleReviews reviews={reviews} />
             <Box pb={1}>
               <Typography>Yelp Reviews</Typography>
             </Box>
@@ -200,7 +205,7 @@ const PlacesPanel = ({
 };
 
 PlacesPanel.propTypes = {
-  selectedLocation: PropTypes.object,
+  selectedLocation: PropTypes.object.isRequired,
   placeData: PropTypes.object,
   isMobile: PropTypes.bool,
   fetchPlaceData: PropTypes.func,
@@ -208,7 +213,6 @@ PlacesPanel.propTypes = {
 };
 
 PlacesPanel.defaultProps = {
-  selectedLocation: {},
   placeData: {},
   isMobile: false,
   fetchPlaceData() {},

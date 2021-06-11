@@ -11,7 +11,7 @@ import {
 
 const initialState = {
   isLoading: false,
-  placeData: [],
+  placeData: {},
   error: null,
 };
 

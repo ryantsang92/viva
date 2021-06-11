@@ -61,7 +61,6 @@ const BodyGrid = ({
 
   useEffect(() => {
     if (refresh && mapBounds) {
-      console.log('here');
       const { latMin, latMax, lngMin, lngMax } = mapBounds;
       fetchLocationsV2(latMin, latMax, lngMin, lngMax);
       fetchVideosV2(latMin, latMax, lngMin, lngMax);
