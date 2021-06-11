@@ -39,10 +39,6 @@ const fetchEndpoint = (url, params = "") => {
   };
 };
 
-export const fetchVideos = () => {
-  return fetchEndpoint(endpoint.VIDEO_URL);
-};
-
 export const fetchVideosV2 = (latMin, latMax, lngMin, lngMax) => {
   return fetchEndpoint(
     endpoint.VIDEO_URL_V2,

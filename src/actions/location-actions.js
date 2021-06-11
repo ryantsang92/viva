@@ -45,10 +45,6 @@ const fetchEndpoint = (url, params = "") => {
   };
 };
 
-export const fetchLocations = () => {
-  return fetchEndpoint(endpoint.LOCATION_URL);
-};
-
 export const fetchLocationsV2 = (latMin, latMax, lngMin, lngMax) => {
   return fetchEndpoint(
     endpoint.LOCATION_URL_V2,
