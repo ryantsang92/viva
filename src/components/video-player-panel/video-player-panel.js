@@ -8,10 +8,6 @@ import React, { useState } from "react";
 import {
   Box,
   Typography,
-  Divider,
-  Card,
-  CardActionArea,
-  CardContent,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import {

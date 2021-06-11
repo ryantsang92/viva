@@ -12,6 +12,8 @@ import {
   SAVE_SELECTED_CITY,
   CLEAR_SELECTED_CITY,
   SAVE_MAP_BOUNDS,
+  SET_REFRESH,
+  CLEAR_REFRESH
 } from "../actions/location-actions";
 
 const initialState = {
@@ -19,6 +21,7 @@ const initialState = {
   locations: null,
   mapBounds: null,
   filter: false,
+  refresh: true,
   error: null,
   selectedCity: null,
 };
@@ -60,6 +63,16 @@ const locationReducer = (state = initialState, action) => {
       return {
         ...state,
         mapBounds: action.data,
+      };
+    case SET_REFRESH:
+      return {
+        ...state,
+        refresh: true,
+      };
+    case CLEAR_REFRESH:
+      return {
+        ...state,
+        refresh: false,
       };
     default:
       return state;

@@ -10,16 +10,19 @@ import {
   clearSelectedLocation,
   saveSelectedLocation,
   saveMapBounds,
+  setRefresh,
+  clearRefresh,
 } from "../../actions/location-actions";
 import { selectSelectedHashtag } from "../../selectors/hashtag-selectors";
 import { clearSelectedHashtag } from "../../actions/hashtag-actions";
-import { clearSelectedVideo } from "../../actions/video-actions";
+import { clearSelectedVideo, fetchVideosV2 } from "../../actions/video-actions";
 import {
   selectLocations,
   selectSelectedLocation,
   selectLocationIsFetching,
   selectMapBounds,
-  selectSelectedCity
+  selectSelectedCity,
+  selectRefresh,
 } from "../../selectors/location-selectors";
 import Map from "./map";
 
@@ -33,6 +36,7 @@ const mapStateToProps = (state) => {
     selectedCity: selectedCity,
     mapBounds: selectMapBounds(state),
     loading: selectLocationIsFetching(state),
+    refresh: selectRefresh(state),
   };
 };
 
@@ -44,6 +48,10 @@ const mapDispatchToProps = (dispatch) => ({
   fetchLocationsV2: (latMin, latMax, lngMin, lngMax) =>
     dispatch(fetchLocationsV2(latMin, latMax, lngMin, lngMax)),
   saveMapBounds: (bounds) => dispatch(saveMapBounds(bounds)),
+  setRefresh: () => dispatch(setRefresh()),
+  clearRefresh: () => dispatch(clearRefresh()),
+  fetchVideosV2: (latMin, latMax, lngMin, lngMax) =>
+    dispatch(fetchVideosV2(latMin, latMax, lngMin, lngMax)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Map);

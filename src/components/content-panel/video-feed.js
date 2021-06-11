@@ -1,5 +1,5 @@
 /*
-  Video grid component
+  Video feed component
 
   author: Ryan Tsang <ryan@vivatheapp.com>
 */
@@ -29,32 +29,20 @@ const useStyles = makeStyles({
   },
 });
 
-const VideoGrid = ({
+const VideoFeed = ({
   loading,
   videos,
-  mapBounds,
-  fetchVideos,
-  fetchVideosV2,
   isMobile,
 }) => {
   const classes = useStyles();
   const [items, setItems] = useState([]);
   const [hasMore, setHasMore] = useState(true);
-
-  console.log(mapBounds);
   
   useEffect(() => {
-    if (videos !== null && mapBounds) {
+    if (videos !== null) {
       setItems(videos?.slice(0, 5));
     }
-  }, [videos, fetchVideos, mapBounds]);
-
-  useEffect(() => {
-    if (mapBounds) {
-      const { latMin, latMax, lngMin, lngMax } = mapBounds;
-      fetchVideosV2(latMin, latMax, lngMin, lngMax);
-    }
-  }, [mapBounds, fetchVideosV2]);
+  }, [videos]);
 
   const fetchMoreData = () => {
     if (items?.length >= videos?.length) {
@@ -117,20 +105,16 @@ const VideoGrid = ({
   );
 };
 
-VideoGrid.propTypes = {
+VideoFeed.propTypes = {
   loading: PropTypes.bool,
   isMobile: PropTypes.bool,
   videos: PropTypes.array,
-  mapBounds: PropTypes.object,
-  fetchVideos: PropTypes.func,
 };
 
-VideoGrid.defaultProps = {
+VideoFeed.defaultProps = {
   loading: false,
   isMobile: false,
   videos: null,
-  mapBounds: null,
-  fetchVideos() {},
 };
 
-export default VideoGrid;
+export default VideoFeed;

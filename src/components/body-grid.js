@@ -49,20 +49,25 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const BodyGrid = ({
-  locations,
+  selectedLocation,
+  refresh,
   mapBounds,
   fetchLocationsV2,
-  selectedLocation,
+  fetchVideosV2,
+  clearRefresh,
   isMobile,
 }) => {
   const classes = useStyles();
 
   useEffect(() => {
-    if (!locations && mapBounds) {
+    if (refresh && mapBounds) {
+      console.log('here');
       const { latMin, latMax, lngMin, lngMax } = mapBounds;
       fetchLocationsV2(latMin, latMax, lngMin, lngMax);
+      fetchVideosV2(latMin, latMax, lngMin, lngMax);
+      clearRefresh();
     }
-  }, [locations, fetchLocationsV2, mapBounds]);
+  }, [refresh, mapBounds, fetchLocationsV2, fetchVideosV2, clearRefresh]);
 
   return (
     <Box className={classes.root}>
@@ -77,7 +82,7 @@ const BodyGrid = ({
         </Grid>
         {!isMobile && (
           <Grid item xs className={classes.mapContainer}>
-            <MapContainer locations={locations} />
+            <MapContainer />
           </Grid>
         )}
         {selectedLocation && (

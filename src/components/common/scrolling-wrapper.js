@@ -37,13 +37,13 @@ const useStyles = makeStyles({
     height: "100%",
     position: "relative",
   },
-  scrollToTopIconContainer: {
-    ...scrollToTopIconContainer
-  },
-  scrollToTopIconContainerWithFilter: {
-    ...scrollToTopIconContainer,
-    top: 115,
-  },
+  // scrollToTopIconContainer: {
+  //   ...scrollToTopIconContainer
+  // },
+  // scrollToTopIconContainerWithFilter: {
+  //   ...scrollToTopIconContainer,
+  //   top: 115,
+  // },
   scrollToTopIconContainerMobile: {
     // height: "calc(100vh - 116px)",
     position: "fixed",
@@ -90,11 +90,8 @@ const ScrollingWrapper = ({ children, refresh, filterOn, isMobile }) => {
     <>
       {hasScrolled && (
         <div
-          className={
-            filterOn
-              ? classes.scrollToTopIconContainerWithFilter
-              : classes.scrollToTopIconContainer
-          }
+          // className={classes.scrollToTopIconContainer
+          // }
           onClick={() => scrollToTop()}
         >
           <Box mt={1} p={1} className={classes.button}>
@@ -116,14 +113,12 @@ const ScrollingWrapper = ({ children, refresh, filterOn, isMobile }) => {
 ScrollingWrapper.propTypes = {
   children: PropTypes.object,
   refresh: PropTypes.bool,
-  filterOn: PropTypes.bool,
   isMobile: PropTypes.bool,
 };
 
 ScrollingWrapper.defaultProps = {
   children: null,
   refresh: false,
-  filterOn: false,
   isMobile: false,
 };
 

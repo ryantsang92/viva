@@ -15,6 +15,9 @@ export const CLEAR_SELECTED_LOCATION = "CLEAR_SELECTED_LOCATION";
 export const SAVE_SELECTED_CITY = "SAVE_SELECTED_CITY";
 export const CLEAR_SELECTED_CITY = "CLEAR_SELECTED_CITY";
 export const SAVE_MAP_BOUNDS = "SAVE_MAP_BOUNDS";
+export const SET_REFRESH = "SET_REFRESH";
+export const CLEAR_REFRESH = "CLEAR_REFRESH";
+
 
 const requestOptions = {
   method: "GET",
@@ -103,5 +106,17 @@ export const saveMapBounds = (data) => {
   return {
     type: SAVE_MAP_BOUNDS,
     data,
+  };
+};
+
+export const setRefresh = (data) => {
+  return {
+    type: SET_REFRESH,
+  };
+};
+
+export const clearRefresh = () => {
+  return {
+    type: CLEAR_REFRESH,
   };
 };

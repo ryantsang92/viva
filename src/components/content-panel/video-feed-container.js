@@ -5,7 +5,6 @@
 */
 
 import { connect } from "react-redux";
-import { fetchVideos, fetchVideosV2 } from "../../actions/video-actions";
 import {
   selectVideos,
   selectVideoIsLoading,
@@ -28,10 +27,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  fetchVideos: () => dispatch(fetchVideos()),
-  fetchVideosV2: (latMin, latMax, lngMin, lngMax) =>
-    dispatch(fetchVideosV2(latMin, latMax, lngMin, lngMax)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(VideoFeed);
+export default connect(mapStateToProps, null)(VideoFeed);

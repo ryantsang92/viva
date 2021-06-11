@@ -63,3 +63,7 @@ export const selectFilter = (state) => {
 export const selectMapBounds = (state) => {
   return state?.locationData?.mapBounds || null;
 };
+
+export const selectRefresh = (state) => {
+  return state?.locationData?.refresh || false;
+};

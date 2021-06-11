@@ -44,6 +44,11 @@ const initialCenter = {
   lng: -71.0589,
 };
 
+const dummyCenter = {
+  lat: 43.0,
+  lng: -71.0589,
+};
+
 const style = {
   float: "left",
   width: "100%",
@@ -75,14 +80,13 @@ const Map = ({
   selectedCity,
   saveSelectedLocation,
   clearSelectedHashtag,
-  fetchLocationsV2,
   saveMapBounds,
-  mapBounds,
+  setRefresh,
 }) => {
   const classes = useStyles();
 
   const [mapRef, setMapRef] = useState(null);
-  const [center, setCenter] = useState(initialCenter);
+  const [center, setCenter] = useState(dummyCenter);
   const [zoom, setZoom] = useState(13);
   const [showRefresh, setShowRefresh] = useState(false);
 
@@ -104,7 +108,21 @@ const Map = ({
         lng: parseFloat(selectedLocation.lng),
       });
     }
-  }, [selectedLocation, selectedCity, locations]);
+    // if (refresh && mapBounds) {
+    //   const { latMin, latMax, lngMin, lngMax } = mapBounds;
+    //   fetchLocationsV2(latMin, latMax, lngMin, lngMax);
+    //   fetchVideosV2(latMin, latMax, lngMin, lngMax);
+    //   clearRefresh();
+    // }
+  }, [
+    selectedLocation,
+    selectedCity,
+    // locations,
+    // refresh,
+    // mapBounds,
+    // fetchLocationsV2,
+    // clearRefresh,
+  ]);
 
   const onMarkerClick = (marker) => {
     saveSelectedLocation(marker.markerData);
@@ -163,8 +181,7 @@ const Map = ({
   ];
 
   const mapLoaded = (mapProps, map) => {
-    getAndSaveBounds(map);
-    // onRefreshButtonClick();
+    setCenter(initialCenter);
     map.setOptions({
       styles: mapStyle,
     });
@@ -192,15 +209,14 @@ const Map = ({
   };
 
   const onMapChange = (mapProps, map) => {
-    console.log("onMapChange");
     setMapRef(map);
+    getAndSaveBounds(map);
     setShowRefresh(true);
   };
 
   const onRefreshButtonClick = () => {
-    const { latMin, latMax, lngMin, lngMax } = mapBounds;
     getAndSaveBounds(mapRef);
-    fetchLocationsV2(latMin, latMax, lngMin, lngMax);
+    setRefresh();
     setShowRefresh(false);
   };
 
@@ -232,7 +248,7 @@ const Map = ({
         zoomControlOptions={{
           position: google.maps.ControlPosition.TOP_RIGHT,
         }}
-        onReady={(mapProps, map) => mapLoaded(mapProps, map)}
+        onReady={mapLoaded}
       >
         {locations?.map((location) => {
           const { id, lat, lng } = location;
