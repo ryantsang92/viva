@@ -58,9 +58,20 @@ const useStyles = makeStyles((theme) => ({
     width: 20,
     height: 24,
   },
+  navcenter: {
+    flexGrow: 1,
+    height: 116,
+    paddingTop: 16,
+  },
   navbar: {
     margin: 0,
-    width: "100%",
+    display: 'flex',
+    justifyContent: 'center',
+    // width: "100%",
+  },
+  navbottom: {
+    textAlign: 'center',
+    paddingTop: 16,
   },
   cityPicker: {
     padding: "0 !important",
@@ -189,7 +200,7 @@ const Header = ({
   return (
     <div className={classes.header}>
       <Grid container className={classes.headerTop}>
-        <Grid item xs={2} className={classes.clear}>
+        <Grid item xs={3} className={classes.clear}>
           <Box className={classes.logoContainer}>
             <Box className={classes.clear}>
               <img
@@ -201,7 +212,72 @@ const Header = ({
             </Box>
           </Box>
         </Grid>
-        <Grid item xs={10}>
+        <Box className={classes.navcenter}>
+          <Box>
+            <Box container spacing={2} className={classes.navbar}>
+              <Grid item className={classes.cityPicker}>
+                <Box pl={1} pr={1}>
+                  <FormControl
+                    className={
+                      isMobile ? classes.formControlMobile : classes.formControl
+                    }
+                  >
+                    <InputLabel id="city-picker-label">City</InputLabel>
+                    <Box pl={1} display="flex" justifyContent="flex-start">
+                      <Box pr={1}>
+                        in
+                      </Box>
+                      <Select
+                        labelId="city-picker-label"
+                        id="city-picker"
+                        value={city}
+                        onChange={handleChange}
+                        className={classes.selectBox}
+                      >
+                        <MenuItem value={"All"}>---</MenuItem>
+                        <MenuItem value={"Boston"}>BOS</MenuItem>
+                        <MenuItem value={"New York"}>NYC</MenuItem>
+                        <MenuItem value={"San Diego"}>San Diego</MenuItem>
+                      </Select>
+                    </Box>
+                  </FormControl>
+                </Box>
+              </Grid>
+              <Grid item className={classes.cityPicker}>
+                <Box pl={1} pr={1}>
+                  <FormControl
+                    className={
+                      isMobile ? classes.formControlMobile : classes.formControl
+                    }
+                  >
+                    <InputLabel id="city-picker-label">City</InputLabel>
+                    <Box pl={1} display="flex" justifyContent="flex-start">
+                      <Box pr={1}>
+                        in
+                      </Box>
+                      <Select
+                        labelId="city-picker-label"
+                        id="city-picker"
+                        value={city}
+                        onChange={handleChange}
+                        className={classes.selectBox}
+                      >
+                        <MenuItem value={"All"}>---</MenuItem>
+                        <MenuItem value={"Boston"}>BOS</MenuItem>
+                        <MenuItem value={"New York"}>NYC</MenuItem>
+                        <MenuItem value={"San Diego"}>San Diego</MenuItem>
+                      </Select>
+                    </Box>
+                  </FormControl>
+                </Box>
+              </Grid>
+            </Box>
+          </Box>
+          <Box className={classes.navbottom}>
+            this is where the quick links go
+          </Box>
+        </Box>
+        <Grid item xs={3}>
           <Box
             display="flex"
             justifyContent="flex-end"
@@ -214,46 +290,6 @@ const Header = ({
           </Box>
         </Grid>
       </Grid>
-      <Box pt={1} pb={2}>
-        <Grid container spacing={2} className={classes.navbar}>
-          <Grid item className={classes.cityPicker}>
-            <Box pl={1} pr={1}>
-              <FormControl
-                className={
-                  isMobile ? classes.formControlMobile : classes.formControl
-                }
-              >
-                <InputLabel id="city-picker-label">City</InputLabel>
-                <Box pl={1} display="flex" justifyContent="flex-start">
-                  <Box pr={1}>
-                    <img
-                      src={MapPinDefault}
-                      alt="city"
-                      className={classes.pin}
-                    />
-                  </Box>
-                  <Select
-                    labelId="city-picker-label"
-                    id="city-picker"
-                    value={city}
-                    onChange={handleChange}
-                    className={classes.selectBox}
-                  >
-                    <MenuItem value={"All"}>All</MenuItem>
-                    <MenuItem value={"Boston"}>BOS</MenuItem>
-                    <MenuItem value={"New York"}>NYC</MenuItem>
-                  </Select>
-                </Box>
-              </FormControl>
-            </Box>
-          </Grid>
-          <Grid item className={classes.hashContainer}>
-            <Box className={classes.left}>
-              <PillBoxContainer isMobile={isMobile}/>
-            </Box>
-          </Grid>
-        </Grid>
-      </Box>
       {!isMobile && (
         <Modal
           open={modalOpen}
