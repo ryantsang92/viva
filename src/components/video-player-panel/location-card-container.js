@@ -5,13 +5,13 @@
 */
 
 import { connect } from "react-redux";
-import { fetchPlaceData } from "../../actions/place-panel-actions";
+import { fetchGooglePlaceData } from "../../actions/place-panel-actions";
 import { saveSelectedLocation } from "../../actions/location-actions";
 import { clearSelectedHashtag } from "../../actions/hashtag-actions";
 import LocationCard from "./location-card";
 
 const mapDispatchToProps = (dispatch) => ({
-  fetchPlaceData: (placeId) => dispatch(fetchPlaceData(placeId)),
+  fetchGooglePlaceData: (placeId) => dispatch(fetchGooglePlaceData(placeId)),
   saveSelectedLocation: (location) => dispatch(saveSelectedLocation(location)),
   clearSelectedHashtag: () => dispatch(clearSelectedHashtag()),
 });

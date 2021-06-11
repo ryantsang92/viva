@@ -16,7 +16,9 @@ import {
   AccordionSummary,
 } from "@material-ui/core";
 import { apiKeys } from "../../app-constants";
+import { sanitizeYelpURL } from "../../common/common-functions";
 import GoogleReviews from "./google-reviews";
+import YelpReviews from "./yelp-reviews";
 import MapPinDefault from "../../assets/map-pin-default.png";
 import ScheduleIcon from "@material-ui/icons/Schedule";
 import CloseIcon from "@material-ui/icons/Close";
@@ -56,7 +58,8 @@ const useStyles = makeStyles((theme) => ({
 const PlacesPanel = ({
   selectedLocation,
   placeData,
-  fetchPlaceData,
+  fetchGooglePlaceData,
+  fetchYelpPlaceData,
   clearSelectedLocation,
 }) => {
   const classes = useStyles();
@@ -65,9 +68,10 @@ const PlacesPanel = ({
 
   useEffect(() => {
     if (selectedLocation) {
-      fetchPlaceData(selectedLocation?.g_place_id);
+      fetchGooglePlaceData(selectedLocation?.g_place_id);
+      fetchYelpPlaceData(sanitizeYelpURL(selectedLocation?.yelp));
     }
-  }, [selectedLocation, fetchPlaceData]);
+  }, [selectedLocation, fetchGooglePlaceData]);
 
   const handleChange = (panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
@@ -79,18 +83,20 @@ const PlacesPanel = ({
 
   const {
     name,
-    photos,
+    photos = [],
     formatted_address,
     opening_hours,
     icon,
-    website,
+    website = "",
     formatted_phone_number,
-    reviews
-  } = placeData?.result || {};
+    reviews = [],
+    yelp,
+  } = placeData || {};
 
+  console.log(placeData);
   return (
     <>
-      {placeData.result && (
+      {placeData !== {} && (
         <div className={classes.placePanel}>
           <Box
             display="flex"
@@ -107,14 +113,11 @@ const PlacesPanel = ({
             {/* empty div for now */}
             <div className={classes.icon}></div>
           </Box>
-          <Box
-            key={photos[0].photo_reference}
-            overflow="hidden"
-          >
+          <Box key={photos[0]?.photo_reference} overflow="hidden">
             <img
               src={
                 "https://maps.googleapis.com/maps/api/place/photo?maxwidth=500&photoreference=" +
-                photos[0].photo_reference +
+                photos[0]?.photo_reference +
                 "&key=" +
                 clientSideKey
               }
@@ -155,7 +158,7 @@ const PlacesPanel = ({
                 </AccordionSummary>
                 <AccordionDetails>
                   <div>
-                    {opening_hours.weekday_text.map((day) => {
+                    {opening_hours?.weekday_text.map((day) => {
                       return <Typography>{day}</Typography>;
                     })}
                   </div>
@@ -164,16 +167,9 @@ const PlacesPanel = ({
             </Box>
             <Box display="flex" justifyContent="flex-start">
               <Box pr={1}>
-                <img
-                  src={icon}
-                  alt="website"
-                  className={classes.icon}
-                />
+                <img src={icon} alt="website" className={classes.icon} />
               </Box>
-              <a
-                href={website}
-                target={website}
-              >
+              <a href={website} target={website}>
                 {
                   website
                     .replace(/^(?:https?:\/\/)?(?:www\.)?/i, "")
@@ -188,15 +184,13 @@ const PlacesPanel = ({
               <Box pr={1}>
                 <PhoneIcon />
               </Box>
-              <Typography>{formatted_phone_number || 'None'}</Typography>
+              <Typography>{formatted_phone_number || "None"}</Typography>
             </Box>
             <Box pt={1} pb={1}>
               <Divider />
             </Box>
             <GoogleReviews reviews={reviews} />
-            <Box pb={1}>
-              <Typography>Yelp Reviews</Typography>
-            </Box>
+            <YelpReviews reviews={yelp?.reviews?.reviews} />
           </Box>
         </div>
       )}
@@ -208,14 +202,16 @@ PlacesPanel.propTypes = {
   selectedLocation: PropTypes.object.isRequired,
   placeData: PropTypes.object,
   isMobile: PropTypes.bool,
-  fetchPlaceData: PropTypes.func,
+  fetchGooglePlaceData: PropTypes.func,
+  fetchYelpPlaceData: PropTypes.func,
   clearSelectedLocation: PropTypes.func,
 };
 
 PlacesPanel.defaultProps = {
-  placeData: {},
+  placeData: null,
   isMobile: false,
-  fetchPlaceData() {},
+  fetchGooglePlaceData() {},
+  fetchYelpPlaceData() {},
   clearSelectedLocation() {},
 };
 

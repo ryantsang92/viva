@@ -7,6 +7,7 @@
 import {
   FETCH_PLACE_DATA_IS_LOADING,
   FETCH_PLACE_DATA_SUCCESS,
+  FETCH_YELP_DATA_SUCCESS,
 } from "../actions/place-panel-actions";
 
 const initialState = {
@@ -25,7 +26,16 @@ const placePanelReducer = (state = initialState, action) => {
     case FETCH_PLACE_DATA_SUCCESS:
       return {
         ...state,
-        placeData: action.payload,
+        placeData: action.payload.result,
+        isLoading: false,
+      };
+    case FETCH_YELP_DATA_SUCCESS:
+      return {
+        ...state,
+        placeData: {
+          ...state.placeData,
+          yelp: action.payload,
+        },
         isLoading: false,
       };
     default:

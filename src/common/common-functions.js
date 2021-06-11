@@ -4,6 +4,10 @@
   author: Ryan Tsang <ryan@vivatheapp.com>
 */
 
+export const sanitizeYelpURL = (url) => {
+  return url.replace('http://www.yelp.com/biz/', '');
+}
+
 export const shuffleArray = (array) => {
   if (array) {
     for (let i = array.length - 1; i > 0; i--) {

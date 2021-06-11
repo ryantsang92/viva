@@ -6,7 +6,10 @@
 
 import { connect } from "react-redux";
 import { clearSelectedLocation } from "../../actions/location-actions";
-import { fetchPlaceData } from "../../actions/place-panel-actions";
+import {
+  fetchGooglePlaceData,
+  fetchYelpPlaceData,
+} from "../../actions/place-panel-actions";
 import { selectPlaceData } from "../../selectors/place-panel-selectors";
 import PlacesPanel from "./places-panel";
 
@@ -17,7 +20,8 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  fetchPlaceData: (placeId) => dispatch(fetchPlaceData(placeId)),
+  fetchGooglePlaceData: (placeId) => dispatch(fetchGooglePlaceData(placeId)),
+  fetchYelpPlaceData: (yelpId) => dispatch(fetchYelpPlaceData(yelpId)),
   clearSelectedLocation: () => dispatch(clearSelectedLocation()),
 });
 

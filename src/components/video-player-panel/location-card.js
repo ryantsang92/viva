@@ -26,7 +26,7 @@ const useStyles = makeStyles({
 
 const LocationCard = ({
   location,
-  fetchPlaceData,
+  fetchGooglePlaceData,
   saveSelectedLocation,
   clearSelectedHashtag,
 }) => {
@@ -35,7 +35,7 @@ const LocationCard = ({
   const { address, g_place_id, name } = location;
 
   const onCardClick = () => {
-    fetchPlaceData(g_place_id);
+    fetchGooglePlaceData(g_place_id);
     saveSelectedLocation(location);
     clearSelectedHashtag();
   };
@@ -70,13 +70,13 @@ const LocationCard = ({
 
 LocationCard.propTypes = {
   location: PropTypes.object.isRequired,
-  fetchPlaceData: PropTypes.func,
+  fetchGooglePlaceData: PropTypes.func,
   saveSelectedLocation: PropTypes.func,
   clearSelectedHashtag: PropTypes.func,
 };
 
 LocationCard.defaultProps = {
-  fetchPlaceData() {},
+  fetchGooglePlaceData() {},
   saveSelectedLocation() {},
   clearSelectedHashtag() {},
 };
