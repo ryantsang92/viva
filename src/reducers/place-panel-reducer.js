@@ -1,5 +1,5 @@
 /*
-  Place data Reducer
+  Place panel reducer
 
   author: Ryan Tsang <ryan@vivatheapp.com>
 */
