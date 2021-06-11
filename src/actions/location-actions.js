@@ -5,6 +5,7 @@
 */
 
 import { endpoint } from "../app-constants";
+import { fetchEndpoint } from "./common-actions";
 
 export const FETCH_LOCATION_IS_LOADING = "FETCH_LOCATION_IS_LOADING";
 export const FETCH_LOCATION_SUCCESS = "FETCH_LOCATION_SUCCESS";
@@ -19,37 +20,13 @@ export const SAVE_MAP_BOUNDS = "SAVE_MAP_BOUNDS";
 export const SET_REFRESH = "SET_REFRESH";
 export const CLEAR_REFRESH = "CLEAR_REFRESH";
 
-
-const requestOptions = {
-  method: "GET",
-  headers: {
-    Accept: "application/json",
-  },
-};
-
-const fetchEndpoint = (url, params = "") => {
-  const fetchFunction = () => {
-    return fetch(url + params, requestOptions).then((response) =>
-      Promise.all([response, response.json()])
-    );
-  };
-
-  return (dispatch) => {
-    dispatch(fetchIsLoading());
-    return fetchFunction().then(([response, json]) => {
-      if (response.status === 200) {
-        dispatch(fetchSuccess(json));
-      } else {
-        dispatch(fetchError());
-      }
-    });
-  };
-};
-
 export const fetchLocationsV2 = (latMin, latMax, lngMin, lngMax) => {
   return fetchEndpoint(
     endpoint.LOCATION_URL_V2,
-    '/' + latMin + "," + latMax + "," + lngMin + "," + lngMax
+    fetchSuccess,
+    fetchError,
+    fetchIsLoading,
+    "/" + latMin + "," + latMax + "," + lngMin + "," + lngMax
   );
 };
 

@@ -11,7 +11,13 @@ const requestOptions = {
   },
 };
 
-export const fetchEndpoint = (url, params = "") => {
+export const fetchEndpoint = (
+  url,
+  fetchSuccess,
+  fetchError,
+  fetchIsLoading,
+  params = ""
+) => {
   const fetchFunction = () => {
     return fetch(url + params, requestOptions).then((response) =>
       Promise.all([response, response.json()])

@@ -5,6 +5,7 @@
 */
 
 import { endpoint } from "../app-constants";
+import { fetchEndpoint } from "./common-actions";
 
 export const FETCH_PLACE_DATA_IS_LOADING = "FETCH_PLACE_DATA_IS_LOADING";
 export const FETCH_PLACE_DATA_SUCCESS = "FETCH_PLACE_DATA_SUCCESS";
@@ -16,32 +17,32 @@ export const FETCH_INSTAGRAM_DATA_SUCCESS = "FETCH_INSTAGRAM_DATA_SUCCESS";
 export const FETCH_INSTAGRAM_DATA_IS_LOADING = "FETCH_INSTAGRAM_DATA_IS_LOADING";
 export const FETCH_INSTAGRAM_DATA_ERROR = "FETCH_INSTAGRAM_DATA_ERROR";
 
-const requestOptions = {
-  method: "GET",
-  headers: {
-    Accept: "application/json",
-  },
-};
+// const requestOptions = {
+//   method: "GET",
+//   headers: {
+//     Accept: "application/json",
+//   },
+// };
 
-const fetchEndpoint = (url, fetchSuccess, fetchError, fetchIsLoading) => {
-  // console.log(url);
-  const fetchFunction = () => {
-    return fetch(url, requestOptions).then((response) =>
-      Promise.all([response, response.json()])
-    );
-  };
+// const fetchEndpoint = (url, fetchSuccess, fetchError, fetchIsLoading) => {
+//   // console.log(url);
+//   const fetchFunction = () => {
+//     return fetch(url, requestOptions).then((response) =>
+//       Promise.all([response, response.json()])
+//     );
+//   };
 
-  return (dispatch) => {
-    dispatch(fetchIsLoading());
-    return fetchFunction().then(([response, json]) => {
-      if (response.status === 200) {
-        dispatch(fetchSuccess(json));
-      } else {
-        dispatch(fetchError());
-      }
-    });
-  };
-};
+//   return (dispatch) => {
+//     dispatch(fetchIsLoading());
+//     return fetchFunction().then(([response, json]) => {
+//       if (response.status === 200) {
+//         dispatch(fetchSuccess(json));
+//       } else {
+//         dispatch(fetchError());
+//       }
+//     });
+//   };
+// };
 
 export const fetchGooglePlaceData = (placeId) => {
   return fetchEndpoint(endpoint.GOOGLE_URL + placeId, fetchSuccess, fetchError, fetchIsLoading);
