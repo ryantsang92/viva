@@ -4,7 +4,7 @@
   author: Ryan Tsang <ryan@vivatheapp.com>
 */
 
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import { Box } from "@material-ui/core";
 import MapPinDefault from "../../assets/map-pin-default.png";
 import MapPinSelected from "../../assets/map-pin-selected.png";
@@ -108,21 +108,7 @@ const Map = ({
         lng: parseFloat(selectedLocation.lng),
       });
     }
-    // if (refresh && mapBounds) {
-    //   const { latMin, latMax, lngMin, lngMax } = mapBounds;
-    //   fetchLocationsV2(latMin, latMax, lngMin, lngMax);
-    //   fetchVideosV2(latMin, latMax, lngMin, lngMax);
-    //   clearRefresh();
-    // }
-  }, [
-    selectedLocation,
-    selectedCity,
-    // locations,
-    // refresh,
-    // mapBounds,
-    // fetchLocationsV2,
-    // clearRefresh,
-  ]);
+  }, [selectedLocation, selectedCity]);
 
   const onMarkerClick = (marker) => {
     saveSelectedLocation(marker.markerData);
@@ -232,8 +218,8 @@ const Map = ({
       )}
       <GoogleMap
         google={google}
-        onBoundsChanged={(mapProps, map) => onMapChange(mapProps, map)}
-        onZoomChanged={(mapProps, map) => onMapChange(mapProps, map)}
+        onBoundsChanged={onMapChange}
+        onZoomChanged={onMapChange}
         zoom={zoom}
         mapTypeControl={false}
         scaleControl={false}
@@ -278,29 +264,25 @@ const Map = ({
 };
 
 Map.propTypes = {
-  loading: PropTypes.bool,
   google: PropTypes.object,
   locations: PropTypes.array,
   selectedLocation: PropTypes.object,
   selectedCity: PropTypes.string,
   saveSelectedLocation: PropTypes.func,
   clearSelectedHashtag: PropTypes.func,
-  fetchLocationsV2: PropTypes.func,
   saveMapBounds: PropTypes.func,
-  mapBounds: PropTypes.object,
+  setRefresh: PropTypes.func,
 };
 
 Map.defaultProps = {
-  loading: false,
   google: {},
   locations: null,
   selectedLocation: null,
   selectedCity: null,
   saveSelectedLocation() {},
   clearSelectedHashtag() {},
-  fetchLocationsV2() {},
   saveMapBounds() {},
-  mapBounds: null,
+  setRefresh() {},
 };
 
 export default GoogleApiWrapper({

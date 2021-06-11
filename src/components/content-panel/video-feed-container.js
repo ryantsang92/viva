@@ -10,10 +10,7 @@ import {
   selectVideoIsLoading,
 } from "../../selectors/video-selectors";
 import { selectSelectedHashtag } from "../../selectors/hashtag-selectors";
-import {
-  selectMapBounds,
-  selectSelectedCity,
-} from "../../selectors/location-selectors";
+import { selectSelectedCity } from "../../selectors/location-selectors";
 import VideoFeed from "./video-feed";
 
 const mapStateToProps = (state) => {
@@ -22,7 +19,6 @@ const mapStateToProps = (state) => {
 
   return {
     videos: selectVideos(state, selectedHashtag, selectedCity, true),
-    mapBounds: selectMapBounds(state),
     loading: selectVideoIsLoading(state),
   };
 };
