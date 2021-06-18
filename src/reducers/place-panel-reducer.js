@@ -5,12 +5,15 @@
 */
 
 import {
-  FETCH_PLACE_DATA_IS_LOADING,
-  FETCH_PLACE_DATA_SUCCESS,
+  FETCH_GOOGLE_DATA_IS_LOADING,
+  FETCH_GOOGLE_DATA_SUCCESS,
+  FETCH_GOOGLE_DATA_ERROR,
   FETCH_YELP_DATA_IS_LOADING,
   FETCH_YELP_DATA_SUCCESS,
+  FETCH_YELP_DATA_ERROR,
   FETCH_INSTAGRAM_DATA_IS_LOADING,
   FETCH_INSTAGRAM_DATA_SUCCESS,
+  FETCH_INSTAGRAM_DATA_ERROR,
 } from "../actions/place-panel-actions";
 
 const initialState = {
@@ -21,17 +24,23 @@ const initialState = {
 
 const placePanelReducer = (state = initialState, action) => {
   switch (action.type) {
-    case FETCH_PLACE_DATA_IS_LOADING:
+    case FETCH_GOOGLE_DATA_IS_LOADING:
     case FETCH_YELP_DATA_IS_LOADING:
     case FETCH_INSTAGRAM_DATA_IS_LOADING:
       return {
         ...state,
         isLoading: true,
       };
-    case FETCH_PLACE_DATA_SUCCESS:
+    case FETCH_GOOGLE_DATA_SUCCESS:
       return {
         ...state,
         placeData: action.payload.result,
+        isLoading: false,
+      };
+    case FETCH_GOOGLE_DATA_ERROR:
+      return {
+        ...state,
+        error: "Error fetching place data",
         isLoading: false,
       };
     case FETCH_YELP_DATA_SUCCESS:
@@ -43,6 +52,12 @@ const placePanelReducer = (state = initialState, action) => {
         },
         isLoading: false,
       };
+    case FETCH_YELP_DATA_ERROR:
+        return {
+          ...state,
+          error: "Error fetching yelp data",
+          isLoading: false,
+        };
     case FETCH_INSTAGRAM_DATA_SUCCESS:
       return {
         ...state,
@@ -52,6 +67,12 @@ const placePanelReducer = (state = initialState, action) => {
         },
         isLoading: false,
       };
+    case FETCH_INSTAGRAM_DATA_ERROR:
+        return {
+          ...state,
+          error: "Error fetching instagram data",
+          isLoading: false,
+        };
     default:
       return state;
   }

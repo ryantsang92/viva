@@ -27,7 +27,7 @@ export const fetchEndpoint = (
   return (dispatch) => {
     dispatch(fetchIsLoading());
     return fetchFunction().then(([response, json]) => {
-      if (response.status === 200) {
+      if (response.status === 200 && !json?.error_message) {
         dispatch(fetchSuccess(json));
       } else {
         dispatch(fetchError());

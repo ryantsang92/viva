@@ -12,18 +12,20 @@ export const selectLocationData = (state) => {
 
 export const selectLocations = (state, hashtag = null, city = null) => {
   const selectedVideos = selectVideos(state, hashtag, city);
+  const locations = selectLocationData(state)?.locations;
 
   let combinedHashtags = [];
   let locationIds = [];
   if (selectedVideos) {
     selectedVideos.forEach((video) => combinedHashtags.push(video.location_id));
     locationIds = [].concat.apply([], combinedHashtags);
+    return locations
+      ? locations?.filter((location) =>
+          locationIds.includes(location.id)
+        )
+      : null;
   }
-  return state.locationData.locations
-    ? state.locationData.locations.filter((location) =>
-        locationIds.includes(location.id)
-      )
-    : null;
+  return locations;
 };
 
 export const selectLocationIsFetching = (state) => {
@@ -51,9 +53,11 @@ export const selectSelectedCity = (state) => {
 };
 
 export const selectLocationByVideo = (state, video) => {
-  return state?.locationData?.locations?.filter(
-    (location) => location?.id === video?.location_id
-  )[0] || {};
+  return (
+    state?.locationData?.locations?.filter(
+      (location) => location?.id === video?.location_id
+    )[0] || {}
+  );
 };
 
 export const selectFilter = (state) => {

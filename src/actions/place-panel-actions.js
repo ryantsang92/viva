@@ -7,9 +7,9 @@
 import { endpoint } from "../app-constants";
 import { fetchEndpoint } from "./common-actions";
 
-export const FETCH_PLACE_DATA_IS_LOADING = "FETCH_PLACE_DATA_IS_LOADING";
-export const FETCH_PLACE_DATA_SUCCESS = "FETCH_PLACE_DATA_SUCCESS";
-export const FETCH_PLACE_DATA_ERROR = "FETCH_PLACE_DATA_ERROR";
+export const FETCH_GOOGLE_DATA_IS_LOADING = "FETCH_GOOGLE_DATA_IS_LOADING";
+export const FETCH_GOOGLE_DATA_SUCCESS = "FETCH_GOOGLE_DATA_SUCCESS";
+export const FETCH_GOOGLE_DATA_ERROR = "FETCH_GOOGLE_DATA_ERROR";
 export const FETCH_YELP_DATA_SUCCESS = "FETCH_YELP_DATA_SUCCESS";
 export const FETCH_YELP_DATA_IS_LOADING = "FETCH_YELP_DATA_IS_LOADING";
 export const FETCH_YELP_DATA_ERROR = "FETCH_YELP_DATA_ERROR";
@@ -17,35 +17,8 @@ export const FETCH_INSTAGRAM_DATA_SUCCESS = "FETCH_INSTAGRAM_DATA_SUCCESS";
 export const FETCH_INSTAGRAM_DATA_IS_LOADING = "FETCH_INSTAGRAM_DATA_IS_LOADING";
 export const FETCH_INSTAGRAM_DATA_ERROR = "FETCH_INSTAGRAM_DATA_ERROR";
 
-// const requestOptions = {
-//   method: "GET",
-//   headers: {
-//     Accept: "application/json",
-//   },
-// };
-
-// const fetchEndpoint = (url, fetchSuccess, fetchError, fetchIsLoading) => {
-//   // console.log(url);
-//   const fetchFunction = () => {
-//     return fetch(url, requestOptions).then((response) =>
-//       Promise.all([response, response.json()])
-//     );
-//   };
-
-//   return (dispatch) => {
-//     dispatch(fetchIsLoading());
-//     return fetchFunction().then(([response, json]) => {
-//       if (response.status === 200) {
-//         dispatch(fetchSuccess(json));
-//       } else {
-//         dispatch(fetchError());
-//       }
-//     });
-//   };
-// };
-
 export const fetchGooglePlaceData = (placeId) => {
-  return fetchEndpoint(endpoint.GOOGLE_URL + placeId, fetchSuccess, fetchError, fetchIsLoading);
+  return fetchEndpoint(endpoint.GOOGLE_URL + placeId, fetchGoogleSuccess, fetchGoogleError, fetchGoogleIsLoading);
 };
 
 export const fetchYelpPlaceData = (yelpId) => {
@@ -56,22 +29,22 @@ export const fetchInstagramPlaceData = (instagramId) => {
   return fetchEndpoint(endpoint.INSTAGRAM_URL + instagramId, fetchInstagramSuccess, fetchInstagramError, fetchInstagramIsLoading);
 };
 
-const fetchIsLoading = () => {
+const fetchGoogleIsLoading = () => {
   return {
-    type: FETCH_PLACE_DATA_IS_LOADING,
+    type: FETCH_GOOGLE_DATA_IS_LOADING,
   };
 };
 
-const fetchSuccess = (payload) => {
+const fetchGoogleSuccess = (payload) => {
   return {
-    type: FETCH_PLACE_DATA_SUCCESS,
+    type: FETCH_GOOGLE_DATA_SUCCESS,
     payload,
   };
 };
 
-const fetchError = (error) => {
+const fetchGoogleError = (error) => {
   return {
-    type: FETCH_PLACE_DATA_ERROR,
+    type: FETCH_GOOGLE_DATA_ERROR,
     error: error,
   };
 };

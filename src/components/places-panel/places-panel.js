@@ -71,9 +71,9 @@ const PlacesPanel = ({
     if (selectedLocation) {
       fetchGooglePlaceData(selectedLocation?.g_place_id);
       fetchYelpPlaceData(sanitizeYelpURL(selectedLocation?.yelp));
-      fetchInstagramPlaceData(selectedLocation?.ig);
+      // fetchInstagramPlaceData(selectedLocation?.ig);
     }
-  }, [selectedLocation, fetchGooglePlaceData]);
+  }, [selectedLocation, fetchGooglePlaceData, fetchYelpPlaceData]);
 
   const handleChange = (panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
@@ -95,7 +95,6 @@ const PlacesPanel = ({
     yelp,
   } = placeData || {};
 
-  console.log(placeData);
   return (
     <>
       {placeData !== {} && (
