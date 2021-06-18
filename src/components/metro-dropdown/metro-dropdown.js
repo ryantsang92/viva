@@ -69,11 +69,19 @@ const MetroDropdown = ({
 MetroDropdown.propTypes = {
   metros: PropTypes.array,
   fetchMetros: PropTypes.func,
+  clearSelectedCity: PropTypes.func,
+  clearSelectedLocation: PropTypes.func,
+  saveSelectedCity: PropTypes.func,
+  setRefresh: PropTypes.func,
 };
 
 MetroDropdown.defaultProps = {
   metros: null,
   fetchMetros() {},
+  clearSelectedCity() {},
+  clearSelectedLocation() {},
+  saveSelectedCity() {},
+  setRefresh() {},
 };
 
 export default MetroDropdown;

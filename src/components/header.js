@@ -144,16 +144,12 @@ const useStyles = makeStyles((theme) => ({
 const Header = ({
   selectedVideo,
   selectedCity,
-  saveSelectedCity,
-  clearSelectedCity,
   clearSelectedVideo,
-  clearSelectedLocation,
   fetchSelectedHashtag,
   isMobile,
 }) => {
   const classes = useStyles();
 
-  const [city, setCity] = useState("All");
   const [modalOpen, setModalOpen] = useState(false);
 
   useEffect(() => {
@@ -161,18 +157,6 @@ const Header = ({
       clearSelectedVideo();
     }
   }, [selectedVideo, selectedCity, clearSelectedVideo]);
-
-  const handleChange = (event) => {
-    setCity(event.target.value);
-
-    // update redux store
-    if (event.target.value === "All") {
-      clearSelectedCity();
-    } else {
-      clearSelectedLocation();
-      saveSelectedCity(event.target.value.replace(/\s/g, ""));
-    }
-  };
 
   const handleModalClose = () => {
     setModalOpen(false);
@@ -233,17 +217,6 @@ const Header = ({
                       className={classes.pin}
                     />
                   </Box>
-                  {/* <Select
-                    labelId="city-picker-label"
-                    id="city-picker"
-                    value={city}
-                    onChange={handleChange}
-                    className={classes.selectBox}
-                  >
-                    <MenuItem value={"All"}>All</MenuItem>
-                    <MenuItem value={"Boston"}>BOS</MenuItem>
-                    <MenuItem value={"New York"}>NYC</MenuItem>
-                  </Select> */}
                   <MetroDropdownContainer />
                 </Box>
               </FormControl>
@@ -369,9 +342,6 @@ Header.propTypes = {
   selectedVideo: PropTypes.object,
   selectedLocation: PropTypes.string,
   isMobile: PropTypes.bool,
-  saveSelectedCity: PropTypes.func,
-  clearSelectedCity: PropTypes.func,
-  clearSelectedLocation: PropTypes.func,
   clearSelectedVideo: PropTypes.func,
   fetchSelectedHashtag: PropTypes.func,
 };
@@ -380,9 +350,6 @@ Header.defaultProps = {
   selectedVideo: {},
   selectedLocation: null,
   isMobile: false,
-  saveSelectedCity() {},
-  clearSelectedCity() {},
-  clearSelectedLocation() {},
   clearSelectedVideo() {},
   fetchSelectedHashtag() {},
 };
