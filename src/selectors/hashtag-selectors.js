@@ -5,17 +5,17 @@
 */
 
 export const selectHashtagData = (state) => {
-  return state ? state.hashtagData : null;
+  return state?.hashtagData;
 };
 
 export const selectHashtagIsFetching = (state) => {
-  return selectHashtagData(state).isFetching;
+  return selectHashtagData(state)?.isFetching;
 };
 
 export const selectHashtagError = (state) => {
-  return selectHashtagData(state).error;
+  return selectHashtagData(state)?.error;
 };
 
 export const selectSelectedHashtag = (state) => {
-  return selectHashtagData(state).selectedHashtag;
+  return selectHashtagData(state)?.selectedHashtag;
 };

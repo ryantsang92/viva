@@ -5,9 +5,9 @@
 */
 
 export const selectMetroData = (state) => {
-  return state?.metroData || null;
+  return state?.metroData;
 };
 
 export const selectSelectedMetro = (state) => {
-  return selectMetroData(state).selectedMetro;
+  return selectMetroData(state)?.selectedMetro;
 };

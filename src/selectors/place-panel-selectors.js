@@ -5,9 +5,9 @@
 */
 
 export const selectPlacePanelData = (state) => {
-  return state ? state.placePanelData : null;
+  return state?.placePanelData;
 };
 
 export const selectPlaceData = (state) => {
-  return selectPlacePanelData(state).placeData;
+  return selectPlacePanelData(state)?.placeData;
 };

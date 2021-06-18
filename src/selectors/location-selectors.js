@@ -47,7 +47,7 @@ export const selectSelectedLocation = (state) => {
 };
 
 export const selectSelectedCity = (state) => {
-  return selectLocationData(state).selectedCity;
+  return selectLocationData(state)?.selectedCity;
 };
 
 export const selectLocationByVideo = (state, video) => {
