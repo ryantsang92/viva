@@ -28,7 +28,7 @@ export const selectVideos = (
     );
   }
   if (city) {
-    returnData = returnData.filter((video) => video.metro === city || null);
+    returnData = returnData.filter((video) => video.metro === city.name.replace(/\s/g, "") || null);
   }
 
   return returnData;

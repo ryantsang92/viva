@@ -58,6 +58,7 @@ const BodyGrid = ({
   isMobile,
 }) => {
   const classes = useStyles();
+  console.log(refresh && mapBounds);
 
   useEffect(() => {
     if (refresh && mapBounds) {

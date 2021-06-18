@@ -92,14 +92,10 @@ const Map = ({
 
   useEffect(() => {
     if (selectedCity) {
-      setCenter(
-        selectedCity === "Boston"
-          ? {
-              lat: 42.3601,
-              lng: -71.0589,
-            }
-          : { lat: 40.7128, lng: -74.006 }
-      );
+      setCenter({
+        lat: selectedCity.lat,
+        lng: selectedCity.lng,
+      });
       setZoom(13);
     }
     if (selectedLocation) {

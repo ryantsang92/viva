@@ -16,8 +16,6 @@ export const SAVE_SELECTED_VIDEO = "SAVE_SELECTED_VIDEO";
 export const CLEAR_SELECTED_VIDEO = "CLEAR_SELECTED_VIDEO";
 
 export const fetchVideosV2 = (latMin, latMax, lngMin, lngMax) => {
-  console.log(endpoint.VIDEO_URL_V2 +
-    "/" + latMin + "," + latMax + "," + lngMin + "," + lngMax);
   return fetchEndpoint(
     endpoint.VIDEO_URL_V2,
     fetchSuccess,

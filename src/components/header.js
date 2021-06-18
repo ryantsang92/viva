@@ -22,6 +22,7 @@ import CloseIcon from "@material-ui/icons/Close";
 import GreenButton from "./common/green-button";
 import MobileMenuContainer from "./mobile-menu-container";
 import PillBoxContainer from "./pill-box/pill-box-container";
+import MetroDropdownContainer from "./metro-dropdown/metro-dropdown-container";
 import SocialGrid from "./social-grid";
 import { hashtagObjects } from "../app-constants";
 import { makeStyles } from "@material-ui/core/styles";
@@ -232,7 +233,7 @@ const Header = ({
                       className={classes.pin}
                     />
                   </Box>
-                  <Select
+                  {/* <Select
                     labelId="city-picker-label"
                     id="city-picker"
                     value={city}
@@ -242,7 +243,8 @@ const Header = ({
                     <MenuItem value={"All"}>All</MenuItem>
                     <MenuItem value={"Boston"}>BOS</MenuItem>
                     <MenuItem value={"New York"}>NYC</MenuItem>
-                  </Select>
+                  </Select> */}
+                  <MetroDropdownContainer />
                 </Box>
               </FormControl>
             </Box>

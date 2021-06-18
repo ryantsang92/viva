@@ -16,6 +16,7 @@ export const endpoint = {
   GOOGLE_URL: "https://api.vivatheapp.com/google/",
   YELP_URL: "https://api.vivatheapp.com/yelp/",
   INSTAGRAM_URL: "https://api.vivatheapp.com/instagram/",
+  METROS_URL: "https://api.vivatheapp.com/metros",
 };
 
 export const socialURLs = {
