@@ -83,6 +83,8 @@ const PlacesPanel = ({
     clearSelectedLocation();
   };
 
+  const { description } = selectedLocation || {};
+
   const {
     name,
     photos = [],
@@ -130,7 +132,10 @@ const PlacesPanel = ({
             <Box pt={1} fontSize={20}>
               {name}
             </Box>
-            <Box pt={1} display="flex" justifyContent="flex-start">
+            <Box pt={1}>
+              {description}
+            </Box>
+            <Box pt={2} display="flex" justifyContent="flex-start">
               <Box pr={1}>
                 <img src={MapPinDefault} alt="pin" className={classes.pin} />
               </Box>
