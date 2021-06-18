@@ -11,8 +11,6 @@ import {
   Box,
   Typography,
   Grid,
-  Select,
-  MenuItem,
   FormControl,
   InputLabel,
   Modal,
@@ -125,10 +123,6 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.background.paper,
     borderRadius: 15,
     boxShadow: theme.shadows[5],
-  },
-  selectBox: {
-    height: 32,
-    width: "100%",
   },
   modalLogo: {
     borderRadius: 15,
