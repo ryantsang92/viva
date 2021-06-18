@@ -59,6 +59,7 @@ const useStyles = makeStyles({
 const ContentPanel = ({
   selectedHashtag,
   isMobile,
+  refresh,
   clearSelectedHashtag,
 }) => {
   const classes = useStyles();
@@ -99,6 +100,7 @@ const ContentPanel = ({
             <VideoFeedContainer
               selectedHashtag={selectedHashtag}
               isMobile={isMobile}
+              refresh={refresh}
             />
           </ScrollingWrapper>
         ) : (
@@ -115,12 +117,14 @@ const ContentPanel = ({
 ContentPanel.propTypes = {
   selectedHashtag: PropTypes.object,
   isMobile: PropTypes.bool,
+  refresh: PropTypes.bool,
   clearSelectedHashtag: PropTypes.func,
 };
 
 ContentPanel.defaultProps = {
   selectedHashtag: null,
   isMobile: false,
+  refresh: false,
   clearSelectedHashtag() {},
 };
 

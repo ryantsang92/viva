@@ -7,7 +7,7 @@
 import { selectVideos } from "./video-selectors";
 
 export const selectLocationData = (state) => {
-  return state ? state.locationData : null;
+  return state?.locationData;
 };
 
 export const selectLocations = (state, hashtag = null, city = null) => {
@@ -20,9 +20,7 @@ export const selectLocations = (state, hashtag = null, city = null) => {
     selectedVideos.forEach((video) => combinedHashtags.push(video.location_id));
     locationIds = [].concat.apply([], combinedHashtags);
     return locations
-      ? locations?.filter((location) =>
-          locationIds.includes(location.id)
-        )
+      ? locations?.filter((location) => locationIds.includes(location.id))
       : null;
   }
   return locations;
@@ -49,25 +47,25 @@ export const selectSelectedLocation = (state) => {
 };
 
 export const selectSelectedCity = (state) => {
-  return state ? state.locationData.selectedCity : null;
+  return selectLocationData(state).selectedCity;
 };
 
 export const selectLocationByVideo = (state, video) => {
   return (
-    state?.locationData?.locations?.filter(
+    selectLocationData(state)?.locations?.filter(
       (location) => location?.id === video?.location_id
     )[0] || {}
   );
 };
 
 export const selectFilter = (state) => {
-  return state ? state.locationData.filter : null;
+  return selectLocationData(state)?.filter;
 };
 
 export const selectMapBounds = (state) => {
-  return state?.locationData?.mapBounds || null;
+  return selectLocationData(state)?.mapBounds;
 };
 
 export const selectRefresh = (state) => {
-  return state?.locationData?.refresh || false;
+  return selectLocationData(state)?.refresh;
 };

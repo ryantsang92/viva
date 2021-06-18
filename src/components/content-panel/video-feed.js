@@ -33,14 +33,17 @@ const VideoFeed = ({
   loading,
   videos,
   isMobile,
+  refresh,
+  clearRefresh,
 }) => {
   const classes = useStyles();
   const [items, setItems] = useState([]);
   const [hasMore, setHasMore] = useState(true);
   
   useEffect(() => {
-    if (videos !== null) {
+    if (videos !== null && refresh) {
       setItems(videos?.slice(0, 5));
+      clearRefresh();
     }
   }, [videos]);
 
@@ -109,12 +112,14 @@ VideoFeed.propTypes = {
   loading: PropTypes.bool,
   isMobile: PropTypes.bool,
   videos: PropTypes.array,
+  refresh: PropTypes.bool,
 };
 
 VideoFeed.defaultProps = {
   loading: false,
   isMobile: false,
   videos: null,
+  refresh: false,
 };
 
 export default VideoFeed;

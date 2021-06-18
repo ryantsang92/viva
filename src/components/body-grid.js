@@ -58,14 +58,15 @@ const BodyGrid = ({
   isMobile,
 }) => {
   const classes = useStyles();
-  console.log(refresh && mapBounds);
+  // console.log(refresh);
+  // console.log(refresh && mapBounds);
 
   useEffect(() => {
     if (refresh && mapBounds) {
       const { latMin, latMax, lngMin, lngMax } = mapBounds;
       fetchLocationsV2(latMin, latMax, lngMin, lngMax);
       fetchVideosV2(latMin, latMax, lngMin, lngMax);
-      clearRefresh();
+      // clearRefresh();
     }
   }, [refresh, mapBounds, fetchLocationsV2, fetchVideosV2, clearRefresh]);
 
@@ -78,7 +79,7 @@ const BodyGrid = ({
             isMobile ? classes.contentPanelMobile : classes.contentPanel
           }
         >
-          <ContentPanelContainer isMobile={isMobile} />
+          <ContentPanelContainer isMobile={isMobile} refresh={refresh}/>
         </Grid>
         {!isMobile && (
           <Grid item xs className={classes.mapContainer}>

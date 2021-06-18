@@ -11,6 +11,7 @@ import {
 } from "../../selectors/video-selectors";
 import { selectSelectedHashtag } from "../../selectors/hashtag-selectors";
 import { selectSelectedCity } from "../../selectors/location-selectors";
+import { clearRefresh } from "../../actions/location-actions";
 import VideoFeed from "./video-feed";
 
 const mapStateToProps = (state) => {
@@ -23,4 +24,8 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, null)(VideoFeed);
+const mapDispatchToProps = (dispatch) => ({
+  clearRefresh: () => dispatch(clearRefresh()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(VideoFeed);
