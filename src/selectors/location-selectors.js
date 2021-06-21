@@ -19,31 +19,27 @@ export const selectLocations = (state, hashtag = null, city = null) => {
   if (selectedVideos) {
     selectedVideos.forEach((video) => combinedHashtags.push(video.location_id));
     locationIds = [].concat.apply([], combinedHashtags);
-    return locations
-      ? locations?.filter((location) => locationIds.includes(location.id))
-      : null;
+    return locations?.filter((location) => locationIds.includes(location.id));
   }
   return locations;
 };
 
 export const selectLocationIsFetching = (state) => {
-  return selectLocationData(state).isFetching;
+  return selectLocationData(state)?.isFetching;
 };
 
 export const selectLocationError = (state) => {
-  return selectLocationData(state).error;
+  return selectLocationData(state)?.error;
 };
 
 export const selectLocationById = (state, id) => {
-  const locationData = selectLocationData(state);
-  return locationData
-    ? locationData.locations.find((location) => location.id === id)
-    : null;
+  return selectLocationData(state)?.locations?.find(
+    (location) => location.id === id
+  );
 };
 
 export const selectSelectedLocation = (state) => {
-  const locationData = selectLocationData(state);
-  return locationData ? locationData.selectedLocation : null;
+  return selectLocationData(state)?.selectedLocation;
 };
 
 export const selectSelectedCity = (state) => {

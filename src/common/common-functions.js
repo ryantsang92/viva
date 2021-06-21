@@ -5,7 +5,7 @@
 */
 
 export const sanitizeYelpURL = (url) => {
-  return url.replace('http://www.yelp.com/biz/', '');
+  return url?.replace('http://www.yelp.com/biz/', '');
 }
 
 export const shuffleArray = (array) => {

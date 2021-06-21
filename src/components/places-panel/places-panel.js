@@ -110,7 +110,7 @@ const PlacesPanel = ({
             <IconButton onClick={handlePanelClose} size="small">
               <CloseIcon />
             </IconButton>
-            <Box justifyContent="center" pt={1} fontSize={20}>
+            <Box justifyContent="center" pt={1} pb={1} fontSize={20}>
               {name}
             </Box>
             {/* empty div for now */}
@@ -132,9 +132,7 @@ const PlacesPanel = ({
             <Box pt={1} fontSize={20}>
               {name}
             </Box>
-            <Box pt={1}>
-              {description}
-            </Box>
+            <Box pt={1}>{description}</Box>
             <Box pt={2} display="flex" justifyContent="flex-start">
               <Box pr={1}>
                 <img src={MapPinDefault} alt="pin" className={classes.pin} />
@@ -171,18 +169,20 @@ const PlacesPanel = ({
                 </AccordionDetails>
               </Accordion>
             </Box>
-            <Box display="flex" justifyContent="flex-start">
-              <Box pr={1}>
-                <img src={icon} alt="website" className={classes.icon} />
+            {website && (
+              <Box display="flex" justifyContent="flex-start">
+                <Box pr={1}>
+                  <img src={icon} alt="website" className={classes.icon} />
+                </Box>
+                <a href={website} target={website}>
+                  {
+                    website
+                      .replace(/^(?:https?:\/\/)?(?:www\.)?/i, "")
+                      .split("/")[0]
+                  }
+                </a>
               </Box>
-              <a href={website} target={website}>
-                {
-                  website
-                    .replace(/^(?:https?:\/\/)?(?:www\.)?/i, "")
-                    .split("/")[0]
-                }
-              </a>
-            </Box>
+            )}
             <Box pt={1} pb={1}>
               <Divider />
             </Box>
@@ -196,7 +196,7 @@ const PlacesPanel = ({
               <Divider />
             </Box>
             <GoogleReviews reviews={reviews} />
-            <YelpReviews reviews={yelp?.reviews?.reviews} />
+            {yelp && <YelpReviews reviews={yelp?.reviews?.reviews} />}
           </Box>
         </div>
       )}
