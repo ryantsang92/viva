@@ -139,7 +139,7 @@ const Header = ({
   selectedVideo,
   selectedCity,
   clearSelectedVideo,
-  fetchSelectedHashtag,
+  fetchSelectedCategory,
   isMobile,
 }) => {
   const classes = useStyles();
@@ -160,8 +160,8 @@ const Header = ({
     window.location.reload(true);
   };
 
-  const onHashtagClick = (hashtag) => {
-    fetchSelectedHashtag(hashtag);
+  const onHashtagClick = (category) => {
+    fetchSelectedCategory(category);
     handleModalClose();
   };
 
@@ -337,7 +337,7 @@ Header.propTypes = {
   selectedLocation: PropTypes.string,
   isMobile: PropTypes.bool,
   clearSelectedVideo: PropTypes.func,
-  fetchSelectedHashtag: PropTypes.func,
+  fetchSelectedCategory: PropTypes.func,
 };
 
 Header.defaultProps = {
@@ -345,7 +345,7 @@ Header.defaultProps = {
   selectedLocation: null,
   isMobile: false,
   clearSelectedVideo() {},
-  fetchSelectedHashtag() {},
+  fetchSelectedCategory() {},
 };
 
 export default Header;

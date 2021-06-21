@@ -5,20 +5,22 @@
 */
 
 import { connect } from "react-redux";
-import { clearSelectedHashtag } from "../../actions/hashtag-actions";
-import { selectSelectedHashtag } from "../../selectors/hashtag-selectors";
+import { setRefresh } from "../../actions/location-actions";
+import { clearSelectedCategory } from "../../actions/category-actions";
+import { selectSelectedCategory } from "../../selectors/category-selectors";
 import { selectFilter } from "../../selectors/location-selectors";
 import ContentPanel from "./content-panel";
 
 const mapStateToProps = (state) => {
   return {
-    selectedHashtag: selectSelectedHashtag(state),
+    selectedCategory: selectSelectedCategory(state),
     filterOn: selectFilter(state),
   };
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  clearSelectedHashtag: () => dispatch(clearSelectedHashtag()),
+  clearSelectedCategory: () => dispatch(clearSelectedCategory()),
+  setRefresh: () => dispatch(setRefresh()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ContentPanel);

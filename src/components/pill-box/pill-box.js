@@ -40,11 +40,12 @@ const useStyles = makeStyles({
 });
 
 const PillBox = ({
-  hashtags,
-  selectedHashtag,
+  categories,
+  selectedCategory,
   isMobile,
-  fetchHashtags,
-  fetchSelectedHashtag,
+  fetchCategories,
+  fetchSelectedCategory,
+  setRefresh,
 }) => {
   const classes = useStyles();
 
@@ -60,33 +61,34 @@ const PillBox = ({
   );
 
   useEffect(() => {
-    if (!hashtags || !hashtags.length) {
-      fetchHashtags();
+    if (!categories || !categories.length) {
+      fetchCategories();
     }
-  }, [hashtags,fetchHashtags]);
+  }, [categories, fetchCategories]);
 
-  const handleChange = (event, hashtag) => {
-    fetchSelectedHashtag(hashtag);
+  const handleChange = (event, category) => {
+    setRefresh();
+    fetchSelectedCategory(category);
     window.scrollTo(0, 0);
   };
 
-  const hashtagComponents = (hashtags) => {
-    return hashtags.map((hashtag) => (
-      <Box pr={1} key={hashtag.id}>
+  const categoryComponents = (categories) => {
+    return categories.map((category) => (
+      <Box pr={1} key={category.id}>
         <ToggleButtonGroup
           size="small"
-          value={selectedHashtag}
+          value={selectedCategory}
           exclusive
           onChange={handleChange}
-          key={hashtag.id}
+          key={category.id}
         >
           <ToggleButton
             name="radio"
-            value={hashtag}
+            value={category}
             border={1}
             className={classes.pill}
           >
-            {hashtag.hashtag}
+            {category.category}
           </ToggleButton>
         </ToggleButtonGroup>
       </Box>
@@ -96,7 +98,7 @@ const PillBox = ({
   return (
     <Box className={isMobile ? classes.scrollMenuMobile : classes.scrollMenu}>
       <ScrollMenu
-        data={hashtagComponents(hashtags)}
+        data={categoryComponents(categories)}
         clickWhenDrag={false}
         hideSingleArrow
         inertiaScrolling
@@ -110,19 +112,21 @@ const PillBox = ({
 };
 
 PillBox.propTypes = {
-  hashtags: PropTypes.array,
-  selectedHashtag: PropTypes.object,
+  categories: PropTypes.array,
+  selectedCategory: PropTypes.object,
   isMobile: PropTypes.bool,
-  fetchHashtags: PropTypes.func,
-  fetchSelectedHashtag: PropTypes.func,
+  fetchCategories: PropTypes.func,
+  fetchSelectedCategory: PropTypes.func,
+  setRefresh: PropTypes.func,
 };
 
 PillBox.defaultProps = {
-  hashtags: [],
-  selectedHashtag: {},
+  categories: [],
+  selectedCategory: {},
   isMobile: false,
-  fetchHashtags() {},
-  fetchSelectedHashtag() {},
+  fetchCategories() {},
+  fetchSelectedCategory() {},
+  setRefresh() {},
 };
 
 export default PillBox;

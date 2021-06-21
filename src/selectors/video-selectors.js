@@ -5,6 +5,7 @@
 */
 
 import { shuffleArray } from "../common/common-functions";
+import { selectLocations } from "./location-selectors";
 
 export const selectVideoData = (state) => {
   return state?.videoData;
@@ -12,28 +13,21 @@ export const selectVideoData = (state) => {
 
 export const selectVideos = (
   state,
-  hashtag = null,
-  city = null,
+  category = null,
   shuffle = false
 ) => {
   let returnData = selectVideoData(state)?.videos;
 
-  if (shuffle && !hashtag) {
+  if (shuffle && !category) {
     shuffleArray(returnData);
   }
 
-  //fix this logic
-  if (hashtag) {
+  if (category) {
+    const locations = selectLocations(state, category);
     returnData = returnData?.filter((video) =>
-      video?.hash_ids?.includes(hashtag?.id)
+      locations.some((location) => location.id === video.location_id)
     );
   }
-  if (city) {
-    returnData = returnData?.filter(
-      (video) => video?.metro === city?.name.replace(/\s/g, "") || null
-    );
-  }
-
   return returnData;
 };
 

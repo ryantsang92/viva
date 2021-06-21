@@ -57,15 +57,17 @@ const useStyles = makeStyles({
 });
 
 const ContentPanel = ({
-  selectedHashtag,
+  selectedCategory,
   isMobile,
   refresh,
-  clearSelectedHashtag,
+  clearSelectedCategory,
+  setRefresh,
 }) => {
   const classes = useStyles();
 
-  const onHashtagFilterClose = () => {
-    clearSelectedHashtag();
+  const onCategoryFilterClose = () => {
+    setRefresh();
+    clearSelectedCategory();
   };
 
   return (
@@ -75,17 +77,17 @@ const ContentPanel = ({
           isMobile ? classes.videoContainerMobile : classes.videoContainer
         }
       >
-        {selectedHashtag && (
+        {selectedCategory && (
           <Box
             pt={2}
             pb={1}
             borderBottom={1}
             className={classes.titleContainer}
           >
-            {selectedHashtag && (
+            {selectedCategory && (
               <div className={classes.title}>
-                {selectedHashtag.hashtag}{" "}
-                <IconButton onClick={onHashtagFilterClose} size="small">
+                {selectedCategory?.category}{" "}
+                <IconButton onClick={onCategoryFilterClose} size="small">
                   <CloseIcon />
                 </IconButton>
               </div>
@@ -94,18 +96,18 @@ const ContentPanel = ({
         )}
         {!isMobile ? (
           <ScrollingWrapper
-            refresh={selectedHashtag || false}
+            refresh={selectedCategory || false}
             isMobile={isMobile}
           >
             <VideoFeedContainer
-              selectedHashtag={selectedHashtag}
+              selectedCategory={selectedCategory}
               isMobile={isMobile}
               refresh={refresh}
             />
           </ScrollingWrapper>
         ) : (
           <VideoFeedContainer
-            selectedHashtag={selectedHashtag}
+            selectedCategory={selectedCategory}
             isMobile={isMobile}
           />
         )}
@@ -115,17 +117,19 @@ const ContentPanel = ({
 };
 
 ContentPanel.propTypes = {
-  selectedHashtag: PropTypes.object,
+  selectedCategory: PropTypes.object,
   isMobile: PropTypes.bool,
   refresh: PropTypes.bool,
-  clearSelectedHashtag: PropTypes.func,
+  clearSelectedCategory: PropTypes.func,
+  setRefresh: PropTypes.func,
 };
 
 ContentPanel.defaultProps = {
-  selectedHashtag: null,
+  selectedCategory: null,
   isMobile: false,
   refresh: false,
-  clearSelectedHashtag() {},
+  clearSelectedCategory() {},
+  setRefresh() {},
 };
 
 export default ContentPanel;

@@ -13,8 +13,8 @@ import {
   setRefresh,
   clearRefresh,
 } from "../../actions/location-actions";
-import { selectSelectedHashtag } from "../../selectors/hashtag-selectors";
-import { clearSelectedHashtag } from "../../actions/hashtag-actions";
+import { selectSelectedCategory } from "../../selectors/category-selectors";
+import { clearSelectedCategory } from "../../actions/category-actions";
 import { clearSelectedVideo, fetchVideosV2 } from "../../actions/video-actions";
 import {
   selectLocations,
@@ -27,11 +27,11 @@ import {
 import Map from "./map";
 
 const mapStateToProps = (state) => {
-  const selectedHashtag = selectSelectedHashtag(state);
+  const selectedCategory = selectSelectedCategory(state);
   const selectedCity = selectSelectedCity(state);
 
   return {
-    locations: selectLocations(state, selectedHashtag, selectedCity),
+    locations: selectLocations(state, selectedCategory, selectedCity),
     selectedLocation: selectSelectedLocation(state),
     selectedCity: selectedCity,
     mapBounds: selectMapBounds(state),
@@ -43,7 +43,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => ({
   saveSelectedLocation: (location) => dispatch(saveSelectedLocation(location)),
   clearSelectedLocation: () => dispatch(clearSelectedLocation()),
-  clearSelectedHashtag: () => dispatch(clearSelectedHashtag()),
+  clearSelectedCategory: () => dispatch(clearSelectedCategory()),
   clearSelectedVideo: () => dispatch(clearSelectedVideo()),
   fetchLocationsV2: (latMin, latMax, lngMin, lngMax) =>
     dispatch(fetchLocationsV2(latMin, latMax, lngMin, lngMax)),

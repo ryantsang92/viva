@@ -83,7 +83,7 @@ export const saveMapBounds = (data) => {
   };
 };
 
-export const setRefresh = (data) => {
+export const setRefresh = () => {
   return {
     type: SET_REFRESH,
   };

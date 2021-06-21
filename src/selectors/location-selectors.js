@@ -4,22 +4,17 @@
   author: Ryan Tsang <ryan@vivatheapp.com>
 */
 
-import { selectVideos } from "./video-selectors";
-
 export const selectLocationData = (state) => {
   return state?.locationData;
 };
 
-export const selectLocations = (state, hashtag = null, city = null) => {
-  const selectedVideos = selectVideos(state, hashtag, city);
+export const selectLocations = (state, category = null, city = null) => {
   const locations = selectLocationData(state)?.locations;
 
-  let combinedHashtags = [];
-  let locationIds = [];
-  if (selectedVideos) {
-    selectedVideos.forEach((video) => combinedHashtags.push(video.location_id));
-    locationIds = [].concat.apply([], combinedHashtags);
-    return locations?.filter((location) => locationIds.includes(location.id));
+  if (category) {
+    return locations?.filter((location) =>
+      location?.categories?.includes(category?.id)
+    );
   }
   return locations;
 };

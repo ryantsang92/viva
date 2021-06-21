@@ -32,7 +32,7 @@ const MetroDropdown = ({
     if (metroData?.metros === null) {
       fetchMetros();
     }
-  }, [metroData]);
+  }, [metroData, fetchMetros]);
 
   const handleChange = (event) => {
     setCity(event.target.value);

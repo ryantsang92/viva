@@ -11,7 +11,7 @@ export const apiKeys = {
 
 export const endpoint = {
   VIDEO_URL_V2: "https://api.vivatheapp.com/vids",
-  HASHTAG_URL: "https://api.vivatheapp.com/hashtags",
+  CATEGORY_URL: "https://api.vivatheapp.com/categories",
   LOCATION_URL_V2: "https://api.vivatheapp.com/locs",
   GOOGLE_URL: "https://api.vivatheapp.com/google/",
   YELP_URL: "https://api.vivatheapp.com/yelp/",

@@ -5,11 +5,12 @@
 */
 
 import { connect } from "react-redux";
-import { fetchSelectedHashtag } from "../actions/hashtag-actions";
+import { fetchSelectedCategory } from "../actions/category-actions";
 import MobileMenu from "./mobile-menu";
 
 const mapDispatchToProps = (dispatch) => ({
-  fetchSelectedHashtag: (hashtag) => dispatch(fetchSelectedHashtag(hashtag)),
+  fetchSelectedCategory: (category) =>
+    dispatch(fetchSelectedCategory(category)),
 });
 
 export default connect(null, mapDispatchToProps)(MobileMenu);

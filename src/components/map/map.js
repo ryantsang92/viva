@@ -79,7 +79,7 @@ const Map = ({
   selectedLocation,
   selectedCity,
   saveSelectedLocation,
-  clearSelectedHashtag,
+  clearSelectedCategory,
   saveMapBounds,
   setRefresh,
 }) => {
@@ -108,7 +108,7 @@ const Map = ({
 
   const onMarkerClick = (marker) => {
     saveSelectedLocation(marker.markerData);
-    clearSelectedHashtag();
+    clearSelectedCategory();
   };
 
   const mapStyle = [
@@ -265,7 +265,7 @@ Map.propTypes = {
   selectedLocation: PropTypes.object,
   selectedCity: PropTypes.string,
   saveSelectedLocation: PropTypes.func,
-  clearSelectedHashtag: PropTypes.func,
+  clearSelectedCategory: PropTypes.func,
   saveMapBounds: PropTypes.func,
   setRefresh: PropTypes.func,
 };
@@ -276,7 +276,7 @@ Map.defaultProps = {
   selectedLocation: null,
   selectedCity: null,
   saveSelectedLocation() {},
-  clearSelectedHashtag() {},
+  clearSelectedCategory() {},
   saveMapBounds() {},
   setRefresh() {},
 };

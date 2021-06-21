@@ -28,7 +28,7 @@ const LocationCard = ({
   location,
   fetchGooglePlaceData,
   saveSelectedLocation,
-  clearSelectedHashtag,
+  clearSelectedCategory,
 }) => {
   const classes = useStyles();
 
@@ -37,7 +37,7 @@ const LocationCard = ({
   const onCardClick = () => {
     fetchGooglePlaceData(g_place_id);
     saveSelectedLocation(location);
-    clearSelectedHashtag();
+    clearSelectedCategory();
   };
 
   return (
@@ -72,13 +72,13 @@ LocationCard.propTypes = {
   location: PropTypes.object.isRequired,
   fetchGooglePlaceData: PropTypes.func,
   saveSelectedLocation: PropTypes.func,
-  clearSelectedHashtag: PropTypes.func,
+  clearSelectedCategory: PropTypes.func,
 };
 
 LocationCard.defaultProps = {
   fetchGooglePlaceData() {},
   saveSelectedLocation() {},
-  clearSelectedHashtag() {},
+  clearSelectedCategory() {},
 };
 
 export default LocationCard;

@@ -14,11 +14,13 @@ import {
 import { fetchVideosV2 } from "../actions/video-actions";
 import BodyGrid from "./body-grid";
 
-const mapStateToProps = (state) => ({
-  selectedLocation: selectSelectedLocation(state),
-  refresh: selectRefresh(state),
-  mapBounds: selectMapBounds(state),
-});
+const mapStateToProps = (state) => {
+  return {
+    selectedLocation: selectSelectedLocation(state),
+    refresh: selectRefresh(state),
+    mapBounds: selectMapBounds(state),
+  };
+};
 
 const mapDispatchToProps = (dispatch) => ({
   clearRefresh: () => dispatch(clearRefresh()),

@@ -45,7 +45,7 @@ const VideoFeed = ({
       setItems(videos?.slice(0, 5));
       clearRefresh();
     }
-  }, [videos]);
+  }, [videos, refresh, clearRefresh]);
 
   const fetchMoreData = () => {
     if (items?.length >= videos?.length) {

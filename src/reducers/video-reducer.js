@@ -18,7 +18,7 @@ const initialState = {
   selectedVideo: null,
 };
 
-const hashtagReducer = (state = initialState, action) => {
+const videoReducer = (state = initialState, action) => {
   switch (action.type) {
     case FETCH_VIDEO_IS_LOADING_V2:
       return {
@@ -46,4 +46,4 @@ const hashtagReducer = (state = initialState, action) => {
   }
 };
 
-export default hashtagReducer;
+export default videoReducer;
