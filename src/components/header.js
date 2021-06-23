@@ -15,6 +15,8 @@ import {
   InputLabel,
   Modal,
   IconButton,
+  Select,
+  MenuItem,
 } from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
 import GreenButton from "./common/green-button";
@@ -57,9 +59,18 @@ const useStyles = makeStyles((theme) => ({
     width: 20,
     height: 24,
   },
+  navcenter: {
+    flexGrow: 1,
+    height: 116,
+  },
   navbar: {
     margin: 0,
-    width: "100%",
+    display: "flex",
+    justifyContent: "center",
+    // width: "100%",
+  },
+  navbottom: {
+    textAlign: "center",
   },
   cityPicker: {
     padding: "0 !important",
@@ -168,7 +179,7 @@ const Header = ({
   return (
     <div className={classes.header}>
       <Grid container className={classes.headerTop}>
-        <Grid item xs={2} className={classes.clear}>
+        <Grid item xs={3} className={classes.clear}>
           <Box className={classes.logoContainer}>
             <Box className={classes.clear}>
               <img
@@ -180,7 +191,56 @@ const Header = ({
             </Box>
           </Box>
         </Grid>
-        <Grid item xs={10}>
+        <Box pt={2} className={classes.navcenter}>
+          <Box>
+            <Box container spacing={2} className={classes.navbar}>
+              <Grid item className={classes.cityPicker}>
+                <Box pl={1} pr={1}>
+                  <FormControl
+                    className={
+                      isMobile ? classes.formControlMobile : classes.formControl
+                    }
+                  >
+                    <InputLabel id="city-picker-label">City</InputLabel>
+                    <Box pl={1} display="flex" justifyContent="flex-start">
+                      <Select
+                        labelId="city-picker-label"
+                        id="city-picker"
+                        // value={city}
+                        // onChange={handleChange}
+                        className={classes.selectBox}
+                      >
+                        <MenuItem value={"WhatsNew"}>What's New</MenuItem>
+                        <MenuItem value={"Boston"}>BOS</MenuItem>
+                        <MenuItem value={"NewYork"}>NYC</MenuItem>
+                        <MenuItem value={"SanDiego"}>San Diego</MenuItem>
+                      </Select>
+                    </Box>
+                  </FormControl>
+                </Box>
+              </Grid>
+              <Grid item className={classes.cityPicker}>
+                <Box pl={1} pr={1}>
+                  <FormControl
+                    className={
+                      isMobile ? classes.formControlMobile : classes.formControl
+                    }
+                  >
+                    <InputLabel id="city-picker-label">City</InputLabel>
+                    <Box pl={1} display="flex" justifyContent="flex-start">
+                      <Box pr={1}>in</Box>
+                      <MetroDropdownContainer />
+                    </Box>
+                  </FormControl>
+                </Box>
+              </Grid>
+            </Box>
+          </Box>
+          <Box pt={2} className={classes.navbottom}>
+            <PillBoxContainer isMobile={isMobile} />
+          </Box>
+        </Box>
+        <Grid item xs={3}>
           <Box
             display="flex"
             justifyContent="flex-end"
@@ -193,36 +253,6 @@ const Header = ({
           </Box>
         </Grid>
       </Grid>
-      <Box pt={1} pb={2}>
-        <Grid container spacing={2} className={classes.navbar}>
-          <Grid item className={classes.cityPicker}>
-            <Box pl={1} pr={1}>
-              <FormControl
-                className={
-                  isMobile ? classes.formControlMobile : classes.formControl
-                }
-              >
-                <InputLabel id="city-picker-label">City</InputLabel>
-                <Box pl={1} display="flex" justifyContent="flex-start">
-                  <Box pr={1}>
-                    <img
-                      src={MapPinDefault}
-                      alt="city"
-                      className={classes.pin}
-                    />
-                  </Box>
-                  <MetroDropdownContainer />
-                </Box>
-              </FormControl>
-            </Box>
-          </Grid>
-          <Grid item className={classes.hashContainer}>
-            <Box className={classes.left}>
-              <PillBoxContainer isMobile={isMobile}/>
-            </Box>
-          </Grid>
-        </Grid>
-      </Box>
       {!isMobile && (
         <Modal
           open={modalOpen}

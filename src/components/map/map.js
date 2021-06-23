@@ -36,6 +36,7 @@ const useStyles = makeStyles({
     top: 10,
     display: "inline-block",
     zIndex: 500,
+    left: "calc(50% - 45px)",
   },
 });
 
