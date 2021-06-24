@@ -264,7 +264,7 @@ Map.propTypes = {
   google: PropTypes.object,
   locations: PropTypes.array,
   selectedLocation: PropTypes.object,
-  selectedCity: PropTypes.string,
+  selectedCity: PropTypes.object,
   saveSelectedLocation: PropTypes.func,
   clearSelectedCategory: PropTypes.func,
   saveMapBounds: PropTypes.func,

@@ -60,7 +60,6 @@ const PlacesPanel = ({
   placeData,
   fetchGooglePlaceData,
   fetchYelpPlaceData,
-  fetchInstagramPlaceData,
   clearSelectedLocation,
 }) => {
   const classes = useStyles();
@@ -71,7 +70,6 @@ const PlacesPanel = ({
     if (selectedLocation) {
       fetchGooglePlaceData(selectedLocation?.g_place_id);
       fetchYelpPlaceData(sanitizeYelpURL(selectedLocation?.yelp));
-      // fetchInstagramPlaceData(selectedLocation?.ig);
     }
   }, [selectedLocation, fetchGooglePlaceData, fetchYelpPlaceData]);
 
@@ -162,7 +160,7 @@ const PlacesPanel = ({
                 </AccordionSummary>
                 <AccordionDetails>
                   <div>
-                    {opening_hours?.weekday_text.map((day) => {
+                    {opening_hours?.weekday_text?.map((day) => {
                       return <Typography>{day}</Typography>;
                     })}
                   </div>

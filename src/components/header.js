@@ -6,7 +6,6 @@
 
 import React, { useState, useEffect } from "react";
 import logo from "../assets/viva-logo-final.svg";
-import MapPinDefault from "../assets/map-pin-default.png";
 import {
   Box,
   Typography,
@@ -150,11 +149,17 @@ const Header = ({
   selectedVideo,
   selectedCity,
   clearSelectedVideo,
+  selectedCategory,
   fetchSelectedCategory,
+  clearSelectedCategory,
   isMobile,
+  categories,
+  fetchCategories,
+  setRefresh,
 }) => {
   const classes = useStyles();
 
+  // const [category, setCategory] = useState("What's New");
   const [modalOpen, setModalOpen] = useState(false);
 
   useEffect(() => {
@@ -162,6 +167,12 @@ const Header = ({
       clearSelectedVideo();
     }
   }, [selectedVideo, selectedCity, clearSelectedVideo]);
+
+  useEffect(() => {
+    if (!categories || !categories.length) {
+      fetchCategories();
+    }
+  }, [categories, fetchCategories]);
 
   const handleModalClose = () => {
     setModalOpen(false);
@@ -176,21 +187,30 @@ const Header = ({
     handleModalClose();
   };
 
+  const handleChange = (event) => {
+    // update redux store
+    if (event.target.value === "What's New") {
+      clearSelectedCategory();
+    } else {
+      fetchSelectedCategory(event.target.value);
+      window.scrollTo(0, 0);
+      setRefresh();
+    }
+  };
+
   return (
     <div className={classes.header}>
-      <Grid container className={classes.headerTop}>
-        <Grid item xs={3} className={classes.clear}>
-          <Box className={classes.logoContainer}>
-            <Box className={classes.clear}>
-              <img
-                src={logo}
-                alt="VIVA"
-                className={classes.logo}
-                onClick={refreshPage}
-              />
-            </Box>
+      <Box display="flex" alignItems="flex-start" className={classes.headerTop}>
+        <Box className={classes.logoContainer}>
+          <Box className={classes.clear}>
+            <img
+              src={logo}
+              alt="VIVA"
+              className={classes.logo}
+              onClick={refreshPage}
+            />
           </Box>
-        </Grid>
+        </Box>
         <Box pt={2} className={classes.navcenter}>
           <Box>
             <Box container spacing={2} className={classes.navbar}>
@@ -201,19 +221,21 @@ const Header = ({
                       isMobile ? classes.formControlMobile : classes.formControl
                     }
                   >
-                    <InputLabel id="city-picker-label">City</InputLabel>
+                    <InputLabel id="category-picker-label">Category</InputLabel>
                     <Box pl={1} display="flex" justifyContent="flex-start">
                       <Select
-                        labelId="city-picker-label"
-                        id="city-picker"
-                        // value={city}
-                        // onChange={handleChange}
+                        labelId="category-picker-label"
+                        id="category-picker"
+                        value={selectedCategory}
+                        onChange={handleChange}
                         className={classes.selectBox}
                       >
-                        <MenuItem value={"WhatsNew"}>What's New</MenuItem>
-                        <MenuItem value={"Boston"}>BOS</MenuItem>
-                        <MenuItem value={"NewYork"}>NYC</MenuItem>
-                        <MenuItem value={"SanDiego"}>San Diego</MenuItem>
+                        <MenuItem value={"What's New"}>Whats New</MenuItem>
+                        {categories.map((category) => (
+                          <MenuItem value={category} key={category.id}>
+                            {category.category}
+                          </MenuItem>
+                        ))}
                       </Select>
                     </Box>
                   </FormControl>
@@ -237,22 +259,20 @@ const Header = ({
             </Box>
           </Box>
           <Box pt={2} className={classes.navbottom}>
-            <PillBoxContainer isMobile={isMobile} />
+            <PillBoxContainer isMobile={isMobile} categories={categories} />
           </Box>
         </Box>
-        <Grid item xs={3}>
-          <Box
-            display="flex"
-            justifyContent="flex-end"
-            alignItems="center"
-            flexDirection="row"
-            pt={2}
-          >
-            <SocialGrid />
-            <MobileMenuContainer />
-          </Box>
-        </Grid>
-      </Grid>
+        <Box
+          display="flex"
+          justifyContent="flex-end"
+          alignItems="center"
+          flexDirection="row"
+          pt={2}
+        >
+          <SocialGrid />
+          <MobileMenuContainer />
+        </Box>
+      </Box>
       {!isMobile && (
         <Modal
           open={modalOpen}
@@ -366,16 +386,22 @@ Header.propTypes = {
   selectedVideo: PropTypes.object,
   selectedLocation: PropTypes.string,
   isMobile: PropTypes.bool,
+  categories: PropTypes.array,
   clearSelectedVideo: PropTypes.func,
   fetchSelectedCategory: PropTypes.func,
+  clearSelectedCategory: PropTypes.func,
+  fetchCategories: PropTypes.func,
 };
 
 Header.defaultProps = {
   selectedVideo: {},
   selectedLocation: null,
   isMobile: false,
+  categories: [],
   clearSelectedVideo() {},
   fetchSelectedCategory() {},
+  clearSelectedCategory() {},
+  fetchCategories() {},
 };
 
 export default Header;

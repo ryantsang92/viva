@@ -60,7 +60,9 @@ const MetroDropdown = ({
       {metroData?.metros
         ?.sort((a, b) => a.name - b.name) //fix sort
         ?.map((metro) => (
-          <MenuItem value={metro}>{metro.name}</MenuItem>
+          <MenuItem value={metro} key={metro.id}>
+            {metro.name}
+          </MenuItem>
         ))}
     </Select>
   );
