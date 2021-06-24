@@ -69,19 +69,54 @@ const useStyles = makeStyles((theme) => ({
     // width: "100%",
   },
   navbottom: {
-    textAlign: "center",
+    textAlign: 'center',
+    paddingTop: 16,
+    display: 'flex',
+    justifyContent: 'center',
+  },
+  quicklink: {
+    fontSize: 17,
+    fontWeight: 400,
+    margin: "0 13px",
+  },
+  selectContainer: {
+    display: "flex",
+    boxShadow: "0px 3px 6px 3px rgba(0,0,0,0.1)",
+    borderRadius: 20,
+    width: '80%',
+    maxWidth: 600,
+  },
+  mutedText: {
+    color: "gray",
+    fontSize: 16,
+    lineHeight: "40px",
   },
   cityPicker: {
     padding: "0 !important",
     display: "flex",
     alignItems: "center",
+    width: "100%",
   },
-  formControl: {
+  formControl1: {
     minWidth: 150,
-    background: "#efefef",
-    borderRadius: 15,
+    width: "100%",
+    background: "#fff",
+    borderRadius: "25px 0 0 25px",
     textAlign: "left",
-    height: 32,
+    // height: 32,
+    "& label": {
+      display: "none",
+    },
+    "& > div": {
+      marginTop: 0,
+    },
+  },
+  formControl2: {
+    minWidth: 150,
+    width: "100%",
+    background: "#fff",
+    borderRadius: "0 25px 25px 0",
+    textAlign: "left",
     "& label": {
       display: "none",
     },
@@ -133,6 +168,14 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.background.paper,
     borderRadius: 15,
     boxShadow: theme.shadows[5],
+  },
+  selectBox: {
+    // height: 32,
+    fontSize: 17,
+    paddingTop: 3,
+    paddingBottom: 3,
+    paddingLeft: 15,
+    width: "100%",
   },
   modalLogo: {
     borderRadius: 15,
@@ -214,11 +257,11 @@ const Header = ({
         <Box pt={2} className={classes.navcenter}>
           <Box>
             <Box container spacing={2} className={classes.navbar}>
-              <Grid item className={classes.cityPicker}>
-                <Box pl={1} pr={1}>
+              <Box className={classes.selectContainer}>
+                <Grid item className={classes.cityPicker}>
                   <FormControl
                     className={
-                      isMobile ? classes.formControlMobile : classes.formControl
+                      isMobile ? classes.formControlMobile : classes.formControl1
                     }
                   >
                     <InputLabel id="category-picker-label">Category</InputLabel>
@@ -226,11 +269,11 @@ const Header = ({
                       <Select
                         labelId="category-picker-label"
                         id="category-picker"
-                        value={selectedCategory}
+                        value={selectedCategory || "What's New"}
                         onChange={handleChange}
                         className={classes.selectBox}
                       >
-                        <MenuItem value={"What's New"}>Whats New</MenuItem>
+                        <MenuItem value={"What's New"}>What's New</MenuItem>
                         {categories.map((category) => (
                           <MenuItem value={category} key={category.id}>
                             {category.category}
@@ -239,13 +282,11 @@ const Header = ({
                       </Select>
                     </Box>
                   </FormControl>
-                </Box>
-              </Grid>
-              <Grid item className={classes.cityPicker}>
-                <Box pl={1} pr={1}>
+                </Grid>
+                <Grid item className={classes.cityPicker}>
                   <FormControl
                     className={
-                      isMobile ? classes.formControlMobile : classes.formControl
+                      isMobile ? classes.formControlMobile : classes.formControl2
                     }
                   >
                     <InputLabel id="city-picker-label">City</InputLabel>
@@ -254,8 +295,8 @@ const Header = ({
                       <MetroDropdownContainer />
                     </Box>
                   </FormControl>
-                </Box>
-              </Grid>
+                </Grid>
+              </Box>
             </Box>
           </Box>
           <Box pt={2} className={classes.navbottom}>
