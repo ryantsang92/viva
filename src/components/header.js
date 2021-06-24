@@ -72,18 +72,52 @@ const useStyles = makeStyles((theme) => ({
   navbottom: {
     textAlign: 'center',
     paddingTop: 16,
+    display: 'flex',
+    justifyContent: 'center',
+  },
+  quicklink: {
+    fontSize: 17,
+    fontWeight: 400,
+    margin: "0 13px",
+  },
+  selectContainer: {
+    display: "flex",
+    boxShadow: "0px 3px 6px 3px rgba(0,0,0,0.1)",
+    borderRadius: 20,
+    width: '80%',
+    maxWidth: 600,
+  },
+  mutedText: {
+    color: "gray",
+    fontSize: 16,
+    lineHeight: "40px",
   },
   cityPicker: {
     padding: "0 !important",
     display: "flex",
     alignItems: "center",
+    width: "100%",
   },
-  formControl: {
+  formControl1: {
     minWidth: 150,
-    background: "#efefef",
-    borderRadius: 15,
+    width: "100%",
+    background: "#fff",
+    borderRadius: "25px 0 0 25px",
     textAlign: "left",
-    height: 32,
+    // height: 32,
+    "& label": {
+      display: "none",
+    },
+    "& > div": {
+      marginTop: 0,
+    },
+  },
+  formControl2: {
+    minWidth: 150,
+    width: "100%",
+    background: "#fff",
+    borderRadius: "0 25px 25px 0",
+    textAlign: "left",
     "& label": {
       display: "none",
     },
@@ -137,7 +171,11 @@ const useStyles = makeStyles((theme) => ({
     boxShadow: theme.shadows[5],
   },
   selectBox: {
-    height: 32,
+    // height: 32,
+    fontSize: 17,
+    paddingTop: 3,
+    paddingBottom: 3,
+    paddingLeft: 15,
     width: "100%",
   },
   modalLogo: {
@@ -215,16 +253,40 @@ const Header = ({
         <Box className={classes.navcenter}>
           <Box>
             <Box container spacing={2} className={classes.navbar}>
-              <Grid item className={classes.cityPicker}>
-                <Box pl={1} pr={1}>
+              <Box className={classes.selectContainer}>
+                <Grid item className={classes.cityPicker}>
                   <FormControl
                     className={
-                      isMobile ? classes.formControlMobile : classes.formControl
+                      isMobile ? classes.formControlMobile : classes.formControl1
                     }
                   >
                     <InputLabel id="city-picker-label">City</InputLabel>
                     <Box pl={1} display="flex" justifyContent="flex-start">
-                      <Box pr={1}>
+                      <Select
+                        labelId="city-picker-label"
+                        id="city-picker"
+                        value={city}
+                        onChange={handleChange}
+                        className={classes.selectBox}
+                      >
+                        <MenuItem value={"All"}>Whats New</MenuItem>
+                        <MenuItem value={"New York"}>Restaurants and Bars</MenuItem>
+                        <MenuItem value={"Boston"}>Cafe & Bakery</MenuItem>
+                        <MenuItem value={"San Diego"}>Parks & Rec</MenuItem>
+                        <MenuItem value={"San Diego"}>Attractions</MenuItem>
+                      </Select>
+                    </Box>
+                  </FormControl>
+                </Grid>
+                <Grid item className={classes.cityPicker}>
+                  <FormControl
+                    className={
+                      isMobile ? classes.formControlMobile : classes.formControl2
+                    }
+                  >
+                    <InputLabel id="city-picker-label">City</InputLabel>
+                    <Box pl={1} display="flex" justifyContent="flex-start">
+                      <Box pr={1} className={classes.mutedText}>
                         in
                       </Box>
                       <Select
@@ -234,48 +296,25 @@ const Header = ({
                         onChange={handleChange}
                         className={classes.selectBox}
                       >
-                        <MenuItem value={"All"}>---</MenuItem>
-                        <MenuItem value={"Boston"}>BOS</MenuItem>
-                        <MenuItem value={"New York"}>NYC</MenuItem>
+                        <MenuItem value={"All"}>New York</MenuItem>
+                        <MenuItem value={"Boston"}>Boston</MenuItem>
+                        <MenuItem value={"New York"}>New fYork</MenuItem>
                         <MenuItem value={"San Diego"}>San Diego</MenuItem>
+                        <MenuItem value={"San Francisco"}>San Francisco</MenuItem>
                       </Select>
                     </Box>
                   </FormControl>
-                </Box>
-              </Grid>
-              <Grid item className={classes.cityPicker}>
-                <Box pl={1} pr={1}>
-                  <FormControl
-                    className={
-                      isMobile ? classes.formControlMobile : classes.formControl
-                    }
-                  >
-                    <InputLabel id="city-picker-label">City</InputLabel>
-                    <Box pl={1} display="flex" justifyContent="flex-start">
-                      <Box pr={1}>
-                        in
-                      </Box>
-                      <Select
-                        labelId="city-picker-label"
-                        id="city-picker"
-                        value={city}
-                        onChange={handleChange}
-                        className={classes.selectBox}
-                      >
-                        <MenuItem value={"All"}>---</MenuItem>
-                        <MenuItem value={"Boston"}>BOS</MenuItem>
-                        <MenuItem value={"New York"}>NYC</MenuItem>
-                        <MenuItem value={"San Diego"}>San Diego</MenuItem>
-                      </Select>
-                    </Box>
-                  </FormControl>
-                </Box>
-              </Grid>
+                </Grid>
+              </Box>
             </Box>
           </Box>
-          <Box className={classes.navbottom}>
-            this is where the quick links go
-          </Box>
+          <Grid className={classes.navbottom}>
+            <Box className={classes.quicklink}>Restaurants & Bars</Box>
+            <Box className={classes.quicklink}>Cafe & Bakery</Box>
+            <Box className={classes.quicklink}>Parks & Rec</Box>
+            <Box className={classes.quicklink}>Attractions</Box>
+            <Box className={classes.quicklink}>Shopping</Box>
+          </Grid>
         </Box>
         <Grid item xs={3}>
           <Box
