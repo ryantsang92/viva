@@ -11,9 +11,9 @@ import {
   FETCH_YELP_DATA_IS_LOADING,
   FETCH_YELP_DATA_SUCCESS,
   FETCH_YELP_DATA_ERROR,
-  FETCH_INSTAGRAM_DATA_IS_LOADING,
-  FETCH_INSTAGRAM_DATA_SUCCESS,
-  FETCH_INSTAGRAM_DATA_ERROR,
+  FETCH_PLACE_VIDS_DATA_IS_LOADING,
+  FETCH_PLACE_VIDS_DATA_SUCCESS,
+  FETCH_PLACE_VIDS_DATA_ERROR,
 } from "../actions/place-panel-actions";
 
 const initialState = {
@@ -26,7 +26,7 @@ const placePanelReducer = (state = initialState, action) => {
   switch (action.type) {
     case FETCH_GOOGLE_DATA_IS_LOADING:
     case FETCH_YELP_DATA_IS_LOADING:
-    case FETCH_INSTAGRAM_DATA_IS_LOADING:
+    case FETCH_PLACE_VIDS_DATA_IS_LOADING:
       return {
         ...state,
         isLoading: true,
@@ -58,19 +58,19 @@ const placePanelReducer = (state = initialState, action) => {
           error: "Error fetching yelp data",
           isLoading: false,
         };
-    case FETCH_INSTAGRAM_DATA_SUCCESS:
+    case FETCH_PLACE_VIDS_DATA_SUCCESS:
       return {
         ...state,
         placeData: {
           ...state.placeData,
-          instagram: action.payload,
+          videos: action.payload,
         },
         isLoading: false,
       };
-    case FETCH_INSTAGRAM_DATA_ERROR:
+    case FETCH_PLACE_VIDS_DATA_ERROR:
         return {
           ...state,
-          error: "Error fetching instagram data",
+          error: "Error fetching place videos data",
           isLoading: false,
         };
     default:

@@ -13,20 +13,36 @@ export const FETCH_GOOGLE_DATA_ERROR = "FETCH_GOOGLE_DATA_ERROR";
 export const FETCH_YELP_DATA_SUCCESS = "FETCH_YELP_DATA_SUCCESS";
 export const FETCH_YELP_DATA_IS_LOADING = "FETCH_YELP_DATA_IS_LOADING";
 export const FETCH_YELP_DATA_ERROR = "FETCH_YELP_DATA_ERROR";
-export const FETCH_INSTAGRAM_DATA_SUCCESS = "FETCH_INSTAGRAM_DATA_SUCCESS";
-export const FETCH_INSTAGRAM_DATA_IS_LOADING = "FETCH_INSTAGRAM_DATA_IS_LOADING";
-export const FETCH_INSTAGRAM_DATA_ERROR = "FETCH_INSTAGRAM_DATA_ERROR";
+export const FETCH_PLACE_VIDS_DATA_SUCCESS = "FETCH_PLACE_VIDS_DATA_SUCCESS";
+export const FETCH_PLACE_VIDS_DATA_IS_LOADING =
+  "FETCH_PLACE_VIDS_DATA_IS_LOADING";
+export const FETCH_PLACE_VIDS_DATA_ERROR = "FETCH_PLACE_VIDS_DATA_ERROR";
 
 export const fetchGooglePlaceData = (placeId) => {
-  return fetchEndpoint(endpoint.GOOGLE_URL + placeId, fetchGoogleSuccess, fetchGoogleError, fetchGoogleIsLoading);
+  return fetchEndpoint(
+    endpoint.GOOGLE_URL + placeId,
+    fetchGoogleSuccess,
+    fetchGoogleError,
+    fetchGoogleIsLoading
+  );
 };
 
 export const fetchYelpPlaceData = (yelpId) => {
-  return fetchEndpoint(endpoint.YELP_URL + yelpId, fetchYelpSuccess, fetchYelpError, fetchYelpIsLoading);
+  return fetchEndpoint(
+    endpoint.YELP_URL + yelpId,
+    fetchYelpSuccess,
+    fetchYelpError,
+    fetchYelpIsLoading
+  );
 };
 
-export const fetchInstagramPlaceData = (instagramId) => {
-  return fetchEndpoint(endpoint.INSTAGRAM_URL + instagramId, fetchInstagramSuccess, fetchInstagramError, fetchInstagramIsLoading);
+export const fetchPlaceVidsData = (locationId) => {
+  return fetchEndpoint(
+    endpoint.LOC_VID_URL + locationId,
+    fetchPlaceVidsSuccess,
+    fetchPlaceVidsError,
+    fetchPlaceVidsIsLoading
+  );
 };
 
 const fetchGoogleIsLoading = () => {
@@ -69,22 +85,22 @@ const fetchYelpError = (error) => {
   };
 };
 
-const fetchInstagramSuccess = (payload) => {
+const fetchPlaceVidsSuccess = (payload) => {
   return {
-    type: FETCH_INSTAGRAM_DATA_SUCCESS,
+    type: FETCH_PLACE_VIDS_DATA_SUCCESS,
     payload,
   };
 };
 
-const fetchInstagramIsLoading = () => {
+const fetchPlaceVidsIsLoading = () => {
   return {
-    type: FETCH_INSTAGRAM_DATA_IS_LOADING,
+    type: FETCH_PLACE_VIDS_DATA_IS_LOADING,
   };
 };
 
-const fetchInstagramError = (error) => {
+const fetchPlaceVidsError = (error) => {
   return {
-    type: FETCH_INSTAGRAM_DATA_ERROR,
+    type: FETCH_PLACE_VIDS_DATA_ERROR,
     error: error,
   };
 };

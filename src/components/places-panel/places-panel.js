@@ -17,6 +17,7 @@ import {
 } from "@material-ui/core";
 import { apiKeys } from "../../app-constants";
 import { sanitizeYelpURL } from "../../common/common-functions";
+import PlaceVideosContainer from "./place-videos-container";
 import GoogleReviews from "./google-reviews";
 import YelpReviews from "./yelp-reviews";
 import MapPinDefault from "../../assets/map-pin-default.png";
@@ -193,6 +194,7 @@ const PlacesPanel = ({
             <Box pt={1} pb={1}>
               <Divider />
             </Box>
+            <PlaceVideosContainer />
             <GoogleReviews reviews={reviews} />
             {yelp && <YelpReviews reviews={yelp?.reviews?.reviews} />}
           </Box>
@@ -208,7 +210,6 @@ PlacesPanel.propTypes = {
   isMobile: PropTypes.bool,
   fetchGooglePlaceData: PropTypes.func,
   fetchYelpPlaceData: PropTypes.func,
-  fetchInstagramPlaceData: PropTypes.func,
   clearSelectedLocation: PropTypes.func,
 };
 
@@ -217,7 +218,6 @@ PlacesPanel.defaultProps = {
   isMobile: false,
   fetchGooglePlaceData() {},
   fetchYelpPlaceData() {},
-  fetchInstagramPlaceData() {},
   clearSelectedLocation() {},
 };
 

@@ -11,3 +11,7 @@ export const selectPlacePanelData = (state) => {
 export const selectPlaceData = (state) => {
   return selectPlacePanelData(state)?.placeData;
 };
+
+export const selectPlaceVideosData = (state) => {
+  return selectPlaceData(state)?.videos;
+};
