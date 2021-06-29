@@ -201,7 +201,9 @@ const PlacesPanel = ({
             <Box pt={1} pb={1}>
               <Divider />
             </Box>
-            <PlaceVideosContainer locationId={id} />
+            <Box pt={1} pb={1}>
+              <PlaceVideosContainer locationId={id} />
+            </Box>
             <GoogleReviews reviews={reviews} />
             {yelp && <YelpReviews reviews={yelp?.reviews?.reviews} />}
           </Box>

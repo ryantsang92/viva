@@ -6,14 +6,23 @@
 
 import React, { useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { Box } from "@material-ui/core";
+import { Box, GridList, GridListTile } from "@material-ui/core";
 import PropTypes from "prop-types";
-import HorizontalScrollMenu from "../common/horizontal-scroll-menu";
 
 const useStyles = makeStyles(() => ({
   photo: {
-    width: "20%",
-    height: "20%",
+    width: "40%",
+    height: "40%",
+  },
+  gridList: {
+    flexWrap: "nowrap",
+    // Promote the list into his own layer on Chrome. This cost memory but helps keeping high FPS.
+    transform: "translateZ(0)",
+    scrollbarWidth: "none",
+    "&::-webkit-scrollbar": {
+      width: 0 /* Remove scrollbar space */,
+      background: "transparent" /* Optional: just make scrollbar invisible */,
+    },
   },
 }));
 
@@ -26,19 +35,23 @@ const PlaceVideos = ({ locationId, videos, fetchPlaceVidsData }) => {
     }
   }, [locationId, videos, fetchPlaceVidsData]);
 
-  const Menu = (videos) =>
-    videos?.map((el) => {
-      const { thumbnail, id } = el;
-
-      return (
-        <img src={thumbnail} alt="VIVA" key={id} className={classes.photo} />
-      );
-    });
-
   return (
     <>
-      <Box pb={1}>Place Videos</Box>
-      <HorizontalScrollMenu data={Menu(videos)} />
+      {videos && (
+        <>
+          <Box pb={1}>Videos</Box>
+          <GridList className={classes.gridList} cols={2.5}>
+            {videos?.map((video) => {
+              const { thumbnail, id } = video;
+              return (
+                <GridListTile key={id}>
+                  <img src={thumbnail} alt="VIVA" key={id} />
+                </GridListTile>
+              );
+            })}
+          </GridList>
+        </>
+      )}
     </>
   );
 };
