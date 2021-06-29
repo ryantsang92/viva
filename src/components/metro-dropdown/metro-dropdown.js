@@ -4,7 +4,7 @@
   author: Ryan Tsang <ryan@vivatheapp.com>
 */
 
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { Select, MenuItem } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import PropTypes from "prop-types";
@@ -26,8 +26,6 @@ const MetroDropdown = ({
 }) => {
   const classes = useStyles();
 
-  const [city, setCity] = useState("All");
-
   useEffect(() => {
     if (metroData?.metros === null) {
       fetchMetros();
@@ -35,8 +33,6 @@ const MetroDropdown = ({
   }, [metroData, fetchMetros]);
 
   const handleChange = (event) => {
-    setCity(event.target.value);
-
     // update redux store
     if (event.target.value === "All") {
       clearSelectedCity();
@@ -52,16 +48,18 @@ const MetroDropdown = ({
     <Select
       labelId="city-picker-label"
       id="city-picker"
-      value={city}
+      value={
+        metroData?.metros?.filter((metro) => metro?.name === "New York")[0] ||
+        ""
+      }
       onChange={handleChange}
       className={classes.selectBox}
     >
-      <MenuItem value={"All"}>All</MenuItem>
       {metroData?.metros
         ?.sort((a, b) => a.name - b.name) //fix sort
         ?.map((metro) => (
-          <MenuItem value={metro} key={metro.id}>
-            {metro.name}
+          <MenuItem value={metro} key={metro?.id}>
+            {metro?.name}
           </MenuItem>
         ))}
     </Select>

@@ -15,7 +15,7 @@ export const endpoint = {
   LOCATION_URL_V2: "https://api.vivatheapp.com/locs",
   GOOGLE_URL: "https://api.vivatheapp.com/google/",
   YELP_URL: "https://api.vivatheapp.com/yelp/",
-  LOC_VID_URL: "https://http://api.vivatheapp.com/loc-vid/",
+  LOC_VID_URL: "https://api.vivatheapp.com/loc-vid/",
   METROS_URL: "https://api.vivatheapp.com/metros",
 };
 

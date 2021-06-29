@@ -46,6 +46,7 @@ const HorizontalScrollMenu = ({ data, isMobile }) => {
     <ScrollMenu
       data={data}
       clickWhenDrag={false}
+      hideArrows
       hideSingleArrow
       inertiaScrolling
       translate={0}

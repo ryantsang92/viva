@@ -222,7 +222,7 @@ const Header = ({
   };
 
   const refreshPage = () => {
-    window.location.reload(true);
+    window.location.reload();
   };
 
   const onHashtagClick = (category) => {
@@ -256,7 +256,7 @@ const Header = ({
         </Box>
         <Box pt={2} className={classes.navcenter}>
           <Box>
-            <Box container spacing={2} className={classes.navbar}>
+            <Box spacing={2} className={classes.navbar}>
               <Box className={classes.selectContainer}>
                 <Grid item className={classes.cityPicker}>
                   <FormControl

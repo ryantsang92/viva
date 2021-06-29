@@ -82,7 +82,7 @@ const PlacesPanel = ({
     clearSelectedLocation();
   };
 
-  const { description } = selectedLocation || {};
+  const { description, id } = selectedLocation || {};
 
   const {
     name,
@@ -93,6 +93,7 @@ const PlacesPanel = ({
     website = "",
     formatted_phone_number,
     reviews = [],
+    url,
     yelp,
   } = placeData || {};
 
@@ -113,7 +114,9 @@ const PlacesPanel = ({
               {name}
             </Box>
             {/* empty div for now */}
-            <div className={classes.icon}></div>
+            <IconButton onClick={handlePanelClose} size="small">
+              <CloseIcon />
+            </IconButton>
           </Box>
           <Box key={photos[0]?.photo_reference} overflow="hidden">
             <img
@@ -136,7 +139,11 @@ const PlacesPanel = ({
               <Box pr={1}>
                 <img src={MapPinDefault} alt="pin" className={classes.pin} />
               </Box>
-              <Typography>{formatted_address}</Typography>
+              <Typography>
+                <a href={url} target={url}>
+                  {formatted_address}
+                </a>
+              </Typography>
             </Box>
             <Box pt={1} pb={2}>
               <Accordion
@@ -194,7 +201,7 @@ const PlacesPanel = ({
             <Box pt={1} pb={1}>
               <Divider />
             </Box>
-            <PlaceVideosContainer />
+            <PlaceVideosContainer locationId={id} />
             <GoogleReviews reviews={reviews} />
             {yelp && <YelpReviews reviews={yelp?.reviews?.reviews} />}
           </Box>
