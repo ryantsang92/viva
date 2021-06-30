@@ -17,6 +17,7 @@ import {
 } from "@material-ui/core";
 import { apiKeys } from "../../app-constants";
 import { sanitizeYelpURL } from "../../common/common-functions";
+import PlaceImages from "./place-images";
 import PlaceVideosContainer from "./place-videos-container";
 import GoogleReviews from "./google-reviews";
 import YelpReviews from "./yelp-reviews";
@@ -96,6 +97,34 @@ const PlacesPanel = ({
     url,
     yelp,
   } = placeData || {};
+
+  const getImages = (googlePhotos, yelpPhotos) => {
+    let count = 0;
+    const photos1 = googlePhotos?.map((photo) => {
+      count++;
+      return {
+        id: "img-" + count,
+        src:
+          "https://maps.googleapis.com/maps/api/place/photo?maxwidth=500&photoreference=" +
+          photo?.photo_reference +
+          "&key=" +
+          clientSideKey,
+      };
+    });
+
+    const photos2 = yelpPhotos?.map((photo) => {
+      count++;
+      return {
+        id: "img-" + count,
+        src: photo,
+      };
+    });
+
+    // console.log(photos1.concat(photos2));
+
+    return photos1;
+    // return photos1.concat(photos2);
+  };
 
   return (
     <>
@@ -200,6 +229,9 @@ const PlacesPanel = ({
             </Box>
             <Box pt={1} pb={1}>
               <Divider />
+            </Box>
+            <Box pt={1} pb={1}>
+              <PlaceImages images={getImages(photos, yelp?.photos)} />
             </Box>
             <Box pt={1} pb={1}>
               <PlaceVideosContainer locationId={id} />

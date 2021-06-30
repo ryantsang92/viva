@@ -1,15 +1,19 @@
 /*
-  Place videos component
+  Place images component
 
   author: Ryan Tsang <ryan@vivatheapp.com>
 */
 
-import React, { useEffect } from "react";
+import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Box, GridList, GridListTile } from "@material-ui/core";
 import PropTypes from "prop-types";
 
 const useStyles = makeStyles(() => ({
+  photo: {
+    width: "40%",
+    height: "40%",
+  },
   gridList: {
     flexWrap: "nowrap",
     // Promote the list into his own layer on Chrome. This cost memory but helps keeping high FPS.
@@ -22,26 +26,20 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const PlaceVideos = ({ locationId, videos, fetchPlaceVidsData }) => {
+const PlaceImages = ({ images }) => {
   const classes = useStyles();
-
-  useEffect(() => {
-    if (!videos) {
-      fetchPlaceVidsData(locationId);
-    }
-  }, [locationId, videos, fetchPlaceVidsData]);
 
   return (
     <>
-      {videos && (
+      {images && (
         <>
-          <Box pb={1}>Videos</Box>
+          <Box pb={1}>Images</Box>
           <GridList className={classes.gridList} cols={2.5}>
-            {videos?.map((video) => {
-              const { thumbnail, id } = video;
+            {images?.map((image) => {
+              const { src, id } = image;
               return (
                 <GridListTile key={id}>
-                  <img src={thumbnail} alt="VIVA" key={id} />
+                  <img src={src} alt="VIVA" key={id} />
                 </GridListTile>
               );
             })}
@@ -52,16 +50,12 @@ const PlaceVideos = ({ locationId, videos, fetchPlaceVidsData }) => {
   );
 };
 
-PlaceVideos.propTypes = {
-  locationId: PropTypes.number,
-  videos: PropTypes.array,
-  fetchPlaceVidsData: PropTypes.func,
+PlaceImages.propTypes = {
+  images: PropTypes.array,
 };
 
-PlaceVideos.defaultProps = {
-  locationId: null,
-  videos: null,
-  fetchPlaceVidsData() {},
+PlaceImages.defaultProps = {
+  images: null,
 };
 
-export default PlaceVideos;
+export default PlaceImages;
