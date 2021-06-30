@@ -27,6 +27,7 @@ import CloseIcon from "@material-ui/icons/Close";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import PhoneIcon from "@material-ui/icons/Phone";
 import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
+import InstagramIcon from "@material-ui/icons/Instagram";
 import PropTypes from "prop-types";
 
 const { clientSideKey } = apiKeys;
@@ -84,7 +85,7 @@ const PlacesPanel = ({
     clearSelectedLocation();
   };
 
-  const { action_url, description, id } = selectedLocation || {};
+  const { action_url, description, id, ig } = selectedLocation || {};
 
   const {
     name,
@@ -239,6 +240,24 @@ const PlacesPanel = ({
                   </Box>
                   <a href={action_url} target={action_url}>
                     Make a Reservation
+                  </a>
+                </Box>
+              </>
+            )}
+            {ig && (
+              <>
+                <Box pt={1} pb={1}>
+                  <Divider />
+                </Box>
+                <Box display="flex" justifyContent="flex-start">
+                  <Box pr={1}>
+                    <InstagramIcon />
+                  </Box>
+                  <a
+                    href={"http://instagram.com/" + ig}
+                    target={"http://instagram.com/" + ig}
+                  >
+                    View Instagram
                   </a>
                 </Box>
               </>
