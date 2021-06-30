@@ -26,6 +26,7 @@ import ScheduleIcon from "@material-ui/icons/Schedule";
 import CloseIcon from "@material-ui/icons/Close";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import PhoneIcon from "@material-ui/icons/Phone";
+import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
 import PropTypes from "prop-types";
 
 const { clientSideKey } = apiKeys;
@@ -83,7 +84,7 @@ const PlacesPanel = ({
     clearSelectedLocation();
   };
 
-  const { description, id } = selectedLocation || {};
+  const { action_url, description, id } = selectedLocation || {};
 
   const {
     name,
@@ -227,13 +228,28 @@ const PlacesPanel = ({
               </Box>
               <Typography>{formatted_phone_number || "None"}</Typography>
             </Box>
+            {action_url && (
+              <>
+                <Box pt={1} pb={1}>
+                  <Divider />
+                </Box>
+                <Box display="flex" justifyContent="flex-start">
+                  <Box pr={1}>
+                    <CheckCircleOutlineIcon />
+                  </Box>
+                  <a href={action_url} target={action_url}>
+                    Make a Reservation
+                  </a>
+                </Box>
+              </>
+            )}
             <Box pt={1} pb={1}>
               <Divider />
             </Box>
-            <Box pt={1} pb={1}>
+            <Box pb={1}>
               <PlaceImages images={getImages(photos, yelp?.photos)} />
             </Box>
-            <Box pt={1} pb={1}>
+            <Box pb={1}>
               <PlaceVideosContainer locationId={id} />
             </Box>
             <GoogleReviews reviews={reviews} />
