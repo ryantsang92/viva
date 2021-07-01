@@ -4,15 +4,14 @@
   author: Ryan Tsang <ryan@vivatheapp.com>
 */
 
-import React from "react";
+import React, { useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Box, GridList, GridListTile } from "@material-ui/core";
 import PropTypes from "prop-types";
 
 const useStyles = makeStyles(() => ({
   photo: {
-    width: "40%",
-    height: "40%",
+    cursor: "pointer",
   },
   gridList: {
     flexWrap: "nowrap",
@@ -26,8 +25,16 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const PlaceImages = ({ images }) => {
+const PlaceImages = ({ images, storeImages }) => {
   const classes = useStyles();
+
+  useEffect(() => {
+    storeImages(images);
+  }, [images, storeImages]);
+
+  const onImageClick = () => {
+    console.log("onImageClick");
+  };
 
   return (
     <>
@@ -39,7 +46,13 @@ const PlaceImages = ({ images }) => {
               const { src, id } = image;
               return (
                 <GridListTile key={id}>
-                  <img src={src} alt="VIVA" key={id} />
+                  <img
+                    src={src}
+                    alt="VIVA"
+                    key={id}
+                    onClick={onImageClick}
+                    className={classes.photo}
+                  />
                 </GridListTile>
               );
             })}
@@ -52,10 +65,12 @@ const PlaceImages = ({ images }) => {
 
 PlaceImages.propTypes = {
   images: PropTypes.array,
+  storeImages: PropTypes.func,
 };
 
 PlaceImages.defaultProps = {
   images: null,
+  storeImages() {},
 };
 
 export default PlaceImages;

@@ -17,6 +17,7 @@ export const FETCH_PLACE_VIDS_DATA_SUCCESS = "FETCH_PLACE_VIDS_DATA_SUCCESS";
 export const FETCH_PLACE_VIDS_DATA_IS_LOADING =
   "FETCH_PLACE_VIDS_DATA_IS_LOADING";
 export const FETCH_PLACE_VIDS_DATA_ERROR = "FETCH_PLACE_VIDS_DATA_ERROR";
+export const STORE_IMAGES = "STORE_IMAGES";
 
 export const fetchGooglePlaceData = (placeId) => {
   return fetchEndpoint(
@@ -102,5 +103,12 @@ const fetchPlaceVidsError = (error) => {
   return {
     type: FETCH_PLACE_VIDS_DATA_ERROR,
     error: error,
+  };
+};
+
+export const storeImages = (payload) => {
+  return {
+    type: STORE_IMAGES,
+    payload,
   };
 };

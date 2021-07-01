@@ -17,7 +17,7 @@ import {
 } from "@material-ui/core";
 import { apiKeys } from "../../app-constants";
 import { sanitizeYelpURL } from "../../common/common-functions";
-import PlaceImages from "./place-images";
+import PlaceImagesContainer from "./place-images-container";
 import PlaceVideosContainer from "./place-videos-container";
 import GoogleReviews from "./google-reviews";
 import YelpReviews from "./yelp-reviews";
@@ -266,7 +266,7 @@ const PlacesPanel = ({
               <Divider />
             </Box>
             <Box pb={1}>
-              <PlaceImages images={getImages(photos, yelp?.photos)} />
+              <PlaceImagesContainer images={getImages(photos, yelp?.photos)} />
             </Box>
             <Box pb={1}>
               <PlaceVideosContainer locationId={id} />

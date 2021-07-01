@@ -14,6 +14,7 @@ import {
   FETCH_PLACE_VIDS_DATA_IS_LOADING,
   FETCH_PLACE_VIDS_DATA_SUCCESS,
   FETCH_PLACE_VIDS_DATA_ERROR,
+  STORE_IMAGES,
 } from "../actions/place-panel-actions";
 
 const initialState = {
@@ -53,11 +54,11 @@ const placePanelReducer = (state = initialState, action) => {
         isLoading: false,
       };
     case FETCH_YELP_DATA_ERROR:
-        return {
-          ...state,
-          error: "Error fetching yelp data",
-          isLoading: false,
-        };
+      return {
+        ...state,
+        error: "Error fetching yelp data",
+        isLoading: false,
+      };
     case FETCH_PLACE_VIDS_DATA_SUCCESS:
       return {
         ...state,
@@ -68,11 +69,16 @@ const placePanelReducer = (state = initialState, action) => {
         isLoading: false,
       };
     case FETCH_PLACE_VIDS_DATA_ERROR:
-        return {
-          ...state,
-          error: "Error fetching place videos data",
-          isLoading: false,
-        };
+      return {
+        ...state,
+        error: "Error fetching place videos data",
+        isLoading: false,
+      };
+    case STORE_IMAGES:
+      return {
+        ...state,
+        images: action.payload,
+      };
     default:
       return state;
   }

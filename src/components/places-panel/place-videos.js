@@ -10,6 +10,9 @@ import { Box, GridList, GridListTile } from "@material-ui/core";
 import PropTypes from "prop-types";
 
 const useStyles = makeStyles(() => ({
+  video: {
+    cursor: "pointer",
+  },
   gridList: {
     flexWrap: "nowrap",
     // Promote the list into his own layer on Chrome. This cost memory but helps keeping high FPS.
@@ -31,6 +34,10 @@ const PlaceVideos = ({ locationId, videos, fetchPlaceVidsData }) => {
     }
   }, [locationId, videos, fetchPlaceVidsData]);
 
+  const onVideoClick = () => {
+    console.log("onVideoClick");
+  };
+
   return (
     <>
       {videos && (
@@ -41,7 +48,13 @@ const PlaceVideos = ({ locationId, videos, fetchPlaceVidsData }) => {
               const { thumbnail, id } = video;
               return (
                 <GridListTile key={id}>
-                  <img src={thumbnail} alt="VIVA" key={id} />
+                  <img
+                    src={thumbnail}
+                    alt="VIVA"
+                    key={id}
+                    onClick={onVideoClick}
+                    className={classes.video}
+                  />
                 </GridListTile>
               );
             })}

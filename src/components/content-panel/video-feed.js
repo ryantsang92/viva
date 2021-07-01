@@ -29,17 +29,11 @@ const useStyles = makeStyles({
   },
 });
 
-const VideoFeed = ({
-  loading,
-  videos,
-  isMobile,
-  refresh,
-  clearRefresh,
-}) => {
+const VideoFeed = ({ loading, videos, isMobile, refresh, clearRefresh }) => {
   const classes = useStyles();
   const [items, setItems] = useState([]);
   const [hasMore, setHasMore] = useState(true);
-  
+
   useEffect(() => {
     if (videos !== null && refresh) {
       setItems(videos?.slice(0, 5));
