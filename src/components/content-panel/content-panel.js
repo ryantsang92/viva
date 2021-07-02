@@ -9,7 +9,7 @@ import { Box, IconButton } from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
 import { makeStyles } from "@material-ui/core/styles";
 import ScrollingWrapper from "../common/scrolling-wrapper";
-import VideoFeedContainer from "./video-feed-container";
+import ContentFeedContainer from "./content-feed-container";
 import PropTypes from "prop-types";
 
 const useStyles = makeStyles({
@@ -99,14 +99,14 @@ const ContentPanel = ({
             refresh={selectedCategory || false}
             isMobile={isMobile}
           >
-            <VideoFeedContainer
+            <ContentFeedContainer
               selectedCategory={selectedCategory}
               isMobile={isMobile}
               refresh={refresh}
             />
           </ScrollingWrapper>
         ) : (
-          <VideoFeedContainer
+          <ContentFeedContainer
             selectedCategory={selectedCategory}
             isMobile={isMobile}
           />
