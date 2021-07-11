@@ -13,12 +13,18 @@ import {
 } from "../selectors/location-selectors";
 import { fetchVideosV2 } from "../actions/video-actions";
 import BodyGrid from "./body-grid";
+import {
+  selectPlaceImagePanelOpen,
+  selectPlaceVideoPanelOpen,
+} from "../selectors/place-panel-selectors";
 
 const mapStateToProps = (state) => {
   return {
     selectedLocation: selectSelectedLocation(state),
     refresh: selectRefresh(state),
     mapBounds: selectMapBounds(state),
+    imagePanelOpen: selectPlaceImagePanelOpen(state),
+    videoPanelOpen: selectPlaceVideoPanelOpen(state),
   };
 };
 

@@ -15,11 +15,17 @@ import {
   FETCH_PLACE_VIDS_DATA_SUCCESS,
   FETCH_PLACE_VIDS_DATA_ERROR,
   STORE_IMAGES,
+  OPEN_PLACE_IMAGE_PANEL,
+  CLOSE_PLACE_IMAGE_PANEL,
+  OPEN_PLACE_VIDEO_PANEL,
+  CLOSE_PLACE_VIDEO_PANEL,
 } from "../actions/place-panel-actions";
 
 const initialState = {
   isLoading: false,
   placeData: {},
+  imagePanelOpen: false,
+  videoPanelOpen: false,
   error: null,
 };
 
@@ -79,6 +85,30 @@ const placePanelReducer = (state = initialState, action) => {
         ...state,
         images: action.payload,
       };
+    case OPEN_PLACE_IMAGE_PANEL: {
+      return {
+        ...state,
+        imagePanelOpen: true,
+      };
+    }
+    case CLOSE_PLACE_IMAGE_PANEL: {
+      return {
+        ...state,
+        imagePanelOpen: false,
+      };
+    }
+    case OPEN_PLACE_VIDEO_PANEL: {
+      return {
+        ...state,
+        videoPanelOpen: true,
+      };
+    }
+    case CLOSE_PLACE_VIDEO_PANEL: {
+      return {
+        ...state,
+        videoPanelOpen: false,
+      };
+    }
     default:
       return state;
   }

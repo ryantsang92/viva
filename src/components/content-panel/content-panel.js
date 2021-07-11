@@ -9,7 +9,8 @@ import { Box, IconButton } from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
 import { makeStyles } from "@material-ui/core/styles";
 import ScrollingWrapper from "../common/scrolling-wrapper";
-import ContentFeedContainer from "./content-feed-container";
+import VideoFeedContainer from "./video-feed-container";
+import ImageFeedContainer from "./image-feed-container";
 import PropTypes from "prop-types";
 
 const useStyles = makeStyles({
@@ -54,14 +55,24 @@ const useStyles = makeStyles({
     borderBottom: 2,
     borderBottomColor: "#000000",
   },
+  placeContentPanel: {
+    position: "absolute",
+    zIndex: 90,
+  },
+  regContentPanel: {
+    position: "relative",
+  },
 });
 
 const ContentPanel = ({
   selectedCategory,
   isMobile,
   refresh,
+  panelOpen,
   clearSelectedCategory,
   setRefresh,
+  imagePanelOpen,
+  videoPanelOpen,
 }) => {
   const classes = useStyles();
 
@@ -70,8 +81,37 @@ const ContentPanel = ({
     clearSelectedCategory();
   };
 
+  const renderContentFeed = (isMobile) => {
+    if (imagePanelOpen) {
+      return <ImageFeedContainer isMobile={isMobile} />;
+    }
+    if (videoPanelOpen) {
+      return (
+        <VideoFeedContainer
+          selectedCategory={selectedCategory}
+          imagePanelOpen={imagePanelOpen}
+          refresh={refresh}
+          isMobile={isMobile}
+        />
+      );
+    }
+    return (
+      <VideoFeedContainer
+        selectedCategory={selectedCategory}
+        refresh={refresh}
+        isMobile={isMobile}
+      />
+    );
+  };
+
   return (
-    <Box ml={1} mr={1}>
+    <Box
+      ml={1}
+      mr={1}
+      className={
+        panelOpen ? classes.placeContentPanel : classes.regContentPanel
+      }
+    >
       <div
         className={
           isMobile ? classes.videoContainerMobile : classes.videoContainer
@@ -99,17 +139,10 @@ const ContentPanel = ({
             refresh={selectedCategory || false}
             isMobile={isMobile}
           >
-            <ContentFeedContainer
-              selectedCategory={selectedCategory}
-              isMobile={isMobile}
-              refresh={refresh}
-            />
+            {renderContentFeed(isMobile)}
           </ScrollingWrapper>
         ) : (
-          <ContentFeedContainer
-            selectedCategory={selectedCategory}
-            isMobile={isMobile}
-          />
+          <>{renderContentFeed(isMobile)}</>
         )}
       </div>
     </Box>
@@ -120,16 +153,20 @@ ContentPanel.propTypes = {
   selectedCategory: PropTypes.object,
   isMobile: PropTypes.bool,
   refresh: PropTypes.bool,
+  panelOpen: PropTypes.bool,
   clearSelectedCategory: PropTypes.func,
   setRefresh: PropTypes.func,
+  imagePanelOpen: PropTypes.bool,
 };
 
 ContentPanel.defaultProps = {
   selectedCategory: null,
   isMobile: false,
   refresh: false,
+  panelOpen: false,
   clearSelectedCategory() {},
   setRefresh() {},
+  imagePanelOpen: false,
 };
 
 export default ContentPanel;

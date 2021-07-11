@@ -25,7 +25,12 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const PlaceVideos = ({ locationId, videos, fetchPlaceVidsData }) => {
+const PlaceVideos = ({
+  locationId,
+  videos,
+  fetchPlaceVidsData,
+  openPlaceVideoPanel,
+}) => {
   const classes = useStyles();
 
   useEffect(() => {
@@ -35,7 +40,7 @@ const PlaceVideos = ({ locationId, videos, fetchPlaceVidsData }) => {
   }, [locationId, videos, fetchPlaceVidsData]);
 
   const onVideoClick = () => {
-    console.log("onVideoClick");
+    openPlaceVideoPanel();
   };
 
   return (
@@ -69,12 +74,14 @@ PlaceVideos.propTypes = {
   locationId: PropTypes.number,
   videos: PropTypes.array,
   fetchPlaceVidsData: PropTypes.func,
+  openPlaceVideoPanel: PropTypes.func,
 };
 
 PlaceVideos.defaultProps = {
   locationId: null,
   videos: null,
   fetchPlaceVidsData() {},
+  openPlaceVideoPanel() {},
 };
 
 export default PlaceVideos;

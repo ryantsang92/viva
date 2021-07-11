@@ -13,5 +13,17 @@ export const selectPlaceData = (state) => {
 };
 
 export const selectPlaceVideosData = (state) => {
-  return selectPlaceData(state)?.videos;
+  return selectPlacePanelData(state)?.videos;
+};
+
+export const selectPlaceImages = (state) => {
+  return selectPlacePanelData(state)?.images;
+};
+
+export const selectPlaceImagePanelOpen = (state) => {
+  return selectPlacePanelData(state)?.imagePanelOpen;
+};
+
+export const selectPlaceVideoPanelOpen = (state) => {
+  return selectPlacePanelData(state)?.videoPanelOpen;
 };

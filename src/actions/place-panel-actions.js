@@ -18,6 +18,10 @@ export const FETCH_PLACE_VIDS_DATA_IS_LOADING =
   "FETCH_PLACE_VIDS_DATA_IS_LOADING";
 export const FETCH_PLACE_VIDS_DATA_ERROR = "FETCH_PLACE_VIDS_DATA_ERROR";
 export const STORE_IMAGES = "STORE_IMAGES";
+export const OPEN_PLACE_IMAGE_PANEL = "OPEN_PLACE_IMAGE_PANEL";
+export const CLOSE_PLACE_IMAGE_PANEL = "CLOSE_PLACE_IMAGE_PANEL";
+export const OPEN_PLACE_VIDEO_PANEL = "OPEN_PLACE_VIDEO_PANEL";
+export const CLOSE_PLACE_VIDEO_PANEL = "CLOSE_PLACE_VIDEO_PANEL";
 
 export const fetchGooglePlaceData = (placeId) => {
   return fetchEndpoint(
@@ -110,5 +114,29 @@ export const storeImages = (payload) => {
   return {
     type: STORE_IMAGES,
     payload,
+  };
+};
+
+export const openPlaceImagePanel = () => {
+  return {
+    type: OPEN_PLACE_IMAGE_PANEL,
+  };
+};
+
+export const closePlaceImagePanel = () => {
+  return {
+    type: CLOSE_PLACE_IMAGE_PANEL,
+  };
+};
+
+export const openPlaceVideoPanel = () => {
+  return {
+    type: OPEN_PLACE_VIDEO_PANEL,
+  };
+};
+
+export const closePlaceVideoPanel = () => {
+  return {
+    type: CLOSE_PLACE_VIDEO_PANEL,
   };
 };

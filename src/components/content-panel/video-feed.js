@@ -29,7 +29,20 @@ const useStyles = makeStyles({
   },
 });
 
-const VideoFeed = ({ loading, videos, isMobile, refresh, clearRefresh }) => {
+const VideoFeed = ({
+  loading,
+  videos,
+  panelOpen,
+  images,
+  placeVideos,
+  isMobile,
+  refresh,
+  clearRefresh,
+}) => {
+  console.log(loading);
+  console.log(videos);
+  console.log(refresh);
+
   const classes = useStyles();
   const [items, setItems] = useState([]);
   const [hasMore, setHasMore] = useState(true);
@@ -40,6 +53,13 @@ const VideoFeed = ({ loading, videos, isMobile, refresh, clearRefresh }) => {
       clearRefresh();
     }
   }, [videos, refresh, clearRefresh]);
+
+  // useEffect(() => {
+  //   if (images) {
+  //     setItems(images?.slice(0, 5));
+  //     clearRefresh();
+  //   }
+  // }, [images]);
 
   const fetchMoreData = () => {
     if (items?.length >= videos?.length) {
@@ -57,6 +77,8 @@ const VideoFeed = ({ loading, videos, isMobile, refresh, clearRefresh }) => {
     </div>
   );
 
+  console.log(items);
+
   return (
     <>
       {loading ? (
@@ -64,31 +86,29 @@ const VideoFeed = ({ loading, videos, isMobile, refresh, clearRefresh }) => {
       ) : (
         <>
           {videos?.length > 0 ? (
-            <>
-              <InfiniteScroll
-                className={classes.infiniteScroll}
-                dataLength={items?.length || 0}
-                scrollThreshold={0.9}
-                next={fetchMoreData}
-                hasMore={hasMore}
-                loader={<>{loadingComponent}</>}
-                height="calc(100vh - 116px)"
-                endMessage={
-                  <p style={{ textAlign: "center" }}>
-                    <b>Yay! You have seen it all</b>
-                  </p>
-                }
-              >
-                {items?.map((video, index) => (
-                  <div key={index}>
-                    <VideoPlayerPanelContainer
-                      video={video}
-                      isMobile={isMobile}
-                    />
-                  </div>
-                ))}
-              </InfiniteScroll>
-            </>
+            <InfiniteScroll
+              className={classes.infiniteScroll}
+              dataLength={items?.length || 0}
+              scrollThreshold={0.9}
+              next={fetchMoreData}
+              hasMore={hasMore}
+              loader={<>{loadingComponent}</>}
+              height="calc(100vh - 116px)"
+              endMessage={
+                <p style={{ textAlign: "center" }}>
+                  <b>Yay! You have seen it all</b>
+                </p>
+              }
+            >
+              {items?.map((video, index) => (
+                <div key={index}>
+                  <VideoPlayerPanelContainer
+                    video={video}
+                    isMobile={isMobile}
+                  />
+                </div>
+              ))}
+            </InfiniteScroll>
           ) : (
             <Box pt={1} justifyContent="center">
               <Typography align="center">
@@ -106,6 +126,9 @@ VideoFeed.propTypes = {
   loading: PropTypes.bool,
   isMobile: PropTypes.bool,
   videos: PropTypes.array,
+  images: PropTypes.array,
+  placeVideos: PropTypes.array,
+  panelOpen: PropTypes.bool,
   refresh: PropTypes.bool,
 };
 
@@ -113,6 +136,9 @@ VideoFeed.defaultProps = {
   loading: false,
   isMobile: false,
   videos: null,
+  images: null,
+  placeVideos: null,
+  panelOpen: false,
   refresh: false,
 };
 

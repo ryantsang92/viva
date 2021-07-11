@@ -17,13 +17,13 @@ const useStyles = makeStyles((theme) => ({
     height: "100%",
   },
   contentPanel: {
-    position: "relative",
+    // position: "relative",
     padding: "0 !important",
     zIndex: 3,
     boxShadow: "1px 1px 3px rgba(0,0,0,0.3)",
   },
   contentPanelMobile: {
-    position: "relative",
+    // position: "relative",
     width: "100%",
     maxWidth: "100%",
     padding: "0 !important",
@@ -46,6 +46,9 @@ const useStyles = makeStyles((theme) => ({
     right: 10,
     zIndex: 1,
   },
+  placeContentPanel: {
+    position: "absolute",
+  },
 }));
 
 const BodyGrid = ({
@@ -55,11 +58,11 @@ const BodyGrid = ({
   fetchLocationsV2,
   fetchVideosV2,
   clearRefresh,
+  imagePanelOpen,
   isMobile,
 }) => {
   const classes = useStyles();
-  // console.log(refresh);
-  // console.log(refresh && mapBounds);
+  console.log(imagePanelOpen);
 
   useEffect(() => {
     if (refresh && mapBounds) {
@@ -79,13 +82,22 @@ const BodyGrid = ({
             isMobile ? classes.contentPanelMobile : classes.contentPanel
           }
         >
-          <ContentPanelContainer isMobile={isMobile} refresh={refresh}/>
+          {imagePanelOpen && (
+            <ContentPanelContainer
+              className={classes.placeContentPanel}
+              imagePanelOpen={imagePanelOpen}
+              isMobile={isMobile}
+              refresh={refresh}
+            />
+          )}
+          <ContentPanelContainer isMobile={isMobile} refresh={refresh} />
         </Grid>
         {!isMobile && (
           <Grid item xs className={classes.mapContainer}>
             <MapContainer />
           </Grid>
         )}
+
         {selectedLocation && (
           <Grid
             item
@@ -110,6 +122,7 @@ BodyGrid.propTypes = {
   mapBounds: PropTypes.object,
   isMobile: PropTypes.bool,
   fetchLocationsV2: PropTypes.func,
+  imagePanelOpen: PropTypes.bool,
 };
 
 BodyGrid.defaultProps = {
@@ -118,6 +131,7 @@ BodyGrid.defaultProps = {
   mapBounds: null,
   isMobile: false,
   fetchLocationsV2() {},
+  imagePanelOpen: false,
 };
 
 export default BodyGrid;
