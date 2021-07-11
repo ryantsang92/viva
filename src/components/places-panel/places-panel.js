@@ -65,6 +65,8 @@ const PlacesPanel = ({
   fetchGooglePlaceData,
   fetchYelpPlaceData,
   clearSelectedLocation,
+  closePlaceImagePanel,
+  closePlaceVideoPanel,
 }) => {
   const classes = useStyles();
 
@@ -74,6 +76,8 @@ const PlacesPanel = ({
     if (selectedLocation) {
       fetchGooglePlaceData(selectedLocation?.g_place_id);
       fetchYelpPlaceData(sanitizeYelpURL(selectedLocation?.yelp));
+      closePlaceImagePanel();
+      closePlaceVideoPanel();
     }
   }, [selectedLocation, fetchGooglePlaceData, fetchYelpPlaceData]);
 
@@ -83,6 +87,8 @@ const PlacesPanel = ({
 
   const handlePanelClose = () => {
     clearSelectedLocation();
+    closePlaceImagePanel();
+    closePlaceVideoPanel();
   };
 
   const { action_url, description, id, ig } = selectedLocation || {};
@@ -287,6 +293,8 @@ PlacesPanel.propTypes = {
   fetchGooglePlaceData: PropTypes.func,
   fetchYelpPlaceData: PropTypes.func,
   clearSelectedLocation: PropTypes.func,
+  closePlaceImagePanel: PropTypes.func,
+  closePlaceVideoPanel: PropTypes.func,
 };
 
 PlacesPanel.defaultProps = {
@@ -295,6 +303,8 @@ PlacesPanel.defaultProps = {
   fetchGooglePlaceData() {},
   fetchYelpPlaceData() {},
   clearSelectedLocation() {},
+  closePlaceImagePanel() {},
+  closePlaceVideoPanel() {},
 };
 
 export default PlacesPanel;
