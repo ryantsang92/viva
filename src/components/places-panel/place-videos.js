@@ -67,7 +67,7 @@ const PlaceVideos = ({
                 </GridListTile>
               );
             })}
-            <GridListTile key={"see-more"}>
+            <GridListTile key={"see-more-videos"}>
               <Box
                 display="flex"
                 alignItems="center"

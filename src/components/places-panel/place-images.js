@@ -66,7 +66,7 @@ const PlaceImages = ({
                 </GridListTile>
               );
             })}
-            <GridListTile key={"see-more"}>
+            <GridListTile key={"see-more-images"}>
               <Box
                 display="flex"
                 alignItems="center"
