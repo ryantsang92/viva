@@ -68,10 +68,7 @@ const placePanelReducer = (state = initialState, action) => {
     case FETCH_PLACE_VIDS_DATA_SUCCESS:
       return {
         ...state,
-        placeData: {
-          ...state.placeData,
-          videos: action.payload,
-        },
+        videos: action.payload,
         isLoading: false,
       };
     case FETCH_PLACE_VIDS_DATA_ERROR:

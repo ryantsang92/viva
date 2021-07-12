@@ -9,34 +9,21 @@ import {
   selectVideos,
   selectVideoIsLoading,
 } from "../../selectors/video-selectors";
-import {
-  selectPlaceImages,
-  selectPlaceVideosData,
-} from "../../selectors/place-panel-selectors";
+import { selectPlaceVideosData } from "../../selectors/place-panel-selectors";
 import { clearRefresh } from "../../actions/location-actions";
 import { closePlaceVideoPanel } from "../../actions/place-panel-actions";
 import VideoFeed from "./video-feed";
 
 const mapStateToProps = (state, ownProps) => {
-  // console.log(ownProps.placePanelMode ? ownProps.selectedLocation : null);
-  // if (ownProps.placePanelMode) {
-  //   console.log(
-  //     selectVideos(
-  //       state,
-  //       ownProps.selectedCategory,
-  //       ownProps.placePanelMode ? ownProps.selectedLocation : null,
-  //       true
-  //     )
-  //   );
-  // }
   return {
-    videos: selectVideos(
-      state,
-      ownProps.selectedCategory,
-      ownProps.placePanelMode ? ownProps.selectedLocation : null,
-      true
-    ),
-    images: selectPlaceImages(state),
+    videos: ownProps.placePanelMode
+      ? selectPlaceVideosData(state)
+      : selectVideos(
+          state,
+          ownProps.selectedCategory,
+          ownProps.placePanelMode ? ownProps.selectedLocation : null,
+          true
+        ),
     placeVideos: selectPlaceVideosData(state),
     loading: selectVideoIsLoading(state),
   };

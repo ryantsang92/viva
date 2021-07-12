@@ -53,7 +53,7 @@ const VideoFeed = ({
   const [hasMore, setHasMore] = useState(true);
 
   useEffect(() => {
-    if (videos !== null && refresh) {
+    if (videos !== null && refresh || placePanelMode) {
       setItems(videos?.slice(0, 5));
       clearRefresh();
     }

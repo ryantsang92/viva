@@ -26,7 +26,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 const PlaceVideos = ({
-  locationId,
+  selectedLocation,
   videos,
   fetchPlaceVidsData,
   openPlaceVideoPanel,
@@ -34,11 +34,12 @@ const PlaceVideos = ({
 }) => {
   const classes = useStyles();
 
+  console.log(videos);
   useEffect(() => {
     if (!videos) {
-      fetchPlaceVidsData(locationId);
+      fetchPlaceVidsData(selectedLocation.id);
     }
-  }, [locationId, videos, fetchPlaceVidsData]);
+  }, [selectedLocation, videos, fetchPlaceVidsData]);
 
   const onVideoClick = () => {
     closePlaceImagePanel();

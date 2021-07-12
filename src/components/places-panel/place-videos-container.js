@@ -10,12 +10,12 @@ import {
   openPlaceVideoPanel,
   closePlaceImagePanel,
 } from "../../actions/place-panel-actions";
-import { selectVideos } from "../../selectors/video-selectors";
+import { selectPlaceVideosData } from "../../selectors/place-panel-selectors";
 import PlaceVideos from "./place-videos";
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state) => {
   return {
-    videos: selectVideos(state, null, ownProps.selectedLocation, false),
+    videos: selectPlaceVideosData(state),
   };
 };
 

@@ -92,7 +92,7 @@ const ContentPanel = ({
           selectedLocation={selectedLocation}
           selectedCategory={selectedCategory}
           placePanelMode={videoPanelOpen}
-          refresh={true}
+          // refresh={true}
           isMobile={isMobile}
         />
       );
