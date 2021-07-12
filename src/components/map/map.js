@@ -40,16 +40,6 @@ const useStyles = makeStyles({
   },
 });
 
-const initialCenter = {
-  lat: 42.3601,
-  lng: -71.0589,
-};
-
-const dummyCenter = {
-  lat: 43.0,
-  lng: -71.0589,
-};
-
 const style = {
   float: "left",
   width: "100%",
@@ -90,7 +80,10 @@ const Map = ({
   const classes = useStyles();
 
   const [mapRef, setMapRef] = useState(null);
-  const [center, setCenter] = useState(dummyCenter);
+  const [center, setCenter] = useState({
+    lat: selectedCity.lat,
+    lng: selectedCity.lng,
+  });
   const [zoom, setZoom] = useState(13);
   const [showRefresh, setShowRefresh] = useState(false);
 
@@ -167,7 +160,6 @@ const Map = ({
   ];
 
   const mapLoaded = (mapProps, map) => {
-    setCenter(initialCenter);
     map.setOptions({
       styles: mapStyle,
     });

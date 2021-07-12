@@ -5,10 +5,7 @@
 */
 
 import React, { useState } from "react";
-import {
-  Box,
-  Typography,
-} from "@material-ui/core";
+import { Box, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import {
   Player,
@@ -61,7 +58,7 @@ const useStyles = makeStyles({
   },
 });
 
-const VideoPanel = ({ video, location, isMobile }) => {
+const VideoPanel = ({ video, location, placePanelMode, isMobile }) => {
   const classes = useStyles();
 
   const [inView, setInView] = useState(false);
@@ -103,11 +100,11 @@ const VideoPanel = ({ video, location, isMobile }) => {
         )}
         <Box p={1} pb={4}>
           {description && (
-            <Box pb={2}>
+            <Box pb={1}>
               <Typography>{description}</Typography>
             </Box>
           )}
-          <LocationCardContainer location={location} />
+          {!placePanelMode && <LocationCardContainer location={location} />}
           <Box pt={1} />
           <SocialIcon user={user} platform={user_platform} hw={20} />
         </Box>
@@ -119,6 +116,7 @@ const VideoPanel = ({ video, location, isMobile }) => {
 VideoPanel.propTypes = {
   video: PropTypes.object,
   location: PropTypes.object,
+  placePanelMode: PropTypes.bool,
   isMobile: PropTypes.bool,
 };
 
@@ -128,6 +126,7 @@ VideoPanel.defaultProps = {
     address_full: null,
     website: null,
   },
+  placePanelMode: false,
   isMobile: false,
 };
 

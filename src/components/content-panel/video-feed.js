@@ -116,6 +116,7 @@ const VideoFeed = ({
               {items?.map((video, index) => (
                 <div key={index}>
                   <VideoPlayerPanelContainer
+                    placePanelMode={placePanelMode}
                     video={video}
                     isMobile={isMobile}
                   />

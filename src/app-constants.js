@@ -41,3 +41,10 @@ export const hashtagObjects = {
 };
 
 export const videoSubmissionLink = "https://forms.gle/EV2iqCNSu7PrPcDw8";
+
+export const newYork = {
+  id: 2,
+  lat: 40.71738305900117,
+  lng: -73.99818142948409,
+  name: "New York",
+};

@@ -4,9 +4,10 @@
   author: Ryan Tsang <ryan@vivatheapp.com>
 */
 
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Select, MenuItem } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import { newYork } from "../../app-constants";
 import PropTypes from "prop-types";
 
 const useStyles = makeStyles(() => ({
@@ -18,6 +19,7 @@ const useStyles = makeStyles(() => ({
 
 const MetroDropdown = ({
   metroData,
+  selectedCity,
   fetchMetros,
   clearSelectedCity,
   clearSelectedLocation,
@@ -26,11 +28,19 @@ const MetroDropdown = ({
 }) => {
   const classes = useStyles();
 
+  const [selectValue, setSelectValue] = useState(selectedCity);
+
   useEffect(() => {
     if (metroData?.metros === null) {
       fetchMetros();
     }
   }, [metroData, fetchMetros]);
+
+  useEffect(() => {
+    if (selectedCity) {
+      setSelectValue(selectedCity);
+    }
+  }, [selectedCity]);
 
   const handleChange = (event) => {
     // update redux store
@@ -48,10 +58,7 @@ const MetroDropdown = ({
     <Select
       labelId="city-picker-label"
       id="city-picker"
-      value={
-        metroData?.metros?.filter((metro) => metro?.name === "New York")[0] ||
-        ""
-      }
+      value={selectValue}
       onChange={handleChange}
       className={classes.selectBox}
     >
@@ -68,6 +75,7 @@ const MetroDropdown = ({
 
 MetroDropdown.propTypes = {
   metros: PropTypes.array,
+  selectedCity: PropTypes.object,
   fetchMetros: PropTypes.func,
   clearSelectedCity: PropTypes.func,
   clearSelectedLocation: PropTypes.func,
@@ -77,6 +85,7 @@ MetroDropdown.propTypes = {
 
 MetroDropdown.defaultProps = {
   metros: null,
+  selectedCity: newYork,
   fetchMetros() {},
   clearSelectedCity() {},
   clearSelectedLocation() {},

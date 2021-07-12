@@ -7,6 +7,7 @@
 import { connect } from "react-redux";
 import { fetchMetros } from "../../actions/metro-actions";
 import { selectMetroData } from "../../selectors/metro-selectors";
+import { selectSelectedCity } from "../../selectors/location-selectors";
 import {
   saveSelectedCity,
   clearSelectedCity,
@@ -18,6 +19,7 @@ import MetroDropdown from "./metro-dropdown";
 const mapStateToProps = (state) => {
   return {
     metroData: selectMetroData(state),
+    selectedCity: selectSelectedCity(state),
   };
 };
 

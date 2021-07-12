@@ -13,8 +13,9 @@ import {
   CLEAR_SELECTED_CITY,
   SAVE_MAP_BOUNDS,
   SET_REFRESH,
-  CLEAR_REFRESH
+  CLEAR_REFRESH,
 } from "../actions/location-actions";
+import { newYork } from "../app-constants";
 
 const initialState = {
   isLoading: false,
@@ -23,7 +24,7 @@ const initialState = {
   filter: false,
   refresh: true,
   error: null,
-  selectedCity: null,
+  selectedCity: newYork,
 };
 
 const locationReducer = (state = initialState, action) => {
