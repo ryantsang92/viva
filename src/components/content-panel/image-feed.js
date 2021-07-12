@@ -49,7 +49,7 @@ const ImageFeed = ({ loading, images, closePlaceImagePanel, isMobile }) => {
       setHasMore(false);
     } else {
       setItems(
-        items?.concat(images?.slice(items?.length - 1, items?.length + 4))
+        items?.concat(images?.slice(items?.length, items?.length + 4))
       );
     }
   };

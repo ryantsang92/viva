@@ -58,7 +58,7 @@ const VideoFeed = ({
       setHasMore(false);
     } else {
       setItems(
-        items?.concat(videos?.slice(items?.length - 1, items?.length + 4))
+        items?.concat(videos?.slice(items?.length, items?.length + 4))
       );
     }
   };
