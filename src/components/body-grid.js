@@ -59,6 +59,7 @@ const BodyGrid = ({
   fetchVideosV2,
   clearRefresh,
   imagePanelOpen,
+  videoPanelOpen,
   isMobile,
 }) => {
   const classes = useStyles();
@@ -86,6 +87,14 @@ const BodyGrid = ({
             <ContentPanelContainer
               className={classes.placeContentPanel}
               imagePanelOpen={imagePanelOpen}
+              isMobile={isMobile}
+              refresh={refresh}
+            />
+          )}
+          {videoPanelOpen && (
+            <ContentPanelContainer
+              className={classes.placeContentPanel}
+              videoPanelOpen={videoPanelOpen}
               isMobile={isMobile}
               refresh={refresh}
             />
@@ -123,6 +132,7 @@ BodyGrid.propTypes = {
   isMobile: PropTypes.bool,
   fetchLocationsV2: PropTypes.func,
   imagePanelOpen: PropTypes.bool,
+  videoPanelOpen: PropTypes.bool,
 };
 
 BodyGrid.defaultProps = {
@@ -132,6 +142,7 @@ BodyGrid.defaultProps = {
   isMobile: false,
   fetchLocationsV2() {},
   imagePanelOpen: false,
+  videoPanelOpen: false,
 };
 
 export default BodyGrid;

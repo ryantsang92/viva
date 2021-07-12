@@ -145,6 +145,7 @@ const PlacesPanel = ({
             pr={1}
           >
             <IconButton onClick={handlePanelClose} size="small">
+              {/* change this */}
               <CloseIcon />
             </IconButton>
             <Box justifyContent="center" pt={1} pb={1} fontSize={20}>
@@ -275,7 +276,7 @@ const PlacesPanel = ({
               <PlaceImagesContainer images={getImages(photos, yelp?.photos)} />
             </Box>
             <Box pb={1}>
-              <PlaceVideosContainer locationId={id} />
+              <PlaceVideosContainer selectedLocation={selectedLocation} />
             </Box>
             <GoogleReviews reviews={reviews} />
             {yelp && <YelpReviews reviews={yelp?.reviews?.reviews} />}

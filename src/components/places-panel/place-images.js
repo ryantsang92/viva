@@ -25,7 +25,12 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const PlaceImages = ({ images, storeImages, openPlaceImagePanel }) => {
+const PlaceImages = ({
+  images,
+  storeImages,
+  openPlaceImagePanel,
+  closePlaceVideoPanel,
+}) => {
   const classes = useStyles();
 
   useEffect(() => {
@@ -33,6 +38,7 @@ const PlaceImages = ({ images, storeImages, openPlaceImagePanel }) => {
   }, [images, storeImages]);
 
   const onImageClick = () => {
+    closePlaceVideoPanel();
     openPlaceImagePanel();
   };
 
@@ -67,12 +73,14 @@ PlaceImages.propTypes = {
   images: PropTypes.array,
   storeImages: PropTypes.func,
   openPlaceImagePanel: PropTypes.func,
+  closePlaceVideoPanel: PropTypes.func,
 };
 
 PlaceImages.defaultProps = {
   images: null,
   storeImages() {},
   openPlaceImagePanel() {},
+  closePlaceVideoPanel() {},
 };
 
 export default PlaceImages;

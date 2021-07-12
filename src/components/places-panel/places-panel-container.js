@@ -10,7 +10,7 @@ import {
   fetchGooglePlaceData,
   fetchYelpPlaceData,
   closePlaceImagePanel,
-  closePlaceVideoPanel
+  closePlaceVideoPanel,
 } from "../../actions/place-panel-actions";
 import { selectPlaceData } from "../../selectors/place-panel-selectors";
 import PlacesPanel from "./places-panel";

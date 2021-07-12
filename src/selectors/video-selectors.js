@@ -14,6 +14,7 @@ export const selectVideoData = (state) => {
 export const selectVideos = (
   state,
   category = null,
+  location = null,
   shuffle = false
 ) => {
   let returnData = selectVideoData(state)?.videos;
@@ -28,6 +29,13 @@ export const selectVideos = (
       locations.some((location) => location.id === video.location_id)
     );
   }
+
+  if (location) {
+    returnData = returnData.filter(
+      (video) => video.location_id === location.id || null
+    );
+  }
+
   return returnData;
 };
 

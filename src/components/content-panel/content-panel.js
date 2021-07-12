@@ -66,6 +66,7 @@ const useStyles = makeStyles({
 
 const ContentPanel = ({
   selectedCategory,
+  selectedLocation,
   isMobile,
   refresh,
   panelOpen,
@@ -88,9 +89,10 @@ const ContentPanel = ({
     if (videoPanelOpen) {
       return (
         <VideoFeedContainer
+          selectedLocation={selectedLocation}
           selectedCategory={selectedCategory}
-          imagePanelOpen={imagePanelOpen}
-          refresh={refresh}
+          placePanelMode={videoPanelOpen}
+          refresh={true}
           isMobile={isMobile}
         />
       );

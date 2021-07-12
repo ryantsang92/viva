@@ -6,7 +6,8 @@
 
 import React, { useState, useEffect } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { Typography, Box } from "@material-ui/core";
+import { Typography, Box, IconButton } from "@material-ui/core";
+import CloseIcon from "@material-ui/icons/Close";
 import MoodBadRoundedIcon from "@material-ui/icons/MoodBadRounded";
 import { makeStyles } from "@material-ui/core/styles";
 import VideoPlayerPanelContainer from "../video-player-panel/video-player-panel-container";
@@ -35,13 +36,17 @@ const VideoFeed = ({
   panelOpen,
   images,
   placeVideos,
+  placePanelMode,
   isMobile,
   refresh,
   clearRefresh,
+  closePlaceVideoPanel,
 }) => {
-  console.log(loading);
-  console.log(videos);
-  console.log(refresh);
+
+  if (placePanelMode) {
+    console.log(videos);
+    console.log(videos?.slice(0, 5));
+  }
 
   const classes = useStyles();
   const [items, setItems] = useState([]);
@@ -54,13 +59,6 @@ const VideoFeed = ({
     }
   }, [videos, refresh, clearRefresh]);
 
-  // useEffect(() => {
-  //   if (images) {
-  //     setItems(images?.slice(0, 5));
-  //     clearRefresh();
-  //   }
-  // }, [images]);
-
   const fetchMoreData = () => {
     if (items?.length >= videos?.length) {
       setHasMore(false);
@@ -69,6 +67,10 @@ const VideoFeed = ({
         items?.concat(videos?.slice(items?.length - 1, items?.length + 4))
       );
     }
+  };
+
+  const handlePanelClose = () => {
+    closePlaceVideoPanel();
   };
 
   const loadingComponent = (
@@ -85,6 +87,19 @@ const VideoFeed = ({
         <>{loadingComponent}</>
       ) : (
         <>
+          {placePanelMode && (
+            <Box
+              p={1}
+              display="flex"
+              justifyContent="flex-end"
+              alignItems="center"
+              borderBottom={1}
+            >
+              <IconButton onClick={handlePanelClose} size="small">
+                <CloseIcon />
+              </IconButton>
+            </Box>
+          )}
           {videos?.length > 0 ? (
             <InfiniteScroll
               className={classes.infiniteScroll}
@@ -130,6 +145,8 @@ VideoFeed.propTypes = {
   placeVideos: PropTypes.array,
   panelOpen: PropTypes.bool,
   refresh: PropTypes.bool,
+  placePanelMode: PropTypes.bool,
+  closePlaceVideoPanel: PropTypes.func,
 };
 
 VideoFeed.defaultProps = {
@@ -140,6 +157,8 @@ VideoFeed.defaultProps = {
   placeVideos: null,
   panelOpen: false,
   refresh: false,
+  placePanelMode: false,
+  closePlaceVideoPanel() {},
 };
 
 export default VideoFeed;

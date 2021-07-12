@@ -30,6 +30,7 @@ const PlaceVideos = ({
   videos,
   fetchPlaceVidsData,
   openPlaceVideoPanel,
+  closePlaceImagePanel,
 }) => {
   const classes = useStyles();
 
@@ -40,6 +41,7 @@ const PlaceVideos = ({
   }, [locationId, videos, fetchPlaceVidsData]);
 
   const onVideoClick = () => {
+    closePlaceImagePanel();
     openPlaceVideoPanel();
   };
 
@@ -75,6 +77,7 @@ PlaceVideos.propTypes = {
   videos: PropTypes.array,
   fetchPlaceVidsData: PropTypes.func,
   openPlaceVideoPanel: PropTypes.func,
+  closePlaceImagePanel: PropTypes.func,
 };
 
 PlaceVideos.defaultProps = {
@@ -82,6 +85,7 @@ PlaceVideos.defaultProps = {
   videos: null,
   fetchPlaceVidsData() {},
   openPlaceVideoPanel() {},
+  closePlaceImagePanel() {},
 };
 
 export default PlaceVideos;
