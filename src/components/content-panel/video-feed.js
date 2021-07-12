@@ -28,25 +28,20 @@ const useStyles = makeStyles({
       display: "none",
     },
   },
+  header: {
+    position: "sticky",
+  },
 });
 
 const VideoFeed = ({
   loading,
   videos,
-  panelOpen,
-  images,
-  placeVideos,
   placePanelMode,
   isMobile,
   refresh,
   clearRefresh,
   closePlaceVideoPanel,
 }) => {
-  if (placePanelMode) {
-    console.log(videos);
-    console.log(videos?.slice(0, 5));
-  }
-
   const classes = useStyles();
   const [items, setItems] = useState([]);
   const [hasMore, setHasMore] = useState(true);
@@ -78,8 +73,6 @@ const VideoFeed = ({
     </div>
   );
 
-  console.log(items);
-
   return (
     <>
       {loading ? (
@@ -93,6 +86,7 @@ const VideoFeed = ({
               justifyContent="flex-end"
               alignItems="center"
               borderBottom={1}
+              className={classes.header}
             >
               <Box flexGrow={1}>
                 <Typography>Videos</Typography>
@@ -145,9 +139,6 @@ VideoFeed.propTypes = {
   loading: PropTypes.bool,
   isMobile: PropTypes.bool,
   videos: PropTypes.array,
-  images: PropTypes.array,
-  placeVideos: PropTypes.array,
-  panelOpen: PropTypes.bool,
   refresh: PropTypes.bool,
   placePanelMode: PropTypes.bool,
   closePlaceVideoPanel: PropTypes.func,
@@ -157,9 +148,6 @@ VideoFeed.defaultProps = {
   loading: false,
   isMobile: false,
   videos: null,
-  images: null,
-  placeVideos: null,
-  panelOpen: false,
   refresh: false,
   placePanelMode: false,
   closePlaceVideoPanel() {},

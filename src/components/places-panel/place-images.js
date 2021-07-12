@@ -6,16 +6,20 @@
 
 import React, { useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { Box, GridList, GridListTile } from "@material-ui/core";
+import { Typography, Box, GridList, GridListTile } from "@material-ui/core";
 import PropTypes from "prop-types";
 
 const useStyles = makeStyles(() => ({
   photo: {
     cursor: "pointer",
   },
+  seeMore: {
+    cursor: "pointer",
+    height: "100%",
+  },
   gridList: {
     flexWrap: "nowrap",
-    // Promote the list into his own layer on Chrome. This cost memory but helps keeping high FPS.
+    // Promote the list into its own layer on Chrome. This costs memory but helps keeping high FPS.
     transform: "translateZ(0)",
     scrollbarWidth: "none",
     "&::-webkit-scrollbar": {
@@ -48,7 +52,7 @@ const PlaceImages = ({
         <>
           <Box pb={1}>Photos</Box>
           <GridList className={classes.gridList} cols={2.5}>
-            {images?.map((image) => {
+            {images?.slice(0, 5).map((image) => {
               const { src, id } = image;
               return (
                 <GridListTile key={id}>
@@ -62,6 +66,20 @@ const PlaceImages = ({
                 </GridListTile>
               );
             })}
+            <GridListTile key={"see-more"}>
+              <Box
+                display="flex"
+                alignItems="center"
+                justifyContent="center"
+                border={1}
+                borderColor="primary.main"
+                borderRadius={16}
+                onClick={onImageClick}
+                className={classes.seeMore}
+              >
+                <Typography>See More...</Typography>
+              </Box>
+            </GridListTile>
           </GridList>
         </>
       )}

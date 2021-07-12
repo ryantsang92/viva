@@ -17,6 +17,10 @@ import { selectSelectedCategory } from "../../selectors/category-selectors";
 import { clearSelectedCategory } from "../../actions/category-actions";
 import { clearSelectedVideo, fetchVideosV2 } from "../../actions/video-actions";
 import {
+  closePlaceImagePanel,
+  closePlaceVideoPanel,
+} from "../../actions/place-panel-actions";
+import {
   selectLocations,
   selectSelectedLocation,
   selectLocationIsFetching,
@@ -52,6 +56,8 @@ const mapDispatchToProps = (dispatch) => ({
   clearRefresh: () => dispatch(clearRefresh()),
   fetchVideosV2: (latMin, latMax, lngMin, lngMax) =>
     dispatch(fetchVideosV2(latMin, latMax, lngMin, lngMax)),
+  closePlaceVideoPanel: () => dispatch(closePlaceVideoPanel()),
+  closePlaceImagePanel: () => dispatch(closePlaceImagePanel()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Map);

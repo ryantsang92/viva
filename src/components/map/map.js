@@ -83,6 +83,9 @@ const Map = ({
   clearSelectedCategory,
   saveMapBounds,
   setRefresh,
+  clearSelectedLocation,
+  closePlaceImagePanel,
+  closePlaceVideoPanel,
 }) => {
   const classes = useStyles();
 
@@ -199,6 +202,9 @@ const Map = ({
 
   const onRefreshButtonClick = () => {
     getAndSaveBounds(mapRef);
+    clearSelectedLocation();
+    closePlaceImagePanel();
+    closePlaceVideoPanel();
     setRefresh();
     setShowRefresh(false);
   };
@@ -269,6 +275,9 @@ Map.propTypes = {
   clearSelectedCategory: PropTypes.func,
   saveMapBounds: PropTypes.func,
   setRefresh: PropTypes.func,
+  clearSelectedLocation: PropTypes.func,
+  closePlaceImagePanel: PropTypes.func,
+  closePlaceVideoPanel: PropTypes.func,
 };
 
 Map.defaultProps = {
@@ -280,6 +289,9 @@ Map.defaultProps = {
   clearSelectedCategory() {},
   saveMapBounds() {},
   setRefresh() {},
+  clearSelectedLocation() {},
+  closePlaceImagePanel() {},
+  closePlaceVideoPanel() {},
 };
 
 export default GoogleApiWrapper({

@@ -28,12 +28,12 @@ const useStyles = makeStyles({
       display: "none",
     },
   },
+  header: {
+    position: "sticky",
+  },
 });
 
 const ImageFeed = ({ loading, images, closePlaceImagePanel, isMobile }) => {
-  console.log(loading);
-  console.log(images);
-
   const classes = useStyles();
   const [items, setItems] = useState([]);
   const [hasMore, setHasMore] = useState(true);
@@ -72,6 +72,7 @@ const ImageFeed = ({ loading, images, closePlaceImagePanel, isMobile }) => {
         justifyContent="flex-end"
         alignItems="center"
         borderBottom={1}
+        className={classes.header}
       >
         <Box flexGrow={1}>
           <Typography>Photos</Typography>

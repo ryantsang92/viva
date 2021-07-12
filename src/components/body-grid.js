@@ -48,6 +48,8 @@ const useStyles = makeStyles((theme) => ({
   },
   placeContentPanel: {
     position: "absolute",
+    backgroundColor: "white",
+    zIndex: 4,
   },
 }));
 
@@ -63,7 +65,6 @@ const BodyGrid = ({
   isMobile,
 }) => {
   const classes = useStyles();
-  console.log(imagePanelOpen);
 
   useEffect(() => {
     if (refresh && mapBounds) {
@@ -77,13 +78,35 @@ const BodyGrid = ({
   return (
     <Box className={classes.root}>
       <Grid className={classes.grid} container>
+        {(imagePanelOpen || videoPanelOpen) && (
+          <Grid item className={classes.placeContentPanel}>
+            {/* <div className> */}
+              {imagePanelOpen && (
+                <ContentPanelContainer
+                  className={classes.placeContentPanel}
+                  imagePanelOpen={imagePanelOpen}
+                  isMobile={isMobile}
+                  refresh={refresh}
+                />
+              )}
+              {videoPanelOpen && (
+                <ContentPanelContainer
+                  className={classes.placeContentPanel}
+                  videoPanelOpen={videoPanelOpen}
+                  isMobile={isMobile}
+                  refresh={refresh}
+                />
+              )}
+            {/* </div> */}
+          </Grid>
+        )}
         <Grid
           item
           className={
             isMobile ? classes.contentPanelMobile : classes.contentPanel
           }
         >
-          {imagePanelOpen && (
+          {/* {imagePanelOpen && (
             <ContentPanelContainer
               className={classes.placeContentPanel}
               imagePanelOpen={imagePanelOpen}
@@ -98,7 +121,7 @@ const BodyGrid = ({
               isMobile={isMobile}
               refresh={refresh}
             />
-          )}
+          )} */}
           <ContentPanelContainer isMobile={isMobile} refresh={refresh} />
         </Grid>
         {!isMobile && (

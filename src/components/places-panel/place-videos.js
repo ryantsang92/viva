@@ -6,12 +6,16 @@
 
 import React, { useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { Box, GridList, GridListTile } from "@material-ui/core";
+import { Typography, Box, GridList, GridListTile } from "@material-ui/core";
 import PropTypes from "prop-types";
 
 const useStyles = makeStyles(() => ({
   video: {
     cursor: "pointer",
+  },
+  seeMore: {
+    cursor: "pointer",
+    height: "100%",
   },
   gridList: {
     flexWrap: "nowrap",
@@ -34,12 +38,9 @@ const PlaceVideos = ({
 }) => {
   const classes = useStyles();
 
-  console.log(videos);
   useEffect(() => {
-    if (!videos) {
-      fetchPlaceVidsData(selectedLocation.id);
-    }
-  }, [selectedLocation, videos, fetchPlaceVidsData]);
+    fetchPlaceVidsData(selectedLocation.id);
+  }, [selectedLocation, fetchPlaceVidsData]);
 
   const onVideoClick = () => {
     closePlaceImagePanel();
@@ -52,7 +53,7 @@ const PlaceVideos = ({
         <>
           <Box pb={1}>Videos</Box>
           <GridList className={classes.gridList} cols={2.5}>
-            {videos?.map((video) => {
+            {videos?.slice(0, 5).map((video) => {
               const { thumbnail, id } = video;
               return (
                 <GridListTile key={id}>
@@ -66,6 +67,20 @@ const PlaceVideos = ({
                 </GridListTile>
               );
             })}
+            <GridListTile key={"see-more"}>
+              <Box
+                display="flex"
+                alignItems="center"
+                justifyContent="center"
+                border={1}
+                borderColor="primary.main"
+                borderRadius={16}
+                onClick={onVideoClick}
+                className={classes.seeMore}
+              >
+                <Typography>See More...</Typography>
+              </Box>
+            </GridListTile>
           </GridList>
         </>
       )}

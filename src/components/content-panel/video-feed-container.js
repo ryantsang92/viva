@@ -24,7 +24,6 @@ const mapStateToProps = (state, ownProps) => {
           ownProps.placePanelMode ? ownProps.selectedLocation : null,
           true
         ),
-    placeVideos: selectPlaceVideosData(state),
     loading: selectVideoIsLoading(state),
   };
 };
