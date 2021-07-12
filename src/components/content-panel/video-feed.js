@@ -42,7 +42,6 @@ const VideoFeed = ({
   clearRefresh,
   closePlaceVideoPanel,
 }) => {
-
   if (placePanelMode) {
     console.log(videos);
     console.log(videos?.slice(0, 5));
@@ -53,7 +52,7 @@ const VideoFeed = ({
   const [hasMore, setHasMore] = useState(true);
 
   useEffect(() => {
-    if (videos !== null && refresh || placePanelMode) {
+    if ((videos !== null && refresh) || placePanelMode) {
       setItems(videos?.slice(0, 5));
       clearRefresh();
     }
@@ -95,9 +94,14 @@ const VideoFeed = ({
               alignItems="center"
               borderBottom={1}
             >
-              <IconButton onClick={handlePanelClose} size="small">
-                <CloseIcon />
-              </IconButton>
+              <Box flexGrow={1}>
+                <Typography>Videos</Typography>
+              </Box>
+              <Box>
+                <IconButton onClick={handlePanelClose} size="small">
+                  <CloseIcon />
+                </IconButton>
+              </Box>
             </Box>
           )}
           {videos?.length > 0 ? (

@@ -73,9 +73,14 @@ const ImageFeed = ({ loading, images, closePlaceImagePanel, isMobile }) => {
         alignItems="center"
         borderBottom={1}
       >
-        <IconButton onClick={handlePanelClose} size="small">
-          <CloseIcon />
-        </IconButton>
+        <Box flexGrow={1}>
+          <Typography>Photos</Typography>
+        </Box>
+        <Box>
+          <IconButton onClick={handlePanelClose} size="small">
+            <CloseIcon />
+          </IconButton>
+        </Box>
       </Box>
       {images?.length > 0 ? (
         <InfiniteScroll

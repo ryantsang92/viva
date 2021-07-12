@@ -46,7 +46,7 @@ const PlaceImages = ({
     <>
       {images && (
         <>
-          <Box pb={1}>Images</Box>
+          <Box pb={1}>Photos</Box>
           <GridList className={classes.gridList} cols={2.5}>
             {images?.map((image) => {
               const { src, id } = image;
