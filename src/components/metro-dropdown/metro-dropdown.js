@@ -28,7 +28,7 @@ const MetroDropdown = ({
 }) => {
   const classes = useStyles();
 
-  const [selectValue, setSelectValue] = useState(selectedCity);
+  // const [selectValue, setSelectValue] = useState(selectedCity);
 
   useEffect(() => {
     if (metroData?.metros === null) {
@@ -36,11 +36,11 @@ const MetroDropdown = ({
     }
   }, [metroData, fetchMetros]);
 
-  useEffect(() => {
-    if (selectedCity) {
-      setSelectValue(selectedCity);
-    }
-  }, [selectedCity]);
+  // useEffect(() => {
+  //   if (selectedCity) {
+  //     setSelectValue(selectedCity);
+  //   }
+  // }, [selectedCity]);
 
   const handleChange = (event) => {
     // update redux store
@@ -58,7 +58,8 @@ const MetroDropdown = ({
     <Select
       labelId="city-picker-label"
       id="city-picker"
-      value={selectValue}
+      value={selectedCity}
+      defaultValue={newYork}
       onChange={handleChange}
       className={classes.selectBox}
     >
