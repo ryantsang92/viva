@@ -152,9 +152,10 @@ const PlacesPanel = ({
               {name}
             </Box>
             {/* empty div for now */}
-            <IconButton onClick={handlePanelClose} size="small">
+            {/* <IconButton onClick={handlePanelClose} size="small">
               <CloseIcon />
-            </IconButton>
+            </IconButton> */}
+            <div></div>
           </Box>
           <Box key={photos[0]?.photo_reference} overflow="hidden">
             <img
