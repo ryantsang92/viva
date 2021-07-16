@@ -44,7 +44,6 @@ const MetroDropdown = ({
 
   const handleChange = (event) => {
     // update redux store
-    console.log(event.target.value);
     clearSelectedLocation();
     saveSelectedCity(event.target.value);
     //add refresh
@@ -66,8 +65,6 @@ const MetroDropdown = ({
       return 0;
     });
   };
-
-  console.log(selectedCity);
 
   return (
     <Select

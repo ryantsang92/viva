@@ -60,13 +60,11 @@ const useStyles = makeStyles({
 });
 
 const VideoPanel = ({ video, location, placePanelMode, isMobile }) => {
-  console.log(location);
   const classes = useStyles();
 
   const [inView, setInView] = useState(false);
 
   const { thumbnail, url, title, description, user, user_platform } = video;
-  // const { address, website, name } = location;
 
   return (
     <InView onChange={setInView}>
