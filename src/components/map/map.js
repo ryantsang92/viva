@@ -70,8 +70,9 @@ const Map = ({
   selectedLocation,
   selectedCity,
   saveSelectedLocation,
-  clearSelectedCategory,
+  refreshEverything,
   saveMapBounds,
+  mapBounds,
   setRefresh,
   clearSelectedLocation,
   closePlaceImagePanel,
@@ -79,7 +80,6 @@ const Map = ({
 }) => {
   const classes = useStyles();
 
-  const [mapRef, setMapRef] = useState(null);
   const [center, setCenter] = useState({
     lat: selectedCity.lat,
     lng: selectedCity.lng,
@@ -105,7 +105,7 @@ const Map = ({
 
   const onMarkerClick = (marker) => {
     saveSelectedLocation(marker.markerData);
-    clearSelectedCategory();
+    // clearSelectedCategory();
   };
 
   const mapStyle = [
@@ -171,6 +171,7 @@ const Map = ({
     const lngMin = map?.getBounds()?.getSouthWest()?.lng();
     const lngMax = map?.getBounds()?.getNorthEast()?.lng();
 
+    console.log(latMin);
     if (
       latMin !== null &&
       latMax !== null &&
@@ -187,16 +188,15 @@ const Map = ({
   };
 
   const onMapChange = (mapProps, map) => {
-    setMapRef(map);
     getAndSaveBounds(map);
     setShowRefresh(true);
   };
 
   const onRefreshButtonClick = () => {
-    getAndSaveBounds(mapRef);
     clearSelectedLocation();
     closePlaceImagePanel();
     closePlaceVideoPanel();
+    refreshEverything(mapBounds);
     setRefresh();
     setShowRefresh(false);
   };
@@ -264,7 +264,7 @@ Map.propTypes = {
   selectedLocation: PropTypes.object,
   selectedCity: PropTypes.object,
   saveSelectedLocation: PropTypes.func,
-  clearSelectedCategory: PropTypes.func,
+  refreshEverything: PropTypes.func,
   saveMapBounds: PropTypes.func,
   setRefresh: PropTypes.func,
   clearSelectedLocation: PropTypes.func,
@@ -278,7 +278,7 @@ Map.defaultProps = {
   selectedLocation: null,
   selectedCity: null,
   saveSelectedLocation() {},
-  clearSelectedCategory() {},
+  refreshEverything() {},
   saveMapBounds() {},
   setRefresh() {},
   clearSelectedLocation() {},

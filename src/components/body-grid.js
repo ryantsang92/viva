@@ -69,14 +69,21 @@ const BodyGrid = ({
 }) => {
   const classes = useStyles();
 
-  useEffect(() => {
-    if (refresh && mapBounds && !isMobile) {
-      const { latMin, latMax, lngMin, lngMax } = mapBounds;
-      fetchLocationsV2(latMin, latMax, lngMin, lngMax);
-      fetchVideosV2(latMin, latMax, lngMin, lngMax);
-      // clearRefresh();
-    }
-  }, [refresh, mapBounds, fetchLocationsV2, fetchVideosV2, clearRefresh]);
+  // useEffect(() => {
+  //   if (refresh && mapBounds && !isMobile) {
+  //     const { latMin, latMax, lngMin, lngMax } = mapBounds;
+  //     fetchLocationsV2(latMin, latMax, lngMin, lngMax);
+  //     fetchVideosV2(latMin, latMax, lngMin, lngMax);
+  //     clearRefresh();
+  //   }
+  // }, [
+  //   refresh,
+  //   mapBounds,
+  //   fetchLocationsV2,
+  //   fetchVideosV2,
+  //   clearRefresh,
+  //   isMobile,
+  // ]);
 
   useEffect(() => {
     if (isMobile && selectedCity) {
@@ -85,30 +92,27 @@ const BodyGrid = ({
     }
   }, [fetchVideosMobile, fetchLocationsMobile, selectedCity]);
 
-
   return (
     <Box className={classes.root}>
       <Grid className={classes.grid} container>
         {(imagePanelOpen || videoPanelOpen) && (
           <Grid item className={classes.placeContentPanel}>
-            {/* <div className> */}
-              {imagePanelOpen && (
-                <ContentPanelContainer
-                  className={classes.placeContentPanel}
-                  imagePanelOpen={imagePanelOpen}
-                  isMobile={isMobile}
-                  refresh={refresh}
-                />
-              )}
-              {videoPanelOpen && (
-                <ContentPanelContainer
-                  className={classes.placeContentPanel}
-                  videoPanelOpen={videoPanelOpen}
-                  isMobile={isMobile}
-                  refresh={refresh}
-                />
-              )}
-            {/* </div> */}
+            {imagePanelOpen && (
+              <ContentPanelContainer
+                className={classes.placeContentPanel}
+                imagePanelOpen={imagePanelOpen}
+                isMobile={isMobile}
+                refresh={refresh}
+              />
+            )}
+            {videoPanelOpen && (
+              <ContentPanelContainer
+                className={classes.placeContentPanel}
+                videoPanelOpen={videoPanelOpen}
+                isMobile={isMobile}
+                refresh={refresh}
+              />
+            )}
           </Grid>
         )}
         <Grid
