@@ -17,6 +17,7 @@ import { SocialIcon } from "../social-icon";
 import { InView } from "react-intersection-observer";
 import Loading from "../common/loading";
 import LocationCardContainer from "./location-card-container";
+import MapPinDefault from "../../assets/map-pin-default.png";
 import PropTypes from "prop-types";
 
 const useStyles = makeStyles({
@@ -59,6 +60,7 @@ const useStyles = makeStyles({
 });
 
 const VideoPanel = ({ video, location, placePanelMode, isMobile }) => {
+  console.log(location);
   const classes = useStyles();
 
   const [inView, setInView] = useState(false);
@@ -104,7 +106,36 @@ const VideoPanel = ({ video, location, placePanelMode, isMobile }) => {
               <Typography>{description}</Typography>
             </Box>
           )}
-          {!placePanelMode && <LocationCardContainer location={location} />}
+          {isMobile ? (
+            <Box pb={1}>
+              <Box display="flex" justifyContent="flex-start">
+                <Box pr={1}>
+                  <img src={MapPinDefault} alt="city" className={classes.pin} />
+                </Box>
+                <Typography gutterBottom variant="h6" component="h4">
+                  {location?.name}
+                </Typography>
+              </Box>
+              <Box pl={2}>
+                <Typography variant="body2" color="textSecondary" component="p">
+                  {location?.address_full}
+                </Typography>
+                <Typography variant="body2" color="textSecondary" component="p">
+                  <a href={location?.website} target={location?.website}>
+                    {
+                      location?.website
+                        ?.replace(/^(?:https?:\/\/)?(?:www\.)?/i, "")
+                        ?.split("/")[0]
+                    }
+                  </a>
+                </Typography>
+              </Box>
+            </Box>
+          ) : (
+            <>
+              {!placePanelMode && <LocationCardContainer location={location} />}
+            </>
+          )}
           <Box pt={1} />
           <SocialIcon user={user} platform={user_platform} hw={20} />
         </Box>

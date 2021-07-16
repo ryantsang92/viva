@@ -21,7 +21,18 @@ export const fetchVideosV2 = (latMin, latMax, lngMin, lngMax) => {
     fetchSuccess,
     fetchError,
     fetchIsLoading,
-    "/" + latMin + "," + latMax + "," + lngMin + "," + lngMax
+    latMin + "," + latMax + "," + lngMin + "," + lngMax
+  );
+};
+
+//MOBILE_VIDS_URL
+export const fetchVideosMobile = (metro) => {
+  return fetchEndpoint(
+    endpoint.MOBILE_VIDS_URL,
+    fetchSuccess,
+    fetchError,
+    fetchIsLoading,
+    metro,
   );
 };
 

@@ -26,7 +26,17 @@ export const fetchLocationsV2 = (latMin, latMax, lngMin, lngMax) => {
     fetchSuccess,
     fetchError,
     fetchIsLoading,
-    "/" + latMin + "," + latMax + "," + lngMin + "," + lngMax
+    latMin + "," + latMax + "," + lngMin + "," + lngMax
+  );
+};
+
+export const fetchLocationsMobile = (metro) => {
+  return fetchEndpoint(
+    endpoint.MOBILE_LOCS_URL,
+    fetchSuccess,
+    fetchError,
+    fetchIsLoading,
+    metro
   );
 };
 

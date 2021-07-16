@@ -10,13 +10,15 @@ export const apiKeys = {
 };
 
 export const endpoint = {
-  VIDEO_URL_V2: "https://api.vivatheapp.com/vids",
+  VIDEO_URL_V2: "https://api.vivatheapp.com/vids/",
   CATEGORY_URL: "https://api.vivatheapp.com/categories",
-  LOCATION_URL_V2: "https://api.vivatheapp.com/locs",
+  LOCATION_URL_V2: "https://api.vivatheapp.com/locs/",
   GOOGLE_URL: "https://api.vivatheapp.com/google/",
   YELP_URL: "https://api.vivatheapp.com/yelp/",
   LOC_VID_URL: "https://api.vivatheapp.com/loc-vid/",
   METROS_URL: "https://api.vivatheapp.com/metros",
+  MOBILE_VIDS_URL: "https:/api.vivatheapp.com/vids-metro/",
+  MOBILE_LOCS_URL: "https:/api.vivatheapp.com/locs-metro/",
 };
 
 export const socialURLs = {

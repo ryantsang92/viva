@@ -55,11 +55,14 @@ const useStyles = makeStyles((theme) => ({
 
 const BodyGrid = ({
   selectedLocation,
+  selectedCity,
   refresh,
   mapBounds,
   fetchLocationsV2,
   fetchVideosV2,
   clearRefresh,
+  fetchVideosMobile,
+  fetchLocationsMobile,
   imagePanelOpen,
   videoPanelOpen,
   isMobile,
@@ -67,13 +70,21 @@ const BodyGrid = ({
   const classes = useStyles();
 
   useEffect(() => {
-    if (refresh && mapBounds) {
+    if (refresh && mapBounds && !isMobile) {
       const { latMin, latMax, lngMin, lngMax } = mapBounds;
       fetchLocationsV2(latMin, latMax, lngMin, lngMax);
       fetchVideosV2(latMin, latMax, lngMin, lngMax);
       // clearRefresh();
     }
   }, [refresh, mapBounds, fetchLocationsV2, fetchVideosV2, clearRefresh]);
+
+  useEffect(() => {
+    if (isMobile && selectedCity) {
+      fetchVideosMobile(selectedCity?.id);
+      fetchLocationsMobile(selectedCity?.id);
+    }
+  }, [fetchVideosMobile, fetchLocationsMobile, selectedCity]);
+
 
   return (
     <Box className={classes.root}>
@@ -106,22 +117,6 @@ const BodyGrid = ({
             isMobile ? classes.contentPanelMobile : classes.contentPanel
           }
         >
-          {/* {imagePanelOpen && (
-            <ContentPanelContainer
-              className={classes.placeContentPanel}
-              imagePanelOpen={imagePanelOpen}
-              isMobile={isMobile}
-              refresh={refresh}
-            />
-          )}
-          {videoPanelOpen && (
-            <ContentPanelContainer
-              className={classes.placeContentPanel}
-              videoPanelOpen={videoPanelOpen}
-              isMobile={isMobile}
-              refresh={refresh}
-            />
-          )} */}
           <ContentPanelContainer isMobile={isMobile} refresh={refresh} />
         </Grid>
         {!isMobile && (
@@ -151,9 +146,12 @@ const BodyGrid = ({
 BodyGrid.propTypes = {
   locations: PropTypes.array,
   selectedLocation: PropTypes.object,
+  selectedCity: PropTypes.object,
   mapBounds: PropTypes.object,
   isMobile: PropTypes.bool,
   fetchLocationsV2: PropTypes.func,
+  fetchVideosMobile: PropTypes.func,
+  fetchLocationsMobile: PropTypes.func,
   imagePanelOpen: PropTypes.bool,
   videoPanelOpen: PropTypes.bool,
 };
@@ -161,9 +159,12 @@ BodyGrid.propTypes = {
 BodyGrid.defaultProps = {
   locations: null,
   selectedLocation: null,
+  selectedCity: null,
   mapBounds: null,
   isMobile: false,
   fetchLocationsV2() {},
+  fetchVideosMobile() {},
+  fetchLocationsMobile() {},
   imagePanelOpen: false,
   videoPanelOpen: false,
 };
