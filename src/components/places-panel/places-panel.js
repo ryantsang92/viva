@@ -280,7 +280,11 @@ const PlacesPanel = ({
               <PlaceVideosContainer selectedLocation={selectedLocation} />
             </Box>
             <GoogleReviews reviews={reviews} />
-            {yelp && <YelpReviews reviews={yelp?.reviews?.reviews} />}
+            {yelp && (
+              <Box pb={1}>
+                <YelpReviews reviews={yelp?.reviews?.reviews} />
+              </Box>
+            )}
           </Box>
         </div>
       )}

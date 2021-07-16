@@ -6,8 +6,16 @@
 
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { Typography, Box, Divider } from "@material-ui/core";
+import {
+  Typography,
+  Box,
+  Divider,
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
+} from "@material-ui/core";
 import StarRating from "./star-rating";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import PropTypes from "prop-types";
 
 const useStyles = makeStyles(() => ({
@@ -20,60 +28,68 @@ const useStyles = makeStyles(() => ({
 const YelpReviews = ({ reviews }) => {
   const classes = useStyles();
 
+  const [expanded, setExpanded] = React.useState(true);
+
+  const openPanel = () => {
+    setExpanded(!expanded);
+  };
+
   return (
-    <>
-      <Box pb={1}>Yelp Reviews</Box>
-      {reviews?.map((review) => {
-        const {
-          user,
-          time_created: time,
-          text,
-          rating,
-        } = review;
+    <Accordion
+      expanded={expanded}
+      onChange={openPanel}
+    >
+      <AccordionSummary
+        expandIcon={<ExpandMoreIcon />}
+        aria-controls="googleReviews-bh-content"
+        id="googleReviews-bh-header"
+      >
+        <Box pb={1}>Yelp Reviews</Box>
+      </AccordionSummary>
+      <AccordionDetails>
+        <div>
+          {reviews?.map((review) => {
+            const { user, time_created: time, text, rating } = review;
 
-        const {
-          image_url: profile_photo_url,
-          name: author_name,
-        } = user;
+            const { image_url: profile_photo_url, name: author_name } = user;
 
-        return (
-          <div key={author_name + time}>
-            <Box
-              pr={1}
-              display="flex"
-              justifyContent="flex-start"
-              alignItems="center"
-            >
-              <Box pr={1}>
-                <img
-                  src={profile_photo_url}
-                  alt={author_name}
-                  className={classes.icon}
-                />
-              </Box>
-              <Typography>{author_name}</Typography>
-            </Box>
-            <Box
-              display="flex"
-              justifyContent="flex-start"
-              alignItems="center"
-              pt={1}
-            >
-              <StarRating stars={rating} />
-              {/* <Box pl={1} fontSize={12}>
-                {relative_time_description}
-              </Box> */}
-            </Box>
-            <Box pt={1} fontSize={14}>
-              {text}
-            </Box>
-            <Box pt={1} pb={1}>
-              <Divider />
-            </Box>
-          </div>
-        );
-      })}
-    </>
+            return (
+              <div key={author_name + time}>
+                <Box
+                  pr={1}
+                  display="flex"
+                  justifyContent="flex-start"
+                  alignItems="center"
+                >
+                  <Box pr={1}>
+                    <img
+                      src={profile_photo_url}
+                      alt={author_name}
+                      className={classes.icon}
+                    />
+                  </Box>
+                  <Typography>{author_name}</Typography>
+                </Box>
+                <Box
+                  display="flex"
+                  justifyContent="flex-start"
+                  alignItems="center"
+                  pt={1}
+                >
+                  <StarRating stars={rating} />
+                </Box>
+                <Box pt={1} fontSize={14}>
+                  {text}
+                </Box>
+                <Box pt={1} pb={1}>
+                  <Divider />
+                </Box>
+              </div>
+            );
+          })}
+        </div>
+      </AccordionDetails>
+    </Accordion>
   );
 };
 

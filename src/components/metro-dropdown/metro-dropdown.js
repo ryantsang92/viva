@@ -44,15 +44,30 @@ const MetroDropdown = ({
 
   const handleChange = (event) => {
     // update redux store
-    if (event.target.value === "All") {
-      clearSelectedCity();
-    } else {
-      clearSelectedLocation();
-      saveSelectedCity(event.target.value);
-      //add refresh
-      setRefresh();
-    }
+    console.log(event.target.value);
+    clearSelectedLocation();
+    saveSelectedCity(event.target.value);
+    //add refresh
+    setRefresh();
   };
+
+  const sortData = (array) => {
+    return array?.sort((a, b) => {
+      var nameA = a.name.toUpperCase(); // ignore upper and lowercase
+      var nameB = b.name.toUpperCase(); // ignore upper and lowercase
+      if (nameA < nameB) {
+        return -1;
+      }
+      if (nameA > nameB) {
+        return 1;
+      }
+
+      // names must be equal
+      return 0;
+    });
+  };
+
+  console.log(selectedCity);
 
   return (
     <Select
@@ -63,8 +78,7 @@ const MetroDropdown = ({
       onChange={handleChange}
       className={classes.selectBox}
     >
-      {metroData?.metros
-        ?.sort((a, b) => a.name - b.name) //fix sort
+      {sortData(metroData?.metros) //fix sort
         ?.map((metro) => (
           <MenuItem value={metro} key={metro?.id}>
             {metro?.name}
