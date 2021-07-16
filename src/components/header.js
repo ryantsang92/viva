@@ -69,10 +69,10 @@ const useStyles = makeStyles((theme) => ({
     // width: "100%",
   },
   navbottom: {
-    textAlign: 'center',
+    textAlign: "center",
     paddingTop: 16,
-    display: 'flex',
-    justifyContent: 'center',
+    display: "flex",
+    justifyContent: "center",
   },
   quicklink: {
     fontSize: 17,
@@ -83,7 +83,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     boxShadow: "0px 3px 6px 3px rgba(0,0,0,0.1)",
     borderRadius: 20,
-    width: '80%',
+    width: "80%",
     maxWidth: 600,
   },
   mutedText: {
@@ -202,7 +202,6 @@ const Header = ({
 }) => {
   const classes = useStyles();
 
-  // const [category, setCategory] = useState("What's New");
   const [modalOpen, setModalOpen] = useState(false);
 
   useEffect(() => {
@@ -261,7 +260,9 @@ const Header = ({
                 <Grid item className={classes.cityPicker}>
                   <FormControl
                     className={
-                      isMobile ? classes.formControlMobile : classes.formControl1
+                      isMobile
+                        ? classes.formControlMobile
+                        : classes.formControl1
                     }
                   >
                     <InputLabel id="category-picker-label">Category</InputLabel>
@@ -286,7 +287,9 @@ const Header = ({
                 <Grid item className={classes.cityPicker}>
                   <FormControl
                     className={
-                      isMobile ? classes.formControlMobile : classes.formControl2
+                      isMobile
+                        ? classes.formControlMobile
+                        : classes.formControl2
                     }
                   >
                     <InputLabel id="city-picker-label">City</InputLabel>
@@ -299,9 +302,11 @@ const Header = ({
               </Box>
             </Box>
           </Box>
-          <Box pt={2} className={classes.navbottom}>
-            <PillBoxContainer isMobile={isMobile} categories={categories} />
-          </Box>
+          {!isMobile && (
+            <Box pt={2} className={classes.navbottom}>
+              <PillBoxContainer isMobile={isMobile} categories={categories} />
+            </Box>
+          )}
         </Box>
         <Box
           display="flex"
