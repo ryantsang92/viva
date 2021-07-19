@@ -141,11 +141,15 @@ const Map = ({
   });
   const [zoom, setZoom] = useState(13);
   const [showRefresh, setShowRefresh] = useState(false);
-  const [mapRef, setMapRef] = useState(null);
 
   useEffect(() => {
     if (selectedMetro) {
-      // console.log('here');
+      // saveMapBounds({
+      //   latMin: selectedMetro.latMin,
+      //   latMax: selectedMetro.latMax,
+      //   lngMin: selectedMetro.lngMin,
+      //   lngMax: selectedMetro.lngMax,
+      // })
       setCenter({
         lat: selectedMetro.lat,
         lng: selectedMetro.lng,
@@ -213,7 +217,6 @@ const Map = ({
   const onMapChange = (mapProps, map) => {
     getAndSaveBounds(map);
     setShowRefresh(true);
-    setMapRef(map);
   };
 
   const onRefreshButtonClick = () => {

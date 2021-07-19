@@ -44,6 +44,13 @@ const useStyles = makeStyles((theme) => ({
       display: "none",
     },
   },
+  mobilePlacePanel: {
+    width: "100%",
+    height: "100%",
+  },
+  header: {
+    position: "sticky"
+  },
   photo: {
     width: "100%",
     maxHeight: 300,
@@ -77,19 +84,15 @@ const useStyles = makeStyles((theme) => ({
       margin: 0,
     },
     "& .MuiIconButton-edgeEnd": {
-      marginRight: 0
+      marginRight: 0,
     },
     "& .MuiAccordionSummary-expandIcon": {
       padding: "0 12px",
-    }
+    },
   },
   accordionSummaryContent: {
     margin: 0,
   },
-  mobilePlacePanel: {
-    width: "100%",
-    height: "100%",
-  }
 }));
 
 const PlacesPanel = ({
@@ -171,8 +174,11 @@ const PlacesPanel = ({
   return (
     <>
       {placeData !== {} && (
-        <div className={isMobile ? classes.mobilePlacePanel : classes.placePanel}>
+        <div
+          className={isMobile ? classes.mobilePlacePanel : classes.placePanel}
+        >
           <Box
+            className={classes.header}
             display="flex"
             justifyContent="space-between"
             alignItems="center"
@@ -180,7 +186,7 @@ const PlacesPanel = ({
           >
             <IconButton onClick={handlePanelClose} size="small">
               {/* change this */}
-              {isMobile ? (<ArrowBackIcon />) : (<CloseIcon />) }
+              {isMobile ? <ArrowBackIcon /> : <CloseIcon />}
             </IconButton>
             <Box justifyContent="center" pt={1} pb={1} fontSize={20}>
               {name}
@@ -207,8 +213,15 @@ const PlacesPanel = ({
             <Box pt={1} fontSize={20}>
               {name}
             </Box>
-            <Box pt={1} className={classes.placeDesc}>{description}</Box>
-            <Box pt={2} display="flex" justifyContent="flex-start" alignItems="center">
+            <Box pt={1} className={classes.placeDesc}>
+              {description}
+            </Box>
+            <Box
+              pt={2}
+              display="flex"
+              justifyContent="flex-start"
+              alignItems="center"
+            >
               <Box pr={1}>
                 <img src={MapPinDefault} alt="pin" className={classes.pin} />
               </Box>
@@ -222,11 +235,13 @@ const PlacesPanel = ({
               <Divider />
             </Box>
             <Box>
-              <Accordion className={classes.accordion}
+              <Accordion
+                className={classes.accordion}
                 expanded={expanded === "openHours"}
                 onChange={handleChange("openHours")}
               >
-                <AccordionSummary className={classes.accordionSummary} 
+                <AccordionSummary
+                  className={classes.accordionSummary}
                   expandIcon={<ExpandMoreIcon />}
                   aria-controls="openHours-bh-content"
                   id="openHours-bh-header"
@@ -239,13 +254,19 @@ const PlacesPanel = ({
                     <Box pr={1}>
                       <ScheduleIcon />
                     </Box>
-                    <Typography className={classes.placeLink}>Opening Hours</Typography>
+                    <Typography className={classes.placeLink}>
+                      Opening Hours
+                    </Typography>
                   </Box>
                 </AccordionSummary>
                 <AccordionDetails>
                   <div>
                     {opening_hours?.weekday_text?.map((day) => {
-                      return <Typography className={classes.placeLink}>{day}</Typography>;
+                      return (
+                        <Typography className={classes.placeLink}>
+                          {day}
+                        </Typography>
+                      );
                     })}
                   </div>
                 </AccordionDetails>
@@ -255,11 +276,19 @@ const PlacesPanel = ({
               <Divider />
             </Box>
             {website && (
-              <Box display="flex" justifyContent="flex-start" alignItems="center">
+              <Box
+                display="flex"
+                justifyContent="flex-start"
+                alignItems="center"
+              >
                 <Box pr={1}>
                   <img src={icon} alt="website" className={classes.icon} />
                 </Box>
-                <a className={classes.placeLink} href={website} target={website}>
+                <a
+                  className={classes.placeLink}
+                  href={website}
+                  target={website}
+                >
                   {
                     website
                       .replace(/^(?:https?:\/\/)?(?:www\.)?/i, "")
@@ -275,18 +304,28 @@ const PlacesPanel = ({
               <Box pr={1}>
                 <PhoneIcon />
               </Box>
-              <Typography className={classes.placeLink}>{formatted_phone_number || "None"}</Typography>
+              <Typography className={classes.placeLink}>
+                {formatted_phone_number || "None"}
+              </Typography>
             </Box>
             {action_url && (
               <>
                 <Box pt={1} pb={1}>
                   <Divider />
                 </Box>
-                <Box display="flex" justifyContent="flex-start" alignItems="center">
+                <Box
+                  display="flex"
+                  justifyContent="flex-start"
+                  alignItems="center"
+                >
                   <Box pr={1}>
                     <CheckCircleOutlineIcon />
                   </Box>
-                  <a className={classes.placeLink} href={action_url} target={action_url}>
+                  <a
+                    className={classes.placeLink}
+                    href={action_url}
+                    target={action_url}
+                  >
                     Make a Reservation
                   </a>
                 </Box>
@@ -297,11 +336,16 @@ const PlacesPanel = ({
                 <Box pt={1} pb={1}>
                   <Divider />
                 </Box>
-                <Box display="flex" justifyContent="flex-start" alignItems="center">
+                <Box
+                  display="flex"
+                  justifyContent="flex-start"
+                  alignItems="center"
+                >
                   <Box pr={1}>
                     <InstagramIcon />
                   </Box>
-                  <a className={classes.placeLink} 
+                  <a
+                    className={classes.placeLink}
                     href={"http://instagram.com/" + ig}
                     target={"http://instagram.com/" + ig}
                   >

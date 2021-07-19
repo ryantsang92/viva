@@ -40,7 +40,7 @@ const MetroDropdown = ({
   const handleChange = (event) => {
     // update redux store
     clearSelectedLocation();
-    saveSelectedMetro(metroData?.metros?.filter(metro => metro.name == event.target.value)[0]);
+    saveSelectedMetro(metroData?.metros?.filter(metro => metro.name === event.target.value)[0]);
     saveSelectedCity(event.target.value);
     // refreshEverything(mapBounds);
     //add refresh
