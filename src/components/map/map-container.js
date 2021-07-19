@@ -14,7 +14,7 @@ import {
   clearRefresh,
 } from "../../actions/location-actions";
 import { selectSelectedCategory } from "../../selectors/category-selectors";
-import { clearSelectedCategory } from "../../actions/category-actions";
+import { refreshEverything } from "../../actions/combined-actions";
 import { clearSelectedVideo, fetchVideosV2 } from "../../actions/video-actions";
 import {
   closePlaceImagePanel,
@@ -47,7 +47,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => ({
   saveSelectedLocation: (location) => dispatch(saveSelectedLocation(location)),
   clearSelectedLocation: () => dispatch(clearSelectedLocation()),
-  clearSelectedCategory: () => dispatch(clearSelectedCategory()),
+  refreshEverything: (mapBounds) => dispatch(refreshEverything(mapBounds)),
   clearSelectedVideo: () => dispatch(clearSelectedVideo()),
   fetchLocationsV2: (latMin, latMax, lngMin, lngMax) =>
     dispatch(fetchLocationsV2(latMin, latMax, lngMin, lngMax)),

@@ -53,6 +53,57 @@ const mapContainerStyle = {
   position: "relative",
 };
 
+const mapStyle = [
+  {
+    featureType: "poi.business",
+    stylers: [
+      {
+        visibility: "off",
+      },
+    ],
+  },
+  {
+    featureType: "poi.government",
+    stylers: [
+      {
+        visibility: "off",
+      },
+    ],
+  },
+  {
+    featureType: "poi.medical",
+    stylers: [
+      {
+        visibility: "off",
+      },
+    ],
+  },
+  {
+    featureType: "poi.place_of_worship",
+    stylers: [
+      {
+        visibility: "off",
+      },
+    ],
+  },
+  {
+    featureType: "poi.school",
+    stylers: [
+      {
+        visibility: "off",
+      },
+    ],
+  },
+  {
+    featureType: "poi.sports_complex",
+    stylers: [
+      {
+        visibility: "simplified",
+      },
+    ],
+  },
+];
+
 const loading = (props) => (
   <div
     style={{
@@ -69,17 +120,20 @@ const Map = ({
   locations,
   selectedLocation,
   selectedCity,
+  refresh,
   saveSelectedLocation,
-  clearSelectedCategory,
+  refreshEverything,
   saveMapBounds,
+  mapBounds,
   setRefresh,
+  clearRefresh,
   clearSelectedLocation,
   closePlaceImagePanel,
   closePlaceVideoPanel,
 }) => {
+  console.log(mapBounds);
   const classes = useStyles();
 
-  const [mapRef, setMapRef] = useState(null);
   const [center, setCenter] = useState({
     lat: selectedCity.lat,
     lng: selectedCity.lng,
@@ -103,61 +157,16 @@ const Map = ({
     }
   }, [selectedLocation, selectedCity]);
 
+  useEffect(() => {
+    if (refresh && mapBounds) {
+      refreshEverything(mapBounds);
+      // clearRefresh();
+    }
+  }, [refresh, mapBounds, refreshEverything, clearRefresh]);
+
   const onMarkerClick = (marker) => {
     saveSelectedLocation(marker.markerData);
-    clearSelectedCategory();
   };
-
-  const mapStyle = [
-    {
-      featureType: "poi.business",
-      stylers: [
-        {
-          visibility: "off",
-        },
-      ],
-    },
-    {
-      featureType: "poi.government",
-      stylers: [
-        {
-          visibility: "off",
-        },
-      ],
-    },
-    {
-      featureType: "poi.medical",
-      stylers: [
-        {
-          visibility: "off",
-        },
-      ],
-    },
-    {
-      featureType: "poi.place_of_worship",
-      stylers: [
-        {
-          visibility: "off",
-        },
-      ],
-    },
-    {
-      featureType: "poi.school",
-      stylers: [
-        {
-          visibility: "off",
-        },
-      ],
-    },
-    {
-      featureType: "poi.sports_complex",
-      stylers: [
-        {
-          visibility: "simplified",
-        },
-      ],
-    },
-  ];
 
   const mapLoaded = (mapProps, map) => {
     map.setOptions({
@@ -171,33 +180,25 @@ const Map = ({
     const lngMin = map?.getBounds()?.getSouthWest()?.lng();
     const lngMax = map?.getBounds()?.getNorthEast()?.lng();
 
-    if (
-      latMin !== null &&
-      latMax !== null &&
-      lngMin !== null &&
-      lngMax !== null
-    ) {
-      saveMapBounds({
-        latMin: latMin,
-        latMax: latMax,
-        lngMin: lngMin,
-        lngMax: lngMax,
-      });
-    }
+    saveMapBounds({
+      latMin: latMin,
+      latMax: latMax,
+      lngMin: lngMin,
+      lngMax: lngMax,
+    });
   };
 
   const onMapChange = (mapProps, map) => {
-    setMapRef(map);
     getAndSaveBounds(map);
     setShowRefresh(true);
   };
 
   const onRefreshButtonClick = () => {
-    getAndSaveBounds(mapRef);
     clearSelectedLocation();
     closePlaceImagePanel();
     closePlaceVideoPanel();
-    setRefresh();
+    refreshEverything(mapBounds);
+    // setRefresh();
     setShowRefresh(false);
   };
 
@@ -264,7 +265,7 @@ Map.propTypes = {
   selectedLocation: PropTypes.object,
   selectedCity: PropTypes.object,
   saveSelectedLocation: PropTypes.func,
-  clearSelectedCategory: PropTypes.func,
+  refreshEverything: PropTypes.func,
   saveMapBounds: PropTypes.func,
   setRefresh: PropTypes.func,
   clearSelectedLocation: PropTypes.func,
@@ -278,7 +279,7 @@ Map.defaultProps = {
   selectedLocation: null,
   selectedCity: null,
   saveSelectedLocation() {},
-  clearSelectedCategory() {},
+  refreshEverything() {},
   saveMapBounds() {},
   setRefresh() {},
   clearSelectedLocation() {},

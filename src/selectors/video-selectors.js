@@ -36,6 +36,7 @@ export const selectVideos = (
     );
   }
 
+  console.log(returnData);
   return returnData;
 };
 

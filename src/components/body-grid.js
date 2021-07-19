@@ -79,14 +79,21 @@ const BodyGrid = ({
 }) => {
   const classes = useStyles();
 
-  useEffect(() => {
-    if (refresh && mapBounds && !isMobile) {
-      const { latMin, latMax, lngMin, lngMax } = mapBounds;
-      fetchLocationsV2(latMin, latMax, lngMin, lngMax);
-      fetchVideosV2(latMin, latMax, lngMin, lngMax);
-      // clearRefresh();
-    }
-  }, [refresh, mapBounds, fetchLocationsV2, fetchVideosV2, clearRefresh]);
+  // useEffect(() => {
+  //   if (refresh && mapBounds && !isMobile) {
+  //     const { latMin, latMax, lngMin, lngMax } = mapBounds;
+  //     fetchLocationsV2(latMin, latMax, lngMin, lngMax);
+  //     fetchVideosV2(latMin, latMax, lngMin, lngMax);
+  //     clearRefresh();
+  //   }
+  // }, [
+  //   refresh,
+  //   mapBounds,
+  //   fetchLocationsV2,
+  //   fetchVideosV2,
+  //   clearRefresh,
+  //   isMobile,
+  // ]);
 
   useEffect(() => {
     if (isMobile && selectedCity) {
@@ -94,7 +101,6 @@ const BodyGrid = ({
       fetchLocationsMobile(selectedCity?.id);
     }
   }, [fetchVideosMobile, fetchLocationsMobile, selectedCity]);
-
 
   return (
     <Box className={classes.root}>
