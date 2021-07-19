@@ -51,6 +51,16 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "white",
     zIndex: 4,
   },
+  mobilePagesPanel: {
+    position: "fixed",
+    top: 0,
+    left: 0,
+    bottom: 0,
+    right: 0,
+    backgroundColor: "#ffffff",
+    zIndex: 9,
+    overflow: "scroll",
+  },
 }));
 
 const BodyGrid = ({
@@ -92,7 +102,7 @@ const BodyGrid = ({
         {(imagePanelOpen || videoPanelOpen) && (
           <Grid item className={classes.placeContentPanel}>
             {/* <div className> */}
-              {imagePanelOpen && (
+              {imagePanelOpen && !isMobile && (
                 <ContentPanelContainer
                   className={classes.placeContentPanel}
                   imagePanelOpen={imagePanelOpen}
@@ -100,7 +110,7 @@ const BodyGrid = ({
                   refresh={refresh}
                 />
               )}
-              {videoPanelOpen && (
+              {videoPanelOpen && !isMobile && (
                 <ContentPanelContainer
                   className={classes.placeContentPanel}
                   videoPanelOpen={videoPanelOpen}
@@ -125,7 +135,7 @@ const BodyGrid = ({
           </Grid>
         )}
 
-        {selectedLocation && (
+        {selectedLocation && !isMobile && (
           <Grid
             item
             className={
@@ -139,6 +149,36 @@ const BodyGrid = ({
           </Grid>
         )}
       </Grid>
+      {selectedLocation && isMobile && (
+        <>
+        <Grid className={classes.mobilePagesPanel}>
+          <PlacesPanelContainer
+            selectedLocation={selectedLocation}
+            isMobile={isMobile}
+          />
+        </Grid>
+        {imagePanelOpen && (
+        <Grid className={classes.mobilePagesPanel}>
+          <ContentPanelContainer
+            className={classes.mobilePlaceContentPanel}
+            imagePanelOpen={imagePanelOpen}
+            isMobile={isMobile}
+            refresh={refresh}
+          />
+        </Grid>
+        )}
+        {videoPanelOpen && (
+        <Grid className={classes.mobilePagesPanel}>
+          <ContentPanelContainer
+            className={classes.mobilePlaceContentPanel}
+            videoPanelOpen={videoPanelOpen}
+            isMobile={isMobile}
+            refresh={refresh}
+          />
+        </Grid>
+        )}
+        </>
+      )}
     </Box>
   );
 };

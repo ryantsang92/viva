@@ -47,7 +47,7 @@ export const SocialIcon = ({ url, icon, user, platform, hw }) => {
             style={{ height: hw, width: hw }}
           />
         </Box>
-        <Typography>{user}</Typography>
+        <Typography style={{fontSize: 15}}>{user}</Typography>
       </Box>
     </a>
   );

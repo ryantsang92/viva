@@ -23,6 +23,9 @@ const useStyles = makeStyles(() => ({
     width: 24,
     height: 24,
   },
+  reviewer: {
+    fontSize: 15,
+  }
 }));
 
 const YelpReviews = ({ reviews }) => {
@@ -68,7 +71,7 @@ const YelpReviews = ({ reviews }) => {
                       className={classes.icon}
                     />
                   </Box>
-                  <Typography>{author_name}</Typography>
+                  <Typography className={classes.reviewer}>{author_name}</Typography>
                 </Box>
                 <Box
                   display="flex"

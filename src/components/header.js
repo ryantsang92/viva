@@ -88,8 +88,10 @@ const useStyles = makeStyles((theme) => ({
   },
   mutedText: {
     color: "gray",
-    fontSize: 16,
-    lineHeight: "40px",
+    fontSize: 15,
+    display: "flex",
+    alignItems: "center",
+    // lineHeight: "30px",
   },
   cityPicker: {
     padding: "0 !important",
@@ -124,10 +126,27 @@ const useStyles = makeStyles((theme) => ({
       marginTop: 0,
     },
   },
-  formControlMobile: {
+  mobileHeader: {
+  },
+  mobileHeaderTop: {
+    display: "none",
+    flexDirection: "column",
+  },
+  mobileNavcenter: {
+
+  },
+  mobileSelectContainer: {
+    flexGrow: 1,
+    display: "flex",
+    maxWidth: 600,
+    margin: "0 auto",
+  },
+  formControlMobileLeft: {
     minWidth: 75,
+    width: "100%",
     background: "#efefef",
-    borderRadius: 15,
+    borderTopLeftRadius: 15,
+    borderBottomLeftRadius: 15,
     textAlign: "left",
     height: 32,
     "& label": {
@@ -136,6 +155,45 @@ const useStyles = makeStyles((theme) => ({
     "& > div": {
       marginTop: 0,
     },
+  },
+  formControlMobileRight: {
+    minWidth: 75,
+    width: "100%",
+    background: "#efefef",
+    borderTopRightRadius: 15,
+    borderBottomRightRadius: 15,
+    textAlign: "left",
+    height: 32,
+    "& label": {
+      display: "none",
+    },
+    "& > div": {
+      marginTop: 0,
+    },
+  },
+  mobileSelectBox: {
+    fontSize: 15,
+    width: "100%",
+    paddingLeft: 12,
+    lineHeight: "15px",
+    "& >div": {
+      height: 32,
+      display: "flex",
+      alignItems: "center",
+      paddingTop: 0,
+      paddingBottom: 0,
+    }
+  },
+  mobileSelect: {
+    display: "flex",
+    alignItems: "flex-end",
+  },
+  mobileLogoContainer: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between",
+    height: 60,
+    paddingLeft: 15,
   },
   left: {
     width: "100%",
@@ -242,8 +300,65 @@ const Header = ({
   };
 
   return (
-    <div className={classes.header}>
-      <Box display="flex" alignItems="flex-start" className={classes.headerTop}>
+    <div className={isMobile ? classes.mobileHeader : classes.header}>
+      {isMobile && (
+        <Box>
+          <Box className={classes.mobileLogoContainer}>
+            <Box className={classes.clear}>
+              <img
+                src={logo}
+                alt="VIVA"
+                className={classes.logo}
+                onClick={refreshPage}
+              />
+            </Box>
+            <MobileMenuContainer />
+          </Box>
+          <Box p={1} className={classes.mobileNavcenter}>
+            <Box>
+              <Box spacing={2} className={classes.navbar}>
+                <Box className={classes.mobileSelectContainer}>
+                  <Grid item className={classes.cityPicker}>
+                    <FormControl
+                      className={classes.formControlMobileLeft}
+                    >
+                      <InputLabel id="category-picker-label">Category</InputLabel>
+                      <Box pl={1} display="flex" justifyContent="flex-start">
+                        <Select
+                          labelId="category-picker-label"
+                          id="category-picker"
+                          value={selectedCategory || "What's New"}
+                          onChange={handleChange}
+                          className={classes.mobileSelectBox}
+                        >
+                          <MenuItem value={"What's New"}>What's New</MenuItem>
+                          {categories.map((category) => (
+                            <MenuItem value={category} key={category.id}>
+                              {category.category}
+                            </MenuItem>
+                          ))}
+                        </Select>
+                      </Box>
+                    </FormControl>
+                  </Grid>
+                  <Grid item className={classes.cityPicker}>
+                    <FormControl
+                      className={classes.formControlMobileRight}
+                    >
+                      <InputLabel id="city-picker-label">City</InputLabel>
+                      <Box pl={1} display="flex" justifyContent="flex-start">
+                        <Box className={classes.mutedText} pr={1}>in</Box>
+                        <MetroDropdownContainer />
+                      </Box>
+                    </FormControl>
+                  </Grid>
+                </Box>
+              </Box>
+            </Box>
+          </Box>
+        </Box>
+      )}
+      <Box display="flex" alignItems="flex-start" className={isMobile ? classes.mobileHeaderTop : classes.headerTop}>
         <Box className={classes.logoContainer}>
           <Box className={classes.clear}>
             <img
@@ -271,7 +386,7 @@ const Header = ({
                         id="category-picker"
                         value={selectedCategory || "What's New"}
                         onChange={handleChange}
-                        className={classes.selectBox}
+                        className={classes.mobileSelectBox}
                       >
                         <MenuItem value={"What's New"}>What's New</MenuItem>
                         {categories.map((category) => (

@@ -8,6 +8,7 @@ import React, { useState, useEffect } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { Typography, Box, IconButton } from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
+import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import MoodBadRoundedIcon from "@material-ui/icons/MoodBadRounded";
 import { makeStyles } from "@material-ui/core/styles";
 import VideoPlayerPanelContainer from "../video-player-panel/video-player-panel-container";
@@ -81,21 +82,36 @@ const VideoFeed = ({
         <>
           {placePanelMode && (
             <Box
-              p={1}
+              pt={1} pb={1}
               display="flex"
               justifyContent="flex-end"
               alignItems="center"
               borderBottom={1}
               className={classes.header}
             >
-              <Box flexGrow={1}>
-                <Typography>Videos</Typography>
-              </Box>
-              <Box>
-                <IconButton onClick={handlePanelClose} size="small">
-                  <CloseIcon />
-                </IconButton>
-              </Box>
+              {isMobile ? (
+              <>
+                <Box>
+                  <IconButton onClick={handlePanelClose} size="small">
+                    <ArrowBackIcon />
+                  </IconButton>
+                </Box>
+                <Box flexGrow={1}>
+                  <Typography align="center">Videos</Typography>
+                </Box>
+              </>
+              ) : (
+              <>
+                <Box flexGrow={1}>
+                  <Typography>Videos</Typography>
+                </Box>
+                <Box>
+                  <IconButton onClick={handlePanelClose} size="small">
+                    <CloseIcon />
+                  </IconButton>
+                </Box>
+              </>
+              )}
             </Box>
           )}
           {videos?.length > 0 ? (
