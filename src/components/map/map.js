@@ -125,14 +125,11 @@ const Map = ({
   refreshEverything,
   saveMapBounds,
   mapBounds,
-  setRefresh,
   clearRefresh,
   clearSelectedLocation,
   closePlaceImagePanel,
   closePlaceVideoPanel,
 }) => {
-  // console.log(selectedMetro);
-  // console.log(mapBounds);
   const classes = useStyles();
 
   const [center, setCenter] = useState({
@@ -144,12 +141,12 @@ const Map = ({
 
   useEffect(() => {
     if (selectedMetro) {
-      // saveMapBounds({
-      //   latMin: selectedMetro.latMin,
-      //   latMax: selectedMetro.latMax,
-      //   lngMin: selectedMetro.lngMin,
-      //   lngMax: selectedMetro.lngMax,
-      // })
+      saveMapBounds({
+        latMin: selectedMetro.latMin,
+        latMax: selectedMetro.latMax,
+        lngMin: selectedMetro.lngMin,
+        lngMax: selectedMetro.lngMax,
+      });
       setCenter({
         lat: selectedMetro.lat,
         lng: selectedMetro.lng,
@@ -165,14 +162,16 @@ const Map = ({
   }, [selectedLocation, selectedMetro]);
 
   useEffect(() => {
-    if (refresh && mapBounds) {
-      // console.log("refresh hook");
-      // console.log(mapBounds);
-      // console.log(mapRef?.getBounds()?.getSouthWest()?.lat());
-      refreshEverything(mapBounds);
+    if (refresh && selectedMetro) {
+      refreshEverything({
+        latMin: selectedMetro.latMin,
+        latMax: selectedMetro.latMax,
+        lngMin: selectedMetro.lngMin,
+        lngMax: selectedMetro.lngMax,
+      });
       clearRefresh();
     }
-  }, [refresh, mapBounds, refreshEverything, clearRefresh]);
+  }, [refresh, selectedMetro, refreshEverything, clearRefresh]);
 
   const onMarkerClick = (marker) => {
     saveSelectedLocation(marker.markerData);
@@ -198,22 +197,6 @@ const Map = ({
     });
   };
 
-  // const calcBoundsFromCenter = (zoom, center, projection, div) => {
-  //   var p = projection || mapRef?.getProjection();
-  //   if (!p) return undefined;
-  //   var d = (div || mapRef?.getDiv());
-  //   var zf = Math.pow(2, zoom) * 2;
-  //   var dw = d.getStyle("width").toInt() / zf;
-  //   var dh = d.getStyle("height").toInt() / zf;
-  //   var cpx = p.fromLatLngToPoint(center || mapRef?.getCenter());
-  //   return new google.maps.LatLngBounds(
-  //     p.fromPointToLatLng(new google.maps.Point(cpx.x - dw, cpx.y + dh)),
-  //     p.fromPointToLatLng(new google.maps.Point(cpx.x + dw, cpx.y - dh))
-  //   );
-  // };
-
-  // console.log(calcBoundsFromCenter(zoom));
-
   const onMapChange = (mapProps, map) => {
     getAndSaveBounds(map);
     setShowRefresh(true);
@@ -224,7 +207,6 @@ const Map = ({
     closePlaceImagePanel();
     closePlaceVideoPanel();
     refreshEverything(mapBounds);
-    // setRefresh();
     setShowRefresh(false);
   };
 
@@ -293,7 +275,6 @@ Map.propTypes = {
   saveSelectedLocation: PropTypes.func,
   refreshEverything: PropTypes.func,
   saveMapBounds: PropTypes.func,
-  setRefresh: PropTypes.func,
   clearSelectedLocation: PropTypes.func,
   closePlaceImagePanel: PropTypes.func,
   closePlaceVideoPanel: PropTypes.func,
@@ -307,7 +288,6 @@ Map.defaultProps = {
   saveSelectedLocation() {},
   refreshEverything() {},
   saveMapBounds() {},
-  setRefresh() {},
   clearSelectedLocation() {},
   closePlaceImagePanel() {},
   closePlaceVideoPanel() {},
