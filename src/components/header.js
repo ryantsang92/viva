@@ -88,7 +88,8 @@ const useStyles = makeStyles((theme) => ({
   },
   mutedText: {
     color: "gray",
-    fontSize: 15,
+    fontSize: 14,
+    paddingTop: 1,
     display: "flex",
     alignItems: "center",
     // lineHeight: "30px",
@@ -228,12 +229,16 @@ const useStyles = makeStyles((theme) => ({
     boxShadow: theme.shadows[5],
   },
   selectBox: {
-    // height: 32,
-    fontSize: 17,
-    paddingTop: 3,
-    paddingBottom: 3,
+    fontSize: "1rem",
     paddingLeft: 15,
+    paddingTop: 10,
+    paddingBottom: 10,
     width: "100%",
+    "& >div": {
+      padding: 0,
+      display: "flex",
+      alignItems: "center",
+    }
   },
   modalLogo: {
     borderRadius: 15,
@@ -347,7 +352,7 @@ const Header = ({
                       <InputLabel id="city-picker-label">City</InputLabel>
                       <Box pl={1} display="flex" justifyContent="flex-start">
                         <Box className={classes.mutedText} pr={1}>in</Box>
-                        <MetroDropdownContainer />
+                        <MetroDropdownContainer isMobile={isMobile} />
                       </Box>
                     </FormControl>
                   </Grid>
@@ -387,7 +392,7 @@ const Header = ({
                         id="category-picker"
                         value={selectedCategory || "What's New"}
                         onChange={handleChange}
-                        className={classes.mobileSelectBox}
+                        className={isMobile ? classes.mobileSelectBox : classes.selectBox}
                       >
                         <MenuItem value={"What's New"}>What's New</MenuItem>
                         {categories.map((category) => (
@@ -409,8 +414,8 @@ const Header = ({
                   >
                     <InputLabel id="city-picker-label">City</InputLabel>
                     <Box pl={1} display="flex" justifyContent="flex-start">
-                      <Box pr={1}>in</Box>
-                      <MetroDropdownContainer />
+                      <Box className={classes.mutedText} pr={1} style={{fontSize: 16}}>in</Box>
+                      <MetroDropdownContainer isMobile={isMobile} />
                     </Box>
                   </FormControl>
                 </Grid>

@@ -7,7 +7,7 @@
 }
 
 .MuiToggleButton-label {
-	text-transform: lowercase;
+	text-transform: capitalize;
 	font-weight: 400;
 	letter-spacing: 0;
 }
