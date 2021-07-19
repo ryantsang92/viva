@@ -53,9 +53,9 @@ const VideoFeed = ({
   useEffect(() => {
     if ((videos !== null) || placePanelMode) {
       setItems(videos?.slice(0, 5));
-      clearRefresh();
+      // clearRefresh();
     }
-  }, [videos, refresh, clearRefresh]);
+  }, [videos, refresh]);
 
   const fetchMoreData = () => {
     if (items?.length >= videos?.length) {

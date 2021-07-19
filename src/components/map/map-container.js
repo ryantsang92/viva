@@ -29,6 +29,7 @@ import {
   selectRefresh,
 } from "../../selectors/location-selectors";
 import Map from "./map";
+import { selectSelectedMetro } from "../../selectors/metro-selectors";
 
 const mapStateToProps = (state) => {
   const selectedCategory = selectSelectedCategory(state);
@@ -38,6 +39,7 @@ const mapStateToProps = (state) => {
     locations: selectLocations(state, selectedCategory, selectedCity),
     selectedLocation: selectSelectedLocation(state),
     selectedCity: selectedCity,
+    selectedMetro: selectSelectedMetro(state),
     mapBounds: selectMapBounds(state),
     loading: selectLocationIsFetching(state),
     refresh: selectRefresh(state),

@@ -14,20 +14,21 @@ import {
   selectSelectedLocation,
   selectRefresh,
   selectMapBounds,
-  selectSelectedCity,
 } from "../selectors/location-selectors";
+import {
+  selectSelectedMetro,
+} from "../selectors/metro-selectors";
 import { fetchVideosV2, fetchVideosMobile } from "../actions/video-actions";
 import BodyGrid from "./body-grid";
 import {
   selectPlaceImagePanelOpen,
   selectPlaceVideoPanelOpen,
 } from "../selectors/place-panel-selectors";
-import { fetchMetros } from "../actions/metro-actions";
 
 const mapStateToProps = (state) => {
   return {
     selectedLocation: selectSelectedLocation(state),
-    selectedCity: selectSelectedCity(state),
+    selectedMetro: selectSelectedMetro(state),
     refresh: selectRefresh(state),
     mapBounds: selectMapBounds(state),
     imagePanelOpen: selectPlaceImagePanelOpen(state),

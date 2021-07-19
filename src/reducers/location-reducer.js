@@ -24,7 +24,7 @@ const initialState = {
   filter: false,
   refresh: true,
   error: null,
-  selectedCity: newYork,
+  selectedCity: newYork.name,
 };
 
 const locationReducer = (state = initialState, action) => {

@@ -13,10 +13,10 @@ import {
 } from "../../selectors/location-selectors";
 import {
   saveSelectedCity,
-  clearSelectedCity,
   clearSelectedLocation,
   setRefresh,
 } from "../../actions/location-actions";
+import { saveSelectedMetro } from "../../actions/metro-actions";
 import MetroDropdown from "./metro-dropdown";
 import { refreshEverything } from "../../actions/combined-actions";
 
@@ -31,10 +31,10 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => ({
   fetchMetros: () => dispatch(fetchMetros()),
   saveSelectedCity: (city) => dispatch(saveSelectedCity(city)),
-  clearSelectedCity: () => dispatch(clearSelectedCity()),
+  saveSelectedMetro: (metro) => dispatch(saveSelectedMetro(metro)),
   clearSelectedLocation: () => dispatch(clearSelectedLocation()),
   setRefresh: () => dispatch(setRefresh()),
-  refreshEverything: (mapBounds) => dispatch(refreshEverything(mapBounds))
+  refreshEverything: (mapBounds) => dispatch(refreshEverything(mapBounds)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MetroDropdown);

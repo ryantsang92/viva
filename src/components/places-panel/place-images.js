@@ -66,20 +66,22 @@ const PlaceImages = ({
                 </GridListTile>
               );
             })}
-            <GridListTile key={"see-more-images"}>
-              <Box
-                display="flex"
-                alignItems="center"
-                justifyContent="center"
-                border={1}
-                borderColor="primary.main"
-                borderRadius={16}
-                onClick={onImageClick}
-                className={classes.seeMore}
-              >
-                <Typography>See More...</Typography>
-              </Box>
-            </GridListTile>
+            {images.length > 5 && (
+              <GridListTile key={"see-more-images"}>
+                <Box
+                  display="flex"
+                  alignItems="center"
+                  justifyContent="center"
+                  border={1}
+                  borderColor="primary.main"
+                  borderRadius={16}
+                  onClick={onImageClick}
+                  className={classes.seeMore}
+                >
+                  <Typography>See More...</Typography>
+                </Box>
+              </GridListTile>
+            )}
           </GridList>
         </>
       )}

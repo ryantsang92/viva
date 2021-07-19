@@ -67,20 +67,22 @@ const PlaceVideos = ({
                 </GridListTile>
               );
             })}
-            <GridListTile key={"see-more-videos"}>
-              <Box
-                display="flex"
-                alignItems="center"
-                justifyContent="center"
-                border={1}
-                borderColor="primary.main"
-                borderRadius={16}
-                onClick={onVideoClick}
-                className={classes.seeMore}
-              >
-                <Typography>See More...</Typography>
-              </Box>
-            </GridListTile>
+            {videos.length > 5 && (
+              <GridListTile key={"see-more-videos"}>
+                <Box
+                  display="flex"
+                  alignItems="center"
+                  justifyContent="center"
+                  border={1}
+                  borderColor="primary.main"
+                  borderRadius={16}
+                  onClick={onVideoClick}
+                  className={classes.seeMore}
+                >
+                  <Typography>See More...</Typography>
+                </Box>
+              </GridListTile>
+            )}
           </GridList>
         </>
       )}

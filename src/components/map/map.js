@@ -119,7 +119,7 @@ const Map = ({
   google,
   locations,
   selectedLocation,
-  selectedCity,
+  selectedMetro,
   refresh,
   saveSelectedLocation,
   refreshEverything,
@@ -131,21 +131,24 @@ const Map = ({
   closePlaceImagePanel,
   closePlaceVideoPanel,
 }) => {
-  console.log(mapBounds);
+  console.log(selectedMetro);
+  // console.log(mapBounds);
   const classes = useStyles();
 
   const [center, setCenter] = useState({
-    lat: selectedCity.lat,
-    lng: selectedCity.lng,
+    lat: selectedMetro.lat,
+    lng: selectedMetro.lng,
   });
   const [zoom, setZoom] = useState(13);
   const [showRefresh, setShowRefresh] = useState(false);
+  const [mapRef, setMapRef] = useState(null);
 
   useEffect(() => {
-    if (selectedCity) {
+    if (selectedMetro) {
+      console.log('here');
       setCenter({
-        lat: selectedCity.lat,
-        lng: selectedCity.lng,
+        lat: selectedMetro.lat,
+        lng: selectedMetro.lng,
       });
       setZoom(13);
     }
@@ -155,12 +158,15 @@ const Map = ({
         lng: parseFloat(selectedLocation.lng),
       });
     }
-  }, [selectedLocation, selectedCity]);
+  }, [selectedLocation, selectedMetro]);
 
   useEffect(() => {
     if (refresh && mapBounds) {
+      // console.log("refresh hook");
+      // console.log(mapBounds);
+      // console.log(mapRef?.getBounds()?.getSouthWest()?.lat());
       refreshEverything(mapBounds);
-      // clearRefresh();
+      clearRefresh();
     }
   }, [refresh, mapBounds, refreshEverything, clearRefresh]);
 
@@ -188,9 +194,26 @@ const Map = ({
     });
   };
 
+  // const calcBoundsFromCenter = (zoom, center, projection, div) => {
+  //   var p = projection || mapRef?.getProjection();
+  //   if (!p) return undefined;
+  //   var d = (div || mapRef?.getDiv());
+  //   var zf = Math.pow(2, zoom) * 2;
+  //   var dw = d.getStyle("width").toInt() / zf;
+  //   var dh = d.getStyle("height").toInt() / zf;
+  //   var cpx = p.fromLatLngToPoint(center || mapRef?.getCenter());
+  //   return new google.maps.LatLngBounds(
+  //     p.fromPointToLatLng(new google.maps.Point(cpx.x - dw, cpx.y + dh)),
+  //     p.fromPointToLatLng(new google.maps.Point(cpx.x + dw, cpx.y - dh))
+  //   );
+  // };
+
+  // console.log(calcBoundsFromCenter(zoom));
+
   const onMapChange = (mapProps, map) => {
     getAndSaveBounds(map);
     setShowRefresh(true);
+    setMapRef(map);
   };
 
   const onRefreshButtonClick = () => {
@@ -263,7 +286,7 @@ Map.propTypes = {
   google: PropTypes.object,
   locations: PropTypes.array,
   selectedLocation: PropTypes.object,
-  selectedCity: PropTypes.object,
+  selectedMetro: PropTypes.object,
   saveSelectedLocation: PropTypes.func,
   refreshEverything: PropTypes.func,
   saveMapBounds: PropTypes.func,
@@ -277,7 +300,7 @@ Map.defaultProps = {
   google: {},
   locations: null,
   selectedLocation: null,
-  selectedCity: null,
+  selectedMetro: null,
   saveSelectedLocation() {},
   refreshEverything() {},
   saveMapBounds() {},

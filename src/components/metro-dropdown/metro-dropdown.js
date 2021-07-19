@@ -4,7 +4,7 @@
   author: Ryan Tsang <ryan@vivatheapp.com>
 */
 
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { Select, MenuItem } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { newYork } from "../../app-constants";
@@ -23,15 +23,16 @@ const MetroDropdown = ({
   selectedCity,
   mapBounds,
   fetchMetros,
-  clearSelectedCity,
   clearSelectedLocation,
   saveSelectedCity,
+  saveSelectedMetro,
   setRefresh,
   refreshEverything,
 }) => {
   const classes = useStyles();
-
-  // const [selectValue, setSelectValue] = useState(selectedCity);
+  // console.log(mapBounds);
+  // console.log(metroData?.metros);
+  // console.log(newYork);
 
   useEffect(() => {
     if (metroData?.metros === null) {
@@ -48,8 +49,11 @@ const MetroDropdown = ({
   const handleChange = (event) => {
     // update redux store
     clearSelectedLocation();
+    console.log(event.target.value);
+    console.log(metroData?.metros?.filter(metro => metro.name == event.target.value));
+    saveSelectedMetro(metroData?.metros?.filter(metro => metro.name == event.target.value)[0]);
     saveSelectedCity(event.target.value);
-    refreshEverything(mapBounds);
+    // refreshEverything(mapBounds);
     //add refresh
     setRefresh();
   };
@@ -74,14 +78,14 @@ const MetroDropdown = ({
     <Select
       labelId="city-picker-label"
       id="city-picker"
-      value={selectedCity}
-      defaultValue={newYork}
+      value={selectedCity || newYork.name}
+      defaultValue={newYork.name}
       onChange={handleChange}
       className={classes.selectBox}
     >
       {sortData(metroData?.metros) //fix sort
         ?.map((metro) => (
-          <MenuItem value={metro} key={metro?.id}>
+          <MenuItem value={metro.name} key={metro?.id}>
             {metro?.name}
           </MenuItem>
         ))}
@@ -93,7 +97,6 @@ MetroDropdown.propTypes = {
   metros: PropTypes.array,
   selectedCity: PropTypes.object,
   fetchMetros: PropTypes.func,
-  clearSelectedCity: PropTypes.func,
   clearSelectedLocation: PropTypes.func,
   saveSelectedCity: PropTypes.func,
   setRefresh: PropTypes.func,
@@ -103,7 +106,6 @@ MetroDropdown.defaultProps = {
   metros: null,
   selectedCity: newYork,
   fetchMetros() {},
-  clearSelectedCity() {},
   clearSelectedLocation() {},
   saveSelectedCity() {},
   setRefresh() {},

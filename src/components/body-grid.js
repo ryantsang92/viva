@@ -55,7 +55,7 @@ const useStyles = makeStyles((theme) => ({
 
 const BodyGrid = ({
   selectedLocation,
-  selectedCity,
+  selectedMetro,
   refresh,
   mapBounds,
   fetchLocationsV2,
@@ -86,11 +86,11 @@ const BodyGrid = ({
   // ]);
 
   useEffect(() => {
-    if (isMobile && selectedCity) {
-      fetchVideosMobile(selectedCity?.id);
-      fetchLocationsMobile(selectedCity?.id);
+    if (isMobile && selectedMetro) {
+      fetchVideosMobile(selectedMetro?.id);
+      fetchLocationsMobile(selectedMetro?.id);
     }
-  }, [fetchVideosMobile, fetchLocationsMobile, selectedCity]);
+  }, [fetchVideosMobile, fetchLocationsMobile, selectedMetro, isMobile]);
 
   return (
     <Box className={classes.root}>
@@ -150,7 +150,7 @@ const BodyGrid = ({
 BodyGrid.propTypes = {
   locations: PropTypes.array,
   selectedLocation: PropTypes.object,
-  selectedCity: PropTypes.object,
+  selectedMetro: PropTypes.object,
   mapBounds: PropTypes.object,
   isMobile: PropTypes.bool,
   fetchLocationsV2: PropTypes.func,
@@ -163,7 +163,7 @@ BodyGrid.propTypes = {
 BodyGrid.defaultProps = {
   locations: null,
   selectedLocation: null,
-  selectedCity: null,
+  selectedMetro: null,
   mapBounds: null,
   isMobile: false,
   fetchLocationsV2() {},
