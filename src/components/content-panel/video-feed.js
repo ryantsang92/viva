@@ -46,10 +46,14 @@ const VideoFeed = ({
   const [items, setItems] = useState([]);
   const [hasMore, setHasMore] = useState(true);
 
+  // console.log(loading);
+  // console.log(videos);
+  // console.log(refresh);
+
   useEffect(() => {
-    if ((videos !== null && refresh) || placePanelMode) {
+    if ((videos !== null) || placePanelMode) {
       setItems(videos?.slice(0, 5));
-      // clearRefresh();
+      clearRefresh();
     }
   }, [videos, refresh, clearRefresh]);
 
@@ -57,9 +61,7 @@ const VideoFeed = ({
     if (items?.length >= videos?.length) {
       setHasMore(false);
     } else {
-      setItems(
-        items?.concat(videos?.slice(items?.length, items?.length + 4))
-      );
+      setItems(items?.concat(videos?.slice(items?.length, items?.length + 4)));
     }
   };
 

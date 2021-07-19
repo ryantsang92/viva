@@ -104,7 +104,7 @@ const VideoPanel = ({ video, location, placePanelMode, isMobile }) => {
               <Typography>{description}</Typography>
             </Box>
           )}
-          {isMobile ? (
+          {/* {isMobile ? (
             <Box pb={1}>
               <Box display="flex" justifyContent="flex-start">
                 <Box pr={1}>
@@ -129,11 +129,11 @@ const VideoPanel = ({ video, location, placePanelMode, isMobile }) => {
                 </Typography>
               </Box>
             </Box>
-          ) : (
-            <>
-              {!placePanelMode && <LocationCardContainer location={location} />}
-            </>
-          )}
+          ) : ( */}
+          <>
+            {!placePanelMode && <LocationCardContainer location={location} />}
+          </>
+          {/* )} */}
           <Box pt={1} />
           <SocialIcon user={user} platform={user_platform} hw={20} />
         </Box>

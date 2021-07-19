@@ -7,7 +7,10 @@
 import { connect } from "react-redux";
 import { fetchMetros } from "../../actions/metro-actions";
 import { selectMetroData } from "../../selectors/metro-selectors";
-import { selectSelectedCity } from "../../selectors/location-selectors";
+import {
+  selectMapBounds,
+  selectSelectedCity,
+} from "../../selectors/location-selectors";
 import {
   saveSelectedCity,
   clearSelectedCity,
@@ -15,11 +18,13 @@ import {
   setRefresh,
 } from "../../actions/location-actions";
 import MetroDropdown from "./metro-dropdown";
+import { refreshEverything } from "../../actions/combined-actions";
 
 const mapStateToProps = (state) => {
   return {
     metroData: selectMetroData(state),
     selectedCity: selectSelectedCity(state),
+    mapBounds: selectMapBounds(state),
   };
 };
 
@@ -29,6 +34,7 @@ const mapDispatchToProps = (dispatch) => ({
   clearSelectedCity: () => dispatch(clearSelectedCity()),
   clearSelectedLocation: () => dispatch(clearSelectedLocation()),
   setRefresh: () => dispatch(setRefresh()),
+  refreshEverything: (mapBounds) => dispatch(refreshEverything(mapBounds))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MetroDropdown);

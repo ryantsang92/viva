@@ -9,6 +9,7 @@ import { Select, MenuItem } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { newYork } from "../../app-constants";
 import PropTypes from "prop-types";
+import { refreshEverything } from "../../actions/combined-actions";
 
 const useStyles = makeStyles(() => ({
   selectBox: {
@@ -20,11 +21,13 @@ const useStyles = makeStyles(() => ({
 const MetroDropdown = ({
   metroData,
   selectedCity,
+  mapBounds,
   fetchMetros,
   clearSelectedCity,
   clearSelectedLocation,
   saveSelectedCity,
   setRefresh,
+  refreshEverything,
 }) => {
   const classes = useStyles();
 
@@ -46,6 +49,7 @@ const MetroDropdown = ({
     // update redux store
     clearSelectedLocation();
     saveSelectedCity(event.target.value);
+    refreshEverything(mapBounds);
     //add refresh
     setRefresh();
   };

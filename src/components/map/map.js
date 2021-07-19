@@ -53,6 +53,57 @@ const mapContainerStyle = {
   position: "relative",
 };
 
+const mapStyle = [
+  {
+    featureType: "poi.business",
+    stylers: [
+      {
+        visibility: "off",
+      },
+    ],
+  },
+  {
+    featureType: "poi.government",
+    stylers: [
+      {
+        visibility: "off",
+      },
+    ],
+  },
+  {
+    featureType: "poi.medical",
+    stylers: [
+      {
+        visibility: "off",
+      },
+    ],
+  },
+  {
+    featureType: "poi.place_of_worship",
+    stylers: [
+      {
+        visibility: "off",
+      },
+    ],
+  },
+  {
+    featureType: "poi.school",
+    stylers: [
+      {
+        visibility: "off",
+      },
+    ],
+  },
+  {
+    featureType: "poi.sports_complex",
+    stylers: [
+      {
+        visibility: "simplified",
+      },
+    ],
+  },
+];
+
 const loading = (props) => (
   <div
     style={{
@@ -69,15 +120,18 @@ const Map = ({
   locations,
   selectedLocation,
   selectedCity,
+  refresh,
   saveSelectedLocation,
   refreshEverything,
   saveMapBounds,
   mapBounds,
   setRefresh,
+  clearRefresh,
   clearSelectedLocation,
   closePlaceImagePanel,
   closePlaceVideoPanel,
 }) => {
+  console.log(mapBounds);
   const classes = useStyles();
 
   const [center, setCenter] = useState({
@@ -103,61 +157,16 @@ const Map = ({
     }
   }, [selectedLocation, selectedCity]);
 
+  useEffect(() => {
+    if (refresh && mapBounds) {
+      refreshEverything(mapBounds);
+      // clearRefresh();
+    }
+  }, [refresh, mapBounds, refreshEverything, clearRefresh]);
+
   const onMarkerClick = (marker) => {
     saveSelectedLocation(marker.markerData);
-    // clearSelectedCategory();
   };
-
-  const mapStyle = [
-    {
-      featureType: "poi.business",
-      stylers: [
-        {
-          visibility: "off",
-        },
-      ],
-    },
-    {
-      featureType: "poi.government",
-      stylers: [
-        {
-          visibility: "off",
-        },
-      ],
-    },
-    {
-      featureType: "poi.medical",
-      stylers: [
-        {
-          visibility: "off",
-        },
-      ],
-    },
-    {
-      featureType: "poi.place_of_worship",
-      stylers: [
-        {
-          visibility: "off",
-        },
-      ],
-    },
-    {
-      featureType: "poi.school",
-      stylers: [
-        {
-          visibility: "off",
-        },
-      ],
-    },
-    {
-      featureType: "poi.sports_complex",
-      stylers: [
-        {
-          visibility: "simplified",
-        },
-      ],
-    },
-  ];
 
   const mapLoaded = (mapProps, map) => {
     map.setOptions({
@@ -171,20 +180,12 @@ const Map = ({
     const lngMin = map?.getBounds()?.getSouthWest()?.lng();
     const lngMax = map?.getBounds()?.getNorthEast()?.lng();
 
-    console.log(latMin);
-    if (
-      latMin !== null &&
-      latMax !== null &&
-      lngMin !== null &&
-      lngMax !== null
-    ) {
-      saveMapBounds({
-        latMin: latMin,
-        latMax: latMax,
-        lngMin: lngMin,
-        lngMax: lngMax,
-      });
-    }
+    saveMapBounds({
+      latMin: latMin,
+      latMax: latMax,
+      lngMin: lngMin,
+      lngMax: lngMax,
+    });
   };
 
   const onMapChange = (mapProps, map) => {
@@ -197,7 +198,7 @@ const Map = ({
     closePlaceImagePanel();
     closePlaceVideoPanel();
     refreshEverything(mapBounds);
-    setRefresh();
+    // setRefresh();
     setShowRefresh(false);
   };
 

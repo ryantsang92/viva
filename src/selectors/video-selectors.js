@@ -19,9 +19,9 @@ export const selectVideos = (
 ) => {
   let returnData = selectVideoData(state)?.videos;
 
-  // if (shuffle && !category) {
-  //   shuffleArray(returnData);
-  // }
+  if (shuffle && !category) {
+    shuffleArray(returnData);
+  }
 
   if (category) {
     const locations = selectLocations(state, category);
@@ -36,6 +36,7 @@ export const selectVideos = (
     );
   }
 
+  console.log(returnData);
   return returnData;
 };
 
