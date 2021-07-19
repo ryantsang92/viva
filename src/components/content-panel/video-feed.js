@@ -39,23 +39,17 @@ const VideoFeed = ({
   videos,
   placePanelMode,
   isMobile,
-  refresh,
-  clearRefresh,
   closePlaceVideoPanel,
 }) => {
   const classes = useStyles();
   const [items, setItems] = useState([]);
   const [hasMore, setHasMore] = useState(true);
 
-  // console.log(videos);
-  // console.log(refresh);
-
   useEffect(() => {
     if ((videos !== null) || placePanelMode) {
       setItems(videos?.slice(0, 5));
-      // clearRefresh();
     }
-  }, [videos, refresh]);
+  }, [videos, placePanelMode]);
 
   const fetchMoreData = () => {
     if (items?.length >= videos?.length) {
@@ -157,7 +151,6 @@ VideoFeed.propTypes = {
   loading: PropTypes.bool,
   isMobile: PropTypes.bool,
   videos: PropTypes.array,
-  refresh: PropTypes.bool,
   placePanelMode: PropTypes.bool,
   closePlaceVideoPanel: PropTypes.func,
 };
@@ -166,7 +159,6 @@ VideoFeed.defaultProps = {
   loading: false,
   isMobile: false,
   videos: null,
-  refresh: false,
   placePanelMode: false,
   closePlaceVideoPanel() {},
 };

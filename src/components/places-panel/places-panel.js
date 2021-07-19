@@ -49,7 +49,7 @@ const useStyles = makeStyles((theme) => ({
     height: "100%",
   },
   header: {
-    position: "sticky"
+    position: "sticky",
   },
   photo: {
     width: "100%",
@@ -116,7 +116,13 @@ const PlacesPanel = ({
       closePlaceImagePanel();
       closePlaceVideoPanel();
     }
-  }, [selectedLocation, fetchGooglePlaceData, fetchYelpPlaceData]);
+  }, [
+    selectedLocation,
+    fetchGooglePlaceData,
+    fetchYelpPlaceData,
+    closePlaceImagePanel,
+    closePlaceVideoPanel,
+  ]);
 
   const handleChange = (panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
@@ -128,7 +134,7 @@ const PlacesPanel = ({
     closePlaceVideoPanel();
   };
 
-  const { action_url, description, id, ig } = selectedLocation || {};
+  const { action_url, description, ig } = selectedLocation || {};
 
   const {
     name,
@@ -157,13 +163,13 @@ const PlacesPanel = ({
       };
     });
 
-    const photos2 = yelpPhotos?.map((photo) => {
-      count++;
-      return {
-        id: "img-" + count,
-        src: photo,
-      };
-    });
+    // const photos2 = yelpPhotos?.map((photo) => {
+    //   count++;
+    //   return {
+    //     id: "img-" + count,
+    //     src: photo,
+    //   };
+    // });
 
     // console.log(photos1.concat(photos2));
 
@@ -185,16 +191,12 @@ const PlacesPanel = ({
             pr={1}
           >
             <IconButton onClick={handlePanelClose} size="small">
-              {/* change this */}
               {isMobile ? <ArrowBackIcon /> : <CloseIcon />}
             </IconButton>
             <Box justifyContent="center" pt={1} pb={1} fontSize={20}>
               {name}
             </Box>
             {/* empty div for now */}
-            {/* <IconButton onClick={handlePanelClose} size="small">
-              <CloseIcon />
-            </IconButton> */}
             <div></div>
           </Box>
           <Box key={photos[0]?.photo_reference} overflow="hidden">

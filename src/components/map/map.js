@@ -159,7 +159,7 @@ const Map = ({
         lng: parseFloat(selectedLocation.lng),
       });
     }
-  }, [selectedLocation, selectedMetro]);
+  }, [selectedLocation, selectedMetro, saveMapBounds]);
 
   useEffect(() => {
     if (refresh && selectedMetro) {
