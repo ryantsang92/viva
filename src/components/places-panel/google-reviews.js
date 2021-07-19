@@ -4,7 +4,7 @@
   author: Ryan Tsang <ryan@vivatheapp.com>
 */
 
-import React from "react";
+import React, { useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import {
   Typography,
@@ -29,6 +29,10 @@ const GoogleReviews = ({ reviews }) => {
   const classes = useStyles();
 
   const [expanded, setExpanded] = React.useState(true);
+
+  useEffect(() => {
+    setExpanded(true);
+  }, [reviews]);
 
   const openPanel = () => {
     setExpanded(!expanded);
