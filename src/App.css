@@ -20,8 +20,13 @@
   right: 5px;
 }
 .MuiToggleButton-root.Mui-selected {
-  background-color: #228b6e !important;
-  color: #ffffff !important;
+  background-color: transparent !important;
+  font-weight:  bold !important;
+  color:  #000 !important;  
+}
+.MuiToggleButton-root:hover {
+  background-color: transparent !important;
+  color:  #000 !important;
 }
 .MuiSelect-select:focus {
   background-color: transparent !important;

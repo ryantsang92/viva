@@ -15,10 +15,12 @@ const useStyles = makeStyles({
     marginLeft: 0,
     marginRight: 0,
     height: 32,
-    borderRadius: "25px",
-    backgroundColor: "#F2F2F2",
-    color: "#333333",
+    backgroundColor: "transparent",
+    color: "#555",
     padding: "0px 13px",
+    border: "none",
+    borderRadius: 0,
+    fontSize: "0.95em"
   },
   arrow: {
     cursor: "pointer",

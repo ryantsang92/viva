@@ -22,6 +22,23 @@ const useStyles = makeStyles({
     width: 20,
     height: 24,
   },
+  locationTitle: {
+    fontSize: 18,
+    lineHeight: "1em",
+  },
+  locationAddr: {
+    fontSize: 15,
+    width: 250,
+    whiteSpace: "nowrap",
+    overflow: "hidden",
+    textOverflow: "ellipsis",
+  },
+  yellow: {
+    background: "#f6f1d7",
+  },
+  card: {
+    boxShadow: "none",
+  }
 });
 
 const LocationCard = ({
@@ -41,20 +58,21 @@ const LocationCard = ({
   };
 
   return (
-    <Card>
+    <Card className={classes.card}>
       <CardActionArea onClick={onCardClick}>
-        <CardContent>
-          <Box display="flex" alignItems="center">
+        <CardContent className={classes.yellow}>
+          <Box display="flex" justifyContent="space-between" alignItems="center">
             <Box>
-              <Box display="flex" justifyContent="flex-start">
-                <Box pr={1}>
+              <Box display="flex" justifyContent="flex-start" alignItems="center">
+                {/* <Box pr={1}>
                   <img src={MapPinDefault} alt="city" className={classes.pin} />
                 </Box>
-                <Typography gutterBottom variant="h6" component="h4">
+                */}
+                <Typography gutterBottom variant="h6" component="h6" className={classes.locationTitle}>
                   {name}
                 </Typography>
               </Box>
-              <Typography variant="body2" color="textSecondary" component="p">
+              <Typography className={classes.locationAddr} variant="body2" color="textSecondary" component="p">
                 {address}
               </Typography>
             </Box>

@@ -131,7 +131,7 @@ const Map = ({
   closePlaceImagePanel,
   closePlaceVideoPanel,
 }) => {
-  console.log(selectedMetro);
+  // console.log(selectedMetro);
   // console.log(mapBounds);
   const classes = useStyles();
 
@@ -145,7 +145,7 @@ const Map = ({
 
   useEffect(() => {
     if (selectedMetro) {
-      console.log('here');
+      // console.log('here');
       setCenter({
         lat: selectedMetro.lat,
         lng: selectedMetro.lng,

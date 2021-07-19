@@ -11,6 +11,7 @@ import {
   Player,
   BigPlayButton,
   ControlBar,
+  TimeDivider,
   VolumeMenuButton,
 } from "video-react";
 import { SocialIcon } from "../social-icon";
@@ -56,6 +57,26 @@ const useStyles = makeStyles({
     width: 310,
     height: 550,
   },
+  locationTitle: {
+    fontSize: "1em"
+  },
+  videoDesc: {
+    fontSize: 15,
+  },
+  profileImg: {
+    width: 40,
+    height: 40,
+    borderRadius: "50%",
+    border: "1px solid black",
+    marginRight: 8,
+  },
+  userhandle: {
+    fontSize: 15,
+  },
+  videoDate: {
+    fontSize: 13,
+    color: "#555"
+  }
 });
 
 const VideoPanel = ({ video, location, placePanelMode, isMobile }) => {
@@ -66,20 +87,29 @@ const VideoPanel = ({ video, location, placePanelMode, isMobile }) => {
   const { thumbnail, url, title, description, user, user_platform } = video;
 
   return (
-    <InView onChange={setInView}>
+    <InView onChange={setInView} className={classes.inview}>
       <Box
         className={isMobile ? classes.playerAreaMobile : classes.playerArea}
-        borderBottom={1}
       >
+        {/*
         <Box className={classes.playerBar}>
           {inView && (
-            <Typography variant="h6">{title || "Test Title"}</Typography>
+            <Typography className={classes.locationTitle} variant="h6">{title || "Test Title"}</Typography>
           )}
+        </Box>
+        */}
+        <Box pt={2} pb={1} display="flex" flexDirection="row">
+          <Box className={classes.profileImg}></Box>
+          <Box display="flex" flexDirection="column">
+            <Typography className={classes.userhandle}>{user}</Typography>
+            <Typography className={classes.videoDate}>July 1st, 2021</Typography>
+          </Box>
         </Box>
         {inView ? (
           <Player
             autoPlay
             muted
+            loop
             preload="none"
             poster={thumbnail}
             src={url}
@@ -89,7 +119,7 @@ const VideoPanel = ({ video, location, placePanelMode, isMobile }) => {
           >
             <BigPlayButton position="center" />
             <ControlBar autoHide={false} disableDefaultControls={false}>
-              <VolumeMenuButton vertical />
+              <VolumeMenuButton vertical order={7.2} />
             </ControlBar>
           </Player>
         ) : (
@@ -97,17 +127,16 @@ const VideoPanel = ({ video, location, placePanelMode, isMobile }) => {
             <Loading />
           </div>
         )}
-        <Box p={1} pb={4}>
+        <Box pt={1} pb={4}>
           {description && (
-            <Box pb={1}>
-              <Typography>{description}</Typography>
+            <Box pl={2} pr={2}>
+              <Typography className={classes.videoDesc}>{description}</Typography>
             </Box>
           )}
-          <>
-            {!placePanelMode && <LocationCardContainer location={location} />}
-          </>
-          <Box pt={1} />
-          <SocialIcon user={user} platform={user_platform} hw={20} />
+          <Box pt={0} pb={1} pl={2}>
+            <SocialIcon user={user} platform={user_platform} hw={20} />
+          </Box>
+          {!placePanelMode && <LocationCardContainer location={location} />}
         </Box>
       </Box>
     </InView>

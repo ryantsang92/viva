@@ -30,9 +30,6 @@ const MetroDropdown = ({
   refreshEverything,
 }) => {
   const classes = useStyles();
-  // console.log(mapBounds);
-  // console.log(metroData?.metros);
-  // console.log(newYork);
 
   useEffect(() => {
     if (metroData?.metros === null) {
@@ -40,17 +37,9 @@ const MetroDropdown = ({
     }
   }, [metroData, fetchMetros]);
 
-  // useEffect(() => {
-  //   if (selectedCity) {
-  //     setSelectValue(selectedCity);
-  //   }
-  // }, [selectedCity]);
-
   const handleChange = (event) => {
     // update redux store
     clearSelectedLocation();
-    console.log(event.target.value);
-    console.log(metroData?.metros?.filter(metro => metro.name == event.target.value));
     saveSelectedMetro(metroData?.metros?.filter(metro => metro.name == event.target.value)[0]);
     saveSelectedCity(event.target.value);
     // refreshEverything(mapBounds);
@@ -83,7 +72,7 @@ const MetroDropdown = ({
       onChange={handleChange}
       className={classes.selectBox}
     >
-      {sortData(metroData?.metros) //fix sort
+      {sortData(metroData?.metros)
         ?.map((metro) => (
           <MenuItem value={metro.name} key={metro?.id}>
             {metro?.name}
