@@ -20,7 +20,7 @@ const useStyles = makeStyles({
     padding: "0px 13px",
     border: "none",
     borderRadius: 0,
-    fontSize: "0.95em"
+    fontSize: "0.95em",
   },
   arrow: {
     cursor: "pointer",

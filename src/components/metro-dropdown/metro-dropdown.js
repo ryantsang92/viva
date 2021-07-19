@@ -13,9 +13,25 @@ import { refreshEverything } from "../../actions/combined-actions";
 
 const useStyles = makeStyles(() => ({
   selectBox: {
+    paddingLeft: 8,
+    width: "100%",
+    fontSize: "1rem",
+    "& >div": {
+      padding: 0,
+      display: "flex",
+      alignItems: "center",
+    }
+  },
+  mobileSelectBox: {
     height: 32,
     width: "100%",
-  },
+    fontSize: 15,
+    "& >div": {
+      padding: 0,
+      display: "flex",
+      alignItems: "center",
+    }
+  }
 }));
 
 const MetroDropdown = ({
@@ -28,6 +44,7 @@ const MetroDropdown = ({
   saveSelectedMetro,
   setRefresh,
   refreshEverything,
+  isMobile,
 }) => {
   const classes = useStyles();
 
@@ -70,7 +87,7 @@ const MetroDropdown = ({
       value={selectedCity || newYork.name}
       defaultValue={newYork.name}
       onChange={handleChange}
-      className={classes.selectBox}
+      className={isMobile ? classes.mobileSelectBox : classes.selectBox}
     >
       {sortData(metroData?.metros)
         ?.map((metro) => (
@@ -89,6 +106,7 @@ MetroDropdown.propTypes = {
   clearSelectedLocation: PropTypes.func,
   saveSelectedCity: PropTypes.func,
   setRefresh: PropTypes.func,
+  isMobile: PropTypes.bool,
 };
 
 MetroDropdown.defaultProps = {
@@ -98,6 +116,7 @@ MetroDropdown.defaultProps = {
   clearSelectedLocation() {},
   saveSelectedCity() {},
   setRefresh() {},
+  isMobile: false,
 };
 
 export default MetroDropdown;
