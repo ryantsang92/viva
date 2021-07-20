@@ -17,8 +17,8 @@ export const endpoint = {
   YELP_URL: "https://api.vivatheapp.com/yelp/",
   LOC_VID_URL: "https://api.vivatheapp.com/loc-vid/",
   METROS_URL: "https://api.vivatheapp.com/metros",
-  MOBILE_VIDS_URL: "https:/api.vivatheapp.com/vids-metro/",
-  MOBILE_LOCS_URL: "https:/api.vivatheapp.com/locs-metro/",
+  MOBILE_VIDS_URL: "https://api.vivatheapp.com/vids-metro/",
+  MOBILE_LOCS_URL: "https://api.vivatheapp.com/locs-metro/",
 };
 
 export const socialURLs = {
