@@ -128,6 +128,10 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   mobileHeader: {
+    position: "sticky",
+    top: -60,
+    zIndex: 9,
+    backgroundColor: "white",
   },
   mobileHeaderTop: {
     display: "none",
