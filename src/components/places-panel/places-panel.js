@@ -184,7 +184,6 @@ const PlacesPanel = ({
           className={isMobile ? classes.mobilePlacePanel : classes.placePanel}
         >
           <Box
-            className={classes.header}
             display="flex"
             justifyContent="space-between"
             alignItems="center"
