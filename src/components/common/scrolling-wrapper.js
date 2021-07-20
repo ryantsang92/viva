@@ -9,22 +9,6 @@ import { Box } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import PropTypes from "prop-types";
 
-const scrollToTopIconContainer = {
-  position: "absolute",
-  top: 45,
-  left: "50%",
-  transform: "translate(-50%)",
-  zIndex: 999,
-  cursor: "pointer",
-  opacity: 0.7,
-  textAlign: "center",
-  "&:hover": {
-    opacity: 1,
-    animation: "wiggle 1s ease",
-    animationIterationCount: 1,
-  },
-};
-
 const useStyles = makeStyles({
   scrollingWrapperContainer: {
     overflowY: "scroll",
@@ -38,11 +22,19 @@ const useStyles = makeStyles({
     position: "relative",
   },
   scrollToTopIconContainer: {
-    ...scrollToTopIconContainer
-  },
-  scrollToTopIconContainerWithFilter: {
-    ...scrollToTopIconContainer,
-    top: 115,
+    position: "absolute",
+    top: 45,
+    left: "50%",
+    transform: "translate(-50%)",
+    zIndex: 999,
+    cursor: "pointer",
+    opacity: 0.7,
+    textAlign: "center",
+    "&:hover": {
+      opacity: 1,
+      animation: "wiggle 1s ease",
+      animationIterationCount: 1,
+    },
   },
   scrollToTopIconContainerMobile: {
     // height: "calc(100vh - 116px)",
@@ -64,7 +56,7 @@ const useStyles = makeStyles({
   },
 });
 
-const ScrollingWrapper = ({ children, refresh, filterOn, isMobile }) => {
+const ScrollingWrapper = ({ children, refresh, isMobile }) => {
   const classes = useStyles();
   const [hasScrolled, setHasScrolled] = useState(false);
 
@@ -90,11 +82,7 @@ const ScrollingWrapper = ({ children, refresh, filterOn, isMobile }) => {
     <>
       {hasScrolled && (
         <div
-          className={
-            filterOn
-              ? classes.scrollToTopIconContainerWithFilter
-              : classes.scrollToTopIconContainer
-          }
+          className={classes.scrollToTopIconContainer}
           onClick={() => scrollToTop()}
         >
           <Box mt={1} p={1} className={classes.button}>
@@ -116,14 +104,12 @@ const ScrollingWrapper = ({ children, refresh, filterOn, isMobile }) => {
 ScrollingWrapper.propTypes = {
   children: PropTypes.object,
   refresh: PropTypes.bool,
-  filterOn: PropTypes.bool,
   isMobile: PropTypes.bool,
 };
 
 ScrollingWrapper.defaultProps = {
   children: null,
   refresh: false,
-  filterOn: false,
   isMobile: false,
 };
 

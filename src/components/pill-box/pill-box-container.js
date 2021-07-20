@@ -6,22 +6,24 @@
 
 import { connect } from "react-redux";
 import {
-  fetchHashtags,
-  fetchSelectedHashtag,
-} from "../../actions/hashtag-actions";
-import { selectHashtagData, selectSelectedHashtag } from "../../selectors/hashtag-selectors";
+  fetchCategories,
+  fetchSelectedCategory,
+} from "../../actions/category-actions";
+import { setRefresh } from "../../actions/location-actions";
+import { selectSelectedCategory } from "../../selectors/category-selectors";
 import PillBox from "./pill-box";
 
 const mapStateToProps = (state) => {
   return {
-    selectedHashtag: selectSelectedHashtag(state),
-    hashtags: selectHashtagData(state).hashtags,
+    selectedCategory: selectSelectedCategory(state),
   };
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  fetchHashtags: () => dispatch(fetchHashtags()),
-  fetchSelectedHashtag: (hashtag) => dispatch(fetchSelectedHashtag(hashtag)),
+  fetchCategories: () => dispatch(fetchCategories()),
+  fetchSelectedCategory: (category) =>
+    dispatch(fetchSelectedCategory(category)),
+  setRefresh: () => dispatch(setRefresh()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PillBox);

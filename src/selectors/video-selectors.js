@@ -5,35 +5,32 @@
 */
 
 import { shuffleArray } from "../common/common-functions";
+import { selectLocations } from "./location-selectors";
 
 export const selectVideoData = (state) => {
-  return state ? state.videoData : null;
+  return state?.videoData;
 };
 
 export const selectVideos = (
   state,
-  hashtag = null,
-  city = null,
+  category = null,
   location = null,
-  filter = false,
   shuffle = false
 ) => {
+  let returnData = selectVideoData(state)?.videos;
 
-  let returnData = selectVideoData(state).videos;
-
-  if (shuffle && !filter && !location && !hashtag) {
+  if (shuffle && !category) {
     shuffleArray(returnData);
   }
 
-  if (hashtag) {
-    returnData = returnData.filter((video) =>
-      video.hash_ids ? video.hash_ids.includes(hashtag.id) : null
+  if (category) {
+    const locations = selectLocations(state, category);
+    returnData = returnData?.filter((video) =>
+      locations.some((location) => location.id === video.location_id)
     );
   }
-  if (city) {
-    returnData = returnData.filter((video) => video.metro === city || null);
-  }
-  if (location && filter) {
+
+  if (location) {
     returnData = returnData.filter(
       (video) => video.location_id === location.id || null
     );
@@ -43,13 +40,13 @@ export const selectVideos = (
 };
 
 export const selectVideoIsLoading = (state) => {
-  return selectVideoData(state).isLoading;
+  return selectVideoData(state)?.isLoading;
 };
 
 export const selectVideoError = (state) => {
-  return selectVideoData(state).error;
+  return selectVideoData(state)?.error;
 };
 
 export const selectSelectedVideo = (state) => {
-  return selectVideoData(state).selectedVideo;
+  return selectVideoData(state)?.selectedVideo;
 };

@@ -5,8 +5,8 @@
 */
 
 import {
-  FETCH_VIDEO_IS_LOADING,
-  FETCH_VIDEO_SUCCESS,
+  FETCH_VIDEO_IS_LOADING_V2,
+  FETCH_VIDEO_SUCCESS_V2,
   SAVE_SELECTED_VIDEO,
   CLEAR_SELECTED_VIDEO,
 } from "../actions/video-actions";
@@ -18,14 +18,14 @@ const initialState = {
   selectedVideo: null,
 };
 
-const hashtagReducer = (state = initialState, action) => {
+const videoReducer = (state = initialState, action) => {
   switch (action.type) {
-    case FETCH_VIDEO_IS_LOADING:
+    case FETCH_VIDEO_IS_LOADING_V2:
       return {
         ...state,
         isLoading: true,
       };
-    case FETCH_VIDEO_SUCCESS:
+    case FETCH_VIDEO_SUCCESS_V2:
       return {
         ...state,
         videos: action.payload,
@@ -46,4 +46,4 @@ const hashtagReducer = (state = initialState, action) => {
   }
 };
 
-export default hashtagReducer;
+export default videoReducer;

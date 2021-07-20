@@ -3,57 +3,52 @@
 
   author: Ryan Tsang <ryan@vivatheapp.com>
 */
+
 import { endpoint } from "../app-constants";
+import { fetchEndpoint } from "./common-actions";
 
 export const FETCH_LOCATION_IS_LOADING = "FETCH_LOCATION_IS_LOADING";
 export const FETCH_LOCATION_SUCCESS = "FETCH_LOCATION_SUCCESS";
+export const FETCH_LOCATION_IS_LOADING_V2 = "FETCH_LOCATION_IS_LOADING_V2";
+export const FETCH_LOCATION_SUCCESS_V2 = "FETCH_LOCATION_SUCCESS_V2";
 export const FETCH_LOCATION_ERROR = "FETCH_LOCATION_ERROR";
 export const SAVE_SELECTED_LOCATION = "SAVE_SELECTED_LOCATION";
 export const CLEAR_SELECTED_LOCATION = "CLEAR_SELECTED_LOCATION";
 export const SAVE_SELECTED_CITY = "SAVE_SELECTED_CITY";
 export const CLEAR_SELECTED_CITY = "CLEAR_SELECTED_CITY";
-export const ACTIVATE_FILTER = "ACTIVATE_FILTER";
-export const DEACTIVATE_FILTER = "DEACTIVATE_FILTER";
+export const SAVE_MAP_BOUNDS = "SAVE_MAP_BOUNDS";
+export const SET_REFRESH = "SET_REFRESH";
+export const CLEAR_REFRESH = "CLEAR_REFRESH";
 
-const requestOptions = {
-  method: "GET",
-  headers: {
-    Accept: "application/json",
-  },
+export const fetchLocationsV2 = (latMin, latMax, lngMin, lngMax) => {
+  return fetchEndpoint(
+    endpoint.LOCATION_URL_V2,
+    fetchSuccess,
+    fetchError,
+    fetchIsLoading,
+    latMin + "," + latMax + "," + lngMin + "," + lngMax
+  );
 };
 
-const fetchEndpoint = (url) => {
-  const fetchFunction = () => {
-    return fetch(url, requestOptions).then((response) =>
-      Promise.all([response, response.json()])
-    );
-  };
-
-  return (dispatch) => {
-    dispatch(fetchIsLoading());
-    return fetchFunction().then(([response, json]) => {
-      if (response.status === 200) {
-        dispatch(fetchSuccess(json));
-      } else {
-        dispatch(fetchError());
-      }
-    });
-  };
-};
-
-export const fetchLocations = () => {
-  return fetchEndpoint(endpoint.LOCATION_URL);
+export const fetchLocationsMobile = (metro) => {
+  return fetchEndpoint(
+    endpoint.MOBILE_LOCS_URL,
+    fetchSuccess,
+    fetchError,
+    fetchIsLoading,
+    metro
+  );
 };
 
 const fetchIsLoading = () => {
   return {
-    type: FETCH_LOCATION_IS_LOADING,
+    type: FETCH_LOCATION_IS_LOADING_V2,
   };
 };
 
 const fetchSuccess = (payload) => {
   return {
-    type: FETCH_LOCATION_SUCCESS,
+    type: FETCH_LOCATION_SUCCESS_V2,
     payload,
   };
 };
@@ -76,7 +71,7 @@ export const clearSelectedLocation = () => {
   return {
     type: CLEAR_SELECTED_LOCATION,
   };
-}
+};
 
 export const saveSelectedCity = (data) => {
   return {
@@ -89,16 +84,23 @@ export const clearSelectedCity = () => {
   return {
     type: CLEAR_SELECTED_CITY,
   };
-}
+};
 
-export const activateFilter = () => {
+export const saveMapBounds = (data) => {
   return {
-    type: ACTIVATE_FILTER,
+    type: SAVE_MAP_BOUNDS,
+    data,
   };
-}
+};
 
-export const deactivateFilter = () => {
+export const setRefresh = () => {
   return {
-    type: DEACTIVATE_FILTER,
+    type: SET_REFRESH,
   };
-}
+};
+
+export const clearRefresh = () => {
+  return {
+    type: CLEAR_REFRESH,
+  };
+};

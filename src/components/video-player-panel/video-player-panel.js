@@ -5,7 +5,7 @@
 */
 
 import React, { useState } from "react";
-import { Box, Typography, Divider } from "@material-ui/core";
+import { Box, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import {
   Player,
@@ -16,7 +16,7 @@ import {
 import { SocialIcon } from "../social-icon";
 import { InView } from "react-intersection-observer";
 import Loading from "../common/loading";
-import MapPinDefault from "../../assets/map-pin-default.png";
+import LocationCardContainer from "./location-card-container";
 import PropTypes from "prop-types";
 
 const useStyles = makeStyles({
@@ -37,19 +37,12 @@ const useStyles = makeStyles({
     width: "100%",
     position: "relative",
   },
-  username: {
-    fontSize: 20,
-  },
   closeIcon: {
     cursor: "pointer",
     textAlign: "right",
     marginLeft: "auto",
     display: "flex",
     justifyContent: "flex-end",
-  },
-  infoContainer: {
-    padding: 10,
-    paddingBottom: 30,
   },
   pin: {
     width: 20,
@@ -63,38 +56,62 @@ const useStyles = makeStyles({
     width: 310,
     height: 550,
   },
+  locationTitle: {
+    fontSize: "1em"
+  },
+  videoDesc: {
+    fontSize: 15,
+  },
+  profileImg: {
+    width: 40,
+    height: 40,
+    borderRadius: "50%",
+    border: "1px solid black",
+    marginRight: 8,
+  },
+  userhandle: {
+    fontSize: 15,
+  },
+  videoDate: {
+    fontSize: 13,
+    color: "#555"
+  }
 });
 
-const VideoPanel = ({ video, selectedLocation, isMobile }) => {
+const VideoPanel = ({ video, location, placePanelMode, isMobile }) => {
   const classes = useStyles();
 
   const [inView, setInView] = useState(false);
 
+  const { thumbnail, url, description, user, user_platform } = video;
+
   return (
-    <InView onChange={setInView}>
+    <InView onChange={setInView} className={classes.inview}>
       <Box
         className={isMobile ? classes.playerAreaMobile : classes.playerArea}
-        borderBottom={1}
       >
-        <Box className={classes.playerBar}>
-          {inView && (
-            <Typography variant="h6">{video.title || "Test Title"}</Typography>
-          )}
+        <Box pt={2} pb={1} display="flex" flexDirection="row">
+          <Box className={classes.profileImg}></Box>
+          <Box display="flex" flexDirection="column">
+            <Typography className={classes.userhandle}>{user}</Typography>
+            <Typography className={classes.videoDate}>July 1st, 2021</Typography>
+          </Box>
         </Box>
         {inView ? (
           <Player
             autoPlay
             muted
+            loop
             preload="none"
-            poster={video.thumbnail}
-            src={video.url}
+            poster={thumbnail}
+            src={url}
             fluid={false}
             width={isMobile ? "100%" : 310}
             height={isMobile ? 660 : 550}
           >
             <BigPlayButton position="center" />
             <ControlBar autoHide={false} disableDefaultControls={false}>
-              <VolumeMenuButton vertical />
+              <VolumeMenuButton vertical order={7.2} />
             </ControlBar>
           </Player>
         ) : (
@@ -102,45 +119,16 @@ const VideoPanel = ({ video, selectedLocation, isMobile }) => {
             <Loading />
           </div>
         )}
-        <Box className={classes.infoContainer}>
-          {video.description && (
-            <Box pb={2}>
-              <Typography>{video.description}</Typography>
+        <Box pt={1} pb={4}>
+          {description && (
+            <Box pl={2} pr={2}>
+              <Typography className={classes.videoDesc}>{description}</Typography>
             </Box>
           )}
-          <Box display="flex" justifyContent="flex-start">
-            <Box pr={1}>
-              <img src={MapPinDefault} alt="city" className={classes.pin} />
-            </Box>
-            {selectedLocation && (
-              <div>
-                <Typography fontFamily="Arial">
-                  {selectedLocation.address_full}
-                </Typography>
-                <Typography>
-                  <a
-                    href={selectedLocation.website}
-                    target={selectedLocation.website}
-                  >
-                    {
-                      selectedLocation.website
-                        .replace(/^(?:https?:\/\/)?(?:www\.)?/i, "")
-                        .split("/")[0]
-                    }
-                  </a>
-                </Typography>
-              </div>
-            )}
+          <Box pt={0} pb={1} pl={2}>
+            <SocialIcon user={user} platform={user_platform} hw={20} />
           </Box>
-
-          <Box pt={1} pb={1}>
-            <Divider />
-          </Box>
-          <SocialIcon
-            user={video.user}
-            platform={video.user_platform}
-            hw={20}
-          />
+          {!placePanelMode && <LocationCardContainer location={location} />}
         </Box>
       </Box>
     </InView>
@@ -149,13 +137,18 @@ const VideoPanel = ({ video, selectedLocation, isMobile }) => {
 
 VideoPanel.propTypes = {
   video: PropTypes.object,
-  selectedLocation: PropTypes.object,
+  location: PropTypes.object,
+  placePanelMode: PropTypes.bool,
   isMobile: PropTypes.bool,
 };
 
 VideoPanel.defaultProps = {
   video: null,
-  selectedLocation: null,
+  location: {
+    address_full: null,
+    website: null,
+  },
+  placePanelMode: false,
   isMobile: false,
 };
 

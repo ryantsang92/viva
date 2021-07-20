@@ -1,12 +1,14 @@
 /*
-  Video grid component
+  Video feed component
 
   author: Ryan Tsang <ryan@vivatheapp.com>
 */
 
 import React, { useState, useEffect } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { Typography, Box } from "@material-ui/core";
+import { Typography, Box, IconButton } from "@material-ui/core";
+import CloseIcon from "@material-ui/icons/Close";
+import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import MoodBadRoundedIcon from "@material-ui/icons/MoodBadRounded";
 import { makeStyles } from "@material-ui/core/styles";
 import VideoPlayerPanelContainer from "../video-player-panel/video-player-panel-container";
@@ -27,27 +29,38 @@ const useStyles = makeStyles({
       display: "none",
     },
   },
+  header: {
+    position: "sticky",
+  },
 });
 
-const VideoGrid = ({ loading, videos, fetchVideos, isMobile }) => {
+const VideoFeed = ({
+  loading,
+  videos,
+  placePanelMode,
+  isMobile,
+  closePlaceVideoPanel,
+}) => {
   const classes = useStyles();
   const [items, setItems] = useState([]);
   const [hasMore, setHasMore] = useState(true);
 
   useEffect(() => {
-    if (videos === null) {
-      fetchVideos();
-    } else {
-      setItems(videos.slice(0, 5));
+    if ((videos !== null) || placePanelMode) {
+      setItems(videos?.slice(0, 5));
     }
-  }, [videos]);
+  }, [videos, placePanelMode]);
 
   const fetchMoreData = () => {
-    if (items.length >= videos.length) {
+    if (items?.length >= videos?.length) {
       setHasMore(false);
     } else {
-      setItems(items.concat(videos.slice(items.length - 1, items.length + 4)));
+      setItems(items?.concat(videos?.slice(items?.length, items?.length + 4)));
     }
+  };
+
+  const handlePanelClose = () => {
+    closePlaceVideoPanel();
   };
 
   const loadingComponent = (
@@ -62,35 +75,68 @@ const VideoGrid = ({ loading, videos, fetchVideos, isMobile }) => {
         <>{loadingComponent}</>
       ) : (
         <>
-          {videos && videos.length > 0 ? (
-            <>
-              <InfiniteScroll
-                className={classes.infiniteScroll}
-                dataLength={items.length}
-                scrollThreshold={0.9}
-                next={fetchMoreData}
-                hasMore={hasMore}
-                loader={<>{loadingComponent}</>}
-                height="calc(100vh - 116px)"
-                endMessage={
-                  <p style={{ textAlign: "center" }}>
-                    <b>Yay! You have seen it all</b>
-                  </p>
-                }
-              >
-                {items.map((video, index) => (
-                  <div key={index}>
-                    <VideoPlayerPanelContainer
-                      video={video}
-                      isMobile={isMobile}
-                    />
-                  </div>
-                ))}
-              </InfiniteScroll>
-            </>
+          {placePanelMode && (
+            <Box
+              pt={1} pb={1}
+              display="flex"
+              justifyContent="flex-end"
+              alignItems="center"
+              borderBottom={1}
+              className={classes.header}
+            >
+              {isMobile ? (
+              <>
+                <Box>
+                  <IconButton onClick={handlePanelClose} size="small">
+                    <ArrowBackIcon />
+                  </IconButton>
+                </Box>
+                <Box flexGrow={1}>
+                  <Typography align="center">Videos</Typography>
+                </Box>
+              </>
+              ) : (
+              <>
+                <Box flexGrow={1}>
+                  <Typography>Videos</Typography>
+                </Box>
+                <Box>
+                  <IconButton onClick={handlePanelClose} size="small">
+                    <CloseIcon />
+                  </IconButton>
+                </Box>
+              </>
+              )}
+            </Box>
+          )}
+          {videos?.length > 0 ? (
+            <InfiniteScroll
+              className={classes.infiniteScroll}
+              dataLength={items?.length || 0}
+              scrollThreshold={0.9}
+              next={fetchMoreData}
+              hasMore={hasMore}
+              loader={<>{loadingComponent}</>}
+              height="calc(100vh - 116px)"
+              endMessage={
+                <p style={{ textAlign: "center" }}>
+                  <b>Yay! You have seen it all</b>
+                </p>
+              }
+            >
+              {items?.map((video, index) => (
+                <div key={index}>
+                  <VideoPlayerPanelContainer
+                    placePanelMode={placePanelMode}
+                    video={video}
+                    isMobile={isMobile}
+                  />
+                </div>
+              ))}
+            </InfiniteScroll>
           ) : (
-            <Box pt={1}>
-              <Typography>
+            <Box pt={1} justifyContent="center">
+              <Typography align="center">
                 No content found <MoodBadRoundedIcon />
               </Typography>
             </Box>
@@ -101,18 +147,20 @@ const VideoGrid = ({ loading, videos, fetchVideos, isMobile }) => {
   );
 };
 
-VideoGrid.propTypes = {
+VideoFeed.propTypes = {
   loading: PropTypes.bool,
   isMobile: PropTypes.bool,
   videos: PropTypes.array,
-  fetchVideos: PropTypes.func,
+  placePanelMode: PropTypes.bool,
+  closePlaceVideoPanel: PropTypes.func,
 };
 
-VideoGrid.defaultProps = {
+VideoFeed.defaultProps = {
   loading: false,
   isMobile: false,
   videos: null,
-  fetchVideos() {},
+  placePanelMode: false,
+  closePlaceVideoPanel() {},
 };
 
-export default VideoGrid;
+export default VideoFeed;

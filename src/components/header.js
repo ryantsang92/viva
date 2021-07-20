@@ -6,22 +6,22 @@
 
 import React, { useState, useEffect } from "react";
 import logo from "../assets/viva-logo-final.svg";
-import MapPinDefault from "../assets/map-pin-default.png";
 import {
   Box,
   Typography,
   Grid,
-  Select,
-  MenuItem,
   FormControl,
   InputLabel,
   Modal,
   IconButton,
+  Select,
+  MenuItem,
 } from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
 import GreenButton from "./common/green-button";
 import MobileMenuContainer from "./mobile-menu-container";
 import PillBoxContainer from "./pill-box/pill-box-container";
+import MetroDropdownContainer from "./metro-dropdown/metro-dropdown-container";
 import SocialGrid from "./social-grid";
 import { hashtagObjects } from "../app-constants";
 import { makeStyles } from "@material-ui/core/styles";
@@ -58,19 +58,96 @@ const useStyles = makeStyles((theme) => ({
     width: 20,
     height: 24,
   },
+  navcenter: {
+    flexGrow: 1,
+    height: 116,
+  },
   navbar: {
     margin: 0,
-    width: "100%",
+    display: "flex",
+    justifyContent: "center",
+    // width: "100%",
+  },
+  navbottom: {
+    textAlign: "center",
+    paddingTop: 16,
+    display: "flex",
+    justifyContent: "center",
+  },
+  quicklink: {
+    fontSize: 17,
+    fontWeight: 400,
+    margin: "0 13px",
+  },
+  selectContainer: {
+    display: "flex",
+    boxShadow: "0px 3px 6px 3px rgba(0,0,0,0.1)",
+    borderRadius: 20,
+    width: "80%",
+    maxWidth: 600,
+  },
+  mutedText: {
+    color: "gray",
+    fontSize: 14,
+    paddingTop: 1,
+    display: "flex",
+    alignItems: "center",
+    // lineHeight: "30px",
   },
   cityPicker: {
     padding: "0 !important",
     display: "flex",
     alignItems: "center",
+    width: "100%",
   },
-  formControl: {
+  formControl1: {
     minWidth: 150,
+    width: "100%",
+    background: "#fff",
+    borderRadius: "25px 0 0 25px",
+    textAlign: "left",
+    // height: 32,
+    "& label": {
+      display: "none",
+    },
+    "& > div": {
+      marginTop: 0,
+    },
+  },
+  formControl2: {
+    minWidth: 150,
+    width: "100%",
+    background: "#fff",
+    borderRadius: "0 25px 25px 0",
+    textAlign: "left",
+    "& label": {
+      display: "none",
+    },
+    "& > div": {
+      marginTop: 0,
+    },
+  },
+  mobileHeader: {
+  },
+  mobileHeaderTop: {
+    display: "none",
+    flexDirection: "column",
+  },
+  mobileNavcenter: {
+
+  },
+  mobileSelectContainer: {
+    flexGrow: 1,
+    display: "flex",
+    maxWidth: 600,
+    margin: "0 auto",
+  },
+  formControlMobileLeft: {
+    minWidth: 75,
+    width: "100%",
     background: "#efefef",
-    borderRadius: 15,
+    borderTopLeftRadius: 15,
+    borderBottomLeftRadius: 15,
     textAlign: "left",
     height: 32,
     "& label": {
@@ -80,10 +157,12 @@ const useStyles = makeStyles((theme) => ({
       marginTop: 0,
     },
   },
-  formControlMobile: {
+  formControlMobileRight: {
     minWidth: 75,
+    width: "100%",
     background: "#efefef",
-    borderRadius: 15,
+    borderTopRightRadius: 15,
+    borderBottomRightRadius: 15,
     textAlign: "left",
     height: 32,
     "& label": {
@@ -92,6 +171,30 @@ const useStyles = makeStyles((theme) => ({
     "& > div": {
       marginTop: 0,
     },
+  },
+  mobileSelectBox: {
+    fontSize: 15,
+    width: "100%",
+    paddingLeft: 12,
+    lineHeight: "15px",
+    "& >div": {
+      height: 32,
+      display: "flex",
+      alignItems: "center",
+      paddingTop: 0,
+      paddingBottom: 0,
+    }
+  },
+  mobileSelect: {
+    display: "flex",
+    alignItems: "flex-end",
+  },
+  mobileLogoContainer: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between",
+    height: 60,
+    paddingLeft: 15,
   },
   left: {
     width: "100%",
@@ -126,8 +229,16 @@ const useStyles = makeStyles((theme) => ({
     boxShadow: theme.shadows[5],
   },
   selectBox: {
-    height: 32,
+    fontSize: "1rem",
+    paddingLeft: 15,
+    paddingTop: 10,
+    paddingBottom: 10,
     width: "100%",
+    "& >div": {
+      padding: 0,
+      display: "flex",
+      alignItems: "center",
+    }
   },
   modalLogo: {
     borderRadius: 15,
@@ -143,58 +254,60 @@ const useStyles = makeStyles((theme) => ({
 const Header = ({
   selectedVideo,
   selectedCity,
-  saveSelectedCity,
-  clearSelectedCity,
   clearSelectedVideo,
-  clearSelectedLocation,
-  fetchSelectedHashtag,
+  selectedCategory,
+  fetchSelectedCategory,
+  clearSelectedCategory,
   isMobile,
+  categories,
+  fetchCategories,
+  setRefresh,
 }) => {
   const classes = useStyles();
 
-  const [city, setCity] = useState("All");
   const [modalOpen, setModalOpen] = useState(false);
 
   useEffect(() => {
     if (selectedVideo && selectedCity && selectedVideo.metro !== selectedCity) {
       clearSelectedVideo();
     }
-  }, [selectedVideo, selectedCity]);
+  }, [selectedVideo, selectedCity, clearSelectedVideo]);
 
-  const handleChange = (event) => {
-    setCity(event.target.value);
-
-    // update redux store
-    if (event.target.value === "All") {
-      clearSelectedCity();
-    } else {
-      clearSelectedLocation();
-      saveSelectedCity(event.target.value.replace(/\s/g, ""));
+  useEffect(() => {
+    if (!categories || !categories.length) {
+      fetchCategories();
     }
-  };
-
-  const onAboutClick = () => {
-    setModalOpen(true);
-  };
+  }, [categories, fetchCategories]);
 
   const handleModalClose = () => {
     setModalOpen(false);
   };
 
   const refreshPage = () => {
-    window.location.reload(true);
+    window.location.reload();
   };
 
-  const onHashtagClick = (hashtag) => {
-    fetchSelectedHashtag(hashtag);
+  const onHashtagClick = (category) => {
+    fetchSelectedCategory(category);
     handleModalClose();
   };
 
+  const handleChange = (event) => {
+    // update redux store
+    if (event.target.value === "What's New") {
+      clearSelectedCategory();
+    } else {
+      fetchSelectedCategory(event.target.value);
+      window.scrollTo(0, 0);
+      setRefresh();
+    }
+  };
+
   return (
-    <div className={classes.header}>
-      <Grid container className={classes.headerTop}>
-        <Grid item xs={2} className={classes.clear}>
-          <Box className={classes.logoContainer}>
+    <div className={isMobile ? classes.mobileHeader : classes.header}>
+      {isMobile && (
+        <Box>
+          <Box className={classes.mobileLogoContainer}>
             <Box className={classes.clear}>
               <img
                 src={logo}
@@ -203,64 +316,128 @@ const Header = ({
                 onClick={refreshPage}
               />
             </Box>
+            <MobileMenuContainer />
           </Box>
-        </Grid>
-        <Grid item xs={10}>
-          <Box
-            display="flex"
-            justifyContent="flex-end"
-            alignItems="center"
-            pt={2}
-          >
-            {!isMobile && (
-              <Box pr={2} className={classes.menuLink}>
-                <GreenButton buttonText="About" onClick={onAboutClick} />
-              </Box>
-            )}
-            <SocialGrid isMobile={isMobile} />
-            {isMobile && <MobileMenuContainer />}
-          </Box>
-        </Grid>
-      </Grid>
-      <Box pt={1} pb={2}>
-        <Grid container spacing={2} className={classes.navbar}>
-          <Grid item className={classes.cityPicker}>
-            <Box pl={1} pr={1}>
-              <FormControl
-                className={
-                  isMobile ? classes.formControlMobile : classes.formControl
-                }
-              >
-                <InputLabel id="city-picker-label">City</InputLabel>
-                <Box pl={1} display="flex" justifyContent="flex-start">
-                  <Box pr={1}>
-                    <img
-                      src={MapPinDefault}
-                      alt="city"
-                      className={classes.pin}
-                    />
-                  </Box>
-                  <Select
-                    labelId="city-picker-label"
-                    id="city-picker"
-                    value={city}
-                    onChange={handleChange}
-                    className={classes.selectBox}
-                  >
-                    <MenuItem value={"All"}>All</MenuItem>
-                    <MenuItem value={"Boston"}>BOS</MenuItem>
-                    <MenuItem value={"New York"}>NYC</MenuItem>
-                  </Select>
+          <Box p={1} className={classes.mobileNavcenter}>
+            <Box>
+              <Box spacing={2} className={classes.navbar}>
+                <Box className={classes.mobileSelectContainer}>
+                  <Grid item className={classes.cityPicker}>
+                    <FormControl
+                      className={classes.formControlMobileLeft}
+                    >
+                      <InputLabel id="category-picker-label">Category</InputLabel>
+                      <Box pl={1} display="flex" justifyContent="flex-start">
+                        <Select
+                          labelId="category-picker-label"
+                          id="category-picker"
+                          value={selectedCategory || "What's New"}
+                          onChange={handleChange}
+                          className={classes.mobileSelectBox}
+                        >
+                          <MenuItem value={"What's New"}>What's New</MenuItem>
+                          {categories.map((category) => (
+                            <MenuItem value={category} key={category.id}>
+                              {category.category}
+                            </MenuItem>
+                          ))}
+                        </Select>
+                      </Box>
+                    </FormControl>
+                  </Grid>
+                  <Grid item className={classes.cityPicker}>
+                    <FormControl
+                      className={classes.formControlMobileRight}
+                    >
+                      <InputLabel id="city-picker-label">City</InputLabel>
+                      <Box pl={1} display="flex" justifyContent="flex-start">
+                        <Box className={classes.mutedText} pr={1}>in</Box>
+                        <MetroDropdownContainer isMobile={isMobile} />
+                      </Box>
+                    </FormControl>
+                  </Grid>
                 </Box>
-              </FormControl>
+              </Box>
             </Box>
-          </Grid>
-          <Grid item className={classes.hashContainer}>
-            <Box className={classes.left}>
-              <PillBoxContainer isMobile={isMobile}/>
+          </Box>
+        </Box>
+      )}
+      <Box display="flex" alignItems="flex-start" className={isMobile ? classes.mobileHeaderTop : classes.headerTop}>
+        <Box className={classes.logoContainer}>
+          <Box className={classes.clear}>
+            <img
+              src={logo}
+              alt="VIVA"
+              className={classes.logo}
+              onClick={refreshPage}
+            />
+          </Box>
+        </Box>
+        <Box pt={2} className={classes.navcenter}>
+          <Box>
+            <Box spacing={2} className={classes.navbar}>
+              <Box className={classes.selectContainer}>
+                <Grid item className={classes.cityPicker}>
+                  <FormControl
+                    className={
+                      isMobile
+                        ? classes.formControlMobile
+                        : classes.formControl1
+                    }
+                  >
+                    <InputLabel id="category-picker-label">Category</InputLabel>
+                    <Box pl={1} display="flex" justifyContent="flex-start">
+                      <Select
+                        labelId="category-picker-label"
+                        id="category-picker"
+                        value={selectedCategory || "What's New"}
+                        onChange={handleChange}
+                        className={isMobile ? classes.mobileSelectBox : classes.selectBox}
+                      >
+                        <MenuItem value={"What's New"}>What's New</MenuItem>
+                        {categories.map((category) => (
+                          <MenuItem value={category} key={category.id}>
+                            {category.category}
+                          </MenuItem>
+                        ))}
+                      </Select>
+                    </Box>
+                  </FormControl>
+                </Grid>
+                <Grid item className={classes.cityPicker}>
+                  <FormControl
+                    className={
+                      isMobile
+                        ? classes.formControlMobile
+                        : classes.formControl2
+                    }
+                  >
+                    <InputLabel id="city-picker-label">City</InputLabel>
+                    <Box pl={1} display="flex" justifyContent="flex-start">
+                      <Box className={classes.mutedText} pr={1} style={{fontSize: 16}}>in</Box>
+                      <MetroDropdownContainer isMobile={isMobile} />
+                    </Box>
+                  </FormControl>
+                </Grid>
+              </Box>
             </Box>
-          </Grid>
-        </Grid>
+          </Box>
+          {!isMobile && (
+            <Box pt={2} className={classes.navbottom}>
+              <PillBoxContainer isMobile={isMobile} categories={categories} />
+            </Box>
+          )}
+        </Box>
+        <Box
+          display="flex"
+          justifyContent="flex-end"
+          alignItems="center"
+          flexDirection="row"
+          pt={2}
+        >
+          <SocialGrid />
+          <MobileMenuContainer />
+        </Box>
       </Box>
       {!isMobile && (
         <Modal
@@ -375,22 +552,22 @@ Header.propTypes = {
   selectedVideo: PropTypes.object,
   selectedLocation: PropTypes.string,
   isMobile: PropTypes.bool,
-  saveSelectedCity: PropTypes.func,
-  clearSelectedCity: PropTypes.func,
-  clearSelectedLocation: PropTypes.func,
+  categories: PropTypes.array,
   clearSelectedVideo: PropTypes.func,
-  fetchSelectedHashtag: PropTypes.func,
+  fetchSelectedCategory: PropTypes.func,
+  clearSelectedCategory: PropTypes.func,
+  fetchCategories: PropTypes.func,
 };
 
 Header.defaultProps = {
   selectedVideo: {},
   selectedLocation: null,
   isMobile: false,
-  saveSelectedCity() {},
-  clearSelectedCity() {},
-  clearSelectedLocation() {},
+  categories: [],
   clearSelectedVideo() {},
-  fetchSelectedHashtag() {},
+  fetchSelectedCategory() {},
+  clearSelectedCategory() {},
+  fetchCategories() {},
 };
 
 export default Header;

@@ -4,20 +4,21 @@
   author: Ryan Tsang <ryan@vivatheapp.com>
 */
 
-import React from "react";
-import { Typography } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
-
-const useStyles = makeStyles({
-  blockQuote: {
-    paddingLeft: "15px",
-  },
-});
+export const apiKeys = {
+  serverSideKey: "AIzaSyD1l7AgmTWUKEUHBwLRqAWlXuG2hLifcRs",
+  clientSideKey: "AIzaSyAweiAnxKvsA6fMtup9dJJrDGd1AK-mPSs",
+};
 
 export const endpoint = {
-  VIDEO_URL: "https://api.vivatheapp.com/videos",
-  HASHTAG_URL: "https://api.vivatheapp.com/hashtags",
-  LOCATION_URL: "https://api.vivatheapp.com/locations",
+  VIDEO_URL_V2: "https://api.vivatheapp.com/vids/",
+  CATEGORY_URL: "https://api.vivatheapp.com/categories",
+  LOCATION_URL_V2: "https://api.vivatheapp.com/locs/",
+  GOOGLE_URL: "https://api.vivatheapp.com/google/",
+  YELP_URL: "https://api.vivatheapp.com/yelp/",
+  LOC_VID_URL: "https://api.vivatheapp.com/loc-vid/",
+  METROS_URL: "https://api.vivatheapp.com/metros",
+  MOBILE_VIDS_URL: "https:/api.vivatheapp.com/vids-metro/",
+  MOBILE_LOCS_URL: "https:/api.vivatheapp.com/locs-metro/",
 };
 
 export const socialURLs = {
@@ -38,39 +39,18 @@ export const hashtagObjects = {
   worthTheHype: {
     hashtag: "#worththehype",
     id: 132,
-  }
-};
-
-export const aboutText = () => {
-  const classes = useStyles();
-  return (
-    <>
-      <Typography>
-        VIVA is a social exploration platform where you can quickly and easily
-        discover places to go and things to do from people like you.
-      </Typography>
-      <br></br>
-      <Typography>
-        If you ever feel like changing up your day, VIVA gets you instant access
-        to a vast library of recommendations from your local community.
-      </Typography>
-      <br></br>
-      <div className={classes.blockQuote}>
-        <Typography>Stop by a #pictureperfect coffee shop</Typography>
-        <Typography>Have #funwithfriends at a vineyard nearby</Typography>
-        <Typography>
-          Discover cool restaurants that are #worththehype
-        </Typography>
-      </div>
-      <br></br>
-      <Typography>
-        VIVA uncovers all the #hiddengems for you, making your everyday fun and
-        exciting.
-      </Typography>
-      <br></br>
-      <Typography>Happy exploring!</Typography>
-    </>
-  );
+  },
 };
 
 export const videoSubmissionLink = "https://forms.gle/EV2iqCNSu7PrPcDw8";
+
+export const newYork = {
+  id: 2,
+  lat: 40.71738305900117,
+  lng: -73.99818142948409,
+  latMax: 40.917383059001175,
+  latMin: 40.51738305900117,
+  lngMax: -73.49818142948409,
+  lngMin: -74.49818142948409,
+  name: "New York",
+};

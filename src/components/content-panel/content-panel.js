@@ -10,6 +10,7 @@ import CloseIcon from "@material-ui/icons/Close";
 import { makeStyles } from "@material-ui/core/styles";
 import ScrollingWrapper from "../common/scrolling-wrapper";
 import VideoFeedContainer from "./video-feed-container";
+import ImageFeedContainer from "./image-feed-container";
 import PropTypes from "prop-types";
 
 const useStyles = makeStyles({
@@ -54,52 +55,81 @@ const useStyles = makeStyles({
     borderBottom: 2,
     borderBottomColor: "#000000",
   },
+  placeContentPanel: {
+    position: "absolute",
+    zIndex: 90,
+  },
+  regContentPanel: {
+    position: "relative",
+  },
 });
 
 const ContentPanel = ({
-  selectedHashtag,
+  selectedCategory,
   selectedLocation,
-  filterOn,
   isMobile,
-  clearSelectedHashtag,
-  clearSelectedLocationFilter,
+  refresh,
+  panelOpen,
+  clearSelectedCategory,
+  setRefresh,
+  imagePanelOpen,
+  videoPanelOpen,
 }) => {
   const classes = useStyles();
 
-  const onHashtagFilterClose = () => {
-    clearSelectedHashtag();
+  const onCategoryFilterClose = () => {
+    setRefresh();
+    clearSelectedCategory();
   };
 
-  const onLocationFilterClose = () => {
-    clearSelectedLocationFilter();
+  const renderContentFeed = (isMobile) => {
+    if (imagePanelOpen) {
+      return <ImageFeedContainer isMobile={isMobile} />;
+    }
+    if (videoPanelOpen) {
+      return (
+        <VideoFeedContainer
+          selectedLocation={selectedLocation}
+          selectedCategory={selectedCategory}
+          placePanelMode={videoPanelOpen}
+          // refresh={true}
+          isMobile={isMobile}
+        />
+      );
+    }
+    return (
+      <VideoFeedContainer
+        selectedCategory={selectedCategory}
+        refresh={refresh}
+        isMobile={isMobile}
+      />
+    );
   };
 
   return (
-    <Box ml={1} mr={1}>
+    <Box
+      ml={1}
+      mr={1}
+      className={
+        panelOpen ? classes.placeContentPanel : classes.regContentPanel
+      }
+    >
       <div
         className={
           isMobile ? classes.videoContainerMobile : classes.videoContainer
         }
       >
-        {(selectedHashtag || (selectedLocation && filterOn)) && (
+        {selectedCategory && (
           <Box
             pt={2}
             pb={1}
             borderBottom={1}
             className={classes.titleContainer}
           >
-            {selectedHashtag && (
+            {selectedCategory && (
               <div className={classes.title}>
-                {selectedHashtag.hashtag}{" "}
-                <IconButton onClick={onHashtagFilterClose} size="small">
-                  <CloseIcon />
-                </IconButton>
-              </div>
-            )}
-            {selectedLocation && filterOn && (
-              <div className={classes.title}>
-                {selectedLocation.name}{" "}
-                <IconButton onClick={onLocationFilterClose} size="small">
+                {selectedCategory?.category}{" "}
+                <IconButton onClick={onCategoryFilterClose} size="small">
                   <CloseIcon />
                 </IconButton>
               </div>
@@ -108,20 +138,13 @@ const ContentPanel = ({
         )}
         {!isMobile ? (
           <ScrollingWrapper
-            refresh={selectedHashtag || (selectedLocation && filterOn) || false}
-            filterOn={selectedHashtag || (selectedLocation && filterOn)}
+            refresh={selectedCategory || false}
             isMobile={isMobile}
           >
-            <VideoFeedContainer
-              selectedHashtag={selectedHashtag}
-              isMobile={isMobile}
-            />
+            {renderContentFeed(isMobile)}
           </ScrollingWrapper>
         ) : (
-          <VideoFeedContainer
-            selectedHashtag={selectedHashtag}
-            isMobile={isMobile}
-          />
+          <>{renderContentFeed(isMobile)}</>
         )}
       </div>
     </Box>
@@ -129,21 +152,23 @@ const ContentPanel = ({
 };
 
 ContentPanel.propTypes = {
-  selectedHashtag: PropTypes.object,
-  selectedLocation: PropTypes.object,
-  filterOn: PropTypes.bool,
+  selectedCategory: PropTypes.object,
   isMobile: PropTypes.bool,
-  clearSelectedHashtag: PropTypes.func,
-  clearSelectedLocationFilter: PropTypes.func,
+  refresh: PropTypes.bool,
+  panelOpen: PropTypes.bool,
+  clearSelectedCategory: PropTypes.func,
+  setRefresh: PropTypes.func,
+  imagePanelOpen: PropTypes.bool,
 };
 
 ContentPanel.defaultProps = {
-  selectedHashtag: null,
-  selectedLocation: null,
-  filterOn: false,
+  selectedCategory: null,
   isMobile: false,
-  clearSelectedHashtag() {},
-  clearSelectedLocationFilter() {},
+  refresh: false,
+  panelOpen: false,
+  clearSelectedCategory() {},
+  setRefresh() {},
+  imagePanelOpen: false,
 };
 
 export default ContentPanel;

@@ -1,0 +1,49 @@
+/*
+  Yelp reviews component
+
+  author: Ryan Tsang <ryan@vivatheapp.com>
+*/
+
+import React from "react";
+import {
+  Box,
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
+} from "@material-ui/core";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import PropTypes from "prop-types";
+
+const CollapsiblePanel = ({ description, title, content }) => {
+  const [expanded, setExpanded] = React.useState(true);
+
+  const openPanel = () => {
+    setExpanded(!expanded);
+  };
+
+  return (
+    <Accordion
+      expanded={expanded}
+      onChange={openPanel}
+    >
+      <AccordionSummary
+        expandIcon={<ExpandMoreIcon />}
+        aria-controls={description + "-bh-content"}
+        id={description + "-bh-header"}
+      >
+        <Box pb={1}>{title}</Box>
+      </AccordionSummary>
+      <AccordionDetails>
+        <div>
+          {content}
+        </div>
+      </AccordionDetails>
+    </Accordion>
+  );
+};
+
+CollapsiblePanel.propTypes = {
+  reviews: PropTypes.array.isRequired,
+};
+
+export default CollapsiblePanel;

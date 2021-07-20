@@ -6,9 +6,8 @@
 
 import React, { useEffect } from "react";
 import { Grid, Box } from "@material-ui/core";
-import { videoSubmissionLink } from "../app-constants";
-import GreenButton from "./common/green-button";
 import ContentPanelContainer from "./content-panel/content-panel-container";
+import PlacesPanelContainer from "./places-panel/places-panel-container";
 import MapContainer from "./map/map-container";
 import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
@@ -18,13 +17,13 @@ const useStyles = makeStyles((theme) => ({
     height: "100%",
   },
   contentPanel: {
-    position: "relative",
+    // position: "relative",
     padding: "0 !important",
     zIndex: 3,
     boxShadow: "1px 1px 3px rgba(0,0,0,0.3)",
   },
   contentPanelMobile: {
-    position: "relative",
+    // position: "relative",
     width: "100%",
     maxWidth: "100%",
     padding: "0 !important",
@@ -47,56 +46,173 @@ const useStyles = makeStyles((theme) => ({
     right: 10,
     zIndex: 1,
   },
+  placeContentPanel: {
+    position: "absolute",
+    backgroundColor: "white",
+    zIndex: 4,
+  },
+  mobilePagesPanel: {
+    position: "fixed",
+    top: 0,
+    left: 0,
+    bottom: 0,
+    right: 0,
+    backgroundColor: "#ffffff",
+    zIndex: 9,
+    overflow: "scroll",
+  },
 }));
 
-const BodyGrid = ({ locations, fetchLocations, isMobile }) => {
+const BodyGrid = ({
+  selectedLocation,
+  selectedMetro,
+  refresh,
+  mapBounds,
+  fetchLocationsV2,
+  fetchVideosV2,
+  clearRefresh,
+  fetchVideosMobile,
+  fetchLocationsMobile,
+  imagePanelOpen,
+  videoPanelOpen,
+  isMobile,
+}) => {
   const classes = useStyles();
 
+  // useEffect(() => {
+  //   if (refresh && mapBounds && !isMobile) {
+  //     const { latMin, latMax, lngMin, lngMax } = mapBounds;
+  //     fetchLocationsV2(latMin, latMax, lngMin, lngMax);
+  //     fetchVideosV2(latMin, latMax, lngMin, lngMax);
+  //     clearRefresh();
+  //   }
+  // }, [
+  //   refresh,
+  //   mapBounds,
+  //   fetchLocationsV2,
+  //   fetchVideosV2,
+  //   clearRefresh,
+  //   isMobile,
+  // ]);
+
   useEffect(() => {
-    if (!locations) {
-      fetchLocations();
+    if (isMobile && selectedMetro) {
+      fetchVideosMobile(selectedMetro?.id);
+      fetchLocationsMobile(selectedMetro?.id);
     }
-  }, [locations]);
+  }, [fetchVideosMobile, fetchLocationsMobile, selectedMetro, isMobile]);
 
   return (
     <Box className={classes.root}>
       <Grid className={classes.grid} container>
+        {(imagePanelOpen || videoPanelOpen) && (
+          <Grid item className={classes.placeContentPanel}>
+            {/* <div className> */}
+              {imagePanelOpen && !isMobile && (
+                <ContentPanelContainer
+                  className={classes.placeContentPanel}
+                  imagePanelOpen={imagePanelOpen}
+                  isMobile={isMobile}
+                  refresh={refresh}
+                />
+              )}
+              {videoPanelOpen && !isMobile && (
+                <ContentPanelContainer
+                  className={classes.placeContentPanel}
+                  videoPanelOpen={videoPanelOpen}
+                  isMobile={isMobile}
+                  refresh={refresh}
+                />
+              )}
+            {/* </div> */}
+          </Grid>
+        )}
         <Grid
           item
           className={
             isMobile ? classes.contentPanelMobile : classes.contentPanel
           }
         >
-          <ContentPanelContainer isMobile={isMobile} />
+          <ContentPanelContainer isMobile={isMobile} refresh={refresh} />
         </Grid>
         {!isMobile && (
-          <>
-            <Grid item xs className={classes.mapContainer}>
-              <MapContainer locations={locations} />
-            </Grid>
-            <div className={classes.shareYourExperienceButton}>
-              <GreenButton
-                buttonText="Share Your Experience"
-                href={videoSubmissionLink}
-              />
-            </div>
-          </>
+          <Grid item xs className={classes.mapContainer}>
+            <MapContainer />
+          </Grid>
+        )}
+
+        {selectedLocation && !isMobile && (
+          <Grid
+            item
+            className={
+              isMobile ? classes.contentPanelMobile : classes.contentPanel
+            }
+          >
+            <PlacesPanelContainer
+              selectedLocation={selectedLocation}
+              isMobile={isMobile}
+            />
+          </Grid>
         )}
       </Grid>
+      {selectedLocation && isMobile && (
+        <>
+        <Grid className={classes.mobilePagesPanel}>
+          <PlacesPanelContainer
+            selectedLocation={selectedLocation}
+            isMobile={isMobile}
+          />
+        </Grid>
+        {imagePanelOpen && (
+        <Grid className={classes.mobilePagesPanel}>
+          <ContentPanelContainer
+            className={classes.mobilePlaceContentPanel}
+            imagePanelOpen={imagePanelOpen}
+            isMobile={isMobile}
+            refresh={refresh}
+          />
+        </Grid>
+        )}
+        {videoPanelOpen && (
+        <Grid className={classes.mobilePagesPanel}>
+          <ContentPanelContainer
+            className={classes.mobilePlaceContentPanel}
+            videoPanelOpen={videoPanelOpen}
+            isMobile={isMobile}
+            refresh={refresh}
+          />
+        </Grid>
+        )}
+        </>
+      )}
     </Box>
   );
 };
 
 BodyGrid.propTypes = {
   locations: PropTypes.array,
+  selectedLocation: PropTypes.object,
+  selectedMetro: PropTypes.object,
+  mapBounds: PropTypes.object,
   isMobile: PropTypes.bool,
-  fetchLocations: PropTypes.func,
+  fetchLocationsV2: PropTypes.func,
+  fetchVideosMobile: PropTypes.func,
+  fetchLocationsMobile: PropTypes.func,
+  imagePanelOpen: PropTypes.bool,
+  videoPanelOpen: PropTypes.bool,
 };
 
 BodyGrid.defaultProps = {
   locations: null,
+  selectedLocation: null,
+  selectedMetro: null,
+  mapBounds: null,
   isMobile: false,
-  fetchLocations() {},
+  fetchLocationsV2() {},
+  fetchVideosMobile() {},
+  fetchLocationsMobile() {},
+  imagePanelOpen: false,
+  videoPanelOpen: false,
 };
 
 export default BodyGrid;

@@ -5,14 +5,17 @@
 */
 
 import React, { useEffect, useState } from "react";
-import { Box, Typography, Divider } from "@material-ui/core";
+import { Box } from "@material-ui/core";
 import MapPinDefault from "../../assets/map-pin-default.png";
 import MapPinSelected from "../../assets/map-pin-selected.png";
+import { apiKeys } from "../../app-constants";
 import { Map as GoogleMap, Marker, GoogleApiWrapper } from "google-maps-react";
-import InfoWindowEx from "./info-window-ex";
 import Loading from "../common/loading";
 import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
+import GreenButton from "../common/green-button";
+
+const { clientSideKey } = apiKeys;
 
 const useStyles = makeStyles({
   infoWindow: {
@@ -23,15 +26,19 @@ const useStyles = makeStyles({
     width: 24,
   },
   test: {
+    position: "relative",
     height: "calc(100vh - 116px)",
     marginRight: 0,
+    textAlign: "center",
+  },
+  refreshButton: {
+    position: "absolute",
+    top: 10,
+    display: "inline-block",
+    zIndex: 500,
+    left: "calc(50% - 45px)",
   },
 });
-
-const initialCenter = {
-  lat: 42.3601,
-  lng: -71.0589,
-};
 
 const style = {
   float: "left",
@@ -46,12 +53,60 @@ const mapContainerStyle = {
   position: "relative",
 };
 
+const mapStyle = [
+  {
+    featureType: "poi.business",
+    stylers: [
+      {
+        visibility: "off",
+      },
+    ],
+  },
+  {
+    featureType: "poi.government",
+    stylers: [
+      {
+        visibility: "off",
+      },
+    ],
+  },
+  {
+    featureType: "poi.medical",
+    stylers: [
+      {
+        visibility: "off",
+      },
+    ],
+  },
+  {
+    featureType: "poi.place_of_worship",
+    stylers: [
+      {
+        visibility: "off",
+      },
+    ],
+  },
+  {
+    featureType: "poi.school",
+    stylers: [
+      {
+        visibility: "off",
+      },
+    ],
+  },
+  {
+    featureType: "poi.sports_complex",
+    stylers: [
+      {
+        visibility: "simplified",
+      },
+    ],
+  },
+];
+
 const loading = (props) => (
   <div
     style={{
-      // top: "50%",
-      // left: "50%",
-      // transform: "translate(-50%, -50%)",
       width: 400,
       height: 300,
     }}
@@ -61,116 +116,66 @@ const loading = (props) => (
 );
 
 const Map = ({
-  loading,
   google,
   locations,
   selectedLocation,
-  selectedCity,
+  selectedMetro,
+  refresh,
   saveSelectedLocation,
+  refreshEverything,
+  saveMapBounds,
+  mapBounds,
+  clearRefresh,
   clearSelectedLocation,
-  activateFilter,
-  clearSelectedHashtag,
-  clearSelectedVideo,
+  closePlaceImagePanel,
+  closePlaceVideoPanel,
 }) => {
   const classes = useStyles();
 
-  const [center, setCenter] = useState(initialCenter);
+  const [center, setCenter] = useState({
+    lat: selectedMetro.lat,
+    lng: selectedMetro.lng,
+  });
   const [zoom, setZoom] = useState(13);
-  const [infoOpen, setInfoOpen] = useState(false);
+  const [showRefresh, setShowRefresh] = useState(false);
 
   useEffect(() => {
-    if (selectedCity) {
-      setInfoOpen(false);
-      setCenter(
-        selectedCity === "Boston"
-          ? {
-              lat: 42.3601,
-              lng: -71.0589,
-            }
-          : { lat: 40.7128, lng: -74.006 }
-      );
+    if (selectedMetro) {
+      saveMapBounds({
+        latMin: selectedMetro.latMin,
+        latMax: selectedMetro.latMax,
+        lngMin: selectedMetro.lngMin,
+        lngMax: selectedMetro.lngMax,
+      });
+      setCenter({
+        lat: selectedMetro.lat,
+        lng: selectedMetro.lng,
+      });
       setZoom(13);
     }
     if (selectedLocation) {
-      setInfoOpen(true);
       setCenter({
         lat: parseFloat(selectedLocation.lat),
         lng: parseFloat(selectedLocation.lng),
       });
-      if (zoom < 15) {
-        setZoom(15);
-      }
     }
-  }, [selectedLocation, selectedCity]);
+  }, [selectedLocation, selectedMetro, saveMapBounds]);
+
+  useEffect(() => {
+    if (refresh && selectedMetro) {
+      refreshEverything({
+        latMin: selectedMetro.latMin,
+        latMax: selectedMetro.latMax,
+        lngMin: selectedMetro.lngMin,
+        lngMax: selectedMetro.lngMax,
+      });
+      clearRefresh();
+    }
+  }, [refresh, selectedMetro, refreshEverything, clearRefresh]);
 
   const onMarkerClick = (marker) => {
     saveSelectedLocation(marker.markerData);
-    activateFilter();
-    clearSelectedHashtag();
   };
-
-  const onInfoWindowClose = () => {
-    setInfoOpen(false);
-    clearSelectedLocation();
-    clearSelectedVideo();
-  };
-
-  const onRelatedVideosClick = (e) => {
-    e.preventDefault();
-    clearSelectedHashtag();
-    activateFilter();
-  };
-
-  const mapStyle = [
-    {
-      featureType: "poi.business",
-      stylers: [
-        {
-          visibility: "off",
-        },
-      ],
-    },
-    {
-      featureType: "poi.government",
-      stylers: [
-        {
-          visibility: "off",
-        },
-      ],
-    },
-    {
-      featureType: "poi.medical",
-      stylers: [
-        {
-          visibility: "off",
-        },
-      ],
-    },
-    {
-      featureType: "poi.place_of_worship",
-      stylers: [
-        {
-          visibility: "off",
-        },
-      ],
-    },
-    {
-      featureType: "poi.school",
-      stylers: [
-        {
-          visibility: "off",
-        },
-      ],
-    },
-    {
-      featureType: "poi.sports_complex",
-      stylers: [
-        {
-          visibility: "simplified",
-        },
-      ],
-    },
-  ];
 
   const mapLoaded = (mapProps, map) => {
     map.setOptions({
@@ -178,10 +183,47 @@ const Map = ({
     });
   };
 
+  const getAndSaveBounds = (map) => {
+    const latMin = map?.getBounds()?.getSouthWest()?.lat();
+    const latMax = map?.getBounds()?.getNorthEast()?.lat();
+    const lngMin = map?.getBounds()?.getSouthWest()?.lng();
+    const lngMax = map?.getBounds()?.getNorthEast()?.lng();
+
+    saveMapBounds({
+      latMin: latMin,
+      latMax: latMax,
+      lngMin: lngMin,
+      lngMax: lngMax,
+    });
+  };
+
+  const onMapChange = (mapProps, map) => {
+    getAndSaveBounds(map);
+    setShowRefresh(true);
+  };
+
+  const onRefreshButtonClick = () => {
+    clearSelectedLocation();
+    closePlaceImagePanel();
+    closePlaceVideoPanel();
+    refreshEverything(mapBounds);
+    setShowRefresh(false);
+  };
+
   return (
     <Box mr={2} className={classes.test}>
+      {showRefresh && (
+        <div className={classes.refreshButton}>
+          <GreenButton
+            buttonText="Refresh"
+            onClick={() => onRefreshButtonClick()}
+          />
+        </div>
+      )}
       <GoogleMap
         google={google}
+        onBoundsChanged={onMapChange}
+        onZoomChanged={onMapChange}
         zoom={zoom}
         mapTypeControl={false}
         scaleControl={false}
@@ -196,101 +238,62 @@ const Map = ({
         zoomControlOptions={{
           position: google.maps.ControlPosition.TOP_RIGHT,
         }}
-        onReady={(mapProps, map) => mapLoaded(mapProps, map)}
+        onReady={mapLoaded}
       >
-        {locations &&
-          locations.map((location) => {
-            return (
-              <Marker
-                className={classes.marker}
-                name={location.id}
-                key={location.id}
-                markerData={location}
-                position={{
-                  lat: parseFloat(location.lat),
-                  lng: parseFloat(location.lng),
-                }}
-                onClick={onMarkerClick}
-                icon={{
-                  url:
-                    selectedLocation && selectedLocation.id === location.id
-                      ? MapPinSelected
-                      : MapPinDefault,
-                  scaledSize: new google.maps.Size(30, 36),
-                }}
-              />
-            );
-          })}
-        {selectedLocation && (
-          <InfoWindowEx
-            position={{
-              lat: parseFloat(selectedLocation.lat),
-              lng: parseFloat(selectedLocation.lng),
-            }}
-            visible={infoOpen}
-            onClose={onInfoWindowClose}
-            pixelOffset={new google.maps.Size(0, -35)}
-          >
-            <Box className={classes.infoWindow}>
-              <h6>{selectedLocation.name}</h6>
-              <Typography fontFamily="Arial">
-                {selectedLocation.address_full}
-              </Typography>
-              <Typography>
-                <a
-                  href={selectedLocation.website}
-                  target={selectedLocation.website}
-                >
-                  {
-                    selectedLocation.website
-                      .replace(/^(?:https?:\/\/)?(?:www\.)?/i, "")
-                      .split("/")[0]
-                  }
-                </a>
-              </Typography>
-              <Box pt={1} pb={1}>
-                <Divider />
-              </Box>
-              <Typography>
-                <a href="/#" onClick={onRelatedVideosClick}>
-                  See related videos
-                </a>
-              </Typography>
-            </Box>
-          </InfoWindowEx>
-        )}
+        {locations?.map((location) => {
+          const { id, lat, lng } = location;
+
+          return (
+            <Marker
+              className={classes.marker}
+              name={id}
+              key={id}
+              markerData={location}
+              position={{
+                lat: parseFloat(lat),
+                lng: parseFloat(lng),
+              }}
+              onClick={onMarkerClick}
+              icon={{
+                url:
+                  selectedLocation?.id === id ? MapPinSelected : MapPinDefault,
+                scaledSize: new google.maps.Size(30, 36),
+              }}
+            />
+          );
+        })}
       </GoogleMap>
     </Box>
   );
 };
 
 Map.propTypes = {
-  loading: PropTypes.bool,
   google: PropTypes.object,
   locations: PropTypes.array,
   selectedLocation: PropTypes.object,
-  selectedCity: PropTypes.string,
+  selectedMetro: PropTypes.object,
   saveSelectedLocation: PropTypes.func,
-  activateFilter: PropTypes.func,
+  refreshEverything: PropTypes.func,
+  saveMapBounds: PropTypes.func,
   clearSelectedLocation: PropTypes.func,
-  clearSelectedHashtag: PropTypes.func,
-  clearSelectedVideo: PropTypes.func,
+  closePlaceImagePanel: PropTypes.func,
+  closePlaceVideoPanel: PropTypes.func,
 };
 
 Map.defaultProps = {
-  loading: false,
   google: {},
   locations: null,
   selectedLocation: null,
-  selectedCity: null,
+  selectedMetro: null,
   saveSelectedLocation() {},
-  activateFilter() {},
+  refreshEverything() {},
+  saveMapBounds() {},
   clearSelectedLocation() {},
-  clearSelectedHashtag() {},
-  clearSelectedVideo() {},
+  closePlaceImagePanel() {},
+  closePlaceVideoPanel() {},
 };
 
 export default GoogleApiWrapper({
-  apiKey: "AIzaSyDxUpiuJMJwjPvtBeuXJyRcm66jqEx38kA",
+  apiKey: clientSideKey,
   LoadingContainer: loading,
 })(Map);
