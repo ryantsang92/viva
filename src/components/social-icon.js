@@ -9,6 +9,18 @@ import { Box, Typography } from "@material-ui/core";
 import PropTypes from "prop-types";
 import instagramIcon from "../assets/instagram-logo.svg";
 import tiktokIcon from "../assets/tiktok-logo.svg";
+import { formatDate } from "../common/common-functions";
+import { makeStyles } from "@material-ui/core/styles";
+
+const useStyles = makeStyles({
+  userhandle: {
+    fontSize: 15,
+  },
+  videoDate: {
+    fontSize: 13,
+    color: "#555",
+  },
+});
 
 const generateURL = (user, platform) => {
   switch (platform) {
@@ -32,12 +44,15 @@ const getIcon = (platform) => {
   }
 };
 
-export const SocialIcon = ({ url, icon, user, platform, hw }) => {
+export const SocialIcon = ({ url, icon, user, platform, hw, date }) => {
+  const classes = useStyles();
+
   return (
     <a
       href={url || generateURL(user, platform)}
       target="_blank"
       rel="noopener noreferrer"
+      style={{ textDecoration: "none" }}
     >
       <Box display="flex" flexDirection="row" alignItems="center">
         <Box pr={1}>
@@ -47,7 +62,16 @@ export const SocialIcon = ({ url, icon, user, platform, hw }) => {
             style={{ height: hw, width: hw }}
           />
         </Box>
-        <Typography style={{fontSize: 15}}>{user}</Typography>
+        <Box display="flex" flexDirection="column">
+          {user && (
+            <Typography className={classes.userhandle}>{user}</Typography>
+          )}
+          {date && (
+            <Typography className={classes.videoDate}>
+              {formatDate(date)}
+            </Typography>
+          )}
+        </Box>
       </Box>
     </a>
   );
