@@ -44,6 +44,13 @@ const useStyles = makeStyles((theme) => ({
       display: "none",
     },
   },
+  placePanelHeader: {
+    position: "sticky",
+    top: 0,
+    zIndex: 2,
+    backgroundColor: "white",
+    borderBottom: "1px solid #ddd",
+  },
   photo: {
     width: "100%",
     maxHeight: 300,
@@ -177,6 +184,7 @@ const PlacesPanel = ({
             justifyContent="space-between"
             alignItems="center"
             pr={1}
+            className={classes.placePanelHeader}
           >
             <IconButton onClick={handlePanelClose} size="small">
               {/* change this */}

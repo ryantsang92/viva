@@ -196,6 +196,11 @@ const useStyles = makeStyles((theme) => ({
     height: 60,
     paddingLeft: 15,
   },
+  mobileSocialBox: {
+    "& p": {
+      display: "none",
+    }
+  },
   left: {
     width: "100%",
   },
@@ -316,7 +321,10 @@ const Header = ({
                 onClick={refreshPage}
               />
             </Box>
-            <MobileMenuContainer />
+            <Box className={classes.mobileSocialBox} display="flex" justifyContent="flex-end">
+              <SocialGrid />
+              <MobileMenuContainer />
+            </Box>
           </Box>
           <Box p={1} className={classes.mobileNavcenter}>
             <Box>
