@@ -31,6 +31,10 @@ const useStyles = makeStyles({
   },
   header: {
     position: "sticky",
+    top: 0,
+    zIndex: 2,
+    backgroundColor: "white",
+    borderBottom: "1px solid #ddd",
   },
 });
 
@@ -72,7 +76,6 @@ const ImageFeed = ({ loading, images, closePlaceImagePanel, isMobile }) => {
         display="flex"
         justifyContent="flex-end"
         alignItems="center"
-        borderBottom={1}
         className={classes.header}
       >
         {isMobile ? (

@@ -128,6 +128,10 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   mobileHeader: {
+    position: "sticky",
+    top: -60,
+    zIndex: 9,
+    backgroundColor: "white",
   },
   mobileHeaderTop: {
     display: "none",
@@ -195,6 +199,11 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "space-between",
     height: 60,
     paddingLeft: 15,
+  },
+  mobileSocialBox: {
+    "& p": {
+      display: "none",
+    }
   },
   left: {
     width: "100%",
@@ -316,7 +325,10 @@ const Header = ({
                 onClick={refreshPage}
               />
             </Box>
-            <MobileMenuContainer />
+            <Box className={classes.mobileSocialBox} display="flex" justifyContent="flex-end">
+              <SocialGrid />
+              <MobileMenuContainer />
+            </Box>
           </Box>
           <Box p={1} className={classes.mobileNavcenter}>
             <Box>

@@ -39,6 +39,9 @@ const useStyles = makeStyles({
     width: 310,
     height: 550,
   },
+  placePhoto: {
+    width: "100%",
+  }
 });
 
 const ImageDisplay = ({ image, location, isMobile }) => {
@@ -51,13 +54,11 @@ const ImageDisplay = ({ image, location, isMobile }) => {
   return (
     <InView onChange={setInView}>
       <Box
-        pt={1}
         pb={1}
         className={isMobile ? classes.playerAreaMobile : classes.playerArea}
-        borderBottom={1}
       >
         {inView ? (
-          <img src={src} alt={id} key={id} />
+          <img className={classes.placePhoto} src={src} alt={id} key={id} />
         ) : (
           <div className={classes.loading}>
             <Loading />
