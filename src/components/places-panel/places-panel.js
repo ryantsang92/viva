@@ -44,12 +44,12 @@ const useStyles = makeStyles((theme) => ({
       display: "none",
     },
   },
-  mobilePlacePanel: {
-    width: "100%",
-    height: "100%",
-  },
-  header: {
+  placePanelHeader: {
     position: "sticky",
+    top: 0,
+    zIndex: 2,
+    backgroundColor: "white",
+    borderBottom: "1px solid #ddd",
   },
   photo: {
     width: "100%",
@@ -184,11 +184,11 @@ const PlacesPanel = ({
           className={isMobile ? classes.mobilePlacePanel : classes.placePanel}
         >
           <Box
-            className={classes.header}
             display="flex"
             justifyContent="space-between"
             alignItems="center"
             pr={1}
+            className={classes.placePanelHeader}
           >
             <IconButton onClick={handlePanelClose} size="small">
               {isMobile ? <ArrowBackIcon /> : <CloseIcon />}

@@ -31,6 +31,10 @@ const useStyles = makeStyles({
   },
   header: {
     position: "sticky",
+    top: 0,
+    zIndex: 2,
+    backgroundColor: "white",
+    borderBottom: "1px solid #ddd",
   },
 });
 
@@ -117,7 +121,7 @@ const VideoFeed = ({
               next={fetchMoreData}
               hasMore={hasMore}
               loader={<>{loadingComponent}</>}
-              height="calc(100vh - 116px)"
+              height={isMobile ? "" : "calc(100vh - 116px)"}
               endMessage={
                 <p style={{ textAlign: "center" }}>
                   <b>Yay! You have seen it all</b>

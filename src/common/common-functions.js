@@ -5,8 +5,8 @@
 */
 
 export const sanitizeYelpURL = (url) => {
-  return url?.replace('http://www.yelp.com/biz/', '');
-}
+  return url?.replace("http://www.yelp.com/biz/", "");
+};
 
 export const shuffleArray = (array) => {
   if (array) {
@@ -17,3 +17,9 @@ export const shuffleArray = (array) => {
   }
 };
 
+export const formatDate = (date) => {
+  return new Date(date).toLocaleDateString(
+    {},
+    { timeZone: "UTC", month: "long", day: "2-digit", year: "numeric" }
+  );
+};

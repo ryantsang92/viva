@@ -5,7 +5,7 @@
 */
 
 import React, { useState } from "react";
-import { Box, Typography } from "@material-ui/core";
+import { Box, Typography, Divider } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import {
   Player,
@@ -57,7 +57,7 @@ const useStyles = makeStyles({
     height: 550,
   },
   locationTitle: {
-    fontSize: "1em"
+    fontSize: "1em",
   },
   videoDesc: {
     fontSize: 15,
@@ -69,13 +69,6 @@ const useStyles = makeStyles({
     border: "1px solid black",
     marginRight: 8,
   },
-  userhandle: {
-    fontSize: 15,
-  },
-  videoDate: {
-    fontSize: 13,
-    color: "#555"
-  }
 });
 
 const VideoPanel = ({ video, location, placePanelMode, isMobile }) => {
@@ -83,19 +76,19 @@ const VideoPanel = ({ video, location, placePanelMode, isMobile }) => {
 
   const [inView, setInView] = useState(false);
 
-  const { thumbnail, url, description, user, user_platform } = video;
+  const { thumbnail, url, description, user, user_platform, date_upload } =
+    video;
 
   return (
     <InView onChange={setInView} className={classes.inview}>
-      <Box
-        className={isMobile ? classes.playerAreaMobile : classes.playerArea}
-      >
+      <Box className={isMobile ? classes.playerAreaMobile : classes.playerArea}>
         <Box pt={2} pb={1} display="flex" flexDirection="row">
-          <Box className={classes.profileImg}></Box>
-          <Box display="flex" flexDirection="column">
-            <Typography className={classes.userhandle}>{user}</Typography>
-            <Typography className={classes.videoDate}>July 1st, 2021</Typography>
-          </Box>
+          <SocialIcon
+            user={user}
+            platform={user_platform}
+            date={date_upload}
+            hw={40}
+          />
         </Box>
         {inView ? (
           <Player
@@ -119,18 +112,18 @@ const VideoPanel = ({ video, location, placePanelMode, isMobile }) => {
             <Loading />
           </div>
         )}
-        <Box pt={1} pb={4}>
+        <Box pt={1} pb={2}>
           {description && (
-            <Box pl={2} pr={2}>
-              <Typography className={classes.videoDesc}>{description}</Typography>
+            <Box pl={2} pr={2} pb={2}>
+              <Typography className={classes.videoDesc}>
+                {description}
+              </Typography>
             </Box>
           )}
-          <Box pt={0} pb={1} pl={2}>
-            <SocialIcon user={user} platform={user_platform} hw={20} />
-          </Box>
           {!placePanelMode && <LocationCardContainer location={location} />}
         </Box>
       </Box>
+      <Divider />
     </InView>
   );
 };

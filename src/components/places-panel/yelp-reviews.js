@@ -16,6 +16,7 @@ import {
 } from "@material-ui/core";
 import StarRating from "./star-rating";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import DefaultProfilePic from "../../assets/default-profile-pic.png";
 import PropTypes from "prop-types";
 
 const useStyles = makeStyles(() => ({
@@ -25,7 +26,7 @@ const useStyles = makeStyles(() => ({
   },
   reviewer: {
     fontSize: 15,
-  }
+  },
 }));
 
 const YelpReviews = ({ reviews }) => {
@@ -42,10 +43,7 @@ const YelpReviews = ({ reviews }) => {
   };
 
   return (
-    <Accordion
-      expanded={expanded}
-      onChange={openPanel}
-    >
+    <Accordion expanded={expanded} onChange={openPanel}>
       <AccordionSummary
         expandIcon={<ExpandMoreIcon />}
         aria-controls="googleReviews-bh-content"
@@ -62,6 +60,9 @@ const YelpReviews = ({ reviews }) => {
 
             return (
               <div key={author_name + time}>
+                <Box pt={1} pb={1}>
+                  <Divider />
+                </Box>
                 <Box
                   pr={1}
                   display="flex"
@@ -70,12 +71,14 @@ const YelpReviews = ({ reviews }) => {
                 >
                   <Box pr={1}>
                     <img
-                      src={profile_photo_url}
+                      src={profile_photo_url || DefaultProfilePic}
                       alt={author_name}
                       className={classes.icon}
                     />
                   </Box>
-                  <Typography className={classes.reviewer}>{author_name}</Typography>
+                  <Typography className={classes.reviewer}>
+                    {author_name}
+                  </Typography>
                 </Box>
                 <Box
                   display="flex"
@@ -87,9 +90,6 @@ const YelpReviews = ({ reviews }) => {
                 </Box>
                 <Box pt={1} fontSize={14}>
                   {text}
-                </Box>
-                <Box pt={1} pb={1}>
-                  <Divider />
                 </Box>
               </div>
             );
