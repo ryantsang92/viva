@@ -16,6 +16,7 @@ import {
 } from "@material-ui/core";
 import StarRating from "./star-rating";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import DefaultProfilePic from "../../assets/default-profile-pic.png";
 import PropTypes from "prop-types";
 
 const useStyles = makeStyles(() => ({
@@ -25,7 +26,14 @@ const useStyles = makeStyles(() => ({
   },
   reviewer: {
     fontSize: 15,
-  }
+  },
+  croppedImage: {
+    width: 24,
+    height: 24,
+    position: "relative",
+    overflow: "hidden",
+    borderRadius: "50%",
+  },
 }));
 
 const GoogleReviews = ({ reviews }) => {
@@ -42,10 +50,7 @@ const GoogleReviews = ({ reviews }) => {
   };
 
   return (
-    <Accordion
-      expanded={expanded}
-      onChange={openPanel}
-    >
+    <Accordion expanded={expanded} onChange={openPanel}>
       <AccordionSummary
         expandIcon={<ExpandMoreIcon />}
         aria-controls="googleReviews-bh-content"
@@ -67,6 +72,9 @@ const GoogleReviews = ({ reviews }) => {
 
             return (
               <div key={author_name + time}>
+                <Box pt={1} pb={1}>
+                  <Divider />
+                </Box>
                 <Box
                   pr={1}
                   display="flex"
@@ -75,12 +83,16 @@ const GoogleReviews = ({ reviews }) => {
                 >
                   <Box pr={1}>
                     <img
-                      src={profile_photo_url}
+                      src={profile_photo_url || DefaultProfilePic}
                       alt={author_name}
-                      className={classes.icon}
+                      className={
+                        profile_photo_url ? classes.icon : classes.croppedImage
+                      }
                     />
                   </Box>
-                  <Typography className={classes.reviewer}>{author_name}</Typography>
+                  <Typography className={classes.reviewer}>
+                    {author_name}
+                  </Typography>
                 </Box>
                 <Box
                   display="flex"
@@ -95,9 +107,6 @@ const GoogleReviews = ({ reviews }) => {
                 </Box>
                 <Box pt={1} fontSize={14}>
                   {text}
-                </Box>
-                <Box pt={1} pb={1}>
-                  <Divider />
                 </Box>
               </div>
             );
