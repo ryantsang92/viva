@@ -7,6 +7,8 @@
 import React, { useEffect, useState } from "react";
 import { Box } from "@material-ui/core";
 import MapPinDefault from "../../assets/map-pin-default.png";
+import MapPinBlue from "../../assets/map-pin-blue.png";
+import MapPinOrange from "../../assets/map-pin-orange.png";
 import MapPinSelected from "../../assets/map-pin-selected.png";
 import { apiKeys } from "../../app-constants";
 import { Map as GoogleMap, Marker, GoogleApiWrapper } from "google-maps-react";
@@ -210,6 +212,25 @@ const Map = ({
     setShowRefresh(false);
   };
 
+  const renderMapPin = (categories) => {
+    if (categories.includes(4)) {
+      return MapPinDefault;
+    }
+    if (categories.includes(2)) {
+      return MapPinOrange;
+    }
+    if (categories.includes(3)) {
+      return MapPinDefault;
+    }
+    if (categories.includes(1)) {
+      return MapPinOrange;
+    }
+    if (categories.includes(5)) {
+      return MapPinBlue;
+    }
+    return MapPinDefault;
+  }
+
   return (
     <Box mr={2} className={classes.test}>
       {showRefresh && (
@@ -241,7 +262,7 @@ const Map = ({
         onReady={mapLoaded}
       >
         {locations?.map((location) => {
-          const { id, lat, lng } = location;
+          const { id, lat, lng, categories } = location;
 
           return (
             <Marker
@@ -256,7 +277,7 @@ const Map = ({
               onClick={onMarkerClick}
               icon={{
                 url:
-                  selectedLocation?.id === id ? MapPinSelected : MapPinDefault,
+                  selectedLocation?.id === id ? MapPinSelected : renderMapPin(categories),
                 scaledSize: new google.maps.Size(30, 36),
               }}
             />
