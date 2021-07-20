@@ -390,11 +390,11 @@ const Header = ({
                       <Select
                         labelId="category-picker-label"
                         id="category-picker"
-                        value={selectedCategory || "What's New"}
+                        value={selectedCategory || "What's Hot"}
                         onChange={handleChange}
                         className={isMobile ? classes.mobileSelectBox : classes.selectBox}
                       >
-                        <MenuItem value={"What's New"}>What's New</MenuItem>
+                        <MenuItem value={"What's Hot"}>What's Hot</MenuItem>
                         {categories.map((category) => (
                           <MenuItem value={category} key={category.id}>
                             {category.category}
