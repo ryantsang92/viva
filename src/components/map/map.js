@@ -213,19 +213,13 @@ const Map = ({
   };
 
   const renderMapPin = (categories) => {
-    if (categories.includes(4)) {
+    if (categories[0] === 1 || categories[0] === 6) {
       return MapPinDefault;
     }
-    if (categories.includes(2)) {
+    if (categories[0] === 2 || categories[0] === 3 || categories[0] === 4 || categories[0] === 5 || categories[0] === 8) {
       return MapPinOrange;
     }
-    if (categories.includes(3)) {
-      return MapPinDefault;
-    }
-    if (categories.includes(1)) {
-      return MapPinOrange;
-    }
-    if (categories.includes(5)) {
+    if (categories[0] === 7 || categories[0] === 9 || categories[0] === 10 || categories[0] === 11) {
       return MapPinBlue;
     }
     return MapPinDefault;
