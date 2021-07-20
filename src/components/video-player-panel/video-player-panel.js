@@ -11,7 +11,6 @@ import {
   Player,
   BigPlayButton,
   ControlBar,
-  TimeDivider,
   VolumeMenuButton,
 } from "video-react";
 import { SocialIcon } from "../social-icon";
@@ -84,20 +83,13 @@ const VideoPanel = ({ video, location, placePanelMode, isMobile }) => {
 
   const [inView, setInView] = useState(false);
 
-  const { thumbnail, url, title, description, user, user_platform } = video;
+  const { thumbnail, url, description, user, user_platform } = video;
 
   return (
     <InView onChange={setInView} className={classes.inview}>
       <Box
         className={isMobile ? classes.playerAreaMobile : classes.playerArea}
       >
-        {/*
-        <Box className={classes.playerBar}>
-          {inView && (
-            <Typography className={classes.locationTitle} variant="h6">{title || "Test Title"}</Typography>
-          )}
-        </Box>
-        */}
         <Box pt={2} pb={1} display="flex" flexDirection="row">
           <Box className={classes.profileImg}></Box>
           <Box display="flex" flexDirection="column">
