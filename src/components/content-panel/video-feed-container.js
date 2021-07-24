@@ -21,7 +21,6 @@ const mapStateToProps = (state, ownProps) => {
       : selectVideos(
           state,
           ownProps.selectedCategory,
-          // ownProps.placePanelMode ? ownProps.selectedLocation : null,
           null,
           true
         ),

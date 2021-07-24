@@ -19,7 +19,7 @@ export const selectVideos = (
 ) => {
   let returnData = selectVideoData(state)?.videos;
 
-  if (shuffle && !category) {
+  if (shuffle) {
     shuffleArray(returnData);
   }
 
