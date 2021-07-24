@@ -367,7 +367,7 @@ const PlacesPanel = ({
             </Box>
             <GoogleReviews reviews={reviews} />
             {yelp && (
-              <Box pb={1}>
+              <Box pt={1} pb={1}>
                 <YelpReviews reviews={yelp?.reviews?.reviews} />
               </Box>
             )}

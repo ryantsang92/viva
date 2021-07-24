@@ -4,7 +4,7 @@
   author: Ryan Tsang <ryan@vivatheapp.com>
 */
 
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Box,
   Accordion,
@@ -17,15 +17,16 @@ import PropTypes from "prop-types";
 const CollapsiblePanel = ({ description, title, content }) => {
   const [expanded, setExpanded] = React.useState(true);
 
+  useEffect(() => {
+    setExpanded(true);
+  }, [content]);
+
   const openPanel = () => {
     setExpanded(!expanded);
   };
 
   return (
-    <Accordion
-      expanded={expanded}
-      onChange={openPanel}
-    >
+    <Accordion expanded={expanded} onChange={openPanel}>
       <AccordionSummary
         expandIcon={<ExpandMoreIcon />}
         aria-controls={description + "-bh-content"}
@@ -34,9 +35,7 @@ const CollapsiblePanel = ({ description, title, content }) => {
         <Box pb={1}>{title}</Box>
       </AccordionSummary>
       <AccordionDetails>
-        <div>
-          {content}
-        </div>
+        <div>{content}</div>
       </AccordionDetails>
     </Accordion>
   );
