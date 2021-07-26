@@ -4,7 +4,7 @@
   author: Ryan Tsang <ryan@vivatheapp.com>
 */
 
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Typography, Box, IconButton } from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
@@ -38,13 +38,6 @@ const useStyles = makeStyles({
 
 const ImageFeed = ({ images, closePlaceImagePanel, isMobile }) => {
   const classes = useStyles();
-  const [items, setItems] = useState([]);
-
-  useEffect(() => {
-    if (images !== null) {
-      setItems(images?.slice(0, 5));
-    }
-  }, [images]);
 
   const handlePanelClose = () => {
     closePlaceImagePanel();
