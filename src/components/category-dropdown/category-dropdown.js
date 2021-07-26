@@ -6,6 +6,7 @@
 
 import React, { useEffect } from "react";
 import { Select, MenuItem } from "@material-ui/core";
+import { defaultCategory } from "../../app-constants";
 import { makeStyles } from "@material-ui/core/styles";
 import PropTypes from "prop-types";
 
@@ -58,7 +59,7 @@ const CategoryDropdown = ({
   const handleChange = (event) => {
     // update redux store
     closePlacePanels();
-    if (event.target.value === "What's Hot") {
+    if (event.target.value === defaultCategory) {
       clearSelectedCategory();
     } else {
       fetchSelectedCategory(event.target.value);
@@ -71,11 +72,11 @@ const CategoryDropdown = ({
     <Select
       labelId="category-picker-label"
       id="category-picker"
-      value={selectedCategory || "What's Hot"}
+      value={selectedCategory || defaultCategory}
       onChange={handleChange}
       className={isMobile ? classes.mobileSelectBox : classes.selectBox}
     >
-      <MenuItem value={"What's Hot"}>What's Hot</MenuItem>
+      <MenuItem value={defaultCategory}>{defaultCategory}</MenuItem>
       {categories.map((category) => (
         <MenuItem value={category} key={category.id}>
           {category.category}

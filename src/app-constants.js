@@ -54,3 +54,5 @@ export const newYork = {
   lngMin: -74.49818142948409,
   name: "New York",
 };
+
+export const defaultCategory = "What's Hot"
