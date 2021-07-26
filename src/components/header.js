@@ -21,6 +21,7 @@ import CloseIcon from "@material-ui/icons/Close";
 import GreenButton from "./common/green-button";
 import MobileMenuContainer from "./mobile-menu-container";
 import PillBoxContainer from "./pill-box/pill-box-container";
+import CategoryDropdownContainer from "./category-dropdown/category-dropdown-container";
 import MetroDropdownContainer from "./metro-dropdown/metro-dropdown-container";
 import SocialGrid from "./social-grid";
 import { hashtagObjects } from "../app-constants";
@@ -137,9 +138,7 @@ const useStyles = makeStyles((theme) => ({
     display: "none",
     flexDirection: "column",
   },
-  mobileNavcenter: {
-
-  },
+  mobileNavcenter: {},
   mobileSelectContainer: {
     flexGrow: 1,
     display: "flex",
@@ -187,7 +186,7 @@ const useStyles = makeStyles((theme) => ({
       alignItems: "center",
       paddingTop: 0,
       paddingBottom: 0,
-    }
+    },
   },
   mobileSelect: {
     display: "flex",
@@ -203,7 +202,7 @@ const useStyles = makeStyles((theme) => ({
   mobileSocialBox: {
     "& p": {
       display: "none",
-    }
+    },
   },
   left: {
     width: "100%",
@@ -247,7 +246,7 @@ const useStyles = makeStyles((theme) => ({
       padding: 0,
       display: "flex",
       alignItems: "center",
-    }
+    },
   },
   modalLogo: {
     borderRadius: 15,
@@ -325,7 +324,11 @@ const Header = ({
                 onClick={refreshPage}
               />
             </Box>
-            <Box className={classes.mobileSocialBox} display="flex" justifyContent="flex-end">
+            <Box
+              className={classes.mobileSocialBox}
+              display="flex"
+              justifyContent="flex-end"
+            >
               <SocialGrid />
               <MobileMenuContainer />
             </Box>
@@ -335,35 +338,22 @@ const Header = ({
               <Box spacing={2} className={classes.navbar}>
                 <Box className={classes.mobileSelectContainer}>
                   <Grid item className={classes.cityPicker}>
-                    <FormControl
-                      className={classes.formControlMobileLeft}
-                    >
-                      <InputLabel id="category-picker-label">Category</InputLabel>
+                    <FormControl className={classes.formControlMobileLeft}>
+                      <InputLabel id="category-picker-label">
+                        Category
+                      </InputLabel>
                       <Box pl={1} display="flex" justifyContent="flex-start">
-                        <Select
-                          labelId="category-picker-label"
-                          id="category-picker"
-                          value={selectedCategory || "What's New"}
-                          onChange={handleChange}
-                          className={classes.mobileSelectBox}
-                        >
-                          <MenuItem value={"What's New"}>What's New</MenuItem>
-                          {categories.map((category) => (
-                            <MenuItem value={category} key={category.id}>
-                              {category.category}
-                            </MenuItem>
-                          ))}
-                        </Select>
+                        <CategoryDropdownContainer isMobile={isMobile} />
                       </Box>
                     </FormControl>
                   </Grid>
                   <Grid item className={classes.cityPicker}>
-                    <FormControl
-                      className={classes.formControlMobileRight}
-                    >
+                    <FormControl className={classes.formControlMobileRight}>
                       <InputLabel id="city-picker-label">City</InputLabel>
                       <Box pl={1} display="flex" justifyContent="flex-start">
-                        <Box className={classes.mutedText} pr={1}>in</Box>
+                        <Box className={classes.mutedText} pr={1}>
+                          in
+                        </Box>
                         <MetroDropdownContainer isMobile={isMobile} />
                       </Box>
                     </FormControl>
@@ -374,7 +364,11 @@ const Header = ({
           </Box>
         </Box>
       )}
-      <Box display="flex" alignItems="flex-start" className={isMobile ? classes.mobileHeaderTop : classes.headerTop}>
+      <Box
+        display="flex"
+        alignItems="flex-start"
+        className={isMobile ? classes.mobileHeaderTop : classes.headerTop}
+      >
         <Box className={classes.logoContainer}>
           <Box className={classes.clear}>
             <img
@@ -399,20 +393,7 @@ const Header = ({
                   >
                     <InputLabel id="category-picker-label">Category</InputLabel>
                     <Box pl={1} display="flex" justifyContent="flex-start">
-                      <Select
-                        labelId="category-picker-label"
-                        id="category-picker"
-                        value={selectedCategory || "What's Hot"}
-                        onChange={handleChange}
-                        className={isMobile ? classes.mobileSelectBox : classes.selectBox}
-                      >
-                        <MenuItem value={"What's Hot"}>What's Hot</MenuItem>
-                        {categories.map((category) => (
-                          <MenuItem value={category} key={category.id}>
-                            {category.category}
-                          </MenuItem>
-                        ))}
-                      </Select>
+                      <CategoryDropdownContainer isMobile={isMobile} />
                     </Box>
                   </FormControl>
                 </Grid>
@@ -426,7 +407,13 @@ const Header = ({
                   >
                     <InputLabel id="city-picker-label">City</InputLabel>
                     <Box pl={1} display="flex" justifyContent="flex-start">
-                      <Box className={classes.mutedText} pr={1} style={{fontSize: 16}}>in</Box>
+                      <Box
+                        className={classes.mutedText}
+                        pr={1}
+                        style={{ fontSize: 16 }}
+                      >
+                        in
+                      </Box>
                       <MetroDropdownContainer isMobile={isMobile} />
                     </Box>
                   </FormControl>

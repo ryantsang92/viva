@@ -11,11 +11,8 @@ import {
   selectMapBounds,
   selectSelectedCity,
 } from "../../selectors/location-selectors";
-import {
-  saveSelectedCity,
-  clearSelectedLocation,
-  setRefresh,
-} from "../../actions/location-actions";
+import { saveSelectedCity, setRefresh } from "../../actions/location-actions";
+import { closePlacePanels } from "../../actions/combined-actions";
 import { saveSelectedMetro } from "../../actions/metro-actions";
 import MetroDropdown from "./metro-dropdown";
 import { refreshEverything } from "../../actions/combined-actions";
@@ -32,7 +29,7 @@ const mapDispatchToProps = (dispatch) => ({
   fetchMetros: () => dispatch(fetchMetros()),
   saveSelectedCity: (city) => dispatch(saveSelectedCity(city)),
   saveSelectedMetro: (metro) => dispatch(saveSelectedMetro(metro)),
-  clearSelectedLocation: () => dispatch(clearSelectedLocation()),
+  closePlacePanels: () => dispatch(closePlacePanels()),
   setRefresh: () => dispatch(setRefresh()),
   refreshEverything: (mapBounds) => dispatch(refreshEverything(mapBounds)),
 });
