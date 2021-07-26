@@ -7,7 +7,6 @@
 import { connect } from "react-redux";
 import {
   fetchLocationsV2,
-  clearSelectedLocation,
   saveSelectedLocation,
   saveMapBounds,
   setRefresh,
@@ -16,10 +15,7 @@ import {
 import { selectSelectedCategory } from "../../selectors/category-selectors";
 import { refreshEverything } from "../../actions/combined-actions";
 import { clearSelectedVideo, fetchVideosV2 } from "../../actions/video-actions";
-import {
-  closePlaceImagePanel,
-  closePlaceVideoPanel,
-} from "../../actions/place-panel-actions";
+import { closePlacePanels } from "../../actions/combined-actions";
 import {
   selectLocations,
   selectSelectedLocation,
@@ -48,7 +44,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => ({
   saveSelectedLocation: (location) => dispatch(saveSelectedLocation(location)),
-  clearSelectedLocation: () => dispatch(clearSelectedLocation()),
+  closePlacePanels: () => dispatch(closePlacePanels()),
   refreshEverything: (mapBounds) => dispatch(refreshEverything(mapBounds)),
   clearSelectedVideo: () => dispatch(clearSelectedVideo()),
   fetchLocationsV2: (latMin, latMax, lngMin, lngMax) =>
@@ -58,8 +54,6 @@ const mapDispatchToProps = (dispatch) => ({
   clearRefresh: () => dispatch(clearRefresh()),
   fetchVideosV2: (latMin, latMax, lngMin, lngMax) =>
     dispatch(fetchVideosV2(latMin, latMax, lngMin, lngMax)),
-  closePlaceVideoPanel: () => dispatch(closePlaceVideoPanel()),
-  closePlaceImagePanel: () => dispatch(closePlaceImagePanel()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Map);

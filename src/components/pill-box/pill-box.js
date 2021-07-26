@@ -25,22 +25,20 @@ const useStyles = makeStyles({
   arrow: {
     cursor: "pointer",
   },
-  toggleButton: {
-    paddingRight: 8,
-  },
 });
 
 const PillBox = ({
   categories,
   selectedCategory,
-  isMobile,
   fetchSelectedCategory,
   setRefresh,
+  closePlacePanels,
 }) => {
   const classes = useStyles();
 
   const handleChange = (event, category) => {
     setRefresh();
+    closePlacePanels();
     fetchSelectedCategory(category);
     window.scrollTo(0, 0);
   };
@@ -61,7 +59,6 @@ const PillBox = ({
             border={1}
             className={classes.pill}
             key={category.id}
-            // className={classes.toggleButton}
           >
             {category.category}
           </ToggleButton>
@@ -77,6 +74,7 @@ PillBox.propTypes = {
   isMobile: PropTypes.bool,
   fetchSelectedCategory: PropTypes.func,
   setRefresh: PropTypes.func,
+  closePlacePanels: PropTypes.func,
 };
 
 PillBox.defaultProps = {
@@ -85,6 +83,7 @@ PillBox.defaultProps = {
   isMobile: false,
   fetchSelectedCategory() {},
   setRefresh() {},
+  closePlacePanels() {},
 };
 
 export default PillBox;
