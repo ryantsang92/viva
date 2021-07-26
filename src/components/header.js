@@ -14,8 +14,6 @@ import {
   InputLabel,
   Modal,
   IconButton,
-  Select,
-  MenuItem,
 } from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
 import GreenButton from "./common/green-button";
@@ -54,11 +52,6 @@ const useStyles = makeStyles((theme) => ({
     height: 42,
     cursor: "pointer",
   },
-  pin: {
-    margin: "auto",
-    width: 20,
-    height: 24,
-  },
   navcenter: {
     flexGrow: 1,
     height: 116,
@@ -67,18 +60,12 @@ const useStyles = makeStyles((theme) => ({
     margin: 0,
     display: "flex",
     justifyContent: "center",
-    // width: "100%",
   },
   navbottom: {
     textAlign: "center",
     paddingTop: 16,
     display: "flex",
     justifyContent: "center",
-  },
-  quicklink: {
-    fontSize: 17,
-    fontWeight: 400,
-    margin: "0 13px",
   },
   selectContainer: {
     display: "flex",
@@ -93,7 +80,6 @@ const useStyles = makeStyles((theme) => ({
     paddingTop: 1,
     display: "flex",
     alignItems: "center",
-    // lineHeight: "30px",
   },
   cityPicker: {
     padding: "0 !important",
@@ -107,7 +93,6 @@ const useStyles = makeStyles((theme) => ({
     background: "#fff",
     borderRadius: "25px 0 0 25px",
     textAlign: "left",
-    // height: 32,
     "& label": {
       display: "none",
     },
@@ -138,7 +123,6 @@ const useStyles = makeStyles((theme) => ({
     display: "none",
     flexDirection: "column",
   },
-  mobileNavcenter: {},
   mobileSelectContainer: {
     flexGrow: 1,
     display: "flex",
@@ -175,23 +159,6 @@ const useStyles = makeStyles((theme) => ({
       marginTop: 0,
     },
   },
-  mobileSelectBox: {
-    fontSize: 15,
-    width: "100%",
-    paddingLeft: 12,
-    lineHeight: "15px",
-    "& >div": {
-      height: 32,
-      display: "flex",
-      alignItems: "center",
-      paddingTop: 0,
-      paddingBottom: 0,
-    },
-  },
-  mobileSelect: {
-    display: "flex",
-    alignItems: "flex-end",
-  },
   mobileLogoContainer: {
     display: "flex",
     alignItems: "center",
@@ -204,19 +171,9 @@ const useStyles = makeStyles((theme) => ({
       display: "none",
     },
   },
-  left: {
-    width: "100%",
-  },
-  hashContainer: {
-    padding: "0 !important",
-  },
   clear: {
     padding: "0 !important",
     margin: "0 !important",
-  },
-  menuLink: {
-    color: "#555",
-    fontSize: 18,
   },
   paper: {
     position: "fixed",
@@ -226,27 +183,6 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.background.paper,
     borderRadius: 15,
     boxShadow: theme.shadows[5],
-  },
-  paperMobile: {
-    position: "fixed",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    backgroundColor: theme.palette.background.paper,
-    borderRadius: 15,
-    boxShadow: theme.shadows[5],
-  },
-  selectBox: {
-    fontSize: "1rem",
-    paddingLeft: 15,
-    paddingTop: 10,
-    paddingBottom: 10,
-    width: "100%",
-    "& >div": {
-      padding: 0,
-      display: "flex",
-      alignItems: "center",
-    },
   },
   modalLogo: {
     borderRadius: 15,
@@ -263,7 +199,6 @@ const Header = ({
   selectedVideo,
   selectedCity,
   clearSelectedVideo,
-  selectedCategory,
   fetchSelectedCategory,
   clearSelectedCategory,
   isMobile,
@@ -333,7 +268,7 @@ const Header = ({
               <MobileMenuContainer />
             </Box>
           </Box>
-          <Box p={1} className={classes.mobileNavcenter}>
+          <Box p={1}>
             <Box>
               <Box spacing={2} className={classes.navbar}>
                 <Box className={classes.mobileSelectContainer}>

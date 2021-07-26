@@ -11,10 +11,7 @@ import {
   clearSelectedLocation,
   setRefresh,
 } from "../actions/location-actions";
-import {
-  selectCategoryData,
-  selectSelectedCategory,
-} from "../selectors/category-selectors";
+import { selectCategoryData } from "../selectors/category-selectors";
 import { selectSelectedCity } from "../selectors/location-selectors";
 import { selectSelectedVideo } from "../selectors/video-selectors";
 import { clearSelectedVideo } from "../actions/video-actions";
@@ -30,7 +27,6 @@ const mapStateToProps = (state) => {
     selectedVideo: selectSelectedVideo(state),
     selectedCity: selectSelectedCity(state),
     categories: selectCategoryData(state).categories,
-    selectedCategory: selectSelectedCategory(state),
   };
 };
 
