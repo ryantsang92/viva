@@ -38,7 +38,6 @@ const PillBox = ({
 
   const handleChange = (event, category) => {
     setRefresh();
-    console.log("handleChange");
     closePlacePanels();
     fetchSelectedCategory(category);
     window.scrollTo(0, 0);

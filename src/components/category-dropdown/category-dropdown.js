@@ -58,7 +58,7 @@ const CategoryDropdown = ({
   const handleChange = (event) => {
     // update redux store
     closePlacePanels();
-    if (event.target.value === "What's New") {
+    if (event.target.value === "What's Hot") {
       clearSelectedCategory();
     } else {
       fetchSelectedCategory(event.target.value);
