@@ -200,11 +200,9 @@ const Header = ({
   selectedCity,
   clearSelectedVideo,
   fetchSelectedCategory,
-  clearSelectedCategory,
   isMobile,
   categories,
   fetchCategories,
-  setRefresh,
 }) => {
   const classes = useStyles();
 
@@ -233,17 +231,6 @@ const Header = ({
   const onHashtagClick = (category) => {
     fetchSelectedCategory(category);
     handleModalClose();
-  };
-
-  const handleChange = (event) => {
-    // update redux store
-    if (event.target.value === "What's New") {
-      clearSelectedCategory();
-    } else {
-      fetchSelectedCategory(event.target.value);
-      window.scrollTo(0, 0);
-      setRefresh();
-    }
   };
 
   return (
@@ -489,7 +476,6 @@ Header.propTypes = {
   categories: PropTypes.array,
   clearSelectedVideo: PropTypes.func,
   fetchSelectedCategory: PropTypes.func,
-  clearSelectedCategory: PropTypes.func,
   fetchCategories: PropTypes.func,
 };
 
@@ -500,7 +486,6 @@ Header.defaultProps = {
   categories: [],
   clearSelectedVideo() {},
   fetchSelectedCategory() {},
-  clearSelectedCategory() {},
   fetchCategories() {},
 };
 
