@@ -14,6 +14,7 @@ import {
 } from "@material-ui/core";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import { makeStyles } from "@material-ui/core/styles";
+import MapPinDefault from "../../assets/map-pin-default.png";
 import PropTypes from "prop-types";
 
 const useStyles = makeStyles({
@@ -34,10 +35,11 @@ const useStyles = makeStyles({
   },
   yellow: {
     background: "#f6f1d7",
+    paddingLeft: 8,
   },
   card: {
     boxShadow: "none",
-  }
+  },
 });
 
 const LocationCard = ({
@@ -60,14 +62,33 @@ const LocationCard = ({
     <Card className={classes.card}>
       <CardActionArea onClick={onCardClick}>
         <CardContent className={classes.yellow}>
-          <Box display="flex" justifyContent="space-between" alignItems="center">
-            <Box>
-              <Box display="flex" justifyContent="flex-start" alignItems="center">
-                <Typography gutterBottom variant="h6" component="h6" className={classes.locationTitle}>
+          <Box
+            display="flex"
+            justifyContent="space-between"
+            alignItems="center"
+          >
+            <img src={MapPinDefault} alt="VIVA" />
+            <Box pl={1}>
+              <Box
+                display="flex"
+                justifyContent="flex-start"
+                alignItems="center"
+              >
+                <Typography
+                  gutterBottom
+                  variant="h6"
+                  component="h6"
+                  className={classes.locationTitle}
+                >
                   {name}
                 </Typography>
               </Box>
-              <Typography className={classes.locationAddr} variant="body2" color="textSecondary" component="p">
+              <Typography
+                className={classes.locationAddr}
+                variant="body2"
+                color="textSecondary"
+                component="p"
+              >
                 {address}
               </Typography>
             </Box>
