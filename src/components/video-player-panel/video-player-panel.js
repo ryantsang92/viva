@@ -92,7 +92,8 @@ const VideoPanel = ({ video, location, placePanelMode, isMobile }) => {
         </Box>
         {inView ? (
           <Player
-            autoPlay={!isMobile}
+            autoPlay
+            playsInline
             muted
             loop
             preload="none"
