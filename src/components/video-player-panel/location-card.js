@@ -15,6 +15,7 @@ import {
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import { makeStyles } from "@material-ui/core/styles";
 import MapPinDefault from "../../assets/map-pin-default.png";
+import { renderMapPin } from "../../common/common-functions";
 import PropTypes from "prop-types";
 
 const useStyles = makeStyles({
@@ -67,7 +68,7 @@ const LocationCard = ({
             justifyContent="space-between"
             alignItems="center"
           >
-            <img src={MapPinDefault} alt="VIVA" />
+            <img src={renderMapPin(location.categories)} alt="VIVA" />
             <Box pl={1} flexGrow={1}>
               <Box
                 display="flex"
