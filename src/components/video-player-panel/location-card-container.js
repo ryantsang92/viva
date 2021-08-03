@@ -8,7 +8,17 @@ import { connect } from "react-redux";
 import { fetchGooglePlaceData } from "../../actions/place-panel-actions";
 import { saveSelectedLocation } from "../../actions/location-actions";
 import { clearSelectedCategory } from "../../actions/category-actions";
+import { selectCategoryFromLocation } from "../../selectors/category-selectors";
 import LocationCard from "./location-card";
+
+const mapStateToProps = (state, ownProps) => {
+  return {
+    locationCategory: selectCategoryFromLocation(
+      state,
+      ownProps?.location?.categories[0]
+    ),
+  };
+};
 
 const mapDispatchToProps = (dispatch) => ({
   fetchGooglePlaceData: (placeId) => dispatch(fetchGooglePlaceData(placeId)),
@@ -16,4 +26,4 @@ const mapDispatchToProps = (dispatch) => ({
   clearSelectedCategory: () => dispatch(clearSelectedCategory()),
 });
 
-export default connect(null, mapDispatchToProps)(LocationCard);
+export default connect(mapStateToProps, mapDispatchToProps)(LocationCard);

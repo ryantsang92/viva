@@ -26,9 +26,8 @@ const useStyles = makeStyles({
     fontSize: 18,
     lineHeight: "1em",
   },
-  locationAddr: {
+  locationSubtitle: {
     fontSize: 15,
-    width: 250,
     whiteSpace: "nowrap",
     overflow: "hidden",
     textOverflow: "ellipsis",
@@ -44,13 +43,14 @@ const useStyles = makeStyles({
 
 const LocationCard = ({
   location,
+  locationCategory,
   fetchGooglePlaceData,
   saveSelectedLocation,
   clearSelectedCategory,
 }) => {
   const classes = useStyles();
 
-  const { address, g_place_id, name } = location;
+  const { g_place_id, name } = location;
 
   const onCardClick = () => {
     fetchGooglePlaceData(g_place_id);
@@ -68,7 +68,7 @@ const LocationCard = ({
             alignItems="center"
           >
             <img src={MapPinDefault} alt="VIVA" />
-            <Box pl={1}>
+            <Box pl={1} flexGrow={1}>
               <Box
                 display="flex"
                 justifyContent="flex-start"
@@ -84,12 +84,12 @@ const LocationCard = ({
                 </Typography>
               </Box>
               <Typography
-                className={classes.locationAddr}
+                className={classes.locationSubtitle}
                 variant="body2"
                 color="textSecondary"
                 component="p"
               >
-                {address}
+                {locationCategory.category}
               </Typography>
             </Box>
             <Box pl={1}>
@@ -104,12 +104,14 @@ const LocationCard = ({
 
 LocationCard.propTypes = {
   location: PropTypes.object.isRequired,
+  locationCategory: PropTypes.object,
   fetchGooglePlaceData: PropTypes.func,
   saveSelectedLocation: PropTypes.func,
   clearSelectedCategory: PropTypes.func,
 };
 
 LocationCard.defaultProps = {
+  locationCategory: null,
   fetchGooglePlaceData() {},
   saveSelectedLocation() {},
   clearSelectedCategory() {},

@@ -19,3 +19,9 @@ export const selectCategoryError = (state) => {
 export const selectSelectedCategory = (state) => {
   return selectCategoryData(state)?.selectedCategory;
 };
+
+export const selectCategoryFromLocation = (state, categoryId) => {
+  return selectCategoryData(state).categories.filter(
+    (category) => (category.id === categoryId)
+  )[0];
+};
