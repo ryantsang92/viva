@@ -15,7 +15,7 @@ const mapStateToProps = (state, ownProps) => {
   return {
     locationCategory: selectCategoryFromLocation(
       state,
-      ownProps?.location?.categories[0] || null
+      ownProps?.location?.categories[0]
     ),
   };
 };

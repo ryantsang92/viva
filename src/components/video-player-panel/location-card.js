@@ -15,6 +15,7 @@ import {
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import { makeStyles } from "@material-ui/core/styles";
 import { renderMapPin } from "../../common/common-functions";
+import MapPinDefault from "../../assets/map-pin-default.png"
 import PropTypes from "prop-types";
 
 const useStyles = makeStyles({
@@ -50,7 +51,7 @@ const LocationCard = ({
 }) => {
   const classes = useStyles();
 
-  const { g_place_id, name } = location;
+  const { g_place_id, name, categories } = location || {};
 
   const onCardClick = () => {
     fetchGooglePlaceData(g_place_id);
@@ -67,7 +68,7 @@ const LocationCard = ({
             justifyContent="space-between"
             alignItems="center"
           >
-            <img src={renderMapPin(location.categories)} alt="VIVA" />
+            <img src={categories ? renderMapPin(categories) : MapPinDefault} alt="VIVA" />
             <Box pl={1} flexGrow={1}>
               <Box
                 display="flex"
@@ -103,7 +104,7 @@ const LocationCard = ({
 };
 
 LocationCard.propTypes = {
-  location: PropTypes.object.isRequired,
+  location: PropTypes.object,
   locationCategory: PropTypes.object,
   fetchGooglePlaceData: PropTypes.func,
   saveSelectedLocation: PropTypes.func,
@@ -111,6 +112,10 @@ LocationCard.propTypes = {
 };
 
 LocationCard.defaultProps = {
+  location: {
+    g_place_id: null,
+    id: null,
+  },
   locationCategory: null,
   fetchGooglePlaceData() {},
   saveSelectedLocation() {},

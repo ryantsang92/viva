@@ -98,7 +98,7 @@ const mapStyle = [
     featureType: "poi.sports_complex",
     stylers: [
       {
-        visibility: "simplified",
+        visibility: "off",
       },
     ],
   },
