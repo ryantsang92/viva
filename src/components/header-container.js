@@ -14,10 +14,7 @@ import { selectCategoryData } from "../selectors/category-selectors";
 import { selectSelectedCity } from "../selectors/location-selectors";
 import { selectSelectedVideo } from "../selectors/video-selectors";
 import { clearSelectedVideo } from "../actions/video-actions";
-import {
-  fetchCategories,
-  fetchSelectedCategory,
-} from "../actions/category-actions";
+import { fetchCategories } from "../actions/category-actions";
 import Header from "./header";
 
 const mapStateToProps = (state) => {
@@ -34,8 +31,6 @@ const mapDispatchToProps = (dispatch) => ({
   clearSelectedVideo: () => dispatch(clearSelectedVideo()),
   clearSelectedLocation: () => dispatch(clearSelectedLocation()),
   fetchCategories: () => dispatch(fetchCategories()),
-  fetchSelectedCategory: (category) =>
-    dispatch(fetchSelectedCategory(category)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header);
