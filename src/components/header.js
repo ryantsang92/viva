@@ -251,8 +251,8 @@ const Header = ({
               display="flex"
               justifyContent="flex-end"
             >
-              <SocialGrid />
-              <MobileMenuContainer />
+              <SocialGrid isMobile={isMobile}/>
+              <MobileMenuContainer isMobile={isMobile}/>
             </Box>
           </Box>
           <Box p={1}>
@@ -356,8 +356,8 @@ const Header = ({
           flexDirection="row"
           pt={2}
         >
-          <SocialGrid />
-          <MobileMenuContainer />
+          <SocialGrid isMobile={isMobile} />
+          <MobileMenuContainer isMobile={isMobile} />
         </Box>
       </Box>
       {!isMobile && (

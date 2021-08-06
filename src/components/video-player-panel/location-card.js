@@ -14,7 +14,6 @@ import {
 } from "@material-ui/core";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import { makeStyles } from "@material-ui/core/styles";
-import MapPinDefault from "../../assets/map-pin-default.png";
 import { renderMapPin } from "../../common/common-functions";
 import PropTypes from "prop-types";
 
@@ -90,7 +89,7 @@ const LocationCard = ({
                 color="textSecondary"
                 component="p"
               >
-                {locationCategory.category}
+                {locationCategory?.category}
               </Typography>
             </Box>
             <Box pl={1}>

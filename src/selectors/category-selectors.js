@@ -21,7 +21,7 @@ export const selectSelectedCategory = (state) => {
 };
 
 export const selectCategoryFromLocation = (state, categoryId) => {
-  return selectCategoryData(state).categories.filter(
+  return selectCategoryData(state)?.categories?.filter(
     (category) => (category.id === categoryId)
   )[0];
 };
