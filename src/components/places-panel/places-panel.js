@@ -171,13 +171,7 @@ const PlacesPanel = ({
       };
     });
 
-    console.log(photos1)
-    console.log(photos2)
-
-    console.log(photos1.concat(photos2));
-
     return photos2 ? photos1.concat(photos2) : photos1;
-    // return photos1.concat(photos2);
   };
 
   return (
