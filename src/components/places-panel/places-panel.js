@@ -163,17 +163,20 @@ const PlacesPanel = ({
       };
     });
 
-    // const photos2 = yelpPhotos?.map((photo) => {
-    //   count++;
-    //   return {
-    //     id: "img-" + count,
-    //     src: photo,
-    //   };
-    // });
+    const photos2 = yelpPhotos?.map((photo) => {
+      count++;
+      return {
+        id: "img-" + count,
+        src: photo,
+      };
+    });
 
-    // console.log(photos1.concat(photos2));
+    console.log(photos1)
+    console.log(photos2)
 
-    return photos1;
+    console.log(photos1.concat(photos2));
+
+    return photos2 ? photos1.concat(photos2) : photos1;
     // return photos1.concat(photos2);
   };
 
