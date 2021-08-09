@@ -6,12 +6,7 @@
 
 import React, { useEffect } from "react";
 import logo from "../assets/viva-logo-final.svg";
-import {
-  Box,
-  Grid,
-  FormControl,
-  InputLabel,
-} from "@material-ui/core";
+import { Box, Grid, FormControl, InputLabel } from "@material-ui/core";
 import MobileMenuContainer from "./mobile-menu-container";
 import PillBoxContainer from "./pill-box/pill-box-container";
 import CategoryDropdownContainer from "./category-dropdown/category-dropdown-container";
@@ -81,24 +76,11 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     width: "100%",
   },
-  formControl1: {
+  formControl: {
     minWidth: 150,
     width: "100%",
     background: "#fff",
-    borderRadius: "25px 0 0 25px",
-    textAlign: "left",
-    "& label": {
-      display: "none",
-    },
-    "& > div": {
-      marginTop: 0,
-    },
-  },
-  formControl2: {
-    minWidth: 150,
-    width: "100%",
-    background: "#fff",
-    borderRadius: "0 25px 25px 0",
+    borderRadius: 25,
     textAlign: "left",
     "& label": {
       display: "none",
@@ -164,6 +146,9 @@ const useStyles = makeStyles((theme) => ({
   clear: {
     padding: "0 !important",
     margin: "0 !important",
+  },
+  in: {
+    alignSelf: "center",
   },
 }));
 
@@ -260,24 +245,25 @@ const Header = ({
             <Box spacing={2} className={classes.navbar}>
               <Box className={classes.selectContainer}>
                 <Grid item className={classes.cityPicker}>
-                  <FormControl className={classes.formControl1}>
+                  <FormControl className={classes.formControl}>
                     <InputLabel id="category-picker-label">Category</InputLabel>
                     <Box pl={1} display="flex" justifyContent="flex-start">
                       <CategoryDropdownContainer isMobile={isMobile} />
                     </Box>
                   </FormControl>
                 </Grid>
-                <Grid item>
+                <Grid item className={classes.in}>
                   <Box
                     className={classes.mutedText}
                     pr={1}
+                    pl={1}
                     style={{ fontSize: 16 }}
                   >
                     in
                   </Box>
                 </Grid>
                 <Grid item className={classes.cityPicker}>
-                  <FormControl className={classes.formControl2}>
+                  <FormControl className={classes.formControl}>
                     <InputLabel id="city-picker-label">City</InputLabel>
                     <Box pl={1} display="flex" justifyContent="flex-start">
                       <MetroDropdownContainer isMobile={isMobile} />
