@@ -22,14 +22,15 @@ const useStyles = makeStyles({
     position: "relative",
   },
   scrollToTopIconContainer: {
-    position: "absolute",
-    top: 45,
+    position: "relative",
+    // top: 45,
     left: "50%",
     transform: "translate(-50%)",
     zIndex: 999,
     cursor: "pointer",
     opacity: 0.7,
     textAlign: "center",
+    backgroundColor: "none",
     "&:hover": {
       opacity: 1,
       animation: "wiggle 1s ease",
@@ -53,6 +54,7 @@ const useStyles = makeStyles({
     fontSize: 16,
     borderRadius: 15,
     width: 100,
+    textAlign: "center",
   },
 });
 
@@ -78,25 +80,26 @@ const ScrollingWrapper = ({ children, refresh, isMobile }) => {
     }
   };
 
+  console.log(scrollingWrapper);
   return (
     <>
       {hasScrolled && (
-        <div
+        <Box
           className={classes.scrollToTopIconContainer}
           onClick={() => scrollToTop()}
         >
           <Box mt={1} p={1} className={classes.button}>
             Back to top
           </Box>
-        </div>
+        </Box>
       )}
-      <div
+      <Box
         onScroll={onScroll}
         className={classes.scrollingWrapperContainer}
         ref={scrollingWrapper}
       >
         {children}
-      </div>
+      </Box>
     </>
   );
 };
