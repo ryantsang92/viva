@@ -25,6 +25,7 @@ import InfoIcon from "@material-ui/icons/Info";
 import GreenButton from "./common/green-button";
 import { hashtagObjects } from "../app-constants";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
+import PropTypes from "prop-types";
 
 const useStyles = makeStyles((theme) => ({
   paperMobile: {
@@ -74,7 +75,7 @@ const StyledMenu = withStyles({
   />
 ));
 
-const MobileMenu = ({ fetchSelectedHashtag }) => {
+const MobileMenu = ({ fetchSelectedHashtag, isMobile }) => {
   const classes = useStyles();
   const [modalOpen, setModalOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
@@ -112,10 +113,12 @@ const MobileMenu = ({ fetchSelectedHashtag }) => {
     handleModalClose();
   };
 
+  const style = isMobile ? { fontSize: 48 } : {};
+
   return (
-    <Box pr={1}>
-      <IconButton onClick={handleDrawerOpen} size="small">
-        <MenuIcon />
+    <>
+      <IconButton onClick={handleDrawerOpen} size="medium">
+        <MenuIcon style={style} />
       </IconButton>
       <StyledMenu
         id="customized-menu"
@@ -144,7 +147,6 @@ const MobileMenu = ({ fetchSelectedHashtag }) => {
           </ListItem>
         </MenuItem>
       </StyledMenu>
-
       <Modal
         open={modalOpen}
         onClose={handleModalClose}
@@ -227,8 +229,18 @@ const MobileMenu = ({ fetchSelectedHashtag }) => {
           </Box>
         </div>
       </Modal>
-    </Box>
+    </>
   );
+};
+
+MobileMenu.propTypes = {
+  fetchSelectedHashtag: PropTypes.func,
+  isMobile: PropTypes.bool,
+};
+
+MobileMenu.defaultProps = {
+  fetchSelectedHashtag() {},
+  isMobile: false,
 };
 
 export default MobileMenu;

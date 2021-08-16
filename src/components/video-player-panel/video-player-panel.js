@@ -71,7 +71,7 @@ const useStyles = makeStyles({
   },
 });
 
-const VideoPanel = ({ video, location, placePanelMode, isMobile }) => {
+const VideoPlayerPanel = ({ video, location, placePanelMode, isMobile }) => {
   const classes = useStyles();
 
   const [inView, setInView] = useState(false);
@@ -121,7 +121,9 @@ const VideoPanel = ({ video, location, placePanelMode, isMobile }) => {
               </Typography>
             </Box>
           )}
-          {!placePanelMode && <LocationCardContainer location={location} />}
+          {!placePanelMode && (
+            <LocationCardContainer location={location} />
+          )}
         </Box>
       </Box>
       <Divider />
@@ -129,21 +131,18 @@ const VideoPanel = ({ video, location, placePanelMode, isMobile }) => {
   );
 };
 
-VideoPanel.propTypes = {
+VideoPlayerPanel.propTypes = {
   video: PropTypes.object,
   location: PropTypes.object,
   placePanelMode: PropTypes.bool,
   isMobile: PropTypes.bool,
 };
 
-VideoPanel.defaultProps = {
+VideoPlayerPanel.defaultProps = {
   video: null,
-  location: {
-    address_full: null,
-    website: null,
-  },
+  location: null,
   placePanelMode: false,
   isMobile: false,
 };
 
-export default VideoPanel;
+export default VideoPlayerPanel;

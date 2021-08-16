@@ -4,25 +4,14 @@
   author: Ryan Tsang <ryan@vivatheapp.com>
 */
 
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import logo from "../assets/viva-logo-final.svg";
-import {
-  Box,
-  Typography,
-  Grid,
-  FormControl,
-  InputLabel,
-  Modal,
-  IconButton,
-} from "@material-ui/core";
-import CloseIcon from "@material-ui/icons/Close";
-import GreenButton from "./common/green-button";
+import { Box, Grid, FormControl, InputLabel } from "@material-ui/core";
 import MobileMenuContainer from "./mobile-menu-container";
 import PillBoxContainer from "./pill-box/pill-box-container";
 import CategoryDropdownContainer from "./category-dropdown/category-dropdown-container";
 import MetroDropdownContainer from "./metro-dropdown/metro-dropdown-container";
 import SocialGrid from "./social-grid";
-import { hashtagObjects } from "../app-constants";
 import { makeStyles } from "@material-ui/core/styles";
 import PropTypes from "prop-types";
 
@@ -69,8 +58,6 @@ const useStyles = makeStyles((theme) => ({
   },
   selectContainer: {
     display: "flex",
-    boxShadow: "0px 3px 6px 3px rgba(0,0,0,0.1)",
-    borderRadius: 20,
     width: "80%",
     maxWidth: 600,
   },
@@ -82,29 +69,18 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
   },
   cityPicker: {
+    boxShadow: "0px 3px 6px 3px rgba(0,0,0,0.1)",
+    borderRadius: 20,
     padding: "0 !important",
     display: "flex",
     alignItems: "center",
     width: "100%",
   },
-  formControl1: {
+  formControl: {
     minWidth: 150,
     width: "100%",
     background: "#fff",
-    borderRadius: "25px 0 0 25px",
-    textAlign: "left",
-    "& label": {
-      display: "none",
-    },
-    "& > div": {
-      marginTop: 0,
-    },
-  },
-  formControl2: {
-    minWidth: 150,
-    width: "100%",
-    background: "#fff",
-    borderRadius: "0 25px 25px 0",
+    borderRadius: 25,
     textAlign: "left",
     "& label": {
       display: "none",
@@ -118,10 +94,6 @@ const useStyles = makeStyles((theme) => ({
     top: -60,
     zIndex: 9,
     backgroundColor: "white",
-  },
-  mobileHeaderTop: {
-    display: "none",
-    flexDirection: "column",
   },
   mobileSelectContainer: {
     flexGrow: 1,
@@ -175,23 +147,8 @@ const useStyles = makeStyles((theme) => ({
     padding: "0 !important",
     margin: "0 !important",
   },
-  paper: {
-    position: "fixed",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    backgroundColor: theme.palette.background.paper,
-    borderRadius: 15,
-    boxShadow: theme.shadows[5],
-  },
-  modalLogo: {
-    borderRadius: 15,
-    height: "100%",
-    width: "100%",
-    backgroundColor: "#F7F0D7",
-  },
-  blockQuote: {
-    paddingLeft: "15px",
+  in: {
+    alignSelf: "center",
   },
 }));
 
@@ -199,15 +156,11 @@ const Header = ({
   selectedVideo,
   selectedCity,
   clearSelectedVideo,
-  fetchSelectedCategory,
   isMobile,
   categories,
   fetchCategories,
 }) => {
   const classes = useStyles();
-
-  const [modalOpen, setModalOpen] = useState(false);
-
   useEffect(() => {
     if (selectedVideo && selectedCity && selectedVideo.metro !== selectedCity) {
       clearSelectedVideo();
@@ -220,23 +173,14 @@ const Header = ({
     }
   }, [categories, fetchCategories]);
 
-  const handleModalClose = () => {
-    setModalOpen(false);
-  };
-
   const refreshPage = () => {
     window.location.reload();
   };
 
-  const onHashtagClick = (category) => {
-    fetchSelectedCategory(category);
-    handleModalClose();
-  };
-
   return (
     <div className={isMobile ? classes.mobileHeader : classes.header}>
-      {isMobile && (
-        <Box>
+      {isMobile ? (
+        <>
           <Box className={classes.mobileLogoContainer}>
             <Box className={classes.clear}>
               <img
@@ -251,68 +195,15 @@ const Header = ({
               display="flex"
               justifyContent="flex-end"
             >
-              <SocialGrid />
-              <MobileMenuContainer />
+              <SocialGrid isMobile={isMobile} />
+              <MobileMenuContainer isMobile={isMobile} />
             </Box>
           </Box>
           <Box p={1}>
-            <Box>
-              <Box spacing={2} className={classes.navbar}>
-                <Box className={classes.mobileSelectContainer}>
-                  <Grid item className={classes.cityPicker}>
-                    <FormControl className={classes.formControlMobileLeft}>
-                      <InputLabel id="category-picker-label">
-                        Category
-                      </InputLabel>
-                      <Box pl={1} display="flex" justifyContent="flex-start">
-                        <CategoryDropdownContainer isMobile={isMobile} />
-                      </Box>
-                    </FormControl>
-                  </Grid>
-                  <Grid item className={classes.cityPicker}>
-                    <FormControl className={classes.formControlMobileRight}>
-                      <InputLabel id="city-picker-label">City</InputLabel>
-                      <Box pl={1} display="flex" justifyContent="flex-start">
-                        <Box className={classes.mutedText} pr={1}>
-                          in
-                        </Box>
-                        <MetroDropdownContainer isMobile={isMobile} />
-                      </Box>
-                    </FormControl>
-                  </Grid>
-                </Box>
-              </Box>
-            </Box>
-          </Box>
-        </Box>
-      )}
-      <Box
-        display="flex"
-        alignItems="flex-start"
-        className={isMobile ? classes.mobileHeaderTop : classes.headerTop}
-      >
-        <Box className={classes.logoContainer}>
-          <Box className={classes.clear}>
-            <img
-              src={logo}
-              alt="VIVA"
-              className={classes.logo}
-              onClick={refreshPage}
-            />
-          </Box>
-        </Box>
-        <Box pt={2} className={classes.navcenter}>
-          <Box>
             <Box spacing={2} className={classes.navbar}>
-              <Box className={classes.selectContainer}>
+              <Box className={classes.mobileSelectContainer}>
                 <Grid item className={classes.cityPicker}>
-                  <FormControl
-                    className={
-                      isMobile
-                        ? classes.formControlMobile
-                        : classes.formControl1
-                    }
-                  >
+                  <FormControl className={classes.formControlMobileLeft}>
                     <InputLabel id="category-picker-label">Category</InputLabel>
                     <Box pl={1} display="flex" justifyContent="flex-start">
                       <CategoryDropdownContainer isMobile={isMobile} />
@@ -320,20 +211,10 @@ const Header = ({
                   </FormControl>
                 </Grid>
                 <Grid item className={classes.cityPicker}>
-                  <FormControl
-                    className={
-                      isMobile
-                        ? classes.formControlMobile
-                        : classes.formControl2
-                    }
-                  >
+                  <FormControl className={classes.formControlMobileRight}>
                     <InputLabel id="city-picker-label">City</InputLabel>
                     <Box pl={1} display="flex" justifyContent="flex-start">
-                      <Box
-                        className={classes.mutedText}
-                        pr={1}
-                        style={{ fontSize: 16 }}
-                      >
+                      <Box className={classes.mutedText} pr={1}>
                         in
                       </Box>
                       <MetroDropdownContainer isMobile={isMobile} />
@@ -343,127 +224,69 @@ const Header = ({
               </Box>
             </Box>
           </Box>
-          {!isMobile && (
+        </>
+      ) : (
+        <Box
+          display="flex"
+          alignItems="flex-start"
+          className={classes.headerTop}
+        >
+          <Box className={classes.logoContainer}>
+            <Box className={classes.clear}>
+              <img
+                src={logo}
+                alt="VIVA"
+                className={classes.logo}
+                onClick={refreshPage}
+              />
+            </Box>
+          </Box>
+          <Box pt={2} className={classes.navcenter}>
+            <Box spacing={2} className={classes.navbar}>
+              <Box className={classes.selectContainer}>
+                <Grid item className={classes.cityPicker}>
+                  <FormControl className={classes.formControl}>
+                    <InputLabel id="category-picker-label">Category</InputLabel>
+                    <Box pl={1} display="flex" justifyContent="flex-start">
+                      <CategoryDropdownContainer isMobile={isMobile} />
+                    </Box>
+                  </FormControl>
+                </Grid>
+                <Grid item className={classes.in}>
+                  <Box
+                    className={classes.mutedText}
+                    pr={1}
+                    pl={1}
+                    style={{ fontSize: 16 }}
+                  >
+                    in
+                  </Box>
+                </Grid>
+                <Grid item className={classes.cityPicker}>
+                  <FormControl className={classes.formControl}>
+                    <InputLabel id="city-picker-label">City</InputLabel>
+                    <Box pl={1} display="flex" justifyContent="flex-start">
+                      <MetroDropdownContainer isMobile={isMobile} />
+                    </Box>
+                  </FormControl>
+                </Grid>
+              </Box>
+            </Box>
             <Box pt={2} className={classes.navbottom}>
               <PillBoxContainer isMobile={isMobile} categories={categories} />
             </Box>
-          )}
-        </Box>
-        <Box
-          display="flex"
-          justifyContent="flex-end"
-          alignItems="center"
-          flexDirection="row"
-          pt={2}
-        >
-          <SocialGrid />
-          <MobileMenuContainer />
-        </Box>
-      </Box>
-      {!isMobile && (
-        <Modal
-          open={modalOpen}
-          onClose={handleModalClose}
-          aria-labelledby="simple-modal-title"
-          aria-describedby="simple-modal-description"
-        >
-          <Box className={classes.paper}>
-            <Grid container>
-              <Grid item xs={4}>
-                <Box
-                  className={classes.modalLogo}
-                  display="flex"
-                  justifyContent="center"
-                  alignItems="center"
-                >
-                  <img src={logo} alt="VIVA" className={classes.logo} />
-                </Box>
-              </Grid>
-              <Grid item xs={8}>
-                <Box pl={2} pt={2} pb={2} pr={2}>
-                  <Box mb={2} display="flex">
-                    <Box width="100%">
-                      <Typography variant="h5" id="simple-modal-title">
-                        Welcome to VIVA!
-                      </Typography>
-                    </Box>
-                    <Box flexShrink={0}>
-                      <IconButton onClick={handleModalClose} size="small">
-                        <CloseIcon />
-                      </IconButton>
-                    </Box>
-                  </Box>
-                  <Box mb={2}>
-                    <Typography id="simple-modal-description">
-                      <Typography>
-                        VIVA is a social exploration platform where you can
-                        quickly and easily discover places to go and things to
-                        do from people like you.
-                      </Typography>
-                      <br></br>
-                      <Typography>
-                        If you ever feel like changing up your day, VIVA gets
-                        you instant access to a vast library of recommendations
-                        from your local community.
-                      </Typography>
-                      <br></br>
-                      <div className={classes.blockQuote}>
-                        <Typography>
-                          Stop by a{" "}
-                          <a
-                            href="/#"
-                            onClick={() =>
-                              onHashtagClick(hashtagObjects.picturePerfect)
-                            }
-                          >
-                            #pictureperfect
-                          </a>{" "}
-                          coffee shop
-                        </Typography>
-                        <Typography>
-                          Have{" "}
-                          <a
-                            href="/#"
-                            onClick={() =>
-                              onHashtagClick(hashtagObjects.funWithFriends)
-                            }
-                          >
-                            #funwithfriends
-                          </a>{" "}
-                          at a vineyard nearby
-                        </Typography>
-                        <Typography>
-                          Discover cool restaurants that are{" "}
-                          <a
-                            href="/#"
-                            onClick={() =>
-                              onHashtagClick(hashtagObjects.worthTheHype)
-                            }
-                          >
-                            #worththehype
-                          </a>
-                        </Typography>
-                      </div>
-                      <br></br>
-                      <Typography>
-                        VIVA uncovers all the #hiddengems for you, making your
-                        everyday fun and exciting.
-                      </Typography>
-                      <br></br>
-                      <Typography>Happy exploring!</Typography>
-                    </Typography>
-                  </Box>
-                  <Box display="flex" justifyContent="flex-end">
-                    <GreenButton
-                      buttonText="Got it!"
-                      onClick={handleModalClose}
-                    />
-                  </Box>
-                </Box>
-              </Grid>
-            </Grid>
           </Box>
-        </Modal>
+          <Box
+            display="flex"
+            justifyContent="flex-end"
+            alignItems="center"
+            flexDirection="row"
+            pt={2}
+          >
+            <SocialGrid isMobile={isMobile} />
+            <MobileMenuContainer isMobile={isMobile} />
+          </Box>
+        </Box>
       )}
     </div>
   );
@@ -475,7 +298,6 @@ Header.propTypes = {
   isMobile: PropTypes.bool,
   categories: PropTypes.array,
   clearSelectedVideo: PropTypes.func,
-  fetchSelectedCategory: PropTypes.func,
   fetchCategories: PropTypes.func,
 };
 
@@ -485,7 +307,6 @@ Header.defaultProps = {
   isMobile: false,
   categories: [],
   clearSelectedVideo() {},
-  fetchSelectedCategory() {},
   fetchCategories() {},
 };
 

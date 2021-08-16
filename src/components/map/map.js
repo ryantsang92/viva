@@ -6,10 +6,8 @@
 
 import React, { useEffect, useState } from "react";
 import { Box } from "@material-ui/core";
-import MapPinDefault from "../../assets/map-pin-default.png";
-import MapPinBlue from "../../assets/map-pin-blue.png";
-import MapPinOrange from "../../assets/map-pin-orange.png";
 import MapPinSelected from "../../assets/map-pin-selected.png";
+import { renderMapPin } from "../../common/common-functions";
 import { apiKeys } from "../../app-constants";
 import { Map as GoogleMap, Marker, GoogleApiWrapper } from "google-maps-react";
 import Loading from "../common/loading";
@@ -100,7 +98,7 @@ const mapStyle = [
     featureType: "poi.sports_complex",
     stylers: [
       {
-        visibility: "simplified",
+        visibility: "off",
       },
     ],
   },
@@ -206,30 +204,6 @@ const Map = ({
     closePlacePanels();
     refreshEverything(mapBounds);
     setShowRefresh(false);
-  };
-
-  const renderMapPin = (categories) => {
-    if (categories[0] === 1 || categories[0] === 6) {
-      return MapPinDefault;
-    }
-    if (
-      categories[0] === 2 ||
-      categories[0] === 3 ||
-      categories[0] === 4 ||
-      categories[0] === 5 ||
-      categories[0] === 8
-    ) {
-      return MapPinOrange;
-    }
-    if (
-      categories[0] === 7 ||
-      categories[0] === 9 ||
-      categories[0] === 10 ||
-      categories[0] === 11
-    ) {
-      return MapPinBlue;
-    }
-    return MapPinDefault;
   };
 
   return (

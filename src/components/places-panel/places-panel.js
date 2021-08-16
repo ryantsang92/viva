@@ -17,6 +17,7 @@ import {
 } from "@material-ui/core";
 import { apiKeys } from "../../app-constants";
 import { sanitizeYelpURL } from "../../common/common-functions";
+import ScrollingWrapper from "../common/scrolling-wrapper";
 import PlaceImagesContainer from "./place-images-container";
 import PlaceVideosContainer from "./place-videos-container";
 import GoogleReviews from "./google-reviews";
@@ -33,7 +34,7 @@ import PropTypes from "prop-types";
 
 const { clientSideKey } = apiKeys;
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   placePanel: {
     width: 326,
     height: "calc(100vh - 116px)",
@@ -43,6 +44,7 @@ const useStyles = makeStyles((theme) => ({
     "&::-webkit-scrollbar": {
       display: "none",
     },
+    position: "relative",
   },
   placePanelHeader: {
     position: "sticky",
@@ -111,6 +113,7 @@ const PlacesPanel = ({
 
   useEffect(() => {
     if (selectedLocation) {
+      window.scrollTo(0, 0);
       fetchGooglePlaceData(selectedLocation?.g_place_id);
       fetchYelpPlaceData(sanitizeYelpURL(selectedLocation?.yelp));
       closePlaceImagePanel();
@@ -163,18 +166,15 @@ const PlacesPanel = ({
       };
     });
 
-    // const photos2 = yelpPhotos?.map((photo) => {
-    //   count++;
-    //   return {
-    //     id: "img-" + count,
-    //     src: photo,
-    //   };
-    // });
+    const photos2 = yelpPhotos?.map((photo) => {
+      count++;
+      return {
+        id: "img-" + count,
+        src: photo,
+      };
+    });
 
-    // console.log(photos1.concat(photos2));
-
-    return photos1;
-    // return photos1.concat(photos2);
+    return photos2 ? photos1.concat(photos2) : photos1;
   };
 
   return (
@@ -199,182 +199,191 @@ const PlacesPanel = ({
             {/* empty div for now */}
             <div></div>
           </Box>
-          <Box key={photos[0]?.photo_reference} overflow="hidden">
-            <img
-              src={
-                "https://maps.googleapis.com/maps/api/place/photo?maxwidth=500&photoreference=" +
-                photos[0]?.photo_reference +
-                "&key=" +
-                clientSideKey
-              }
-              alt={name}
-              className={classes.photo}
-            />
-          </Box>
-          <Box pl={1} pr={1}>
-            <Box pt={1} fontSize={20}>
-              {name}
+          <ScrollingWrapper refresh={selectedLocation} isMobile={isMobile}>
+            <Box key={photos[0]?.photo_reference} overflow="hidden">
+              <img
+                src={
+                  "https://maps.googleapis.com/maps/api/place/photo?maxwidth=500&photoreference=" +
+                  photos[0]?.photo_reference +
+                  "&key=" +
+                  clientSideKey
+                }
+                alt={name}
+                className={classes.photo}
+              />
             </Box>
-            <Box pt={1} className={classes.placeDesc}>
-              {description}
-            </Box>
-            <Box
-              pt={2}
-              display="flex"
-              justifyContent="flex-start"
-              alignItems="center"
-            >
-              <Box pr={1}>
-                <img src={MapPinDefault} alt="pin" className={classes.pin} />
+            <Box pl={1} pr={1}>
+              <Box pt={1} fontSize={20}>
+                {name}
               </Box>
-              <Typography className={classes.placeDesc}>
-                <a href={url} target={url}>
-                  {formatted_address}
-                </a>
-              </Typography>
-            </Box>
-            <Box pt={1} pb={1}>
-              <Divider />
-            </Box>
-            <Box>
-              <Accordion
-                className={classes.accordion}
-                expanded={expanded === "openHours"}
-                onChange={handleChange("openHours")}
+              <Box pt={1} className={classes.placeDesc}>
+                {description}
+              </Box>
+              <Box
+                pt={2}
+                display="flex"
+                justifyContent="flex-start"
+                alignItems="center"
               >
-                <AccordionSummary
-                  className={classes.accordionSummary}
-                  expandIcon={<ExpandMoreIcon />}
-                  aria-controls="openHours-bh-content"
-                  id="openHours-bh-header"
+                <Box pr={1}>
+                  <img src={MapPinDefault} alt="pin" className={classes.pin} />
+                </Box>
+                <Typography className={classes.placeDesc}>
+                  <a href={url} target={url}>
+                    {formatted_address}
+                  </a>
+                </Typography>
+              </Box>
+              <Box pt={1} pb={1}>
+                <Divider />
+              </Box>
+              <Box>
+                <Accordion
+                  className={classes.accordion}
+                  expanded={expanded === "openHours"}
+                  onChange={handleChange("openHours")}
                 >
-                  <Box
-                    display="flex"
-                    justifyContent="flex-start"
-                    alignItems="center"
+                  <AccordionSummary
+                    className={classes.accordionSummary}
+                    expandIcon={<ExpandMoreIcon />}
+                    aria-controls="openHours-bh-content"
+                    id="openHours-bh-header"
                   >
-                    <Box pr={1}>
-                      <ScheduleIcon />
+                    <Box
+                      display="flex"
+                      justifyContent="flex-start"
+                      alignItems="center"
+                    >
+                      <Box pr={1}>
+                        <ScheduleIcon />
+                      </Box>
+                      <Typography className={classes.placeLink}>
+                        Opening Hours
+                      </Typography>
                     </Box>
-                    <Typography className={classes.placeLink}>
-                      Opening Hours
-                    </Typography>
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    <div>
+                      {opening_hours?.weekday_text?.map((day) => {
+                        return (
+                          <Typography className={classes.placeLink}>
+                            {day}
+                          </Typography>
+                        );
+                      })}
+                    </div>
+                  </AccordionDetails>
+                </Accordion>
+              </Box>
+              <Box pt={1} pb={1}>
+                <Divider />
+              </Box>
+              {website && (
+                <Box
+                  display="flex"
+                  justifyContent="flex-start"
+                  alignItems="center"
+                >
+                  <Box pr={1}>
+                    <img src={icon} alt="website" className={classes.icon} />
                   </Box>
-                </AccordionSummary>
-                <AccordionDetails>
-                  <div>
-                    {opening_hours?.weekday_text?.map((day) => {
-                      return (
-                        <Typography className={classes.placeLink}>
-                          {day}
-                        </Typography>
-                      );
-                    })}
-                  </div>
-                </AccordionDetails>
-              </Accordion>
-            </Box>
-            <Box pt={1} pb={1}>
-              <Divider />
-            </Box>
-            {website && (
+                  <a
+                    className={classes.placeLink}
+                    href={website}
+                    target={website}
+                  >
+                    {
+                      website
+                        .replace(/^(?:https?:\/\/)?(?:www\.)?/i, "")
+                        .split("/")[0]
+                    }
+                  </a>
+                </Box>
+              )}
+              <Box pt={1} pb={1}>
+                <Divider />
+              </Box>
               <Box
                 display="flex"
                 justifyContent="flex-start"
                 alignItems="center"
               >
                 <Box pr={1}>
-                  <img src={icon} alt="website" className={classes.icon} />
+                  <PhoneIcon />
                 </Box>
-                <a
-                  className={classes.placeLink}
-                  href={website}
-                  target={website}
-                >
-                  {
-                    website
-                      .replace(/^(?:https?:\/\/)?(?:www\.)?/i, "")
-                      .split("/")[0]
-                  }
-                </a>
+                <Typography className={classes.placeLink}>
+                  {formatted_phone_number || "None"}
+                </Typography>
               </Box>
-            )}
-            <Box pt={1} pb={1}>
-              <Divider />
-            </Box>
-            <Box display="flex" justifyContent="flex-start" alignItems="center">
-              <Box pr={1}>
-                <PhoneIcon />
-              </Box>
-              <Typography className={classes.placeLink}>
-                {formatted_phone_number || "None"}
-              </Typography>
-            </Box>
-            {action_url && (
-              <>
-                <Box pt={1} pb={1}>
-                  <Divider />
-                </Box>
-                <Box
-                  display="flex"
-                  justifyContent="flex-start"
-                  alignItems="center"
-                >
-                  <Box pr={1}>
-                    <CheckCircleOutlineIcon />
+              {action_url && (
+                <>
+                  <Box pt={1} pb={1}>
+                    <Divider />
                   </Box>
-                  <a
-                    className={classes.placeLink}
-                    href={action_url}
-                    target={action_url}
+                  <Box
+                    display="flex"
+                    justifyContent="flex-start"
+                    alignItems="center"
                   >
-                    Make a Reservation
-                  </a>
-                </Box>
-              </>
-            )}
-            {ig && (
-              <>
-                <Box pt={1} pb={1}>
-                  <Divider />
-                </Box>
-                <Box
-                  display="flex"
-                  justifyContent="flex-start"
-                  alignItems="center"
-                >
-                  <Box pr={1}>
-                    <InstagramIcon />
+                    <Box pr={1}>
+                      <CheckCircleOutlineIcon />
+                    </Box>
+                    <a
+                      className={classes.placeLink}
+                      href={action_url}
+                      target={action_url}
+                    >
+                      Make a Reservation
+                    </a>
                   </Box>
-                  <a
-                    className={classes.placeLink}
-                    href={"http://instagram.com/" + ig}
-                    target={"http://instagram.com/" + ig}
+                </>
+              )}
+              {ig && (
+                <>
+                  <Box pt={1} pb={1}>
+                    <Divider />
+                  </Box>
+                  <Box
+                    display="flex"
+                    justifyContent="flex-start"
+                    alignItems="center"
                   >
-                    View Instagram
-                  </a>
-                </Box>
-              </>
-            )}
-            <Box pt={1} pb={1}>
-              <Divider />
-            </Box>
-            <Box pb={1}>
-              <PlaceImagesContainer images={getImages(photos, yelp?.photos)} />
-            </Box>
-            <Box pb={1}>
-              <PlaceVideosContainer selectedLocation={selectedLocation} />
-            </Box>
-            {reviews && <GoogleReviews reviews={reviews} />}
-            {yelp?.reviews?.reviews && (
+                    <Box pr={1}>
+                      <InstagramIcon />
+                    </Box>
+                    <a
+                      className={classes.placeLink}
+                      href={"http://instagram.com/" + ig}
+                      target={"http://instagram.com/" + ig}
+                    >
+                      View Instagram
+                    </a>
+                  </Box>
+                </>
+              )}
               <Box pt={1} pb={1}>
-                <YelpReviews reviews={yelp?.reviews?.reviews} />
+                <Divider />
               </Box>
-            )}
-          </Box>
+              <Box pb={1}>
+                <PlaceImagesContainer
+                  images={getImages(photos, yelp?.photos)}
+                />
+              </Box>
+              <Box pb={1}>
+                <PlaceVideosContainer selectedLocation={selectedLocation} />
+              </Box>
+              {reviews && <GoogleReviews reviews={reviews} />}
+              {yelp?.reviews?.reviews && (
+                <Box pt={1} pb={1}>
+                  <YelpReviews reviews={yelp?.reviews?.reviews} />
+                </Box>
+              )}
+            </Box>
+          </ScrollingWrapper>
         </div>
       )}
     </>
+    // </ScrollingWrapper>
   );
 };
 

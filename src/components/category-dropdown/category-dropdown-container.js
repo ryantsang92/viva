@@ -15,9 +15,7 @@ import {
   fetchSelectedCategory,
   clearSelectedCategory,
 } from "../../actions/category-actions";
-import {
-    closePlacePanels,
-} from "../../actions/combined-actions";
+import { closePlacePanels } from "../../actions/combined-actions";
 import CategoryDropdown from "./category-dropdown";
 
 const mapStateToProps = (state) => {
