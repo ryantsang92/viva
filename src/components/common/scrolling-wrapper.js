@@ -22,8 +22,7 @@ const useStyles = makeStyles({
     position: "relative",
   },
   scrollToTopIconContainer: {
-    position: "relative",
-    // top: 45,
+    position: "absolute",
     left: "50%",
     transform: "translate(-50%)",
     zIndex: 999,
@@ -38,7 +37,6 @@ const useStyles = makeStyles({
     },
   },
   scrollToTopIconContainerMobile: {
-    // height: "calc(100vh - 116px)",
     position: "fixed",
     top: 120,
     left: "50%",

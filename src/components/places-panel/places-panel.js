@@ -34,7 +34,7 @@ import PropTypes from "prop-types";
 
 const { clientSideKey } = apiKeys;
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   placePanel: {
     width: 326,
     height: "calc(100vh - 116px)",
@@ -44,6 +44,7 @@ const useStyles = makeStyles((theme) => ({
     "&::-webkit-scrollbar": {
       display: "none",
     },
+    position: "relative",
   },
   placePanelHeader: {
     position: "sticky",
