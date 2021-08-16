@@ -45,7 +45,7 @@ export const selectLocationByVideo = (state, video) => {
   return (
     selectLocationData(state)?.locations?.filter(
       (location) => location?.id === video?.location_id
-    )[0] || {}
+    )[0] || null
   );
 };
 

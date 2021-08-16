@@ -19,7 +19,7 @@ const useStyles = makeStyles(() => ({
       padding: 0,
       display: "flex",
       alignItems: "center",
-    }
+    },
   },
   mobileSelectBox: {
     height: 32,
@@ -29,15 +29,15 @@ const useStyles = makeStyles(() => ({
       padding: 0,
       display: "flex",
       alignItems: "center",
-    }
-  }
+    },
+  },
 }));
 
 const MetroDropdown = ({
   metroData,
   selectedCity,
   fetchMetros,
-  clearSelectedLocation,
+  closePlacePanels,
   saveSelectedCity,
   saveSelectedMetro,
   setRefresh,
@@ -53,8 +53,10 @@ const MetroDropdown = ({
 
   const handleChange = (event) => {
     // update redux store
-    clearSelectedLocation();
-    saveSelectedMetro(metroData?.metros?.filter(metro => metro.name === event.target.value)[0]);
+    closePlacePanels();
+    saveSelectedMetro(
+      metroData?.metros?.filter((metro) => metro.name === event.target.value)[0]
+    );
     saveSelectedCity(event.target.value);
     setRefresh();
   };
@@ -84,12 +86,11 @@ const MetroDropdown = ({
       onChange={handleChange}
       className={isMobile ? classes.mobileSelectBox : classes.selectBox}
     >
-      {sortData(metroData?.metros)
-        ?.map((metro) => (
-          <MenuItem value={metro.name} key={metro?.id}>
-            {metro?.name}
-          </MenuItem>
-        ))}
+      {sortData(metroData?.metros)?.map((metro) => (
+        <MenuItem value={metro.name} key={metro?.id}>
+          {metro?.name}
+        </MenuItem>
+      ))}
     </Select>
   );
 };
@@ -98,7 +99,7 @@ MetroDropdown.propTypes = {
   metros: PropTypes.array,
   selectedCity: PropTypes.object,
   fetchMetros: PropTypes.func,
-  clearSelectedLocation: PropTypes.func,
+  closePlacePanels: PropTypes.func,
   saveSelectedCity: PropTypes.func,
   setRefresh: PropTypes.func,
   isMobile: PropTypes.bool,
@@ -108,7 +109,7 @@ MetroDropdown.defaultProps = {
   metros: null,
   selectedCity: newYork,
   fetchMetros() {},
-  clearSelectedLocation() {},
+  closePlacePanels() {},
   saveSelectedCity() {},
   setRefresh() {},
   isMobile: false,

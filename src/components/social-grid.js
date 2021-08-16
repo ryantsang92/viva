@@ -11,10 +11,12 @@ import { socialURLs } from "../app-constants";
 import instagramIcon from "../assets/instagram-logo.svg";
 import twitterIcon from "../assets/twitter-logo.svg";
 import tiktokIcon from "../assets/tiktok-logo.svg";
+import PropTypes from "prop-types";
 
 const { INSTAGRAM, TWITTER, TIKTOK } = socialURLs;
 
-const SocialGrid = () => {
+const SocialGrid = ({ isMobile }) => {
+  const hw = isMobile ? 48 : 30;
   return (
     <Box
       display="flex"
@@ -27,17 +29,25 @@ const SocialGrid = () => {
       </Box>
       <Grid container justify="flex-end">
         <Grid item>
-          <SocialIcon url={INSTAGRAM} icon={instagramIcon} hw={30} />
+          <SocialIcon url={INSTAGRAM} icon={instagramIcon} hw={hw} />
         </Grid>
         <Grid item>
-          <SocialIcon url={TWITTER} icon={twitterIcon} hw={30} />
+          <SocialIcon url={TWITTER} icon={twitterIcon} hw={hw} />
         </Grid>
         <Grid item>
-          <SocialIcon url={TIKTOK} icon={tiktokIcon} hw={30} />
+          <SocialIcon url={TIKTOK} icon={tiktokIcon} hw={hw} />
         </Grid>
       </Grid>
     </Box>
   );
+};
+
+SocialGrid.propTypes = {
+  isMobile: PropTypes.bool,
+};
+
+SocialGrid.defaultProps = {
+  isMobile: false,
 };
 
 export default SocialGrid;
