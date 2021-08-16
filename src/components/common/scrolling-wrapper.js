@@ -78,7 +78,6 @@ const ScrollingWrapper = ({ children, refresh, isMobile }) => {
     }
   };
 
-  console.log(scrollingWrapper);
   return (
     <>
       {hasScrolled && (

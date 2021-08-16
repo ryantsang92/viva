@@ -15,6 +15,7 @@ import {
   AccordionDetails,
   AccordionSummary,
 } from "@material-ui/core";
+import { Route } from "react-router-dom";
 import { apiKeys } from "../../app-constants";
 import { sanitizeYelpURL } from "../../common/common-functions";
 import ScrollingWrapper from "../common/scrolling-wrapper";
@@ -137,7 +138,7 @@ const PlacesPanel = ({
     closePlaceVideoPanel();
   };
 
-  const { action_url, description, ig } = selectedLocation || {};
+  const { action_url, description, ig, id } = selectedLocation || {};
 
   const {
     name,
@@ -178,7 +179,8 @@ const PlacesPanel = ({
   };
 
   return (
-    <>
+    // <>
+    <Route path={"/" + id}>
       {placeData !== {} && (
         <div
           className={isMobile ? classes.mobilePlacePanel : classes.placePanel}
@@ -382,8 +384,9 @@ const PlacesPanel = ({
           </ScrollingWrapper>
         </div>
       )}
-    </>
-    // </ScrollingWrapper>
+      {/* </> */}
+      {/* </ScrollingWrapper> */}
+    </Route>
   );
 };
 
