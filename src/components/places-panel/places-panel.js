@@ -107,6 +107,7 @@ const PlacesPanel = ({
   closePlaceImagePanel,
   closePlaceVideoPanel,
   isMobile,
+  route,
 }) => {
   const classes = useStyles();
 
@@ -137,6 +138,9 @@ const PlacesPanel = ({
     closePlaceImagePanel();
     closePlaceVideoPanel();
   };
+
+  console.log(selectedLocation);
+  console.log(route);
 
   const { action_url, description, ig, id } = selectedLocation || {};
 
@@ -268,7 +272,7 @@ const PlacesPanel = ({
                     <div>
                       {opening_hours?.weekday_text?.map((day) => {
                         return (
-                          <Typography className={classes.placeLink}>
+                          <Typography key={day} className={classes.placeLink}>
                             {day}
                           </Typography>
                         );

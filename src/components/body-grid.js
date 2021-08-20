@@ -141,6 +141,7 @@ const BodyGrid = ({
             <PlacesPanelContainer
               selectedLocation={selectedLocation}
               isMobile={isMobile}
+              route={locationId}
             />
           </Grid>
           {imagePanelOpen && (
