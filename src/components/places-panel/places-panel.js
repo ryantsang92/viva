@@ -139,9 +139,6 @@ const PlacesPanel = ({
     closePlaceVideoPanel();
   };
 
-  console.log(selectedLocation);
-  console.log(route);
-
   const { action_url, description, ig, id } = selectedLocation || {};
 
   const {
@@ -183,7 +180,6 @@ const PlacesPanel = ({
   };
 
   return (
-    // <>
     <Route path={"/" + id}>
       {placeData !== {} && (
         <div
@@ -388,8 +384,6 @@ const PlacesPanel = ({
           </ScrollingWrapper>
         </div>
       )}
-      {/* </> */}
-      {/* </ScrollingWrapper> */}
     </Route>
   );
 };

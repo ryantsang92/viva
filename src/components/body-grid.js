@@ -75,7 +75,6 @@ const BodyGrid = ({
   const classes = useStyles();
 
   const { locationId } = useParams();
-  console.log(locationId);
 
   useEffect(() => {
     if (isMobile && (selectedMetro)) {

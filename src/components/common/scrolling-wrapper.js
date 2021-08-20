@@ -102,7 +102,7 @@ const ScrollingWrapper = ({ children, refresh, isMobile }) => {
 };
 
 ScrollingWrapper.propTypes = {
-  children: PropTypes.array,
+  children: PropTypes.any,
   refresh: PropTypes.any,
   isMobile: PropTypes.bool,
 };
