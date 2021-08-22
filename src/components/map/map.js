@@ -147,8 +147,6 @@ const Map = ({
   }, [refresh, selectedMetro, refreshEverything, clearRefresh]);
 
   const onMarkerClick = (key, childProps) => {
-    console.log(key);
-    console.log(childProps);
     saveSelectedLocation(childProps.markerData);
   };
 

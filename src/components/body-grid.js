@@ -77,7 +77,7 @@ const BodyGrid = ({
   const { locationId } = useParams();
 
   useEffect(() => {
-    if (isMobile && (selectedMetro)) {
+    if (isMobile && selectedMetro) {
       fetchVideosMobile(selectedMetro?.id);
       fetchLocationsMobile(selectedMetro?.id);
     }
