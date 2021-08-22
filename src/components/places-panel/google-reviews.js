@@ -6,11 +6,7 @@
 
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import {
-  Typography,
-  Box,
-  Divider,
-} from "@material-ui/core";
+import { Typography, Box, Divider } from "@material-ui/core";
 import StarRating from "./star-rating";
 import CollapsiblePanel from "../common/collapsible-panel";
 import DefaultProfilePic from "../../assets/default-profile-pic.png";
@@ -38,7 +34,7 @@ const GoogleReviews = ({ reviews }) => {
 
   const content = (
     <>
-      {reviews.map((review) => {
+      {reviews?.map((review) => {
         const {
           profile_photo_url,
           author_name,
@@ -102,7 +98,11 @@ const GoogleReviews = ({ reviews }) => {
 };
 
 GoogleReviews.propTypes = {
-  reviews: PropTypes.array.isRequired,
+  reviews: PropTypes.array,
+};
+
+GoogleReviews.defaultProps = {
+  reviews: null,
 };
 
 export default GoogleReviews;

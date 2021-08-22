@@ -78,7 +78,6 @@ const ScrollingWrapper = ({ children, refresh, isMobile }) => {
     }
   };
 
-  console.log(scrollingWrapper);
   return (
     <>
       {hasScrolled && (
@@ -103,8 +102,8 @@ const ScrollingWrapper = ({ children, refresh, isMobile }) => {
 };
 
 ScrollingWrapper.propTypes = {
-  children: PropTypes.object,
-  refresh: PropTypes.bool,
+  children: PropTypes.any,
+  refresh: PropTypes.any,
   isMobile: PropTypes.bool,
 };
 

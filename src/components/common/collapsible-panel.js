@@ -42,7 +42,15 @@ const CollapsiblePanel = ({ description, title, content }) => {
 };
 
 CollapsiblePanel.propTypes = {
-  reviews: PropTypes.array.isRequired,
+  description: PropTypes.string,
+  title: PropTypes.string,
+  content: PropTypes.string,
+};
+
+CollapsiblePanel.defaultProps = {
+  description: null,
+  title: null,
+  content: null,
 };
 
 export default CollapsiblePanel;

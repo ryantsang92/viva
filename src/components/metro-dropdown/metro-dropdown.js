@@ -97,7 +97,7 @@ const MetroDropdown = ({
 
 MetroDropdown.propTypes = {
   metros: PropTypes.array,
-  selectedCity: PropTypes.object,
+  selectedCity: PropTypes.string,
   fetchMetros: PropTypes.func,
   closePlacePanels: PropTypes.func,
   saveSelectedCity: PropTypes.func,

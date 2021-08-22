@@ -15,6 +15,7 @@ import {
   AccordionDetails,
   AccordionSummary,
 } from "@material-ui/core";
+import { Route } from "react-router-dom";
 import { apiKeys } from "../../app-constants";
 import { sanitizeYelpURL } from "../../common/common-functions";
 import ScrollingWrapper from "../common/scrolling-wrapper";
@@ -106,6 +107,7 @@ const PlacesPanel = ({
   closePlaceImagePanel,
   closePlaceVideoPanel,
   isMobile,
+  route,
 }) => {
   const classes = useStyles();
 
@@ -137,7 +139,7 @@ const PlacesPanel = ({
     closePlaceVideoPanel();
   };
 
-  const { action_url, description, ig } = selectedLocation || {};
+  const { action_url, description, ig, id } = selectedLocation || {};
 
   const {
     name,
@@ -178,7 +180,7 @@ const PlacesPanel = ({
   };
 
   return (
-    <>
+    <Route path={"/" + id}>
       {placeData !== {} && (
         <div
           className={isMobile ? classes.mobilePlacePanel : classes.placePanel}
@@ -266,7 +268,7 @@ const PlacesPanel = ({
                     <div>
                       {opening_hours?.weekday_text?.map((day) => {
                         return (
-                          <Typography className={classes.placeLink}>
+                          <Typography key={day} className={classes.placeLink}>
                             {day}
                           </Typography>
                         );
@@ -382,8 +384,7 @@ const PlacesPanel = ({
           </ScrollingWrapper>
         </div>
       )}
-    </>
-    // </ScrollingWrapper>
+    </Route>
   );
 };
 

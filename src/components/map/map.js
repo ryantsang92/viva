@@ -9,11 +9,11 @@ import { Box } from "@material-ui/core";
 import MapPinSelected from "../../assets/map-pin-selected.png";
 import { renderMapPin } from "../../common/common-functions";
 import { apiKeys } from "../../app-constants";
-import { Map as GoogleMap, Marker, GoogleApiWrapper } from "google-maps-react";
-import Loading from "../common/loading";
+import GoogleMapReact from "google-map-react";
 import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
 import GreenButton from "../common/green-button";
+import { Link } from "react-router-dom";
 
 const { clientSideKey } = apiKeys;
 
@@ -22,8 +22,9 @@ const useStyles = makeStyles({
     textAlign: "left",
   },
   marker: {
-    height: 24,
-    width: 24,
+    height: 36,
+    width: 30,
+    cursor: "pointer",
   },
   test: {
     position: "relative",
@@ -39,19 +40,6 @@ const useStyles = makeStyles({
     left: "calc(50% - 45px)",
   },
 });
-
-const style = {
-  float: "left",
-  width: "100%",
-  height: "100%",
-  position: "relative",
-};
-
-const mapContainerStyle = {
-  float: "left",
-  width: "100%",
-  position: "relative",
-};
 
 const mapStyle = [
   {
@@ -104,19 +92,7 @@ const mapStyle = [
   },
 ];
 
-const loading = (props) => (
-  <div
-    style={{
-      width: 400,
-      height: 300,
-    }}
-  >
-    <Loading />
-  </div>
-);
-
 const Map = ({
-  google,
   locations,
   selectedLocation,
   selectedMetro,
@@ -149,7 +125,6 @@ const Map = ({
         lat: selectedMetro.lat,
         lng: selectedMetro.lng,
       });
-      setZoom(13);
     }
     if (selectedLocation) {
       setCenter({
@@ -171,8 +146,8 @@ const Map = ({
     }
   }, [refresh, selectedMetro, refreshEverything, clearRefresh]);
 
-  const onMarkerClick = (marker) => {
-    saveSelectedLocation(marker.markerData);
+  const onMarkerClick = (key, childProps) => {
+    saveSelectedLocation(childProps.markerData);
   };
 
   const mapLoaded = (mapProps, map) => {
@@ -181,11 +156,11 @@ const Map = ({
     });
   };
 
-  const getAndSaveBounds = (map) => {
-    const latMin = map?.getBounds()?.getSouthWest()?.lat();
-    const latMax = map?.getBounds()?.getNorthEast()?.lat();
-    const lngMin = map?.getBounds()?.getSouthWest()?.lng();
-    const lngMax = map?.getBounds()?.getNorthEast()?.lng();
+  const getAndSaveBounds = (marginBounds) => {
+    const latMin = marginBounds[2];
+    const latMax = marginBounds[0];
+    const lngMin = marginBounds[1];
+    const lngMax = marginBounds[3];
 
     saveMapBounds({
       latMin: latMin,
@@ -195,8 +170,10 @@ const Map = ({
     });
   };
 
-  const onMapChange = (mapProps, map) => {
-    getAndSaveBounds(map);
+  const onMapChange = (center, zoom, bounds, marginBounds) => {
+    getAndSaveBounds(bounds);
+    setCenter(center);
+    setZoom(zoom)
     setShowRefresh(true);
   };
 
@@ -204,6 +181,19 @@ const Map = ({
     closePlacePanels();
     refreshEverything(mapBounds);
     setShowRefresh(false);
+  };
+
+  const createMapOptions = (maps) => {
+    return {
+      zoomControlOptions: {
+        position: maps.ControlPosition.TOP_RIGHT,
+        style: maps.ZoomControlStyle.SMALL,
+      },
+      fullscreenControl: false,
+      mapTypeControl: false,
+      streetViewControl: false,
+      scaleControl: false,
+    };
   };
 
   return (
@@ -216,51 +206,42 @@ const Map = ({
           />
         </div>
       )}
-      <GoogleMap
-        google={google}
-        onBoundsChanged={onMapChange}
-        onZoomChanged={onMapChange}
+      <GoogleMapReact
+        bootstrapURLKeys={{ key: clientSideKey }}
+        yesIWantToUseGoogleMapApiInternals
+        onBoundsChange={onMapChange}
+        onZoomChange={onMapChange}
         zoom={zoom}
-        mapTypeControl={false}
-        scaleControl={false}
-        streetViewControl={false}
-        fullscreenControl={false}
-        zoomControl
-        containerStyle={mapContainerStyle}
-        style={style}
         resetBoundsOnResize
         center={center}
         initialCenter={center}
-        zoomControlOptions={{
-          position: google.maps.ControlPosition.TOP_RIGHT,
-        }}
-        onReady={mapLoaded}
+        onChildClick={onMarkerClick}
+        options={createMapOptions}
+        onGoogleApiLoaded={({ map, maps }) => mapLoaded(maps, map)}
       >
         {locations?.map((location) => {
           const { id, lat, lng, categories } = location;
-
           return (
-            <Marker
-              className={classes.marker}
-              name={id}
-              key={id}
+            <Link
+              to={"/" + id}
+              lat={parseFloat(lat)}
+              lng={parseFloat(lng)}
               markerData={location}
-              position={{
-                lat: parseFloat(lat),
-                lng: parseFloat(lng),
-              }}
-              onClick={onMarkerClick}
-              icon={{
-                url:
+              key={id}
+            >
+              <img
+                className={classes.marker}
+                src={
                   selectedLocation?.id === id
                     ? MapPinSelected
-                    : renderMapPin(categories),
-                scaledSize: new google.maps.Size(30, 36),
-              }}
-            />
+                    : renderMapPin(categories)
+                }
+                alt={id}
+              />
+            </Link>
           );
         })}
-      </GoogleMap>
+      </GoogleMapReact>
     </Box>
   );
 };
@@ -287,7 +268,4 @@ Map.defaultProps = {
   closePlacePanels() {},
 };
 
-export default GoogleApiWrapper({
-  apiKey: clientSideKey,
-  LoadingContainer: loading,
-})(Map);
+export default Map;

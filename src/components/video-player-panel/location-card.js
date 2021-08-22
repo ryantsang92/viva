@@ -12,10 +12,11 @@ import {
   CardActionArea,
   CardContent,
 } from "@material-ui/core";
+import { Link } from "react-router-dom";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import { makeStyles } from "@material-ui/core/styles";
 import { renderMapPin } from "../../common/common-functions";
-import MapPinDefault from "../../assets/map-pin-default.png"
+import MapPinDefault from "../../assets/map-pin-default.png";
 import PropTypes from "prop-types";
 
 const useStyles = makeStyles({
@@ -51,7 +52,7 @@ const LocationCard = ({
 }) => {
   const classes = useStyles();
 
-  const { g_place_id, name, categories } = location || {};
+  const { g_place_id, name, categories, id } = location || {};
 
   const onCardClick = () => {
     fetchGooglePlaceData(g_place_id);
@@ -60,46 +61,51 @@ const LocationCard = ({
   };
 
   return (
-    <Card className={classes.card}>
-      <CardActionArea onClick={onCardClick}>
-        <CardContent className={classes.yellow}>
-          <Box
-            display="flex"
-            justifyContent="space-between"
-            alignItems="center"
-          >
-            <img src={categories ? renderMapPin(categories) : MapPinDefault} alt="VIVA" />
-            <Box pl={1} flexGrow={1}>
-              <Box
-                display="flex"
-                justifyContent="flex-start"
-                alignItems="center"
-              >
-                <Typography
-                  gutterBottom
-                  variant="h6"
-                  component="h6"
-                  className={classes.locationTitle}
+    <Link to={"/" + id}>
+      <Card className={classes.card}>
+        <CardActionArea onClick={onCardClick}>
+          <CardContent className={classes.yellow}>
+            <Box
+              display="flex"
+              justifyContent="space-between"
+              alignItems="center"
+            >
+              <img
+                src={categories ? renderMapPin(categories) : MapPinDefault}
+                alt="VIVA"
+              />
+              <Box pl={1} flexGrow={1}>
+                <Box
+                  display="flex"
+                  justifyContent="flex-start"
+                  alignItems="center"
                 >
-                  {name}
+                  <Typography
+                    gutterBottom
+                    variant="h6"
+                    component="h6"
+                    className={classes.locationTitle}
+                  >
+                    {name}
+                  </Typography>
+                </Box>
+                <Typography
+                  className={classes.locationSubtitle}
+                  variant="body2"
+                  color="textSecondary"
+                  component="p"
+                >
+                  {locationCategory?.category}
                 </Typography>
               </Box>
-              <Typography
-                className={classes.locationSubtitle}
-                variant="body2"
-                color="textSecondary"
-                component="p"
-              >
-                {locationCategory?.category}
-              </Typography>
+              <Box pl={1}>
+                <ChevronRightIcon />
+              </Box>
             </Box>
-            <Box pl={1}>
-              <ChevronRightIcon />
-            </Box>
-          </Box>
-        </CardContent>
-      </CardActionArea>
-    </Card>
+          </CardContent>
+        </CardActionArea>
+      </Card>
+    </Link>
   );
 };
 
