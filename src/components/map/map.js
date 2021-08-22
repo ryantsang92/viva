@@ -10,7 +10,6 @@ import MapPinSelected from "../../assets/map-pin-selected.png";
 import { renderMapPin } from "../../common/common-functions";
 import { apiKeys } from "../../app-constants";
 import GoogleMapReact from "google-map-react";
-import Loading from "../common/loading";
 import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
 import GreenButton from "../common/green-button";
@@ -41,19 +40,6 @@ const useStyles = makeStyles({
     left: "calc(50% - 45px)",
   },
 });
-
-const style = {
-  float: "left",
-  width: "100%",
-  height: "100%",
-  position: "relative",
-};
-
-const mapContainerStyle = {
-  float: "left",
-  width: "100%",
-  position: "relative",
-};
 
 const mapStyle = [
   {
@@ -106,19 +92,7 @@ const mapStyle = [
   },
 ];
 
-const loading = (props) => (
-  <div
-    style={{
-      width: 400,
-      height: 300,
-    }}
-  >
-    <Loading />
-  </div>
-);
-
 const Map = ({
-  google,
   locations,
   selectedLocation,
   selectedMetro,
@@ -151,7 +125,6 @@ const Map = ({
         lat: selectedMetro.lat,
         lng: selectedMetro.lng,
       });
-      setZoom(13);
     }
     if (selectedLocation) {
       setCenter({
@@ -174,6 +147,8 @@ const Map = ({
   }, [refresh, selectedMetro, refreshEverything, clearRefresh]);
 
   const onMarkerClick = (key, childProps) => {
+    console.log(key);
+    console.log(childProps);
     saveSelectedLocation(childProps.markerData);
   };
 
@@ -199,6 +174,8 @@ const Map = ({
 
   const onMapChange = (center, zoom, bounds, marginBounds) => {
     getAndSaveBounds(bounds);
+    setCenter(center);
+    setZoom(zoom)
     setShowRefresh(true);
   };
 
@@ -234,12 +211,9 @@ const Map = ({
       <GoogleMapReact
         bootstrapURLKeys={{ key: clientSideKey }}
         yesIWantToUseGoogleMapApiInternals
-        google={google}
         onBoundsChange={onMapChange}
         onZoomChange={onMapChange}
         zoom={zoom}
-        containerStyle={mapContainerStyle}
-        style={style}
         resetBoundsOnResize
         center={center}
         initialCenter={center}
@@ -259,15 +233,12 @@ const Map = ({
             >
               <img
                 className={classes.marker}
-                lat={parseFloat(lat)}
-                lng={parseFloat(lng)}
                 src={
                   selectedLocation?.id === id
                     ? MapPinSelected
                     : renderMapPin(categories)
                 }
                 alt={id}
-                key={id}
               />
             </Link>
           );
