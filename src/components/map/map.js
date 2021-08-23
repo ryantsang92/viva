@@ -153,14 +153,26 @@ const Map = ({
   const mapLoaded = (mapProps, map) => {
     map.setOptions({
       styles: mapStyle,
+      clickableIcons: false,
     });
   };
 
-  const getAndSaveBounds = (marginBounds) => {
-    const latMin = marginBounds[2];
-    const latMax = marginBounds[0];
-    const lngMin = marginBounds[1];
-    const lngMax = marginBounds[3];
+  const onMapChange = (map) => {
+    const { center, zoom, bounds } = map;
+
+    getAndSaveBounds(bounds);
+    setCenter(center);
+    setZoom(zoom);
+    setShowRefresh(true);
+  };
+
+  const getAndSaveBounds = (bounds) => {
+    const { ne, nw, sw } = bounds;
+
+    const latMin = sw.lat;
+    const latMax = ne.lat;
+    const lngMin = nw.lng;
+    const lngMax = ne.lng;
 
     saveMapBounds({
       latMin: latMin,
@@ -168,13 +180,6 @@ const Map = ({
       lngMin: lngMin,
       lngMax: lngMax,
     });
-  };
-
-  const onMapChange = (center, zoom, bounds, marginBounds) => {
-    getAndSaveBounds(bounds);
-    setCenter(center);
-    setZoom(zoom)
-    setShowRefresh(true);
   };
 
   const onRefreshButtonClick = () => {
@@ -209,7 +214,7 @@ const Map = ({
       <GoogleMapReact
         bootstrapURLKeys={{ key: clientSideKey }}
         yesIWantToUseGoogleMapApiInternals
-        onBoundsChange={onMapChange}
+        onChange={onMapChange}
         onZoomChange={onMapChange}
         zoom={zoom}
         resetBoundsOnResize
